@@ -13,6 +13,7 @@
 /auth.json
 /node_modules/public/hot
 /public/storage
+/public/hot
 /storage/*.key
 /storage/pail
 /storage/composer
@@ -36,6 +37,18 @@ node_modules/
 *.sln
 *.sw?
 /storage/app/settings/
+/storage/app/template-releases/
+/storage/logs/*
+!/storage/logs/.gitignore
+/storage/framework/cache/*
+!/storage/framework/cache/.gitignore
+!/storage/framework/cache/data/
+/storage/framework/cache/data/*
+!/storage/framework/cache/data/.gitignore
+/storage/framework/sessions/*
+!/storage/framework/sessions/.gitignore
+/storage/framework/views/*
+!/storage/framework/views/.gitignore
 /bootstrap/cache/*
 !/bootstrap/cache/.gitkeep
 !modules/

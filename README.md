@@ -308,15 +308,16 @@ HookManager::doAction('sirsoft-ecommerce.order.after_confirm', $order);
 ### 설치
 
 ```bash
-# 1. 프로젝트 클론
+# 1. 프로젝트 클론 또는 pull
 git clone https://github.com/gnuboard/g7.git
 cd g7
 
-# 2. 환경 설정 파일 복사
-cp .env.example .env
+# 2. 웹 루트를 public/ 에 연결
 
 # 3. 브라우저에서 /install 접속 → 설치 마법사 진행
 ```
+
+설치 마법사는 `.env` 생성, DB 설정, 기본 설치를 처리합니다. CLI 사용이 가능한 환경이면 설치 후 `/usr/local/bin/php83 artisan system:smoke-check` 실행을 권장합니다.
 
 > 상세 설치 가이드는 [INSTALL.md](INSTALL.md)를 참조하세요.
 
