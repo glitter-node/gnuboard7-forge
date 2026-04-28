@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+         bootstrap="tests/bootstrap.php"
+         colors="true"
+>
+    <testsuites>
+        <testsuite name="Unit">
+            <directory>tests/Unit</directory>
+        </testsuite>
+        <testsuite name="Feature">
+            <directory>tests/Feature</directory>
+        </testsuite>
+        <testsuite name="Module">
+            <directory>modules/_bundled/*/tests</directory>
+        </testsuite>
+        <testsuite name="Plugin">
+            <directory>plugins/_bundled/*/tests</directory>
+        </testsuite>
+        <testsuite name="Installation">
+            <directory>tests/Feature/Installation</directory>
+            <directory>modules/_bundled/*/tests/Feature/Installation</directory>
+        </testsuite>
+    </testsuites>
+    <source>
+        <include>
+            <directory>app</directory>
+        </include>
+    </source>
+    <php>
+        <ini name="memory_limit" value="1G"/>
+        <env name="APP_ENV" value="testing"/>
+        <env name="APP_MAINTENANCE_DRIVER" value="file"/>
+        <env name="BCRYPT_ROUNDS" value="4"/>
+        <env name="CACHE_STORE" value="array"/>
+        <env name="DB_CONNECTION" value="mysql"/>
+        <!--
+            DB_DATABASE / DB_WRITE_DATABASE / DB_READ_DATABASE 는 `.env.testing` 값을 그대로 사용.
+            프로덕션 DB 오염 방지 안전망은 `tests/bootstrap.php` 의 "동일 DB 이름 중단 가드" 가 담당.
+        -->
+        <env name="MAIL_MAILER" value="array"/>
+        <env name="QUEUE_CONNECTION" value="sync"/>
+        <env name="SESSION_DRIVER" value="array"/>
+        <env name="PULSE_ENABLED" value="false"/>
+        <env name="NIGHTWATCH_ENABLED" value="false"/>
+    </php>
+</phpunit>
