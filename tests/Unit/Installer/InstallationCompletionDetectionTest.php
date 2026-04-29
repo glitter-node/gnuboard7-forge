@@ -72,4 +72,35 @@ class InstallationCompletionDetectionTest extends TestCase
 
         $this->assertFalse(isInstallerDatabaseInitialized(getInstallerDatabaseConfigFromEnvFile($this->envPath)));
     }
+
+    public function test_database_initialized_check_does_not_require_base_path_constant(): void
+    {
+        $command = [
+            PHP_BINARY,
+            '-r',
+            'require "public/install/includes/functions.php"; var_dump(isInstallerDatabaseInitialized());',
+        ];
+
+        $descriptorSpec = [
+            0 => ['pipe', 'r'],
+            1 => ['pipe', 'w'],
+            2 => ['pipe', 'w'],
+        ];
+
+        $process = proc_open($command, $descriptorSpec, $pipes, BASE_PATH);
+
+        $this->assertIsResource($process);
+
+        fclose($pipes[0]);
+        $stdout = stream_get_contents($pipes[1]);
+        $stderr = stream_get_contents($pipes[2]);
+        fclose($pipes[1]);
+        fclose($pipes[2]);
+
+        $exitCode = proc_close($process);
+
+        $this->assertSame(0, $exitCode, $stderr);
+        $this->assertStringContainsString('bool(', $stdout);
+        $this->assertStringNotContainsString('Undefined constant "BASE_PATH"', $stderr . $stdout);
+    }
 }

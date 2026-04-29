@@ -485,7 +485,8 @@ function parseInstallerEnvFile(string $path): array
 
 function getInstallerDatabaseConfigFromEnvFile(?string $path = null): array
 {
-    $env = parseInstallerEnvFile($path ?? (BASE_PATH . '/.env'));
+    $projectRoot = defined('BASE_PATH') ? BASE_PATH : dirname(__DIR__, 3);
+    $env = parseInstallerEnvFile($path ?? ($projectRoot . '/.env'));
 
     return [
         'host' => (string) ($env['DB_WRITE_HOST'] ?? ''),
