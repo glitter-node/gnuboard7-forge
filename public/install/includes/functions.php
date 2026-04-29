@@ -561,6 +561,96 @@ function validateSelectedBundledTemplates(array $identifiers): array
     return $failures;
 }
 
+function normalizeExistingDbAction(?string $action): string
+{
+    return match ($action) {
+        'drop_tables', 'reset_tables' => 'drop_tables',
+        'skip', 'none', null, '' => 'skip',
+        default => 'skip',
+    };
+}
+
+function getConfiguredDatabasePrefix(array $config): string
+{
+    $prefix = (string) ($config['db_prefix'] ?? '');
+
+    return $prefix !== '' ? $prefix : 'g7_';
+}
+
+function getPrefixedTablesFromTableList(array $tables, string $prefix): array
+{
+    if ($prefix === '') {
+        return [];
+    }
+
+    $prefixedTables = [];
+
+    foreach ($tables as $table) {
+        $tableName = (string) $table;
+
+        if (str_starts_with($tableName, $prefix)) {
+            $prefixedTables[] = $tableName;
+        }
+    }
+
+    return array_values(array_unique($prefixedTables));
+}
+
+function getExistingPrefixedTables(PDO $pdo, array $config): array
+{
+    $stmt = $pdo->query('SHOW TABLES');
+    $tables = $stmt ? $stmt->fetchAll(PDO::FETCH_COLUMN) : [];
+
+    return getPrefixedTablesFromTableList($tables, getConfiguredDatabasePrefix($config));
+}
+
+function shouldBlockDatabaseMigration(array $prefixedTables, string $action): bool
+{
+    return !empty($prefixedTables) && normalizeExistingDbAction($action) === 'skip';
+}
+
+function getInstallerTaskLockPath(string $taskId): string
+{
+    return BASE_PATH . '/storage/installer/' . $taskId . '.lock';
+}
+
+function acquireInstallerTaskLock(string $taskId)
+{
+    $lockDir = BASE_PATH . '/storage/installer';
+
+    if (!is_dir($lockDir)) {
+        @mkdir($lockDir, 0775, true);
+    }
+
+    $handle = @fopen(getInstallerTaskLockPath($taskId), 'c+');
+
+    if ($handle === false) {
+        return false;
+    }
+
+    if (!flock($handle, LOCK_EX | LOCK_NB)) {
+        fclose($handle);
+
+        return false;
+    }
+
+    ftruncate($handle, 0);
+    fwrite($handle, (string) getmypid());
+    fflush($handle);
+
+    return $handle;
+}
+
+function releaseInstallerTaskLock($handle): void
+{
+    if (!is_resource($handle)) {
+        return;
+    }
+
+    flock($handle, LOCK_UN);
+    fclose($handle);
+}
+
 /**
  * 데이터베이스 필드 해시값을 계산합니다.
  *

@@ -141,12 +141,9 @@ try {
      *
      * 이슈 #244: Step 3에서 기존 DB 감지 후 사용자가 "강제 진행" 선택 시 전달.
      */
-    $existingDbAction = $requestBody['existing_db_action']
+    $existingDbAction = normalizeExistingDbAction($requestBody['existing_db_action']
         ?? $_POST['existing_db_action']
-        ?? 'skip';
-    if (!in_array($existingDbAction, ['skip', 'drop_tables'], true)) {
-        $existingDbAction = 'skip';
-    }
+        ?? 'skip');
 
     /**
      * 현재 상태 가져오기
@@ -167,6 +164,9 @@ try {
     $state['current_step'] = 5;  // Step 5 = Installation (Step 4 = Extension Selection)
     $state['installation_status'] = 'running';
     $state['completed_tasks'] = $isRetry ? ($state['completed_tasks'] ?? []) : [];
+    if ($isRetry && $existingDbAction === 'drop_tables') {
+        $state['completed_tasks'] = [];
+    }
     $state['current_task'] = null;
     $state['config'] = $config;
     $state['error'] = null;

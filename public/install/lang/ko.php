@@ -317,6 +317,9 @@ return [
     // 에러 메시지 - Worker (Database)
     'error_db_migrate_failed' => '데이터베이스 테이블 생성에 실패했습니다',
     'error_db_seed_failed' => '기본 데이터 입력에 실패했습니다',
+    'error_existing_prefixed_tables_detected' => '설치 전에 :prefix 접두사 테이블이 이미 :count개 발견되었습니다. 기존 테이블을 초기화하거나 삭제하거나, 다른 데이터베이스 또는 접두사를 사용한 뒤 다시 시도해주세요.',
+    'error_prefixed_table_cleanup_required' => '정리 작업 후에도 :prefix 접두사 테이블이 :count개 남아 있습니다. prefixed 테이블을 삭제한 뒤 다시 설치를 시도해주세요.',
+    'error_db_task_already_running' => '같은 데이터베이스 단계가 다른 설치 워커에서 이미 실행 중입니다. 잠시 후 다시 시도해주세요.',
 
     // 로그 메시지 - Worker (Database)
     'log_db_migrate_success' => '데이터베이스 마이그레이션 완료',

@@ -317,6 +317,9 @@ return [
     // Error Messages - Worker (Database)
     'error_db_migrate_failed' => 'Database table creation failed',
     'error_db_seed_failed' => 'Default data initialization failed',
+    'error_existing_prefixed_tables_detected' => 'Existing tables with prefix :prefix were found before install (:count). Reset or drop the existing tables, or use a different database or prefix, then retry.',
+    'error_prefixed_table_cleanup_required' => 'Existing tables with prefix :prefix are still present after cleanup (:count). Retry the install after dropping the prefixed tables.',
+    'error_db_task_already_running' => 'Another installer worker is already running the same database step. Please wait and retry.',
 
     // Log Messages - Worker (Database)
     'log_db_migrate_success' => 'Database migration completed',

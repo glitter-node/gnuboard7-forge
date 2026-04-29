@@ -757,7 +757,7 @@ if (!function_exists('cleanupExistingTablesSSE')) {
         sendSSEEvent('log', ['message' => lang('log_task_in_progress', ['task' => $taskName])]);
 
         $state = getInstallationState();
-        $action = $state['existing_db_action'] ?? 'skip';
+        $action = normalizeExistingDbAction($state['existing_db_action'] ?? 'skip');
 
         if ($action !== 'drop_tables') {
             sendSSEEvent('log', ['message' => lang('log_db_cleanup_skipped')]);
@@ -771,10 +771,7 @@ if (!function_exists('cleanupExistingTablesSSE')) {
 
         try {
             $pdo = getDatabaseConnection($config, false);
-            $database = $config['db_write_database'] ?? '';
-
-            $stmt = $pdo->query('SHOW TABLES');
-            $tables = $stmt ? $stmt->fetchAll(PDO::FETCH_COLUMN) : [];
+            $tables = getExistingPrefixedTables($pdo, $config);
 
             if (empty($tables)) {
                 sendSSEEvent('log', ['message' => lang('log_db_cleanup_empty')]);
@@ -814,6 +811,56 @@ if (!function_exists('cleanupExistingTablesSSE')) {
 if (!function_exists('runDatabaseMigrationSSE')) {
     function runDatabaseMigrationSSE(): array
     {
+        if (checkAbortStatusSSE()) {
+            return ['success' => false, 'aborted' => true];
+        }
+
+        $state = getInstallationState();
+        $config = $state['config'] ?? [];
+        $action = normalizeExistingDbAction($state['existing_db_action'] ?? 'skip');
+
+        try {
+            $pdo = getDatabaseConnection($config, false);
+            $prefixedTables = getExistingPrefixedTables($pdo, $config);
+        } catch (Exception $e) {
+            logInstallationError(lang('error_db_migrate_failed'), $e);
+
+            return [
+                'success' => false,
+                'message' => lang('error_db_migrate_failed'),
+                'message_key' => 'error_db_migrate_failed',
+                'detail' => $e->getMessage(),
+            ];
+        }
+
+        if (shouldBlockDatabaseMigration($prefixedTables, $action)) {
+            $errorMessage = lang('error_existing_prefixed_tables_detected', [
+                'prefix' => getConfiguredDatabasePrefix($config),
+                'count' => (string) count($prefixedTables),
+            ]);
+
+            return [
+                'success' => false,
+                'message' => $errorMessage,
+                'message_key' => 'error_existing_prefixed_tables_detected',
+                'detail' => implode("\n", $prefixedTables),
+            ];
+        }
+
+        if ($action === 'drop_tables' && !empty($prefixedTables)) {
+            $errorMessage = lang('error_prefixed_table_cleanup_required', [
+                'prefix' => getConfiguredDatabasePrefix($config),
+                'count' => (string) count($prefixedTables),
+            ]);
+
+            return [
+                'success' => false,
+                'message' => $errorMessage,
+                'message_key' => 'error_prefixed_table_cleanup_required',
+                'detail' => implode("\n", $prefixedTables),
+            ];
+        }
+
         return executeDbCommandSSE(
             artisanCommand: 'migrate --force',
             taskId: 'db_migrate',
@@ -930,6 +977,17 @@ if (!function_exists('executeDbCommandSSE')) {
             return ['success' => false, 'aborted' => true];
         }
 
+        $lockHandle = acquireInstallerTaskLock($taskId);
+
+        if ($lockHandle === false) {
+            return [
+                'success' => false,
+                'message' => lang('error_db_task_already_running'),
+                'message_key' => 'error_db_task_already_running',
+                'detail' => $taskId,
+            ];
+        }
+
         $taskName = lang($taskNameKey);
 
         updateCurrentTask($taskId);
@@ -979,6 +1037,8 @@ if (!function_exists('executeDbCommandSSE')) {
                 ]);
             }
 
+            releaseInstallerTaskLock($lockHandle);
+
             return [
                 'success' => false,
                 'message' => lang($errorMsgKey),
@@ -1013,6 +1073,8 @@ if (!function_exists('executeDbCommandSSE')) {
                 sendSSEEvent('log', ['message' => lang('failed_rollback_manual_cleanup')]);
             }
 
+            releaseInstallerTaskLock($lockHandle);
+
             return ['success' => false, 'aborted' => true];
         }
 
@@ -1020,6 +1082,8 @@ if (!function_exists('executeDbCommandSSE')) {
         sendSSEEvent('log', ['message' => lang('log_separator')]);
 
         sendSSEEvent('task_complete', ['task' => $taskId, 'message' => lang($successMsgKey)]);
+
+        releaseInstallerTaskLock($lockHandle);
 
         return ['success' => true];
     }
