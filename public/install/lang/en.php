@@ -453,6 +453,7 @@ return [
     // Installation Already Completed Messages
     'installation_already_completed' => 'Installation Complete',
     'installation_already_completed_message' => 'Gnuboard7 is already installed. Redirecting to homepage...',
+    'installation_already_completed_db_message' => 'Installation already completed. Remove existing tables or use a new database.',
 
     // URL Parameter Access Messages
     'url_parameter_not_supported' => 'URL Parameter Not Supported',

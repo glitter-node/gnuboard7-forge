@@ -453,6 +453,7 @@ return [
     // 설치 완료 후 재접근 메시지
     'installation_already_completed' => '설치 완료',
     'installation_already_completed_message' => '그누보드7이 이미 설치되었습니다. 홈페이지로 이동합니다.',
+    'installation_already_completed_db_message' => 'Installation already completed. Remove existing tables or use a new database.',
 
     // URL 파라미터 접근 메시지
     'url_parameter_not_supported' => 'URL 파라미터 사용 불가',

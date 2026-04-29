@@ -441,9 +441,99 @@ function showInstallationCompletedAlert(): void
 
     showAlertAndRedirect(
         lang('installation_already_completed'),
-        lang('installation_already_completed_message'),
+        lang('installation_already_completed_db_message'),
         '../'
     );
+}
+
+function parseInstallerEnvFile(string $path): array
+{
+    if (!file_exists($path) || !is_readable($path)) {
+        return [];
+    }
+
+    $values = [];
+    $lines = file($path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+
+    if ($lines === false) {
+        return [];
+    }
+
+    foreach ($lines as $line) {
+        $trimmed = trim($line);
+
+        if ($trimmed === '' || str_starts_with($trimmed, '#') || !str_contains($trimmed, '=')) {
+            continue;
+        }
+
+        [$key, $value] = explode('=', $trimmed, 2);
+        $key = trim($key);
+        $value = trim($value);
+
+        if ($value !== '' && (
+            (str_starts_with($value, '"') && str_ends_with($value, '"')) ||
+            (str_starts_with($value, "'") && str_ends_with($value, "'"))
+        )) {
+            $value = substr($value, 1, -1);
+        }
+
+        $values[$key] = $value;
+    }
+
+    return $values;
+}
+
+function getInstallerDatabaseConfigFromEnvFile(?string $path = null): array
+{
+    $env = parseInstallerEnvFile($path ?? (BASE_PATH . '/.env'));
+
+    return [
+        'host' => (string) ($env['DB_WRITE_HOST'] ?? ''),
+        'port' => (string) ($env['DB_WRITE_PORT'] ?? '3306'),
+        'database' => (string) ($env['DB_WRITE_DATABASE'] ?? ''),
+        'username' => (string) ($env['DB_WRITE_USERNAME'] ?? ''),
+        'password' => (string) ($env['DB_WRITE_PASSWORD'] ?? ''),
+        'prefix' => (string) ($env['DB_PREFIX'] ?? 'g7_'),
+    ];
+}
+
+function isInstallerDatabaseInitialized(?array $config = null): bool
+{
+    $databaseConfig = $config ?? getInstallerDatabaseConfigFromEnvFile();
+
+    if (
+        ($databaseConfig['host'] ?? '') === '' ||
+        ($databaseConfig['database'] ?? '') === '' ||
+        ($databaseConfig['username'] ?? '') === ''
+    ) {
+        return false;
+    }
+
+    $prefix = (string) ($databaseConfig['prefix'] ?? 'g7_');
+    $migrationsTable = $prefix . 'migrations';
+    $dsn = 'mysql:host=' . $databaseConfig['host'] . ';port=' . ($databaseConfig['port'] ?? '3306') . ';dbname=' . $databaseConfig['database'] . ';charset=utf8mb4';
+
+    try {
+        $pdo = new PDO($dsn, (string) $databaseConfig['username'], (string) ($databaseConfig['password'] ?? ''), [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+            PDO::ATTR_EMULATE_PREPARES => false,
+        ]);
+
+        $stmt = $pdo->prepare('SHOW TABLES LIKE ?');
+        $stmt->execute([$migrationsTable]);
+
+        if ($stmt->fetchColumn() === false) {
+            return false;
+        }
+
+        $quotedTable = '`' . str_replace('`', '``', $migrationsTable) . '`';
+        $count = (int) $pdo->query("SELECT COUNT(*) FROM {$quotedTable}")->fetchColumn();
+
+        return $count > 0;
+    } catch (Throwable) {
+        return false;
+    }
 }
 
 /**

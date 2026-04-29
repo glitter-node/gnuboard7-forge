@@ -126,27 +126,27 @@ function saveInstallationState(array $state): bool
  */
 function isInstallationCompleted(): bool
 {
+    if (function_exists('isInstallerDatabaseInitialized') && isInstallerDatabaseInitialized()) {
+        return true;
+    }
+
     $state = getInstallationState();
 
-    // installation_status가 completed인지 확인
     if (isset($state['installation_status']) && $state['installation_status'] === 'completed') {
         return true;
     }
 
-    // 또는 current_step이 5(완료 단계)이고 step_status[5]가 completed인지 확인
     if (isset($state['current_step']) && $state['current_step'] >= 5) {
         if (isset($state['step_status']['5']) && $state['step_status']['5'] === 'completed') {
             return true;
         }
     }
 
-    // g7_installed 파일 존재 여부 확인 (추가 안전장치)
     $installedFlagPath = BASE_PATH . '/storage/app/g7_installed';
     if (file_exists($installedFlagPath)) {
         return true;
     }
 
-    // .env 파일의 INSTALLER_COMPLETED 플래그 확인
     $envPath = BASE_PATH . '/.env';
     if (file_exists($envPath)) {
         $envContent = file_get_contents($envPath);
