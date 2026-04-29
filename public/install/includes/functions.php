@@ -509,6 +509,58 @@ function showStepFileNotFoundError(int $currentStep): void
     echo '</div>';
 }
 
+function getBundledTemplateRequiredPaths(): array
+{
+    return [
+        'dist/js/components.iife.js',
+        'dist/css/components.css',
+        'routes.json',
+        'components.json',
+        'layouts',
+        'lang',
+    ];
+}
+
+function validateBundledTemplatePackage(string $identifier): array
+{
+    $templatePath = BASE_PATH . '/templates/_bundled/' . $identifier;
+
+    if (!is_dir($templatePath)) {
+        return [
+            'valid' => false,
+            'missing' => [$templatePath],
+        ];
+    }
+
+    $missing = [];
+
+    foreach (getBundledTemplateRequiredPaths() as $relativePath) {
+        if (!file_exists($templatePath . '/' . $relativePath)) {
+            $missing[] = $relativePath;
+        }
+    }
+
+    return [
+        'valid' => empty($missing),
+        'missing' => $missing,
+    ];
+}
+
+function validateSelectedBundledTemplates(array $identifiers): array
+{
+    $failures = [];
+
+    foreach ($identifiers as $identifier) {
+        $result = validateBundledTemplatePackage((string) $identifier);
+
+        if (!($result['valid'] ?? false)) {
+            $failures[(string) $identifier] = $result['missing'] ?? [];
+        }
+    }
+
+    return $failures;
+}
+
 /**
  * 데이터베이스 필드 해시값을 계산합니다.
  *

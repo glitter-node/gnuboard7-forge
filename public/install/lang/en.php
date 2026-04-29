@@ -325,6 +325,7 @@ return [
     // Error Messages - Worker (Template)
     'error_template_install_failed' => 'Template installation failed',
     'error_template_activate_failed' => 'Template activation failed',
+    'error_bundled_template_package_incomplete' => 'The bundled template package is incomplete. Missing required runtime files for the selected template: :details',
 
     // Log Messages - Worker (Template)
     'log_template_install_success' => 'Template installation completed',

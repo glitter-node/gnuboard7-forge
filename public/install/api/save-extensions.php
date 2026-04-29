@@ -95,6 +95,27 @@ $userTemplates = array_values(array_filter(array_map('strval', $userTemplates)))
 $modules = array_values(array_filter(array_map('strval', $modules)));
 $plugins = array_values(array_filter(array_map('strval', $plugins)));
 
+$invalidBundledTemplates = validateSelectedBundledTemplates(array_merge($adminTemplates, $userTemplates));
+
+if (!empty($invalidBundledTemplates)) {
+    $details = [];
+
+    foreach ($invalidBundledTemplates as $identifier => $missingPaths) {
+        $details[] = $identifier . ': ' . implode(', ', $missingPaths);
+    }
+
+    http_response_code(400);
+    echo json_encode([
+        'success' => false,
+        'error' => lang('error_bundled_template_package_incomplete', [
+            'details' => implode(' | ', $details),
+        ]),
+        'code' => 'bundled_template_package_incomplete',
+        'details' => $invalidBundledTemplates,
+    ], JSON_UNESCAPED_UNICODE);
+    exit;
+}
+
 try {
     // 현재 상태 가져오기
     $state = getInstallationState();

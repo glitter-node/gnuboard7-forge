@@ -699,6 +699,33 @@ if (!function_exists('dependencyPrecheckSSE')) {
             ];
         }
 
+        $invalidTemplates = validateSelectedBundledTemplates(array_merge(
+            $selected['admin_templates'] ?? [],
+            $selected['user_templates'] ?? []
+        ));
+
+        if (!empty($invalidTemplates)) {
+            $detailLines = [];
+
+            foreach ($invalidTemplates as $identifier => $missingPaths) {
+                $line = $identifier . ': ' . implode(', ', $missingPaths);
+                $detailLines[] = $line;
+                sendSSEEvent('log', ['message' => '  - ' . $line]);
+            }
+
+            $errorMessage = lang('error_bundled_template_package_incomplete', [
+                'details' => implode(' | ', $detailLines),
+            ]);
+            logInstallationError($errorMessage);
+
+            return [
+                'success' => false,
+                'message' => $errorMessage,
+                'message_key' => 'error_bundled_template_package_incomplete',
+                'detail' => implode("\n", $detailLines),
+            ];
+        }
+
         sendSSEEvent('log', ['message' => lang('log_task_completed', ['task' => $taskName])]);
         sendSSEEvent('log', ['message' => lang('log_separator')]);
 
@@ -1094,7 +1121,7 @@ if (!function_exists('installAdminTemplateSSE')) {
     function installAdminTemplateSSE(string $templateId): array
     {
         return executeExtensionCommandSSE(
-            artisanCommand: "template:install {$templateId}",
+            artisanCommand: "template:install {$templateId} --force",
             taskId: 'template_install',
             target: $templateId,
             taskNameKey: 'task_template_install',
@@ -1182,7 +1209,7 @@ if (!function_exists('installUserTemplateSSE')) {
     function installUserTemplateSSE(string $templateId): array
     {
         return executeExtensionCommandSSE(
-            artisanCommand: "template:install {$templateId}",
+            artisanCommand: "template:install {$templateId} --force",
             taskId: 'user_template_install',
             target: $templateId,
             taskNameKey: 'task_user_template_install',

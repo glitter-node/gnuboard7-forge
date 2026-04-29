@@ -325,6 +325,7 @@ return [
     // 에러 메시지 - Worker (Template)
     'error_template_install_failed' => '템플릿 설치에 실패했습니다',
     'error_template_activate_failed' => '템플릿 활성화에 실패했습니다',
+    'error_bundled_template_package_incomplete' => '번들 템플릿 패키지가 불완전합니다. 선택한 템플릿의 필수 런타임 파일이 누락되었습니다: :details',
 
     // 로그 메시지 - Worker (Template)
     'log_template_install_success' => '템플릿 설치 완료',
