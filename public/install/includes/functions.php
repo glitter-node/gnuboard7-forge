@@ -521,8 +521,7 @@ function isInstallerDatabaseInitialized(?array $config = null): bool
             PDO::ATTR_EMULATE_PREPARES => false,
         ]);
 
-        $stmt = $pdo->prepare('SHOW TABLES LIKE ?');
-        $stmt->execute([$migrationsTable]);
+        $stmt = $pdo->query('SHOW TABLES LIKE ' . $pdo->quote($migrationsTable));
 
         if ($stmt->fetchColumn() === false) {
             return false;
@@ -532,7 +531,19 @@ function isInstallerDatabaseInitialized(?array $config = null): bool
         $count = (int) $pdo->query("SELECT COUNT(*) FROM {$quotedTable}")->fetchColumn();
 
         return $count > 0;
-    } catch (Throwable) {
+    } catch (Throwable $e) {
+        if (function_exists('logInstallationError')) {
+            logInstallationError(
+                'Installer DB completion detection failed: host=' . (string) $databaseConfig['host']
+                . ', port=' . (string) ($databaseConfig['port'] ?? '3306')
+                . ', database=' . (string) $databaseConfig['database']
+                . ', username=' . (string) $databaseConfig['username']
+                . ', prefix=' . $prefix
+                . ', migrations_table=' . $migrationsTable,
+                $e
+            );
+        }
+
         return false;
     }
 }

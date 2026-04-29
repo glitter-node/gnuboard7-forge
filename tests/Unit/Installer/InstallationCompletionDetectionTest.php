@@ -66,6 +66,21 @@ class InstallationCompletionDetectionTest extends TestCase
         $this->assertSame('test_', $config['prefix']);
     }
 
+    public function test_parse_installer_env_file_reads_quoted_unicode_password(): void
+    {
+        file_put_contents($this->envPath, implode("\n", [
+            'DB_WRITE_HOST=localhost',
+            'DB_WRITE_DATABASE=test_db',
+            'DB_WRITE_USERNAME=test_user',
+            'DB_WRITE_PASSWORD="비밀번호🔒123"',
+            'DB_PREFIX=g7_',
+        ]));
+
+        $config = getInstallerDatabaseConfigFromEnvFile($this->envPath);
+
+        $this->assertSame('비밀번호🔒123', $config['password']);
+    }
+
     public function test_database_initialized_check_returns_false_when_db_config_is_incomplete(): void
     {
         file_put_contents($this->envPath, "DB_WRITE_HOST=\nDB_WRITE_DATABASE=\nDB_WRITE_USERNAME=\n");
