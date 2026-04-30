@@ -236,7 +236,7 @@ export const UserInfo: React.FC<UserInfoProps> = ({
   appendMenuItems = [],
 }) => {
   // 명시적 props > author 추출값 순서로 결정
-  const actualUserId = userId ?? author?.uuid;
+  const actualUserId = userId ?? author?.uuid ?? author?.id;
   const actualIsGuest = isGuest || author?.is_guest || false;
   const actualIsWithdrawn = isWithdrawn || author?.status === 'withdrawn';
 

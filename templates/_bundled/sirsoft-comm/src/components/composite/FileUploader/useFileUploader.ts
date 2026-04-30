@@ -16,8 +16,7 @@ import imageCompression from 'browser-image-compression';
 import type { Attachment, PendingFile, FileUploaderProps, ApiEndpoints } from './types';
 import { formatFileSize, extractErrorMessage, t } from './utils';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const G7Core = (window as any).G7Core;
+const getG7Core = () => (window as any).G7Core;
 
 export interface UseFileUploaderOptions {
   attachmentableType?: string;
@@ -332,7 +331,7 @@ export function useFileUploader(options: UseFileUploaderOptions): UseFileUploade
       }
 
       try {
-        const response = await G7Core.api.post(endpoints.upload, formData, {
+        const response = await getG7Core().api.post(endpoints.upload, formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
           onUploadProgress: (progressEvent: { loaded: number; total?: number }) => {
             const progress = Math.round((progressEvent.loaded * 100) / (progressEvent.total ?? 1));
@@ -475,7 +474,7 @@ export function useFileUploader(options: UseFileUploaderOptions): UseFileUploade
   useEffect(() => {
     if (!uploadTriggerEvent) return;
 
-    const unsubscribe = G7Core.componentEvent.on(uploadTriggerEvent, async () => {
+    const unsubscribe = getG7Core().componentEvent.on(uploadTriggerEvent, async () => {
       // 업로드할 파일이 있으면 업로드, 없으면 기존 파일 ID 반환
       const uploadedAttachments = await handleUploadAll();
       return {
@@ -505,7 +504,7 @@ export function useFileUploader(options: UseFileUploaderOptions): UseFileUploade
         // id가 있는 경우만 서버 API 삭제 호출 (복사 모드 등 id 없는 이미지는 로컬 제거만)
         if (item.id && endpoints.delete) {
           const deleteUrl = endpoints.delete.replace(':id', String(item.id));
-          await G7Core.api.delete(deleteUrl);
+          await getG7Core().api.delete(deleteUrl);
         }
         // 삭제 추적 — id와 hash 모두 기록 (복사 모드 이미지는 id 없이 hash만 존재)
         const itemKey = item.hash || item.id;
@@ -621,11 +620,11 @@ export function useFileUploader(options: UseFileUploaderOptions): UseFileUploade
         }));
 
         try {
-          const response = await G7Core.api.patch(endpoints.reorder, { order: orderData });
-          G7Core.toast.success(response.message);
+          const response = await getG7Core().api.patch(endpoints.reorder, { order: orderData });
+          getG7Core().toast.success(response.message);
         } catch (error: unknown) {
           const message = error instanceof Error ? error.message : t('attachment.reorder_failed');
-          G7Core.toast.error(message);
+          getG7Core().toast.error(message);
         }
       }
 
@@ -697,7 +696,7 @@ export function useFileUploader(options: UseFileUploaderOptions): UseFileUploade
         if (authenticatedImageUrlsRef.current.has(file.id)) continue;
 
         try {
-          const blob = await G7Core.api.get(file.download_url, {
+          const blob = await getG7Core().api.get(file.download_url, {
             responseType: 'blob',
           });
           if (!cancelled && blob) {

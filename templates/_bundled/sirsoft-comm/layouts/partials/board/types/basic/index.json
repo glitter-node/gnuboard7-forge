@@ -262,8 +262,24 @@
                           "type": "basic",
                           "name": "Div",
                           "props": {
-                            "className": "flex items-center gap-2 min-w-0",
-                            "style": { "marginLeft": "{{Math.min(post?.depth ?? 0, 10) * 1}}rem" }
+                            "className": "flex items-center gap-2 min-w-0"
+                          },
+                          "classMap": {
+                            "variants": {
+                              "0": "ml-0",
+                              "1": "ml-4",
+                              "2": "ml-8",
+                              "3": "ml-12",
+                              "4": "ml-16",
+                              "5": "ml-20",
+                              "6": "ml-24",
+                              "7": "ml-28",
+                              "8": "ml-32",
+                              "9": "ml-36",
+                              "10": "ml-40"
+                            },
+                            "key": "{{Math.min(post?.depth ?? 0, 10)}}",
+                            "default": "ml-0"
                           },
                           "children": [
                             {
@@ -421,8 +437,24 @@
                               "type": "basic",
                               "name": "Div",
                               "props": {
-                                "className": "flex-1 min-w-0",
-                                "style": { "marginLeft": "{{Math.min(post?.depth ?? 0, 10) * 1}}rem" }
+                                "className": "flex-1 min-w-0"
+                              },
+                              "classMap": {
+                                "variants": {
+                                  "0": "ml-0",
+                                  "1": "ml-4",
+                                  "2": "ml-8",
+                                  "3": "ml-12",
+                                  "4": "ml-16",
+                                  "5": "ml-20",
+                                  "6": "ml-24",
+                                  "7": "ml-28",
+                                  "8": "ml-32",
+                                  "9": "ml-36",
+                                  "10": "ml-40"
+                                },
+                                "key": "{{Math.min(post?.depth ?? 0, 10)}}",
+                                "default": "ml-0"
                               },
                               "children": [
                                 {
