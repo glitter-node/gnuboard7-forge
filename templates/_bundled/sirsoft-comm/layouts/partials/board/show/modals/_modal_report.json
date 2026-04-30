@@ -1,9 +1,7 @@
 {
   "meta": {
-    "is_partial": true,
-    "description": "공용 신고 모달 - 게시글/댓글"
+    "is_partial": true
   },
-  "comment": "공용 신고 모달 - modals 섹션이므로 _global 사용 (페이지 _local 접근 불가)",
   "id": "board_report_modal",
   "type": "composite",
   "name": "Modal",
@@ -21,7 +19,6 @@
       },
       "children": [
         {
-          "comment": "안내 배너",
           "type": "basic",
           "name": "Div",
           "props": {
@@ -71,7 +68,6 @@
           ]
         },
         {
-          "comment": "신고 대상 댓글 내용 표시 (댓글 신고 시에만)",
           "type": "basic",
           "name": "Div",
           "if": "{{_global.reportModal.type === 'comment' && _global.reportModal.comment_content}}",
@@ -133,7 +129,6 @@
           ]
         },
         {
-          "comment": "신고 사유 선택 (Label + native Select + Option)",
           "type": "basic",
           "name": "Div",
           "props": {
@@ -178,7 +173,6 @@
                   "text": "$t:board.post.select_reason"
                 },
                 {
-                  "comment": "API에서 받은 report_types 배열을 iteration으로 Option 생성",
                   "type": "basic",
                   "name": "Option",
                   "iteration": {
@@ -196,7 +190,6 @@
           ]
         },
         {
-          "comment": "상세 내용 입력 (Label + Textarea)",
           "type": "basic",
           "name": "Div",
           "props": {
@@ -238,7 +231,6 @@
           ]
         },
         {
-          "comment": "버튼 영역",
           "type": "basic",
           "name": "Div",
           "props": {
@@ -314,7 +306,6 @@
                   "if": "{{_global.reportSubmitting !== true}}",
                   "conditions": [
                     {
-                      "comment": "1. 신고 사유 미선택 시 toast",
                       "if": "{{!_global.reportForm?.reason_type}}",
                       "then": {
                         "handler": "toast",
@@ -325,7 +316,6 @@
                       }
                     },
                     {
-                      "comment": "2. 상세 사유 미입력 시 toast",
                       "if": "{{!_global.reportForm?.reason_detail?.trim()}}",
                       "then": {
                         "handler": "toast",
@@ -336,7 +326,6 @@
                       }
                     },
                     {
-                      "comment": "3. 검증 통과 → 제출",
                       "then": [
                         {
                           "handler": "setState",

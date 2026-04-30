@@ -53,5 +53,7 @@
   "validation_error_description": "Please check the input fields.",
   "error_occurred": "An error occurred",
   "reset": "Reset",
-  "currency_unit": ""
+  "currency_unit": "",
+  "site_fallback": "Site",
+  "gnuboard7_name": "Gnuboard7"
 }

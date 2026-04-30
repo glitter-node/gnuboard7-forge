@@ -1,22 +1,13 @@
-/**
- * @file board-deleted-toggle.test.tsx
- * @description 게시판 목록/상세 - 삭제 글/댓글 포함 토글 UI 렌더링 회귀 테스트
- *
- * 검증 항목:
- * 1. can_view_deleted = true → 토글 버튼 렌더링
- * 2. can_view_deleted = false → 토글 버튼 미렌더링
- * 3. can_manage = true → 댓글 섹션 토글 버튼 렌더링 (헤더 오른쪽)
- * 4. can_manage = false → 댓글 섹션 토글 버튼 미렌더링
- */
+
 
 import React from 'react';
 import { describe, it, expect, beforeEach } from 'vitest';
 import { createLayoutTest, screen } from '@/core/template-engine/__tests__/utils/layoutTestUtils';
 import { ComponentRegistry } from '@/core/template-engine/ComponentRegistry';
 
-// ============================================================
-// 테스트용 컴포넌트 정의
-// ============================================================
+
+
+
 
 const TestDiv: React.FC<{
   className?: string;
@@ -61,9 +52,9 @@ const TestH3: React.FC<{
   </h3>
 );
 
-// ============================================================
-// 컴포넌트 레지스트리 설정
-// ============================================================
+
+
+
 
 function setupTestRegistry(): ComponentRegistry {
   const registry = ComponentRegistry.getInstance();
@@ -78,11 +69,11 @@ function setupTestRegistry(): ComponentRegistry {
   return registry;
 }
 
-// ============================================================
-// 테스트용 레이아웃 JSON (토글 블록만 추출)
-// ============================================================
 
-/** 게시글 목록 토글 — can_view_deleted 조건부 렌더링 */
+
+
+
+
 const postToggleLayoutJson = {
   version: '1.0.0',
   layout_name: 'board_post_deleted_toggle_test',
@@ -117,7 +108,7 @@ const postToggleLayoutJson = {
   ],
 };
 
-/** 댓글 섹션 헤더 — 오른쪽에 토글 버튼 배치 */
+
 const commentToggleLayoutJson = {
   version: '1.0.0',
   layout_name: 'board_comment_deleted_toggle_test',
@@ -174,9 +165,9 @@ const commentToggleLayoutJson = {
   ],
 };
 
-// ============================================================
-// 테스트
-// ============================================================
+
+
+
 
 describe('게시판 삭제 글 포함 토글 UI 렌더링', () => {
   let registry: ComponentRegistry;

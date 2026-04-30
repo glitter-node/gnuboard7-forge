@@ -106,7 +106,6 @@ export const Pagination: React.FC<PaginationProps> = ({
       role="navigation"
       aria-label={t('common.pagination')}
     >
-      {/* First Button */}
       {showFirstLast && (
         <Button
           onClick={() => handlePageClick(1)}
@@ -118,7 +117,6 @@ export const Pagination: React.FC<PaginationProps> = ({
         </Button>
       )}
 
-      {/* Previous Button */}
       <Button
         onClick={handlePrevious}
         disabled={currentPage === 1}
@@ -128,7 +126,6 @@ export const Pagination: React.FC<PaginationProps> = ({
         {prevText || <>&#8249;</>}
       </Button>
 
-      {/* Page Numbers */}
       <Div className="flex items-center gap-1">
         {pageNumbers.map((page, index) => {
           if (page === '...') {
@@ -163,7 +160,6 @@ export const Pagination: React.FC<PaginationProps> = ({
         })}
       </Div>
 
-      {/* Next Button */}
       <Button
         onClick={handleNext}
         disabled={currentPage === totalPages}
@@ -173,7 +169,6 @@ export const Pagination: React.FC<PaginationProps> = ({
         {nextText || <>&#8250;</>}
       </Button>
 
-      {/* Last Button */}
       {showFirstLast && (
         <Button
           onClick={() => handlePageClick(totalPages)}

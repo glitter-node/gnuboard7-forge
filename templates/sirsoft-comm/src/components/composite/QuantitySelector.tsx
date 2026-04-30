@@ -1,9 +1,4 @@
-/**
- * QuantitySelector 컴포넌트
- *
- * 수량 선택을 위한 +/- 버튼 컴포넌트입니다.
- * 상품 상세 페이지, 장바구니 등에서 사용됩니다.
- */
+
 
 import React from 'react';
 import { Div } from '../basic/Div';
@@ -12,58 +7,23 @@ import { Input } from '../basic/Input';
 import { Icon } from '../basic/Icon';
 
 interface QuantitySelectorProps {
-  /** 현재 수량 */
+  
   value: number;
-  /** 최소 수량 */
+  
   min?: number;
-  /** 최대 수량 */
+  
   max?: number;
-  /** 수량 변경 콜백 */
+  
   onChange: (value: number) => void;
-  /** 컴포넌트 크기 */
+  
   size?: 'sm' | 'md' | 'lg';
-  /** 비활성화 여부 */
+  
   disabled?: boolean;
-  /** 추가 CSS 클래스 */
+  
   className?: string;
 }
 
-/**
- * 수량 선택 컴포넌트
- *
- * @example
- * ```tsx
- * const [quantity, setQuantity] = useState(1);
- *
- * <QuantitySelector
- *   value={quantity}
- *   min={1}
- *   max={10}
- *   onChange={setQuantity}
- * />
- * ```
- *
- * @example
- * ```json
- * // 레이아웃 JSON에서 사용
- * {
- *   "type": "composite",
- *   "name": "QuantitySelector",
- *   "props": {
- *     "value": "{{item.quantity}}",
- *     "min": 1,
- *     "max": "{{item.stock}}",
- *     "size": "sm"
- *   },
- *   "actions": [{
- *     "event": "onChange",
- *     "type": "change",
- *     "handler": "updateQuantity",
- *     "params": { "itemId": "{{item.id}}", "quantity": "{{$args[0]}}" }
- *   }]
- * }
- * ```
- */
+
 const QuantitySelector: React.FC<QuantitySelectorProps> = ({
   value,
   min = 1,
@@ -129,7 +89,6 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
     <Div
       className={`inline-flex items-center border border-gray-300 dark:border-gray-600 rounded-lg ${classes.container} ${className}`}
     >
-      {/* 감소 버튼 */}
       <Button
         type="button"
         onClick={handleDecrease}
@@ -140,7 +99,6 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
         <Icon name="minus" className="w-4 h-4" />
       </Button>
 
-      {/* 수량 입력 */}
       <Input
         type="number"
         value={value}
@@ -153,7 +111,6 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
         aria-label="수량"
       />
 
-      {/* 증가 버튼 */}
       <Button
         type="button"
         onClick={handleIncrease}

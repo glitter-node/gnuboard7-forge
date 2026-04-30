@@ -1,15 +1,9 @@
-/**
- * FileUploader 유틸리티 함수
- *
- * @module composite/FileUploader/utils
- */
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+
 const G7Core = (window as any).G7Core;
 
-/**
- * 파일 크기를 읽기 쉬운 형식으로 변환합니다.
- */
+
 export const formatFileSize = (bytes: number): string => {
   const units = ['B', 'KB', 'MB', 'GB'];
   let i = 0;

@@ -1,19 +1,31 @@
 {
   "meta": {
-    "is_partial": true,
-    "description": "개별 댓글 아이템"
+    "is_partial": true
   },
   "type": "basic",
   "name": "Div",
   "props": {
-    "className": "flex gap-3 p-4 rounded-lg",
-    "style": {
-      "marginLeft": "{{Math.min(comment?.depth ?? 0, 10) * 1}}rem"
-    }
+    "className": "flex gap-3 p-4 rounded-lg"
+  },
+  "classMap": {
+    "variants": {
+      "0": "ml-0",
+      "1": "ml-4",
+      "2": "ml-8",
+      "3": "ml-12",
+      "4": "ml-16",
+      "5": "ml-20",
+      "6": "ml-24",
+      "7": "ml-28",
+      "8": "ml-32",
+      "9": "ml-36",
+      "10": "ml-40"
+    },
+    "key": "{{Math.min(comment?.depth ?? 0, 10)}}",
+    "default": "ml-0"
   },
   "children": [
     {
-      "comment": "답글 아이콘 (depth > 0일 때만)",
       "type": "composite",
       "name": "Icon",
       "if": "{{(comment?.depth ?? 0) > 0}}",
@@ -24,7 +36,6 @@
       }
     },
     {
-      "comment": "댓글 작성자 아바타",
       "type": "composite",
       "name": "Avatar",
       "props": {
@@ -40,7 +51,6 @@
       },
       "children": [
         {
-          "comment": "작성자 정보 + 버튼 영역",
           "type": "basic",
           "name": "Div",
           "props": {
@@ -48,7 +58,6 @@
           },
           "children": [
             {
-              "comment": "작성자 정보",
               "type": "basic",
               "name": "Div",
               "props": {
@@ -56,7 +65,6 @@
               },
               "children": [
                 {
-                  "comment": "UserInfo 컴포넌트 (이름 + 작성일시 한 줄)",
                   "type": "composite",
                   "name": "UserInfo",
                   "props": {
@@ -69,7 +77,6 @@
               ]
             },
             {
-              "comment": "더보기 드롭다운 메뉴 (답글/수정/삭제/신고) - 삭제/블라인드 댓글에서 숨김, 가능한 액션이 없으면 숨김",
               "type": "basic",
               "name": "Div",
               "if": "{{!comment?.deleted_at && comment?.status !== 'blinded' && ((comment?.is_author && post?.data?.abilities?.can_write_comments) || comment?.is_guest_comment || post?.data?.abilities?.can_manage || (_global.currentUser?.uuid && post?.data?.board?.use_report && !comment?.is_author) || (post?.data?.abilities?.can_write_comments && (comment?.depth ?? 0) < (post?.data?.board?.max_comment_depth ?? 10) && post?.data?.status !== 'blinded' && post?.data?.status !== 'deleted' && !post?.data?.deleted_at))}}",
@@ -78,7 +85,6 @@
               },
               "children": [
                 {
-                  "comment": "더보기 버튼 (⋮)",
                   "type": "basic",
                   "name": "Button",
                   "props": {
@@ -106,7 +112,6 @@
                   ]
                 },
                 {
-                  "comment": "드롭다운 메뉴",
                   "type": "basic",
                   "name": "Div",
                   "if": "{{_local.commentDropdownId === comment?.id}}",
@@ -115,7 +120,6 @@
                   },
                   "children": [
                     {
-                      "comment": "답글 메뉴 아이템 (답글 기능 활성화 + 권한 + depth 제한)",
                       "type": "basic",
                       "name": "Button",
                       "if": "{{comment?.abilities?.can_write && (comment?.depth ?? 0) < (post?.data?.board?.max_comment_depth ?? 10) && post?.data?.status !== 'blinded' && post?.data?.status !== 'deleted' && !post?.data?.deleted_at}}",
@@ -164,7 +168,6 @@
                       ]
                     },
                     {
-                      "comment": "수정 메뉴 아이템 ((본인 + 권한) || 비회원 || manager)",
                       "type": "basic",
                       "name": "Button",
                       "if": "{{(comment?.is_author && post?.data?.abilities?.can_write_comments) || comment?.is_guest_comment || post?.data?.abilities?.can_manage}}",
@@ -184,7 +187,6 @@
                               }
                             },
                             {
-                              "comment": "비회원 댓글 + manager가 아닌 경우에만 비밀번호 확인 모달",
                               "if": "{{comment?.is_guest_comment && !post?.data?.abilities?.can_manage}}",
                               "handler": "setState",
                               "params": {
@@ -209,7 +211,6 @@
                               "target": "board_guest_password_modal"
                             },
                             {
-                              "comment": "회원 댓글이거나, 비회원 댓글이지만 manager인 경우 바로 수정 모드 진입",
                               "if": "{{!comment?.is_guest_comment || post?.data?.abilities?.can_manage}}",
                               "handler": "setState",
                               "params": {
@@ -242,7 +243,6 @@
                       ]
                     },
                     {
-                      "comment": "삭제 메뉴 아이템 ((본인 + 권한) || 비회원 || manager)",
                       "type": "basic",
                       "name": "Button",
                       "if": "{{(comment?.is_author && post?.data?.abilities?.can_write_comments) || comment?.is_guest_comment || post?.data?.abilities?.can_manage}}",
@@ -262,7 +262,6 @@
                               }
                             },
                             {
-                              "comment": "manager인 경우 isGuest를 false로 설정하여 비밀번호 확인 우회",
                               "handler": "setState",
                               "params": {
                                 "target": "global",
@@ -297,7 +296,6 @@
                       ]
                     },
                     {
-                      "comment": "신고 메뉴 아이템 — 미신고 상태 (모달 오픈)",
                       "type": "basic",
                       "name": "Button",
                       "if": "{{_global.currentUser?.uuid && post?.data?.board?.use_report && !comment?.is_author && !comment?.is_already_reported}}",
@@ -331,7 +329,6 @@
                               }
                             },
                             {
-                              "comment": "모달은 modals 섹션이므로 _global로 초기화",
                               "handler": "setState",
                               "params": {
                                 "target": "global",
@@ -365,7 +362,6 @@
                       ]
                     },
                     {
-                      "comment": "신고 메뉴 아이템 — 이미 신고한 상태 (클릭 불가)",
                       "type": "basic",
                       "name": "Button",
                       "if": "{{_global.currentUser?.uuid && post?.data?.board?.use_report && !comment?.is_author && comment?.is_already_reported}}",
@@ -396,7 +392,6 @@
           ]
         },
         {
-          "comment": "삭제된 댓글",
           "type": "basic",
           "name": "Div",
           "if": "{{comment?.deleted_at && _global.commentEdit?.editingCommentId !== comment?.id}}",
@@ -428,7 +423,6 @@
                   "text": "$t:board.comment.deleted_comment_content"
                 },
                 {
-                  "comment": "관리자용 원문 보기 버튼",
                   "type": "basic",
                   "name": "Button",
                   "if": "{{post?.data?.abilities?.can_manage === true}}",
@@ -450,7 +444,6 @@
               ]
             },
             {
-              "comment": "관리자용 원문 내용",
               "type": "basic",
               "name": "Div",
               "if": "{{_local.showDeletedContent === comment?.id}}",
@@ -471,7 +464,6 @@
           ]
         },
         {
-          "comment": "블라인드 처리된 댓글",
           "type": "basic",
           "name": "Div",
           "if": "{{!comment?.deleted_at && comment?.status === 'blinded' && _global.commentEdit?.editingCommentId !== comment?.id}}",
@@ -503,7 +495,6 @@
                   "text": "$t:board.comment.blinded_comment"
                 },
                 {
-                  "comment": "원글 보기/숨기기 토글 버튼",
                   "type": "basic",
                   "name": "Button",
                   "if": "{{comment?.content}}",
@@ -525,7 +516,6 @@
               ]
             },
             {
-              "comment": "블라인드 댓글 원본 내용 표시",
               "type": "basic",
               "name": "Div",
               "if": "{{_local.showBlindedCommentContent?.[comment?.id] && comment?.content}}",
@@ -546,7 +536,6 @@
           ]
         },
         {
-          "comment": "댓글 내용 (읽기 모드)",
           "type": "basic",
           "name": "P",
           "if": "{{!comment?.deleted_at && comment?.status !== 'blinded' && _global.commentEdit?.editingCommentId !== comment?.id}}",
@@ -556,7 +545,6 @@
           "text": "{{comment?.content}}"
         },
         {
-          "comment": "댓글 수정 폼",
           "type": "basic",
           "name": "Div",
           "if": "{{_global?.commentEdit?.editingCommentId === comment?.id}}",
@@ -658,7 +646,6 @@
                               }
                             },
                             {
-                              "comment": "댓글 수정 상태 초기화",
                               "handler": "setState",
                               "params": {
                                 "target": "global",
@@ -732,7 +719,6 @@
           ]
         },
         {
-          "comment": "답글 입력 폼 (답글 버튼 클릭 시 해당 댓글 아래 표시)",
           "type": "basic",
           "name": "Div",
           "if": "{{_local.replyToCommentId === comment?.id && post?.data?.status !== 'blinded' && post?.data?.status !== 'deleted' && !post?.data?.deleted_at}}",
@@ -741,7 +727,6 @@
           },
           "children": [
             {
-              "comment": "답글 대상 표시",
               "type": "basic",
               "name": "Div",
               "props": {
@@ -764,7 +749,6 @@
               ]
             },
             {
-              "comment": "비회원 작성자 정보 입력 (이름/비밀번호)",
               "type": "basic",
               "name": "Div",
               "if": "{{!_global.currentUser?.uuid}}",
@@ -817,7 +801,6 @@
               ]
             },
             {
-              "comment": "답글 입력 영역",
               "type": "basic",
               "name": "Div",
               "props": {
@@ -825,7 +808,6 @@
               },
               "children": [
                 {
-                  "comment": "현재 사용자 아바타 (로그인 시만 표시)",
                   "type": "composite",
                   "name": "Avatar",
                   "if": "{{_global.currentUser?.uuid}}",

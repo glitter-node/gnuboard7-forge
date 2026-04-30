@@ -1,7 +1,6 @@
 {
   "meta": {
-    "is_partial": true,
-    "description": "회원가입 폼"
+    "is_partial": true
   },
   "type": "basic",
   "name": "Form",
@@ -24,7 +23,6 @@
   },
   "children": [
     {
-      "comment": "로딩 오버레이 (블러 처리)",
       "type": "basic",
       "name": "Div",
       "if": "{{_local?.isRegistering}}",
@@ -40,7 +38,6 @@
           },
           "children": [
             {
-              "comment": "로딩 스피너",
               "type": "basic",
               "name": "Div",
               "props": {
@@ -60,7 +57,6 @@
       ]
     },
     {
-      "comment": "API 에러 메시지 표시",
       "type": "basic",
       "name": "Div",
       "if": "{{_local?.registerError}}",
@@ -79,7 +75,6 @@
       ]
     },
     {
-      "comment": "이메일 필드",
       "type": "basic",
       "name": "Div",
       "children": [
@@ -129,7 +124,6 @@
       ]
     },
     {
-      "comment": "비밀번호 필드",
       "type": "basic",
       "name": "Div",
       "children": [
@@ -175,7 +169,6 @@
       ]
     },
     {
-      "comment": "비밀번호 확인 필드",
       "type": "basic",
       "name": "Div",
       "children": [
@@ -219,7 +212,6 @@
       ]
     },
     {
-      "comment": "이름 필드 (필수)",
       "type": "basic",
       "name": "Div",
       "children": [
@@ -269,7 +261,6 @@
       ]
     },
     {
-      "comment": "닉네임 필드 (선택)",
       "type": "basic",
       "name": "Div",
       "children": [
@@ -304,7 +295,6 @@
       ]
     },
     {
-      "comment": "언어 설정 필드",
       "type": "basic",
       "name": "Div",
       "children": [
@@ -329,7 +319,6 @@
       ]
     },
     {
-      "comment": "약관 동의",
       "type": "basic",
       "name": "Div",
       "props": {
@@ -361,7 +350,7 @@
                   "type": "basic",
                   "name": "Label",
                   "props": {
-                    "className": "text-sm text-gray-700 dark:text-gray-300"
+                    "className": "text-sm text-gray-700 dark:text-gray-300 inline-flex items-center gap-1"
                   },
                   "children": [
                     {
@@ -394,7 +383,7 @@
                     {
                       "type": "basic",
                       "name": "Span",
-                      "text": " $t:auth.agree_required"
+                      "text": "$t:auth.agree_required"
                     }
                   ]
                 }
@@ -437,7 +426,7 @@
                   "type": "basic",
                   "name": "Label",
                   "props": {
-                    "className": "text-sm text-gray-700 dark:text-gray-300"
+                    "className": "text-sm text-gray-700 dark:text-gray-300 inline-flex items-center gap-1"
                   },
                   "children": [
                     {
@@ -470,7 +459,7 @@
                     {
                       "type": "basic",
                       "name": "Span",
-                      "text": " $t:auth.agree_required"
+                      "text": "$t:auth.agree_required"
                     }
                   ]
                 }
@@ -499,7 +488,6 @@
       },
       "children": [
         {
-          "comment": "버튼 내 스피너",
           "type": "basic",
           "name": "Div",
           "if": "{{_local?.isRegistering}}",

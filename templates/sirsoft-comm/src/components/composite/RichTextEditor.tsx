@@ -1,16 +1,9 @@
-/**
- * RichTextEditor 컴포넌트
- *
- * 게시글 작성을 위한 리치 텍스트 에디터입니다.
- * TipTap 또는 Quill 등의 외부 라이브러리를 래핑합니다.
- *
- * @note 실제 구현 시 TipTap, Quill, CKEditor 등 선택하여 래핑
- */
+
 
 import React, { useEffect, useRef, useState } from 'react';
 import { Div } from '../basic/Div';
 
-// Logger 설정 (G7Core 초기화 전에도 동작하도록 폴백 포함)
+
 const logger = ((window as any).G7Core?.createLogger?.('Comp:RichTextEditor')) ?? {
     log: (...args: unknown[]) => console.log('[Comp:RichTextEditor]', ...args),
     warn: (...args: unknown[]) => console.warn('[Comp:RichTextEditor]', ...args),
@@ -22,26 +15,26 @@ import { Textarea } from '../basic/Textarea';
 import { H3 } from '../basic/H3';
 import { Label } from '../basic/Label';
 
-// G7Core.t() 번역 함수 참조
+
 const t = (key: string, params?: Record<string, string | number>) =>
   (window as any).G7Core?.t?.(key, params) ?? key;
 
 interface RichTextEditorProps {
-  /** 필드 이름 */
+  
   name: string;
-  /** 초기 HTML 값 */
+  
   initialValue?: string;
-  /** 플레이스홀더 */
+  
   placeholder?: string;
-  /** 값 변경 콜백 */
+  
   onChange?: (html: string) => void;
-  /** 이미지 업로드 URL */
+  
   imageUploadUrl?: string;
-  /** 최소 높이 */
+  
   minHeight?: string;
-  /** 비활성화 여부 */
+  
   disabled?: boolean;
-  /** 추가 CSS 클래스 */
+  
   className?: string;
 }
 
@@ -60,33 +53,7 @@ type FormatType =
   | 'link'
   | 'image';
 
-/**
- * 리치 텍스트 에디터 컴포넌트
- *
- * @example
- * ```tsx
- * <RichTextEditor
- *   name="content"
- *   initialValue={post?.content}
- *   placeholder="내용을 입력하세요..."
- *   onChange={(html) => setContent(html)}
- * />
- * ```
- *
- * @example
- * ```json
- * // 레이아웃 JSON에서 사용
- * {
- *   "type": "composite",
- *   "name": "RichTextEditor",
- *   "props": {
- *     "name": "content",
- *     "placeholder": "$t:board.form.content_placeholder",
- *     "initialValue": "{{post.data?.content ?? ''}}"
- *   }
- * }
- * ```
- */
+
 const RichTextEditor: React.FC<RichTextEditorProps> = ({
   name,
   initialValue = '',
@@ -103,28 +70,28 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
   const [showLinkModal, setShowLinkModal] = useState(false);
   const [linkUrl, setLinkUrl] = useState('');
 
-  // 에디터 초기화 (실제 구현 시 TipTap/Quill 초기화)
+  
   useEffect(() => {
-    // 초기값 설정 (dangerouslySetInnerHTML 대신 직접 설정)
+    
     if (editorRef.current && !editorRef.current.innerHTML) {
       editorRef.current.innerHTML = initialValue;
     }
   }, [initialValue]);
 
-  // 값 변경 시 콜백 호출
+  
   useEffect(() => {
     if (onChange) {
       onChange(content);
     }
   }, [content, onChange]);
 
-  // 포맷 적용 (실제 구현 시 에디터 API 사용)
+  
   const applyFormat = (format: FormatType) => {
-    // TODO: 에디터 라이브러리의 포맷 API 호출
+    
     logger.log('Apply format:', format);
   };
 
-  // 이미지 업로드
+  
   const handleImageUpload = async (file: File) => {
     const formData = new FormData();
     formData.append('file', file);
@@ -139,14 +106,14 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
       if (!response.ok) throw new Error('업로드 실패');
 
       const data = await response.json();
-      // TODO: 에디터에 이미지 삽입
+      
       logger.log('Image uploaded:', data.url);
     } catch (error) {
       logger.error('이미지 업로드 오류:', error);
     }
   };
 
-  // 파일 선택 핸들러
+  
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -154,10 +121,10 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
     }
   };
 
-  // 링크 삽입
+  
   const insertLink = () => {
     if (linkUrl) {
-      // TODO: 에디터에 링크 삽입
+      
       logger.log('Insert link:', linkUrl);
       setShowLinkModal(false);
       setLinkUrl('');
@@ -186,9 +153,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
 
   return (
     <Div className={`border border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden ${className}`}>
-      {/* 툴바 */}
       <Div className="flex flex-wrap items-center gap-1 p-2 bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-        {/* 텍스트 포맷 */}
         <Div className="flex items-center gap-1 pr-2 border-r border-gray-200 dark:border-gray-700">
           {toolbarButtons.map((btn) => (
             <Button
@@ -204,7 +169,6 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
           ))}
         </Div>
 
-        {/* 제목 */}
         <Div className="flex items-center gap-1 pr-2 border-r border-gray-200 dark:border-gray-700">
           {headingButtons.map((btn) => (
             <Button
@@ -219,7 +183,6 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
           ))}
         </Div>
 
-        {/* 리스트 */}
         <Div className="flex items-center gap-1 pr-2 border-r border-gray-200 dark:border-gray-700">
           {listButtons.map((btn) => (
             <Button
@@ -235,7 +198,6 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
           ))}
         </Div>
 
-        {/* 미디어 */}
         <Div className="flex items-center gap-1 pr-2 border-r border-gray-200 dark:border-gray-700">
           <Button
             type="button"
@@ -258,7 +220,6 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
           </Label>
         </Div>
 
-        {/* 코드 보기 토글 */}
         <Button
           type="button"
           onClick={() => setShowCodeView(!showCodeView)}
@@ -272,7 +233,6 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
         </Button>
       </Div>
 
-      {/* 에디터 영역 */}
       {showCodeView ? (
         <Textarea
           value={content}
@@ -293,10 +253,8 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
         />
       )}
 
-      {/* 숨겨진 input (폼 전송용) */}
       <Input type="hidden" name={name} value={content} />
 
-      {/* 링크 모달 */}
       {showLinkModal && (
         <Div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
           <Div className="bg-white dark:bg-gray-800 rounded-lg p-6 w-96">

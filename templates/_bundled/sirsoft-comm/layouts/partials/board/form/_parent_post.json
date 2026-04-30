@@ -1,7 +1,6 @@
 {
   "meta": {
-    "is_partial": true,
-    "description": "답글 작성/수정 시 원글 정보 표시 (인용 스타일)"
+    "is_partial": true
   },
   "id": "parent_post_card",
   "type": "basic",

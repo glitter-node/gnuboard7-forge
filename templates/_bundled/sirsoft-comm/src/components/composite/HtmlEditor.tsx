@@ -135,7 +135,6 @@ export const HtmlEditor: React.FC<HtmlEditorProps> = ({
 
   return (
     <Div className={`space-y-2 ${className}`}>
-      {/* 라벨 및 HTML 모드 토글 */}
       <Div className="flex items-center justify-between">
 
         {label && (
@@ -145,7 +144,6 @@ export const HtmlEditor: React.FC<HtmlEditorProps> = ({
         )}
 
         <Div className="flex items-center gap-3">
-          {/* 미리보기 버튼 (HTML 모드일 때만 표시) */}
           {isHtml && !readOnly && (
             <Button
               type="button"
@@ -178,7 +176,6 @@ export const HtmlEditor: React.FC<HtmlEditorProps> = ({
         </Div>
       </Div>
 
-      {/* 콘텐츠 편집 영역 */}
       {!previewMode && (
         <Textarea
           name={name}
@@ -195,7 +192,6 @@ export const HtmlEditor: React.FC<HtmlEditorProps> = ({
         />
       )}
 
-      {/* 미리보기 영역 (미리보기 모드일 때만) */}
       {previewMode && (
         <Div className="p-4 bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 min-h-[400px]">
           <HtmlContent

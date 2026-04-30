@@ -1,16 +1,4 @@
-/**
- * @file page-show.test.tsx
- * @description 페이지 상세 레이아웃 렌더링 테스트 (Issue #99)
- *
- * 테스트 케이스:
- * - 기본 렌더링: 페이지 데이터 있을 때 제목/본문/첨부파일 영역 확인
- * - 조건부 렌더링: 데이터 없을 때 not_found 영역 표시, 데이터 있을 때 back_button 표시
- * - 첨부파일: 없을 때 섹션 미표시, 있을 때 섹션 표시
- * - 버전 배지: 관리자에게만 표시되는 버전 배지 렌더링
- * - 관리자 편집 버튼: 관리자만 표시
- *
- * @vitest-environment jsdom
- */
+
 
 import React from 'react';
 import { describe, it, expect, beforeEach } from 'vitest';
@@ -21,7 +9,7 @@ import {
 } from '@/core/template-engine/__tests__/utils/layoutTestUtils';
 import { ComponentRegistry } from '@/core/template-engine/ComponentRegistry';
 
-// ========== 테스트용 컴포넌트 정의 ==========
+
 
 const TestDiv: React.FC<{ className?: string; children?: React.ReactNode; 'data-testid'?: string }> =
   ({ className, children, 'data-testid': testId }) => <div className={className} data-testid={testId}>{children}</div>;
@@ -57,11 +45,9 @@ const TestContainer: React.FC<{ className?: string; children?: React.ReactNode }
 
 const TestFragment: React.FC<{ children?: React.ReactNode }> = ({ children }) => <>{children}</>;
 
-// ========== 레이아웃 Fixture ==========
 
-/**
- * page/show.json의 핵심 구조 (data_sources 포함)
- */
+
+
 const pageShowFixture = {
   version: '1.0.0',
   layout_name: 'page/show',
@@ -159,7 +145,7 @@ const pageShowFixture = {
   ],
 };
 
-// ========== 컴포넌트 레지스트리 설정 ==========
+
 
 function setupTestRegistry(): ComponentRegistry {
   const registry = ComponentRegistry.getInstance();
@@ -179,15 +165,9 @@ function setupTestRegistry(): ComponentRegistry {
   return registry;
 }
 
-// ========== 헬퍼 ==========
 
-/**
- * mockApi URL 추출 규칙:
- * endpoint "/api/pages/terms" → parts[2] = "terms" → dataSourceId = "terms"
- * createMockResponse(response)가 { success: true, data: response } 로 래핑됨
- * 언래핑 후 page = response 이므로,
- * 레이아웃에서 page?.data?.title 접근하려면 response = { data: { id, title, ... } } 형태로 설정
- */
+
+
 function makePageApiResponse(overrides: Record<string, unknown> = {}) {
   return {
     response: {
@@ -203,7 +183,7 @@ function makePageApiResponse(overrides: Record<string, unknown> = {}) {
   };
 }
 
-// ========== 테스트 케이스 ==========
+
 
 describe('page/show.json 레이아웃 렌더링 (Issue #99)', () => {
   let registry: ComponentRegistry;

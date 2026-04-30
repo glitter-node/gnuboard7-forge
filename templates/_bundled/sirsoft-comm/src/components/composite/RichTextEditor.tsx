@@ -153,9 +153,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
 
   return (
     <Div className={`border border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden ${className}`}>
-      {/* 툴바 */}
       <Div className="flex flex-wrap items-center gap-1 p-2 bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-        {/* 텍스트 포맷 */}
         <Div className="flex items-center gap-1 pr-2 border-r border-gray-200 dark:border-gray-700">
           {toolbarButtons.map((btn) => (
             <Button
@@ -171,7 +169,6 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
           ))}
         </Div>
 
-        {/* 제목 */}
         <Div className="flex items-center gap-1 pr-2 border-r border-gray-200 dark:border-gray-700">
           {headingButtons.map((btn) => (
             <Button
@@ -186,7 +183,6 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
           ))}
         </Div>
 
-        {/* 리스트 */}
         <Div className="flex items-center gap-1 pr-2 border-r border-gray-200 dark:border-gray-700">
           {listButtons.map((btn) => (
             <Button
@@ -202,7 +198,6 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
           ))}
         </Div>
 
-        {/* 미디어 */}
         <Div className="flex items-center gap-1 pr-2 border-r border-gray-200 dark:border-gray-700">
           <Button
             type="button"
@@ -225,7 +220,6 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
           </Label>
         </Div>
 
-        {/* 코드 보기 토글 */}
         <Button
           type="button"
           onClick={() => setShowCodeView(!showCodeView)}
@@ -239,7 +233,6 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
         </Button>
       </Div>
 
-      {/* 에디터 영역 */}
       {showCodeView ? (
         <Textarea
           value={content}
@@ -260,10 +253,8 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
         />
       )}
 
-      {/* 숨겨진 input (폼 전송용) */}
       <Input type="hidden" name={name} value={content} />
 
-      {/* 링크 모달 */}
       {showLinkModal && (
         <Div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
           <Div className="bg-white dark:bg-gray-800 rounded-lg p-6 w-96">

@@ -1,13 +1,11 @@
 {
   "meta": {
-    "is_partial": true,
-    "description": "게시판 기본형(basic) 인덱스. 헤더 + 필터 + 테이블형 목록 + 빈상태 + 페이지네이션 + 글쓰기 버튼"
+    "is_partial": true
   },
   "type": "basic",
   "name": "Div",
   "children": [
     {
-      "comment": "헤더 (게시판명 + 설명 + 글쓰기 버튼)",
       "type": "basic",
       "name": "Div",
       "props": {
@@ -38,13 +36,11 @@
           ]
         },
         {
-          "comment": "상단 글쓰기 버튼",
           "partial": "../../index/_write_button.json"
         }
       ]
     },
     {
-      "comment": "필터 바 (카테고리 필터 + 검색)",
       "type": "basic",
       "name": "Div",
       "props": {
@@ -52,7 +48,6 @@
       },
       "children": [
         {
-          "comment": "카테고리 필터 (카테고리가 있을 때만 표시)",
           "type": "basic",
           "name": "Select",
           "if": "{{posts?.data?.board?.categories && posts?.data?.board?.categories.length > 0}}",
@@ -77,7 +72,6 @@
           ]
         },
         {
-          "comment": "삭제된 게시글 포함 토글 버튼 (manager 권한 보유 시에만 표시)",
           "type": "basic",
           "name": "Button",
           "if": "{{posts?.data?.abilities?.can_view_deleted}}",
@@ -100,12 +94,22 @@
             }
           ],
           "children": [
-            { "type": "basic", "name": "Icon", "props": { "name": "eye", "size": "sm" } },
-            { "type": "basic", "name": "Span", "text": "$t:board.filter.include_deleted" }
+            {
+              "type": "basic",
+              "name": "Icon",
+              "props": {
+                "name": "eye",
+                "size": "sm"
+              }
+            },
+            {
+              "type": "basic",
+              "name": "Span",
+              "text": "$t:board.filter.include_deleted"
+            }
           ]
         },
         {
-          "comment": "검색 바 (오른쪽 정렬)",
           "type": "basic",
           "name": "Div",
           "props": {
@@ -142,7 +146,6 @@
       ]
     },
     {
-      "comment": "테이블형 게시글 목록",
       "type": "basic",
       "name": "Div",
       "children": [
@@ -154,7 +157,6 @@
           },
           "children": [
             {
-              "comment": "테이블 헤더 (데스크톱)",
               "type": "basic",
               "name": "Div",
               "props": {
@@ -164,7 +166,9 @@
                 {
                   "type": "basic",
                   "name": "Span",
-                  "props": { "className": "text-center" },
+                  "props": {
+                    "className": "text-center"
+                  },
                   "text": "$t:board.no"
                 },
                 {
@@ -180,20 +184,23 @@
                 {
                   "type": "basic",
                   "name": "Span",
-                  "props": { "className": "text-center" },
+                  "props": {
+                    "className": "text-center"
+                  },
                   "text": "$t:board.created_at"
                 },
                 {
                   "type": "basic",
                   "name": "Span",
                   "if": "{{posts?.data?.board?.settings?.show_view_count !== false}}",
-                  "props": { "className": "text-center" },
+                  "props": {
+                    "className": "text-center"
+                  },
                   "text": "$t:board.views"
                 }
               ]
             },
             {
-              "comment": "테이블 바디",
               "type": "basic",
               "name": "Div",
               "iteration": {
@@ -211,12 +218,13 @@
                     {
                       "type": "click",
                       "handler": "navigate",
-                      "params": { "path": "/board/{{route?.slug}}/{{post?.id}}" }
+                      "params": {
+                        "path": "/board/{{route?.slug}}/{{post?.id}}"
+                      }
                     }
                   ],
                   "children": [
                     {
-                      "comment": "데스크톱: 테이블 행",
                       "type": "basic",
                       "name": "Div",
                       "props": {
@@ -224,76 +232,109 @@
                       },
                       "children": [
                         {
-                          "comment": "순번",
                           "type": "basic",
                           "name": "Div",
-                          "props": { "className": "flex justify-center" },
+                          "props": {
+                            "className": "flex justify-center"
+                          },
                           "children": [
                             {
-                              "comment": "공지사항 순번",
                               "type": "basic",
                               "name": "Span",
-                              "props": { "className": "inline-flex items-center gap-1 px-2.5 py-0.5 rounded text-xs font-bold bg-blue-600 text-white dark:bg-blue-500" },
+                              "props": {
+                                "className": "inline-flex items-center gap-1 px-2.5 py-0.5 rounded text-xs font-bold bg-blue-600 text-white dark:bg-blue-500"
+                              },
                               "if": "{{post?.row_type === 'notice'}}",
                               "children": [
-                                { "type": "basic", "name": "Span", "text": "{{post?.number}}" }
+                                {
+                                  "type": "basic",
+                                  "name": "Span",
+                                  "text": "{{post?.number}}"
+                                }
                               ]
                             },
                             {
-                              "comment": "답글 배지",
                               "type": "basic",
                               "name": "Span",
-                              "props": { "className": "inline-flex items-center px-1.5 py-0.5 rounded text-xs font-medium bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300 flex-shrink-0" },
+                              "props": {
+                                "className": "inline-flex items-center px-1.5 py-0.5 rounded text-xs font-medium bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300 flex-shrink-0"
+                              },
                               "if": "{{post?.row_type === 'reply'}}",
                               "text": "$t:board.post.reply"
                             },
                             {
-                              "comment": "일반 게시글 순번",
                               "type": "basic",
                               "name": "Span",
-                              "props": { "className": "text-sm text-gray-500 dark:text-gray-400" },
+                              "props": {
+                                "className": "text-sm text-gray-500 dark:text-gray-400"
+                              },
                               "text": "{{post?.number}}",
                               "if": "{{post?.row_type === 'normal'}}"
                             }
                           ]
                         },
                         {
-                          "comment": "제목 영역",
                           "type": "basic",
                           "name": "Div",
                           "props": {
-                            "className": "flex items-center gap-2 min-w-0",
-                            "style": { "marginLeft": "{{Math.min(post?.depth ?? 0, 10) * 1}}rem" }
+                            "className": "flex items-center gap-2 min-w-0"
+                          },
+                          "classMap": {
+                            "variants": {
+                              "0": "ml-0",
+                              "1": "ml-4",
+                              "2": "ml-8",
+                              "3": "ml-12",
+                              "4": "ml-16",
+                              "5": "ml-20",
+                              "6": "ml-24",
+                              "7": "ml-28",
+                              "8": "ml-32",
+                              "9": "ml-36",
+                              "10": "ml-40"
+                            },
+                            "key": "{{Math.min(post?.depth ?? 0, 10)}}",
+                            "default": "ml-0"
                           },
                           "children": [
                             {
-                              "comment": "답글 화살표 아이콘",
                               "type": "basic",
                               "name": "Icon",
                               "if": "{{post?.row_type === 'reply'}}",
-                              "props": { "name": "turn-up", "size": "sm", "className": "fa-rotate-90 text-gray-400 dark:text-gray-500 flex-shrink-0" }
+                              "props": {
+                                "name": "turn-up",
+                                "size": "sm",
+                                "className": "fa-rotate-90 text-gray-400 dark:text-gray-500 flex-shrink-0"
+                              }
                             },
                             {
-                              "comment": "카테고리 배지",
                               "type": "basic",
                               "name": "Span",
                               "if": "{{post?.category}}",
-                              "props": { "className": "inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300 flex-shrink-0" },
+                              "props": {
+                                "className": "inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300 flex-shrink-0"
+                              },
                               "text": "{{post?.category}}"
                             },
                             {
-                              "comment": "비밀글 아이콘",
                               "type": "basic",
                               "name": "Icon",
                               "if": "{{post?.is_secret}}",
-                              "props": { "name": "lock", "size": "sm", "className": "text-gray-500 dark:text-gray-400 flex-shrink-0" }
+                              "props": {
+                                "name": "lock",
+                                "size": "sm",
+                                "className": "text-gray-500 dark:text-gray-400 flex-shrink-0"
+                              }
                             },
                             {
-                              "comment": "블라인드 아이콘",
                               "type": "basic",
                               "name": "Icon",
                               "if": "{{post?.status === 'blinded'}}",
-                              "props": { "name": "eye-slash", "size": "sm", "className": "text-orange-300 flex-shrink-0" }
+                              "props": {
+                                "name": "eye-slash",
+                                "size": "sm",
+                                "className": "text-orange-300 flex-shrink-0"
+                              }
                             },
                             {
                               "type": "basic",
@@ -304,41 +345,50 @@
                               "text": "{{post?.title}}"
                             },
                             {
-                              "comment": "첨부파일 아이콘",
                               "type": "basic",
                               "name": "Icon",
                               "if": "{{post?.has_attachment}}",
-                              "props": { "name": "paperclip", "size": "sm", "className": "text-gray-500 dark:text-gray-400 flex-shrink-0" }
+                              "props": {
+                                "name": "paperclip",
+                                "size": "sm",
+                                "className": "text-gray-500 dark:text-gray-400 flex-shrink-0"
+                              }
                             },
                             {
                               "type": "basic",
                               "name": "Span",
                               "if": "{{posts?.data?.board?.settings?.use_comment && post?.comment_count > 0}}",
-                              "props": { "className": "text-blue-600 dark:text-blue-400 text-sm font-medium flex-shrink-0" },
+                              "props": {
+                                "className": "text-blue-600 dark:text-blue-400 text-sm font-medium flex-shrink-0"
+                              },
                               "text": "[{{post?.comment_count}}]"
                             },
                             {
-                              "comment": "삭제됨 배지",
                               "type": "basic",
                               "name": "Span",
                               "if": "{{post?.deleted_at}}",
-                              "props": { "className": "inline-flex items-center px-1.5 py-0.5 rounded text-xs font-medium bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300 flex-shrink-0" },
+                              "props": {
+                                "className": "inline-flex items-center px-1.5 py-0.5 rounded text-xs font-medium bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300 flex-shrink-0"
+                              },
                               "text": "$t:board.post.deleted_badge"
                             },
                             {
                               "type": "basic",
                               "name": "Span",
                               "if": "{{post?.is_new}}",
-                              "props": { "className": "px-1.5 py-0.5 text-xs bg-red-500 text-white rounded flex-shrink-0" },
-                              "text": "N"
+                              "props": {
+                                "className": "px-1.5 py-0.5 text-xs bg-red-500 text-white rounded flex-shrink-0"
+                              },
+                              "text": "$t:board.new_badge_short"
                             }
                           ]
                         },
                         {
-                          "comment": "작성자",
                           "type": "basic",
                           "name": "Div",
-                          "props": { "className": "flex items-center gap-2" },
+                          "props": {
+                            "className": "flex items-center gap-2"
+                          },
                           "children": [
                             {
                               "type": "composite",
@@ -362,102 +412,141 @@
                           ]
                         },
                         {
-                          "comment": "작성일",
                           "type": "basic",
                           "name": "Span",
-                          "props": { "className": "text-sm text-center whitespace-nowrap {{(post?.status === 'blinded' || post?.deleted_at) ? 'text-gray-400 dark:text-gray-500' : 'text-gray-500 dark:text-gray-400'}}", "title": "{{post?.created_at ?? ''}}" },
+                          "props": {
+                            "className": "text-sm text-center whitespace-nowrap {{(post?.status === 'blinded' || post?.deleted_at) ? 'text-gray-400 dark:text-gray-500' : 'text-gray-500 dark:text-gray-400'}}",
+                            "title": "{{post?.created_at ?? ''}}"
+                          },
                           "text": "{{post?.created_at_formatted ?? ''}}"
                         },
                         {
-                          "comment": "조회수",
                           "type": "basic",
                           "name": "Span",
                           "if": "{{posts?.data?.board?.settings?.show_view_count !== false}}",
-                          "props": { "className": "text-sm text-center {{(post?.status === 'blinded' || post?.deleted_at) ? 'text-gray-400 dark:text-gray-500' : 'text-gray-500 dark:text-gray-400'}}" },
+                          "props": {
+                            "className": "text-sm text-center {{(post?.status === 'blinded' || post?.deleted_at) ? 'text-gray-400 dark:text-gray-500' : 'text-gray-500 dark:text-gray-400'}}"
+                          },
                           "text": "{{post?.view_count}}"
                         }
                       ]
                     },
                     {
-                      "comment": "모바일: 카드 형태",
                       "type": "basic",
                       "name": "Div",
-                      "props": { "className": "flex flex-col gap-2 px-4 py-3 lg:hidden" },
+                      "props": {
+                        "className": "flex flex-col gap-2 px-4 py-3 lg:hidden"
+                      },
                       "children": [
                         {
-                          "comment": "상단: 순번 + 제목",
                           "type": "basic",
                           "name": "Div",
-                          "props": { "className": "flex items-start gap-2" },
+                          "props": {
+                            "className": "flex items-start gap-2"
+                          },
                           "children": [
                             {
-                              "comment": "공지 배지",
                               "type": "basic",
                               "name": "Span",
-                              "props": { "className": "inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-bold bg-blue-600 text-white dark:bg-blue-500 flex-shrink-0" },
+                              "props": {
+                                "className": "inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-bold bg-blue-600 text-white dark:bg-blue-500 flex-shrink-0"
+                              },
                               "if": "{{post?.row_type === 'notice'}}",
                               "children": [
-                                { "type": "basic", "name": "Span", "text": "{{post?.number}}" }
+                                {
+                                  "type": "basic",
+                                  "name": "Span",
+                                  "text": "{{post?.number}}"
+                                }
                               ]
                             },
                             {
-                              "comment": "답글 배지",
                               "type": "basic",
                               "name": "Span",
-                              "props": { "className": "inline-flex items-center px-1.5 py-0.5 rounded text-xs font-medium bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300 flex-shrink-0 mt-0.5" },
+                              "props": {
+                                "className": "inline-flex items-center px-1.5 py-0.5 rounded text-xs font-medium bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300 flex-shrink-0 mt-0.5"
+                              },
                               "if": "{{post?.row_type === 'reply'}}",
                               "text": "$t:board.post.reply"
                             },
                             {
-                              "comment": "일반 순번",
                               "type": "basic",
                               "name": "Span",
-                              "props": { "className": "text-xs text-gray-500 dark:text-gray-400 flex-shrink-0 mt-0.5" },
+                              "props": {
+                                "className": "text-xs text-gray-500 dark:text-gray-400 flex-shrink-0 mt-0.5"
+                              },
                               "text": "#{{post?.number}}",
                               "if": "{{post?.row_type === 'normal'}}"
                             },
                             {
-                              "comment": "제목 영역",
                               "type": "basic",
                               "name": "Div",
                               "props": {
-                                "className": "flex-1 min-w-0",
-                                "style": { "marginLeft": "{{Math.min(post?.depth ?? 0, 10) * 1}}rem" }
+                                "className": "flex-1 min-w-0"
+                              },
+                              "classMap": {
+                                "variants": {
+                                  "0": "ml-0",
+                                  "1": "ml-4",
+                                  "2": "ml-8",
+                                  "3": "ml-12",
+                                  "4": "ml-16",
+                                  "5": "ml-20",
+                                  "6": "ml-24",
+                                  "7": "ml-28",
+                                  "8": "ml-32",
+                                  "9": "ml-36",
+                                  "10": "ml-40"
+                                },
+                                "key": "{{Math.min(post?.depth ?? 0, 10)}}",
+                                "default": "ml-0"
                               },
                               "children": [
                                 {
                                   "type": "basic",
                                   "name": "Div",
-                                  "props": { "className": "flex items-center gap-2" },
+                                  "props": {
+                                    "className": "flex items-center gap-2"
+                                  },
                                   "children": [
                                     {
-                                      "comment": "답글 화살표 아이콘",
                                       "type": "basic",
                                       "name": "Icon",
                                       "if": "{{post?.row_type === 'reply'}}",
-                                      "props": { "name": "turn-up", "size": "sm", "className": "fa-rotate-90 text-gray-400 dark:text-gray-500 flex-shrink-0" }
+                                      "props": {
+                                        "name": "turn-up",
+                                        "size": "sm",
+                                        "className": "fa-rotate-90 text-gray-400 dark:text-gray-500 flex-shrink-0"
+                                      }
                                     },
                                     {
-                                      "comment": "카테고리 배지",
                                       "type": "basic",
                                       "name": "Span",
                                       "if": "{{post?.category}}",
-                                      "props": { "className": "inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300 flex-shrink-0" },
+                                      "props": {
+                                        "className": "inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300 flex-shrink-0"
+                                      },
                                       "text": "{{post?.category}}"
                                     },
                                     {
-                                      "comment": "비밀글 아이콘",
                                       "type": "basic",
                                       "name": "Icon",
                                       "if": "{{post?.is_secret}}",
-                                      "props": { "name": "lock", "size": "sm", "className": "text-gray-500 dark:text-gray-400 flex-shrink-0" }
+                                      "props": {
+                                        "name": "lock",
+                                        "size": "sm",
+                                        "className": "text-gray-500 dark:text-gray-400 flex-shrink-0"
+                                      }
                                     },
                                     {
-                                      "comment": "블라인드 아이콘",
                                       "type": "basic",
                                       "name": "Icon",
                                       "if": "{{post?.status === 'blinded'}}",
-                                      "props": { "name": "eye-slash", "size": "sm", "className": "text-orange-300 flex-shrink-0" }
+                                      "props": {
+                                        "name": "eye-slash",
+                                        "size": "sm",
+                                        "className": "text-orange-300 flex-shrink-0"
+                                      }
                                     },
                                     {
                                       "type": "basic",
@@ -468,33 +557,41 @@
                                       "text": "{{post?.title}}"
                                     },
                                     {
-                                      "comment": "첨부파일 아이콘",
                                       "type": "basic",
                                       "name": "Icon",
                                       "if": "{{post?.has_attachment}}",
-                                      "props": { "name": "paperclip", "size": "sm", "className": "text-gray-500 dark:text-gray-400 flex-shrink-0" }
+                                      "props": {
+                                        "name": "paperclip",
+                                        "size": "sm",
+                                        "className": "text-gray-500 dark:text-gray-400 flex-shrink-0"
+                                      }
                                     },
                                     {
                                       "type": "basic",
                                       "name": "Span",
                                       "if": "{{posts?.data?.board?.settings?.use_comment && post?.comment_count > 0}}",
-                                      "props": { "className": "text-blue-600 dark:text-blue-400 text-sm font-medium flex-shrink-0" },
+                                      "props": {
+                                        "className": "text-blue-600 dark:text-blue-400 text-sm font-medium flex-shrink-0"
+                                      },
                                       "text": "[{{post?.comment_count}}]"
                                     },
                                     {
-                                      "comment": "삭제됨 배지",
                                       "type": "basic",
                                       "name": "Span",
                                       "if": "{{post?.deleted_at}}",
-                                      "props": { "className": "inline-flex items-center px-1.5 py-0.5 rounded text-xs font-medium bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300 flex-shrink-0" },
+                                      "props": {
+                                        "className": "inline-flex items-center px-1.5 py-0.5 rounded text-xs font-medium bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300 flex-shrink-0"
+                                      },
                                       "text": "$t:board.post.deleted_badge"
                                     },
                                     {
                                       "type": "basic",
                                       "name": "Span",
                                       "if": "{{post?.is_new}}",
-                                      "props": { "className": "px-1.5 py-0.5 text-xs bg-red-500 text-white rounded flex-shrink-0" },
-                                      "text": "N"
+                                      "props": {
+                                        "className": "px-1.5 py-0.5 text-xs bg-red-500 text-white rounded flex-shrink-0"
+                                      },
+                                      "text": "$t:board.new_badge_short"
                                     }
                                   ]
                                 }
@@ -503,15 +600,18 @@
                           ]
                         },
                         {
-                          "comment": "하단: 작성자, 작성일, 조회수",
                           "type": "basic",
                           "name": "Div",
-                          "props": { "className": "flex items-center justify-between text-xs {{(post?.status === 'blinded' || post?.deleted_at) ? 'text-gray-400 dark:text-gray-500' : 'text-gray-500 dark:text-gray-400'}}" },
+                          "props": {
+                            "className": "flex items-center justify-between text-xs {{(post?.status === 'blinded' || post?.deleted_at) ? 'text-gray-400 dark:text-gray-500' : 'text-gray-500 dark:text-gray-400'}}"
+                          },
                           "children": [
                             {
                               "type": "basic",
                               "name": "Div",
-                              "props": { "className": "flex items-center gap-2" },
+                              "props": {
+                                "className": "flex items-center gap-2"
+                              },
                               "children": [
                                 {
                                   "type": "composite",
@@ -537,12 +637,16 @@
                             {
                               "type": "basic",
                               "name": "Div",
-                              "props": { "className": "flex items-center gap-3" },
+                              "props": {
+                                "className": "flex items-center gap-3"
+                              },
                               "children": [
                                 {
                                   "type": "basic",
                                   "name": "Span",
-                                  "props": { "title": "{{post?.created_at ?? ''}}" },
+                                  "props": {
+                                    "title": "{{post?.created_at ?? ''}}"
+                                  },
                                   "text": "{{post?.created_at_formatted ?? ''}}"
                                 },
                                 {
@@ -566,11 +670,9 @@
       ]
     },
     {
-      "comment": "빈 상태 안내 (빈 페이지 / 게시글 없음 / 검색 결과 없음)",
       "partial": "../../index/_empty_states.json"
     },
     {
-      "comment": "페이지네이션",
       "type": "composite",
       "name": "Pagination",
       "props": {
@@ -597,7 +699,6 @@
       ]
     },
     {
-      "comment": "하단 글쓰기 버튼",
       "type": "basic",
       "name": "Div",
       "props": {

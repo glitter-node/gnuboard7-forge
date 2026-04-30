@@ -1,7 +1,6 @@
 {
   "meta": {
-    "is_partial": true,
-    "description": "마이페이지 프로필 Edit 모드 (시안 기반 카드 분리 레이아웃)"
+    "is_partial": true
   },
   "type": "basic",
   "name": "Div",
@@ -22,7 +21,6 @@
   },
   "children": [
     {
-      "comment": "섹션 헤더 - 프로필 수정 + 취소/저장 버튼 (카드 외부)",
       "type": "basic",
       "name": "Div",
       "props": {
@@ -52,7 +50,6 @@
           "text": "$t:mypage.profile.edit_title"
         },
         {
-          "comment": "버튼 그룹",
           "type": "basic",
           "name": "Div",
           "props": {
@@ -67,7 +64,6 @@
           },
           "children": [
             {
-              "comment": "취소 버튼",
               "type": "basic",
               "name": "Button",
               "props": {
@@ -107,7 +103,6 @@
               ]
             },
             {
-              "comment": "저장 버튼",
               "type": "basic",
               "name": "Button",
               "props": {
@@ -155,7 +150,6 @@
       ]
     },
     {
-      "comment": "전체 에러 메시지 박스",
       "if": "{{_local.profileErrors && Object.keys(_local.profileErrors).length > 0}}",
       "type": "basic",
       "name": "Div",
@@ -222,7 +216,6 @@
       ]
     },
     {
-      "comment": "Form 래퍼 - 모든 카드를 감싸는 폼",
       "type": "basic",
       "name": "Form",
       "dataKey": "profileEditForm",
@@ -316,7 +309,6 @@
       ],
       "children": [
         {
-          "comment": "프로필 카드 - 아바타 + 기본 정보",
           "type": "basic",
           "name": "Div",
           "props": {
@@ -346,7 +338,6 @@
               },
               "children": [
                 {
-                  "comment": "이메일 (읽기 전용)",
                   "type": "basic",
                   "name": "Div",
                   "props": {
@@ -409,7 +400,6 @@
                   ]
                 },
                 {
-                  "comment": "이름 / 닉네임 (2단 레이아웃)",
                   "type": "basic",
                   "name": "Div",
                   "props": {
@@ -424,7 +414,6 @@
                   },
                   "children": [
                     {
-                      "comment": "이름",
                       "type": "basic",
                       "name": "Div",
                       "props": {
@@ -477,7 +466,6 @@
                       ]
                     },
                     {
-                      "comment": "닉네임",
                       "type": "basic",
                       "name": "Div",
                       "props": {
@@ -521,7 +509,6 @@
           ]
         },
         {
-          "comment": "2컬럼 카드 - 연락처 정보 / 위치 정보",
           "type": "basic",
           "name": "Div",
           "props": {
@@ -536,7 +523,6 @@
           },
           "children": [
             {
-              "comment": "연락처 정보 카드",
               "type": "basic",
               "name": "Div",
               "props": {
@@ -566,7 +552,6 @@
                   },
                   "children": [
                     {
-                      "comment": "휴대폰번호",
                       "type": "basic",
                       "name": "Div",
                       "props": {
@@ -604,7 +589,6 @@
                       ]
                     },
                     {
-                      "comment": "전화번호",
                       "type": "basic",
                       "name": "Div",
                       "props": {
@@ -642,7 +626,6 @@
                       ]
                     },
                     {
-                      "comment": "홈페이지",
                       "type": "basic",
                       "name": "Div",
                       "props": {
@@ -684,7 +667,6 @@
               ]
             },
             {
-              "comment": "위치 정보 카드",
               "type": "basic",
               "name": "Div",
               "props": {
@@ -714,7 +696,6 @@
                   },
                   "children": [
                     {
-                      "comment": "국가",
                       "if": false,
                       "type": "basic",
                       "name": "Div",
@@ -752,7 +733,6 @@
                       ]
                     },
                     {
-                      "comment": "언어",
                       "type": "basic",
                       "name": "Div",
                       "props": {
@@ -789,7 +769,6 @@
                       ]
                     },
                     {
-                      "comment": "시간대",
                       "type": "basic",
                       "name": "Div",
                       "props": {
@@ -828,7 +807,6 @@
                       ]
                     },
                     {
-                      "comment": "주소",
                       "type": "basic",
                       "name": "Div",
                       "props": {
@@ -844,7 +822,6 @@
                           "text": "$t:mypage.profile.address"
                         },
                         {
-                          "comment": "우편번호 + 주소 검색 버튼",
                           "type": "basic",
                           "name": "Div",
                           "props": {
@@ -868,7 +845,10 @@
                               "type": "extension_point",
                               "name": "address_search_slot",
                               "props": {
-                                "readOnlyFields": ["zipcode", "address"],
+                                "readOnlyFields": [
+                                  "zipcode",
+                                  "address"
+                                ],
                                 "targetFields": {
                                   "zipcode": "profileEditForm.zipcode",
                                   "address": "profileEditForm.address",
@@ -880,7 +860,6 @@
                           ]
                         },
                         {
-                          "comment": "기본 주소",
                           "type": "basic",
                           "name": "Input",
                           "props": {
@@ -893,7 +872,6 @@
                           }
                         },
                         {
-                          "comment": "상세 주소",
                           "type": "basic",
                           "name": "Input",
                           "props": {
@@ -923,7 +901,6 @@
         },
         {
           "id": "profile_bio_card",
-          "comment": "서명 및 자기소개 카드",
           "type": "basic",
           "name": "Div",
           "props": {
@@ -953,7 +930,6 @@
               },
               "children": [
                 {
-                  "comment": "서명",
                   "type": "basic",
                   "name": "Div",
                   "props": {
@@ -999,7 +975,6 @@
                   ]
                 },
                 {
-                  "comment": "자기소개",
                   "type": "basic",
                   "name": "Div",
                   "props": {
@@ -1049,7 +1024,6 @@
           ]
         },
         {
-          "comment": "게시판 알림 설정 카드 (sirsoft-board 모듈 설치 시 표시)",
           "if": "{{user.data?.notify_comment !== undefined}}",
           "type": "basic",
           "name": "Div",
@@ -1280,7 +1254,6 @@
           ]
         },
         {
-          "comment": "하단 버튼 그룹",
           "type": "basic",
           "name": "Div",
           "props": {
@@ -1295,7 +1268,6 @@
           },
           "children": [
             {
-              "comment": "취소 버튼",
               "type": "basic",
               "name": "Button",
               "props": {
@@ -1336,7 +1308,6 @@
               ]
             },
             {
-              "comment": "저장 버튼",
               "type": "basic",
               "name": "Button",
               "props": {

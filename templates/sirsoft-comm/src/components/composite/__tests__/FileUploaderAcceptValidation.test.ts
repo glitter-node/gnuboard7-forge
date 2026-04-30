@@ -1,17 +1,8 @@
-/**
- * FileUploader accept 검증 테스트
- *
- * useFileUploader의 파일 타입 검증 로직을 테스트합니다.
- * - 파일 확장자 매칭 (.jpg, .png 등)
- * - MIME 타입 와일드카드 매칭 (image/*, video/*)
- * - 정확한 MIME 타입 매칭 (image/jpeg)
- *
- * @vitest-environment jsdom
- */
+
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
-// useFileUploader의 accept 검증 로직만 추출하여 테스트
+
 function isFileAccepted(file: File, accept: string): boolean {
     const ext = '.' + file.name.split('.').pop()?.toLowerCase();
     const acceptedTypes = accept.split(',').map((e) => e.trim().toLowerCase());

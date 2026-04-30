@@ -1,14 +1,4 @@
-/**
- * useFileUploader Hook
- *
- * FileUploader의 핵심 로직을 담당하는 훅입니다.
- * - 파일 추가/삭제/업로드
- * - 이미지 압축
- * - 병렬 업로드 큐
- * - 순서 변경
- *
- * @module composite/FileUploader/useFileUploader
- */
+
 
 import { useState, useCallback, useRef, useEffect, useMemo } from 'react';
 import imageCompression from 'browser-image-compression';
@@ -16,8 +6,7 @@ import imageCompression from 'browser-image-compression';
 import type { Attachment, PendingFile, FileUploaderProps, ApiEndpoints } from './types';
 import { formatFileSize, extractErrorMessage, t } from './utils';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const G7Core = (window as any).G7Core;
+const getG7Core = () => (window as any).G7Core;
 
 export interface UseFileUploaderOptions {
   attachmentableType?: string;
@@ -43,21 +32,21 @@ export interface UseFileUploaderOptions {
 }
 
 export interface UseFileUploaderReturn {
-  // 상태
+  
   existingFiles: Attachment[];
   pendingFiles: PendingFile[];
   isDragOver: boolean;
   setIsDragOver: (value: boolean) => void;
   isDeleting: boolean;
 
-  // 계산된 값
+  
   totalCount: number;
   hasFiles: boolean;
   canAddMore: boolean;
   allItems: (Attachment | PendingFile)[];
   imageFiles: (Attachment | PendingFile)[];
 
-  // 액션
+  
   handleFiles: (files: FileList) => Promise<void>;
   handleRemove: (item: PendingFile | Attachment) => Promise<void>;
   handleRetry: (pendingFile: PendingFile) => void;
@@ -66,25 +55,25 @@ export interface UseFileUploaderReturn {
   handleDownload: (item: Attachment) => Promise<void>;
   handleDragEnd: (event: import('@dnd-kit/core').DragEndEvent) => Promise<void>;
 
-  // Input ref
+  
   inputRef: React.RefObject<HTMLInputElement | null>;
 
-  // 갤러리 상태
+  
   galleryOpen: boolean;
   setGalleryOpen: (value: boolean) => void;
   galleryStartIndex: number;
   galleryKeyRef: React.MutableRefObject<number>;
 
-  // 삭제 확인 모달 상태
+  
   confirmDialogOpen: boolean;
   setConfirmDialogOpen: (value: boolean) => void;
   itemToDelete: Attachment | null;
   executeRemoveAttachment: (item: Attachment) => Promise<void>;
 
-  // 인증된 이미지 URL 캐시
+  
   authenticatedImageUrls: Map<number, string>;
 
-  // 초기화
+  
   clear: () => void;
   getPendingFiles: () => PendingFile[];
 }
@@ -113,56 +102,56 @@ export function useFileUploader(options: UseFileUploaderOptions): UseFileUploade
     uploadParams,
   } = options;
 
-  // 상태
+  
   const [existingFiles, setExistingFiles] = useState<Attachment[]>(initialFiles);
   const [pendingFiles, setPendingFiles] = useState<PendingFile[]>([]);
   const [isDragOver, setIsDragOver] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const activeUploadsRef = useRef(0);
-  // 삭제된 파일 ID 또는 hash를 추적하여 initialFiles 동기화 시 제외
+  
   const deletedIdsRef = useRef<Set<number | string>>(new Set());
-  // 세션 중 업로드된 파일을 추적하여 initialFiles 동기화 시 유지
+  
   const uploadedFilesRef = useRef<Map<number, Attachment>>(new Map());
 
-  // 삭제 확인 모달 상태
+  
   const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
   const [itemToDelete, setItemToDelete] = useState<Attachment | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
-  // 순서가 변경되었는지 추적 (변경 후에는 initialFiles 동기화 무시)
+  
   const hasReorderedRef = useRef(false);
-  // 드래그 순서 유지: 기존/신규 파일 간 섞인 순서를 보존하기 위한 ID 배열
+  
   const [customOrder, setCustomOrder] = useState<(string | number)[]>([]);
-  // initialFiles 참조 안정성 — 외부에서 매 렌더마다 새 배열이 전달되는 경우 방어
+  
   const prevInitialFilesRef = useRef<Attachment[]>(initialFiles);
 
-  // 이미지 갤러리 상태
+  
   const [galleryOpen, setGalleryOpen] = useState(false);
   const [galleryStartIndex, setGalleryStartIndex] = useState(0);
-  // 갤러리 리마운트용 key (열릴 때마다 증가)
+  
   const galleryKeyRef = useRef(0);
-  // 인증된 이미지 URL 캐시 (기존 첨부파일용)
+  
   const [authenticatedImageUrls, setAuthenticatedImageUrls] = useState<Map<number, string>>(new Map());
-  // ref로 URL 캐시 추적 (stale closure 방지 — cleanup/has 체크에서 항상 최신 참조)
+  
   const authenticatedImageUrlsRef = useRef<Map<number, string>>(new Map());
 
-  // 대기 파일 변경 시 콜백
+  
   useEffect(() => {
     onFilesChange?.(pendingFiles);
   }, [pendingFiles, onFilesChange]);
 
-  // initialFiles 참조 안정화 — 매 렌더마다 새 배열이 전달되어도 내용이 같으면 무시
+  
   const stableInitialFiles = useMemo(() => {
     const prev = prevInitialFilesRef.current;
-    // 동일 참조면 즉시 반환
+    
     if (prev === initialFiles) return prev;
-    // 길이가 다르면 실제 변경
+    
     if (prev.length !== initialFiles.length) {
       prevInitialFilesRef.current = initialFiles;
       return initialFiles;
     }
-    // 빈 배열끼리는 항상 동일 (가장 흔한 케이스 — 무한 루프 방지)
+    
     if (prev.length === 0 && initialFiles.length === 0) return prev;
-    // ID 기반 얕은 비교
+    
     const changed = initialFiles.some((f, i) => f.id !== prev[i]?.id);
     if (changed) {
       prevInitialFilesRef.current = initialFiles;
@@ -171,9 +160,9 @@ export function useFileUploader(options: UseFileUploaderOptions): UseFileUploade
     return prev;
   }, [initialFiles]);
 
-  // initialFiles prop 변경 시 existingFiles 동기화 (삭제/순서변경된 경우 제외)
+  
   useEffect(() => {
-    // 순서가 변경된 후에는 initialFiles 동기화를 무시
+    
     if (hasReorderedRef.current) {
       return;
     }
@@ -181,7 +170,7 @@ export function useFileUploader(options: UseFileUploaderOptions): UseFileUploade
       (file) => !deletedIdsRef.current.has(file.id) && (!file.hash || !deletedIdsRef.current.has(file.hash))
     );
 
-    // 세션 중 업로드된 파일 병합 (initialFiles에 없는 것만 추가)
+    
     const initialIds = new Set(filteredFiles.map((f) => f.id));
     const sessionUploaded = Array.from(uploadedFilesRef.current.values()).filter(
       (f) => !initialIds.has(f.id) && !deletedIdsRef.current.has(f.id)
@@ -190,7 +179,7 @@ export function useFileUploader(options: UseFileUploaderOptions): UseFileUploade
     setExistingFiles([...filteredFiles, ...sessionUploaded]);
   }, [stableInitialFiles]);
 
-  // 이미지 압축
+  
   const compressImage = useCallback(
     async (file: File): Promise<Blob> => {
       const compressionOpts = {
@@ -203,7 +192,7 @@ export function useFileUploader(options: UseFileUploaderOptions): UseFileUploade
     [compressionOptions]
   );
 
-  // 파일 추가 처리
+  
   const handleFiles = useCallback(
     async (selectedFiles: FileList) => {
       const totalCount = existingFiles.length + pendingFiles.length;
@@ -211,7 +200,7 @@ export function useFileUploader(options: UseFileUploaderOptions): UseFileUploade
       const filesToAdd = Array.from(selectedFiles).slice(0, remainingSlots);
 
       for (const file of filesToAdd) {
-        // 크기 검증
+        
         if (file.size > maxSize * 1024 * 1024) {
           onUploadError?.(
             `[${file.name}] 파일 크기(${formatFileSize(file.size)})가 최대 허용 크기(${maxSize}MB)를 초과합니다.`,
@@ -298,7 +287,6 @@ export function useFileUploader(options: UseFileUploaderOptions): UseFileUploade
     [existingFiles.length, pendingFiles.length, maxFiles, maxSize, accept, compressionOptions, compressImage, onUploadError]
   );
 
-  // 단일 파일 업로드
   const uploadSingleFile = useCallback(
     async (pendingFile: PendingFile): Promise<Attachment | null> => {
       const formData = new FormData();
@@ -332,7 +320,7 @@ export function useFileUploader(options: UseFileUploaderOptions): UseFileUploade
       }
 
       try {
-        const response = await G7Core.api.post(endpoints.upload, formData, {
+        const response = await getG7Core().api.post(endpoints.upload, formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
           onUploadProgress: (progressEvent: { loaded: number; total?: number }) => {
             const progress = Math.round((progressEvent.loaded * 100) / (progressEvent.total ?? 1));
@@ -354,7 +342,6 @@ export function useFileUploader(options: UseFileUploaderOptions): UseFileUploade
     [attachmentableType, attachmentableId, collection, roleIds, endpoints.upload]
   );
 
-  // 모든 파일 업로드
   const handleUploadAll = useCallback(async (): Promise<Attachment[]> => {
     const filesToUpload = pendingFiles.filter(
       (f) => f.status === 'pending' || f.status === 'error'
@@ -475,7 +462,7 @@ export function useFileUploader(options: UseFileUploaderOptions): UseFileUploade
   useEffect(() => {
     if (!uploadTriggerEvent) return;
 
-    const unsubscribe = G7Core.componentEvent.on(uploadTriggerEvent, async () => {
+    const unsubscribe = getG7Core().componentEvent.on(uploadTriggerEvent, async () => {
       // 업로드할 파일이 있으면 업로드, 없으면 기존 파일 ID 반환
       const uploadedAttachments = await handleUploadAll();
       return {
@@ -505,7 +492,7 @@ export function useFileUploader(options: UseFileUploaderOptions): UseFileUploade
         // id가 있는 경우만 서버 API 삭제 호출 (복사 모드 등 id 없는 이미지는 로컬 제거만)
         if (item.id && endpoints.delete) {
           const deleteUrl = endpoints.delete.replace(':id', String(item.id));
-          await G7Core.api.delete(deleteUrl);
+          await getG7Core().api.delete(deleteUrl);
         }
         // 삭제 추적 — id와 hash 모두 기록 (복사 모드 이미지는 id 없이 hash만 존재)
         const itemKey = item.hash || item.id;
@@ -553,7 +540,6 @@ export function useFileUploader(options: UseFileUploaderOptions): UseFileUploade
     [confirmBeforeRemove, executeRemoveAttachment]
   );
 
-  // 재시도 핸들러
   const handleRetry = useCallback((pendingFile: PendingFile) => {
     setPendingFiles((prev) =>
       prev.map((f) =>
@@ -562,7 +548,6 @@ export function useFileUploader(options: UseFileUploaderOptions): UseFileUploade
     );
   }, []);
 
-  // 순서 변경
   const handleDragEnd = useCallback(
     async (event: import('@dnd-kit/core').DragEndEvent) => {
       const { arrayMove } = await import('@dnd-kit/sortable');
@@ -621,11 +606,11 @@ export function useFileUploader(options: UseFileUploaderOptions): UseFileUploade
         }));
 
         try {
-          const response = await G7Core.api.patch(endpoints.reorder, { order: orderData });
-          G7Core.toast.success(response.message);
+          const response = await getG7Core().api.patch(endpoints.reorder, { order: orderData });
+          getG7Core().toast.success(response.message);
         } catch (error: unknown) {
           const message = error instanceof Error ? error.message : t('attachment.reorder_failed');
-          G7Core.toast.error(message);
+          getG7Core().toast.error(message);
         }
       }
 
@@ -649,7 +634,6 @@ export function useFileUploader(options: UseFileUploaderOptions): UseFileUploade
     [existingFiles, pendingFiles]
   );
 
-  // 갤러리 열기 (이미지 인덱스로)
   const handleOpenGallery = useCallback(
     (item: PendingFile | Attachment) => {
       // 클릭된 아이템의 인덱스를 imageFiles에서 찾기
@@ -697,7 +681,7 @@ export function useFileUploader(options: UseFileUploaderOptions): UseFileUploade
         if (authenticatedImageUrlsRef.current.has(file.id)) continue;
 
         try {
-          const blob = await G7Core.api.get(file.download_url, {
+          const blob = await getG7Core().api.get(file.download_url, {
             responseType: 'blob',
           });
           if (!cancelled && blob) {
@@ -726,7 +710,6 @@ export function useFileUploader(options: UseFileUploaderOptions): UseFileUploade
     };
   }, []);
 
-  // 파일 다운로드 실행
   const handleDownload = useCallback(async (item: Attachment) => {
     const { executeImageDownload } = await import('../ImageGallery');
     await executeImageDownload({
@@ -755,26 +738,22 @@ export function useFileUploader(options: UseFileUploaderOptions): UseFileUploade
   const hasFiles = totalCount > 0;
   const canAddMore = totalCount < maxFiles;
 
-  // 초기화 함수들
   const clear = useCallback(() => setPendingFiles([]), []);
   const getPendingFiles = useCallback(() => pendingFiles, [pendingFiles]);
 
   return {
-    // 상태
     existingFiles,
     pendingFiles,
     isDragOver,
     setIsDragOver,
     isDeleting,
 
-    // 계산된 값
     totalCount,
     hasFiles,
     canAddMore,
     allItems,
     imageFiles,
 
-    // 액션
     handleFiles,
     handleRemove,
     handleRetry,
@@ -783,25 +762,20 @@ export function useFileUploader(options: UseFileUploaderOptions): UseFileUploade
     handleDownload,
     handleDragEnd,
 
-    // Input ref
     inputRef,
 
-    // 갤러리 상태
     galleryOpen,
     setGalleryOpen,
     galleryStartIndex,
     galleryKeyRef,
 
-    // 삭제 확인 모달 상태
     confirmDialogOpen,
     setConfirmDialogOpen,
     itemToDelete,
     executeRemoveAttachment,
 
-    // 인증된 이미지 URL 캐시
     authenticatedImageUrls,
 
-    // 초기화
     clear,
     getPendingFiles,
   };

@@ -1,7 +1,6 @@
 {
   "meta": {
-    "is_partial": true,
-    "description": "게시글 첨부파일 목록"
+    "is_partial": true
   },
   "type": "basic",
   "name": "Div",
@@ -11,7 +10,6 @@
   },
   "children": [
     {
-      "comment": "첨부파일 토글 헤더",
       "type": "basic",
       "name": "Div",
       "props": {
@@ -53,7 +51,6 @@
               "text": "$t:board.attachments.title"
             },
             {
-              "comment": "첨부파일 개수",
               "type": "basic",
               "name": "Span",
               "props": {
@@ -75,7 +72,6 @@
       ]
     },
     {
-      "comment": "첨부파일 목록",
       "type": "basic",
       "name": "Div",
       "if": "{{_local.showAttachments !== false}}",
@@ -88,7 +84,6 @@
       },
       "children": [
         {
-          "comment": "첨부파일 카드 - 권한 있을 때 (A 태그로 다운로드)",
           "type": "basic",
           "name": "A",
           "if": "{{post?.data?.abilities?.can_download === true}}",
@@ -98,7 +93,6 @@
           },
           "children": [
             {
-              "comment": "이미지 썸네일 (이미지 파일인 경우) - preview_url 사용",
               "type": "basic",
               "name": "Div",
               "if": "{{attachment?.is_image}}",
@@ -118,7 +112,6 @@
               ]
             },
             {
-              "comment": "파일 아이콘 (일반 파일인 경우)",
               "type": "basic",
               "name": "Div",
               "if": "{{!attachment?.is_image}}",
@@ -137,7 +130,6 @@
               ]
             },
             {
-              "comment": "파일 정보",
               "type": "basic",
               "name": "Div",
               "props": {
@@ -163,7 +155,6 @@
               ]
             },
             {
-              "comment": "다운로드 아이콘",
               "type": "basic",
               "name": "Div",
               "props": {
@@ -184,7 +175,6 @@
           ]
         },
         {
-          "comment": "첨부파일 카드 - 권한 없을 때 (클릭 시 토스트 표시)",
           "type": "basic",
           "name": "Div",
           "if": "{{post?.data?.abilities?.can_download !== true}}",
@@ -203,7 +193,6 @@
           ],
           "children": [
             {
-              "comment": "이미지 썸네일 (이미지 파일인 경우) - preview_url 사용",
               "type": "basic",
               "name": "Div",
               "if": "{{attachment?.is_image}}",
@@ -223,7 +212,6 @@
               ]
             },
             {
-              "comment": "파일 아이콘 (일반 파일인 경우)",
               "type": "basic",
               "name": "Div",
               "if": "{{!attachment?.is_image}}",
@@ -242,7 +230,6 @@
               ]
             },
             {
-              "comment": "파일 정보",
               "type": "basic",
               "name": "Div",
               "props": {
@@ -268,7 +255,6 @@
               ]
             },
             {
-              "comment": "다운로드 아이콘 (비활성화 스타일)",
               "type": "basic",
               "name": "Div",
               "props": {

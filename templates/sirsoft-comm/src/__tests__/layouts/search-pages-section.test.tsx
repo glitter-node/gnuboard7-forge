@@ -1,16 +1,4 @@
-/**
- * @file search-pages-section.test.tsx
- * @description 통합검색 pages 섹션 Partial 렌더링 테스트 (Issue #99)
- *
- * 테스트 케이스:
- * - 기본 렌더링: all 탭에서 섹션 헤더 표시
- * - 검색 결과: 아이템이 있을 때 목록 렌더링
- * - 빈 상태: 아이템 없을 때 안내 메시지 표시
- * - 전체보기 버튼: pages_count > 0 일 때만 표시
- * - 탭 전환: pages 탭에서는 헤더 미표시
- *
- * @vitest-environment jsdom
- */
+
 
 import React from 'react';
 import { describe, it, expect, beforeEach } from 'vitest';
@@ -20,7 +8,7 @@ import {
 } from '@/core/template-engine/__tests__/utils/layoutTestUtils';
 import { ComponentRegistry } from '@/core/template-engine/ComponentRegistry';
 
-// ========== 테스트용 컴포넌트 정의 ==========
+
 
 const TestDiv: React.FC<{ className?: string; children?: React.ReactNode; 'data-testid'?: string }> =
   ({ className, children, 'data-testid': testId }) => <div className={className} data-testid={testId}>{children}</div>;
@@ -44,11 +32,9 @@ const TestHtmlContent: React.FC<{ content?: string; className?: string; 'data-te
 
 const TestFragment: React.FC<{ children?: React.ReactNode }> = ({ children }) => <>{children}</>;
 
-// ========== 레이아웃 Fixture ==========
 
-/**
- * pages/_section.json 핵심 구조 (Partial이므로 단일 루트 Div)
- */
+
+
 const pagesSectionFixture = {
   version: '1.0.0',
   layout_name: 'partials/search/pages/_section',
@@ -60,7 +46,7 @@ const pagesSectionFixture = {
       props: { 'data-testid': 'pages-section-root' },
       children: [
         {
-          // 섹션 헤더 (all 탭에서만)
+          
           type: 'basic',
           name: 'Div',
           if: '{{(_global.searchActiveTab ?? "all") === "all"}}',
@@ -91,7 +77,7 @@ const pagesSectionFixture = {
           ],
         },
         {
-          // 페이지 목록
+          
           type: 'basic',
           name: 'Div',
           if: '{{searchResults?.data?.pages?.items?.length > 0}}',
@@ -128,7 +114,7 @@ const pagesSectionFixture = {
           ],
         },
         {
-          // 결과 없음
+          
           type: 'basic',
           name: 'Div',
           if: '{{!searchResults?.data?.pages?.items || searchResults?.data?.pages?.items?.length === 0}}',
@@ -142,7 +128,7 @@ const pagesSectionFixture = {
   ],
 };
 
-// ========== 컴포넌트 레지스트리 설정 ==========
+
 
 function setupTestRegistry(): ComponentRegistry {
   const registry = ComponentRegistry.getInstance();
@@ -158,7 +144,7 @@ function setupTestRegistry(): ComponentRegistry {
   return registry;
 }
 
-// ========== 헬퍼 ==========
+
 
 function makeFakePageItem(overrides: Partial<{
   title: string;
@@ -181,7 +167,7 @@ function makeFakePageItem(overrides: Partial<{
   };
 }
 
-// ========== 테스트 케이스 ==========
+
 
 describe('partials/search/pages/_section.json 렌더링 (Issue #99)', () => {
   let registry: ComponentRegistry;
@@ -312,8 +298,8 @@ describe('partials/search/pages/_section.json 렌더링 (Issue #99)', () => {
 
       await testUtils.render();
 
-      // navigate 핸들러가 /page/terms 경로를 사용하는지
-      // (page.url 바인딩이 올바르게 /page/ 형식인지 검증)
+      
+      
       const btn = screen.getByTestId('page-item-btn');
       expect(btn).toBeInTheDocument();
 

@@ -287,7 +287,6 @@ export function useFileUploader(options: UseFileUploaderOptions): UseFileUploade
     [existingFiles.length, pendingFiles.length, maxFiles, maxSize, accept, compressionOptions, compressImage, onUploadError]
   );
 
-  // 단일 파일 업로드
   const uploadSingleFile = useCallback(
     async (pendingFile: PendingFile): Promise<Attachment | null> => {
       const formData = new FormData();
@@ -343,7 +342,6 @@ export function useFileUploader(options: UseFileUploaderOptions): UseFileUploade
     [attachmentableType, attachmentableId, collection, roleIds, endpoints.upload]
   );
 
-  // 모든 파일 업로드
   const handleUploadAll = useCallback(async (): Promise<Attachment[]> => {
     const filesToUpload = pendingFiles.filter(
       (f) => f.status === 'pending' || f.status === 'error'
@@ -542,7 +540,6 @@ export function useFileUploader(options: UseFileUploaderOptions): UseFileUploade
     [confirmBeforeRemove, executeRemoveAttachment]
   );
 
-  // 재시도 핸들러
   const handleRetry = useCallback((pendingFile: PendingFile) => {
     setPendingFiles((prev) =>
       prev.map((f) =>
@@ -551,7 +548,6 @@ export function useFileUploader(options: UseFileUploaderOptions): UseFileUploade
     );
   }, []);
 
-  // 순서 변경
   const handleDragEnd = useCallback(
     async (event: import('@dnd-kit/core').DragEndEvent) => {
       const { arrayMove } = await import('@dnd-kit/sortable');
@@ -638,7 +634,6 @@ export function useFileUploader(options: UseFileUploaderOptions): UseFileUploade
     [existingFiles, pendingFiles]
   );
 
-  // 갤러리 열기 (이미지 인덱스로)
   const handleOpenGallery = useCallback(
     (item: PendingFile | Attachment) => {
       // 클릭된 아이템의 인덱스를 imageFiles에서 찾기
@@ -715,7 +710,6 @@ export function useFileUploader(options: UseFileUploaderOptions): UseFileUploade
     };
   }, []);
 
-  // 파일 다운로드 실행
   const handleDownload = useCallback(async (item: Attachment) => {
     const { executeImageDownload } = await import('../ImageGallery');
     await executeImageDownload({
@@ -744,26 +738,22 @@ export function useFileUploader(options: UseFileUploaderOptions): UseFileUploade
   const hasFiles = totalCount > 0;
   const canAddMore = totalCount < maxFiles;
 
-  // 초기화 함수들
   const clear = useCallback(() => setPendingFiles([]), []);
   const getPendingFiles = useCallback(() => pendingFiles, [pendingFiles]);
 
   return {
-    // 상태
     existingFiles,
     pendingFiles,
     isDragOver,
     setIsDragOver,
     isDeleting,
 
-    // 계산된 값
     totalCount,
     hasFiles,
     canAddMore,
     allItems,
     imageFiles,
 
-    // 액션
     handleFiles,
     handleRemove,
     handleRetry,
@@ -772,25 +762,20 @@ export function useFileUploader(options: UseFileUploaderOptions): UseFileUploade
     handleDownload,
     handleDragEnd,
 
-    // Input ref
     inputRef,
 
-    // 갤러리 상태
     galleryOpen,
     setGalleryOpen,
     galleryStartIndex,
     galleryKeyRef,
 
-    // 삭제 확인 모달 상태
     confirmDialogOpen,
     setConfirmDialogOpen,
     itemToDelete,
     executeRemoveAttachment,
 
-    // 인증된 이미지 URL 캐시
     authenticatedImageUrls,
 
-    // 초기화
     clear,
     getPendingFiles,
   };

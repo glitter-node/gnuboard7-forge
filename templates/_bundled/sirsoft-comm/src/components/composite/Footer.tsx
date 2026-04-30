@@ -113,14 +113,12 @@ const Footer: React.FC<FooterProps> = ({
     <FooterBasic className={`bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 ${className}`}>
       <Div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <Div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
-          {/* 사이트 정보 */}
           <Div className="lg:col-span-2">
             <H3 className="text-lg font-bold text-gray-900 dark:text-white">{siteName}</H3>
             {siteDescription && (
               <P className="mt-2 text-sm text-gray-600 dark:text-gray-400">{siteDescription}</P>
             )}
 
-            {/* 소셜 링크 */}
             <Div className="mt-4 flex items-center gap-4">
               {Object.entries(socialLinks).map(([type, url]) =>
                 url ? (
@@ -139,7 +137,6 @@ const Footer: React.FC<FooterProps> = ({
             </Div>
           </Div>
 
-          {/* 링크 그룹 */}
           {groups.map((group, index) => (
             <Div key={index}>
               <H4 className="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wider">
@@ -161,7 +158,6 @@ const Footer: React.FC<FooterProps> = ({
           ))}
         </Div>
 
-        {/* 저작권 */}
         <Div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-800 flex flex-col sm:flex-row justify-between items-center gap-4">
           <P className="text-sm text-gray-500 dark:text-gray-400">
             {copyrightText || `© ${currentYear} ${siteName}. All rights reserved.`}

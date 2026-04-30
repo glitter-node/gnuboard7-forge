@@ -1,26 +1,10 @@
-/**
- * FileUploader initialFiles 참조 안정성 테스트
- *
- * initialFiles 기본값이 매 렌더마다 새 배열을 생성하여
- * useEffect 무한 루프를 발생시키는 버그의 회귀 방지 테스트입니다.
- *
- * 근본 원인: FileUploader.tsx에서 `initialFiles = []` 기본값이
- * 매 렌더마다 새 참조를 생성 → useEffect [initialFiles] 의존성 변경 감지 →
- * setExistingFiles([]) 호출 → 재렌더링 → 무한 루프
- *
- * 수정: EMPTY_FILES 모듈 상수 + useMemo 기반 참조 안정화
- *
- * @vitest-environment jsdom
- */
+
 
 import { describe, it, expect } from 'vitest';
 import { renderHook } from '@testing-library/react';
 import { useRef, useMemo } from 'react';
 
-/**
- * useFileUploader의 stableInitialFiles 패턴을 추출하여 테스트
- * (실제 훅은 G7Core 의존성이 많아 순수 로직만 검증)
- */
+
 interface Attachment {
     id: number;
     [key: string]: any;
@@ -58,11 +42,11 @@ describe('FileUploader initialFiles 참조 안정성', () => {
 
             const firstRef = result.current;
 
-            // 새 빈 배열로 rerender
+            
             rerender({ files: [] });
             expect(result.current).toBe(firstRef);
 
-            // 다시 새 빈 배열로 rerender
+            
             rerender({ files: [] });
             expect(result.current).toBe(firstRef);
         });
@@ -90,7 +74,7 @@ describe('FileUploader initialFiles 참조 안정성', () => {
 
             const firstRef = result.current;
 
-            // 파일 추가
+            
             rerender({ files: [{ id: 1, name: 'test.jpg' }] });
             expect(result.current).not.toBe(firstRef);
             expect(result.current).toHaveLength(1);
@@ -105,7 +89,7 @@ describe('FileUploader initialFiles 참조 안정성', () => {
 
             const firstRef = result.current;
 
-            // 동일 길이지만 다른 ID
+            
             const files2 = [{ id: 1, name: 'a.jpg' }, { id: 3, name: 'c.jpg' }];
             rerender({ files: files2 });
             expect(result.current).not.toBe(firstRef);
@@ -120,7 +104,7 @@ describe('FileUploader initialFiles 참조 안정성', () => {
 
             const firstRef = result.current;
 
-            // 새 배열이지만 동일 ID 구성
+            
             const files2 = [{ id: 1, name: 'a.jpg' }, { id: 2, name: 'b.jpg' }];
             rerender({ files: files2 });
             expect(result.current).toBe(firstRef);
@@ -150,10 +134,10 @@ describe('FileUploader initialFiles 참조 안정성', () => {
             const firstRef = result.current;
 
             for (let i = 0; i < 100; i++) {
-                rerender({ files: [] }); // 매번 새 [] 참조
+                rerender({ files: [] }); 
             }
 
-            // 100회 후에도 동일 참조 — 무한 루프 방지 확인
+            
             expect(result.current).toBe(firstRef);
         });
     });

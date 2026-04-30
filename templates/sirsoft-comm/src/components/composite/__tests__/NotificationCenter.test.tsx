@@ -1,19 +1,10 @@
-/**
- * NotificationCenter 컴포넌트 테스트 (sirsoft-comm)
- *
- * @description 알림센터 드롭다운의 핵심 동작 검증
- * 주요 회귀:
- * - 알림 카드는 Button이 아닌 Div (button-in-button HTML 무효 회피)
- * - 외부 클릭 useEffect 의존성에 [showNotifications, handleClose] 포함
- * - useEffect는 handleClose(useCallback) 정의 이후 위치 → TDZ 회피
- * - 콜백은 notification 객체 전체를 인자로 전달 (id가 아님)
- */
+
 import React from 'react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, cleanup } from '@testing-library/react';
 import { NotificationCenter, type NotificationItem } from '../NotificationCenter';
 
-// IntersectionObserver 폴리필
+
 beforeEach(() => {
   cleanup();
   (window as any).IntersectionObserver = class {
@@ -59,7 +50,7 @@ describe('NotificationCenter (sirsoft-comm)', () => {
 
     it('unreadCount가 0이면 배지가 표시되지 않음', () => {
       const { container } = render(<NotificationCenter unreadCount={0} notifications={[]} />);
-      // 배지는 .bg-red-500 클래스를 가지는 Span
+      
       expect(container.querySelector('.bg-red-500')).not.toBeInTheDocument();
     });
   });
@@ -99,7 +90,7 @@ describe('NotificationCenter (sirsoft-comm)', () => {
       fireEvent.click(screen.getByLabelText('알림'));
 
       const titleEl = screen.getByText('새 댓글');
-      // 가장 가까운 알림 카드 컨테이너 (data-notification-id 속성을 가진 요소)
+      
       const card = titleEl.closest('[data-notification-id]');
       expect(card).not.toBeNull();
       expect(card!.tagName.toLowerCase()).toBe('div');
@@ -145,7 +136,7 @@ describe('NotificationCenter (sirsoft-comm)', () => {
       expect(onDelete).toHaveBeenCalledWith(
         expect.objectContaining({ id: 1 })
       );
-      // stopPropagation 검증: 카드 클릭 핸들러는 호출되지 않아야 함
+      
       expect(onClick).not.toHaveBeenCalled();
     });
 
@@ -219,7 +210,7 @@ describe('NotificationCenter (sirsoft-comm)', () => {
       );
       fireEvent.click(screen.getByLabelText('알림'));
       const blueDots = container.querySelectorAll('.bg-blue-500.rounded-full');
-      // 미읽음 1건만 점 표시
+      
       expect(blueDots.length).toBe(1);
     });
 
@@ -239,8 +230,8 @@ describe('NotificationCenter (sirsoft-comm)', () => {
   });
 
   describe('[회귀] 무한스크롤 중복 호출 방지 (gnuboard/g7#14 관련)', () => {
-    // 첫 번째로 생성되는 observer 만 무한스크롤용으로 취급. 미읽음 추적 observer 의
-    // disconnect 가 무한스크롤 callback 을 교란하지 않도록 인스턴스 메서드로 격리한다.
+    
+    
     let infiniteScrollInstance: any = null;
 
     beforeEach(() => {

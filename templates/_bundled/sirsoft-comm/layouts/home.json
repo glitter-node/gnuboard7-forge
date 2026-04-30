@@ -1,297 +1,302 @@
 {
-    "version": "1.0.0",
-    "layout_name": "home",
-    "permissions": [],
-    "extends": "_user_base",
-    "meta": {
-        "seo": {
-            "enabled": true,
-            "data_sources": ["stats", "recent_posts", "popular_boards", "home_boards"],
-            "priority": 1.0,
-            "changefreq": "daily",
-            "og": {
-                "type": "website"
-            },
-            "structured_data": {
-                "@type": "WebSite",
-                "name": "{{_global.site_name ?? ''}}",
-                "url": "{{_global.site_url ?? ''}}"
-            }
+  "version": "1.0.0",
+  "layout_name": "home",
+  "permissions": [],
+  "extends": "_user_base",
+  "meta": {
+    "seo": {
+      "enabled": true,
+      "data_sources": [
+        "stats",
+        "recent_posts",
+        "popular_boards",
+        "home_boards"
+      ],
+      "priority": 1.0,
+      "changefreq": "daily",
+      "og": {
+        "type": "website"
+      },
+      "structured_data": {
+        "@type": "WebSite",
+        "name": "{{_global.site_name ?? ''}}",
+        "url": "{{_global.site_url ?? ''}}"
+      }
+    }
+  },
+  "data_sources": [
+    {
+      "id": "stats",
+      "type": "api",
+      "endpoint": "/api/modules/sirsoft-board/boards/stats",
+      "method": "GET",
+      "auto_fetch": true,
+      "loading_strategy": "progressive",
+      "fallback": {
+        "data": {
+          "users": 0,
+          "posts": 0,
+          "comments": 0,
+          "boards": 0
         }
+      }
     },
-    "data_sources": [
-        {
-            "id": "stats",
-            "type": "api",
-            "endpoint": "/api/modules/sirsoft-board/boards/stats",
-            "method": "GET",
-            "auto_fetch": true,
-            "loading_strategy": "progressive",
-            "fallback": {
-                "data": {
-                    "users": 0,
-                    "posts": 0,
-                    "comments": 0,
-                    "boards": 0
-                }
-            }
+    {
+      "id": "recent_posts",
+      "type": "api",
+      "endpoint": "/api/modules/sirsoft-board/boards/posts/recent?limit=5",
+      "method": "GET",
+      "auto_fetch": true,
+      "loading_strategy": "progressive",
+      "fallback": {
+        "data": []
+      }
+    },
+    {
+      "id": "popular_boards",
+      "type": "api",
+      "endpoint": "/api/modules/sirsoft-board/boards/popular-boards?limit=4",
+      "method": "GET",
+      "auto_fetch": true,
+      "loading_strategy": "progressive",
+      "fallback": {
+        "data": []
+      }
+    },
+    {
+      "id": "home_boards",
+      "type": "api",
+      "endpoint": "/api/modules/sirsoft-board/boards?limit=3",
+      "method": "GET",
+      "auto_fetch": true,
+      "loading_strategy": "progressive",
+      "fallback": {
+        "data": []
+      }
+    }
+  ],
+  "slots": {
+    "content": [
+      {
+        "type": "layout",
+        "name": "Container",
+        "props": {
+          "className": "py-6 px-4"
         },
-        {
-            "id": "recent_posts",
-            "type": "api",
-            "endpoint": "/api/modules/sirsoft-board/boards/posts/recent?limit=5",
-            "method": "GET",
-            "auto_fetch": true,
-            "loading_strategy": "progressive",
-            "fallback": {
-                "data": []
+        "responsive": {
+          "tablet": {
+            "props": {
+              "className": "py-6 px-6"
             }
+          },
+          "desktop": {
+            "props": {
+              "className": "py-6 px-8"
+            }
+          }
         },
-        {
-            "id": "popular_boards",
-            "type": "api",
-            "endpoint": "/api/modules/sirsoft-board/boards/popular-boards?limit=4",
-            "method": "GET",
-            "auto_fetch": true,
-            "loading_strategy": "progressive",
-            "fallback": {
-                "data": []
-            }
-        },
-        {
-            "id": "home_boards",
-            "type": "api",
-            "endpoint": "/api/modules/sirsoft-board/boards?limit=3",
-            "method": "GET",
-            "auto_fetch": true,
-            "loading_strategy": "progressive",
-            "fallback": {
-                "data": []
-            }
-        }
-    ],
-    "slots": {
-        "content": [
-            {
-                "type": "layout",
-                "name": "Container",
+        "children": [
+          {
+            "type": "basic",
+            "name": "Div",
+            "props": {
+              "className": "mb-6"
+            },
+            "children": [
+              {
+                "partial": "partials/home/_welcome_card.json"
+              }
+            ]
+          },
+          {
+            "type": "basic",
+            "name": "Div",
+            "props": {
+              "className": "grid grid-cols-1 gap-4 mb-6"
+            },
+            "responsive": {
+              "desktop": {
                 "props": {
-                    "className": "py-6 px-4"
+                  "className": "grid grid-cols-2 gap-4 mb-6"
+                }
+              }
+            },
+            "children": [
+              {
+                "partial": "partials/home/_recent_posts.json"
+              },
+              {
+                "partial": "partials/home/_popular_boards.json"
+              }
+            ]
+          },
+          {
+            "type": "basic",
+            "name": "Div",
+            "props": {
+              "className": "mb-6"
+            },
+            "children": [
+              {
+                "type": "basic",
+                "name": "Div",
+                "props": {
+                  "className": "flex items-center justify-between gap-3 mb-4"
                 },
                 "responsive": {
-                    "tablet": {
-                        "props": {
-                            "className": "py-6 px-6"
-                        }
-                    },
-                    "desktop": {
-                        "props": {
-                            "className": "py-6 px-8"
-                        }
+                  "portable": {
+                    "props": {
+                      "className": "flex flex-col items-start gap-3 mb-4"
                     }
+                  }
                 },
                 "children": [
-                    {
-                        "type": "basic",
-                        "name": "Div",
-                        "props": {
-                            "className": "mb-6"
-                        },
-                        "children": [
-                            {
-                                "partial": "partials/home/_welcome_card.json"
-                            }
-                        ]
+                  {
+                    "type": "basic",
+                    "name": "Div",
+                    "props": {
+                      "className": "space-y-1"
                     },
-                    {
+                    "children": [
+                      {
                         "type": "basic",
-                        "name": "Div",
+                        "name": "H2",
                         "props": {
-                            "className": "grid grid-cols-1 gap-4 mb-6"
+                          "className": "text-2xl font-semibold text-gray-900 dark:text-white"
                         },
-                        "responsive": {
-                            "desktop": {
-                                "props": {
-                                    "className": "grid grid-cols-2 gap-4 mb-6"
-                                }
-                            }
+                        "text": "$t:home.featured_boards"
+                      },
+                      {
+                        "type": "basic",
+                        "name": "P",
+                        "props": {
+                          "className": "text-sm text-gray-600 dark:text-gray-400"
                         },
-                        "children": [
-                            {
-                                "partial": "partials/home/_recent_posts.json"
-                            },
-                            {
-                                "partial": "partials/home/_popular_boards.json"
-                            }
-                        ]
+                        "text": "$t:home.featured_boards_description"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "basic",
+                    "name": "Button",
+                    "props": {
+                      "className": "text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline cursor-pointer"
                     },
-                    {
-                        "type": "basic",
-                        "name": "Div",
-                        "props": {
-                            "className": "mb-6"
-                        },
-                        "children": [
-                            {
-                                "type": "basic",
-                                "name": "Div",
-                                "props": {
-                                    "className": "flex items-center justify-between gap-3 mb-4"
-                                },
-                                "responsive": {
-                                    "portable": {
-                                        "props": {
-                                            "className": "flex flex-col items-start gap-3 mb-4"
-                                        }
-                                    }
-                                },
-                                "children": [
-                                    {
-                                        "type": "basic",
-                                        "name": "Div",
-                                        "props": {
-                                            "className": "space-y-1"
-                                        },
-                                        "children": [
-                                            {
-                                                "type": "basic",
-                                                "name": "H2",
-                                                "props": {
-                                                    "className": "text-2xl font-semibold text-gray-900 dark:text-white"
-                                                },
-                                                "text": "$t:home.featured_boards"
-                                            },
-                                            {
-                                                "type": "basic",
-                                                "name": "P",
-                                                "props": {
-                                                    "className": "text-sm text-gray-600 dark:text-gray-400"
-                                                },
-                                                "text": "$t:home.featured_boards_description"
-                                            }
-                                        ]
-                                    },
-                                    {
-                                        "type": "basic",
-                                        "name": "Button",
-                                        "props": {
-                                            "className": "text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline cursor-pointer"
-                                        },
-                                        "actions": [
-                                            {
-                                                "type": "click",
-                                                "handler": "navigate",
-                                                "params": {
-                                                    "path": "/boards"
-                                                }
-                                            }
-                                        ],
-                                        "text": "$t:home.browse_all_boards"
-                                    }
-                                ]
-                            },
-                            {
-                                "type": "basic",
-                                "name": "Div",
-                                "if": "{{home_boards.data && home_boards.data.length > 0}}",
-                                "props": {
-                                    "className": "grid grid-cols-1 gap-4"
-                                },
-                                "responsive": {
-                                    "desktop": {
-                                        "props": {
-                                            "className": "grid grid-cols-3 gap-4"
-                                        }
-                                    }
-                                },
-                                "iteration": {
-                                    "source": "{{home_boards.data ?? []}}",
-                                    "item_var": "item"
-                                },
-                                "children": [
-                                    {
-                                        "partial": "partials/home/_board_summary.json"
-                                    }
-                                ]
-                            },
-                            {
-                                "type": "basic",
-                                "name": "Div",
-                                "if": "{{!home_boards.data || home_boards.data.length === 0}}",
-                                "props": {
-                                    "className": "bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 p-8 text-center text-gray-500 dark:text-gray-400"
-                                },
-                                "children": [
-                                    {
-                                        "type": "basic",
-                                        "name": "Icon",
-                                        "props": {
-                                            "name": "inbox",
-                                            "className": "w-8 h-8 mx-auto mb-3 opacity-50"
-                                        }
-                                    },
-                                    {
-                                        "type": "basic",
-                                        "name": "H3",
-                                        "props": {
-                                            "className": "text-lg font-semibold text-gray-900 dark:text-white mb-2"
-                                        },
-                                        "text": "$t:home.empty_board_title"
-                                    },
-                                    {
-                                        "type": "basic",
-                                        "name": "P",
-                                        "props": {
-                                            "className": "text-sm"
-                                        },
-                                        "text": "$t:home.empty_board_description"
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        "type": "basic",
-                        "name": "Div",
-                        "props": {
-                            "className": "grid grid-cols-2 gap-4 mb-6"
-                        },
-                        "responsive": {
-                            "portable": {
-                                "props": {
-                                    "className": "grid grid-cols-1 gap-4 mb-6"
-                                }
-                            }
-                        },
-                        "children": [
-                            {
-                                "partial": "partials/home/_stat_card_users.json"
-                            },
-                            {
-                                "partial": "partials/home/_stat_card_posts.json"
-                            },
-                            {
-                                "partial": "partials/home/_stat_card_comments.json"
-                            },
-                            {
-                                "partial": "partials/home/_stat_card_boards.json"
-                            }
-                        ]
-                    },
-                    {
-                        "type": "basic",
-                        "name": "Div",
-                        "props": {
-                            "className": "max-w-3xl"
-                        },
-                        "children": [
-                            {
-                                "partial": "partials/home/_community_guide.json"
-                            }
-                        ]
-                    }
+                    "actions": [
+                      {
+                        "type": "click",
+                        "handler": "navigate",
+                        "params": {
+                          "path": "/boards"
+                        }
+                      }
+                    ],
+                    "text": "$t:home.browse_all_boards"
+                  }
                 ]
-            }
+              },
+              {
+                "type": "basic",
+                "name": "Div",
+                "if": "{{home_boards.data && home_boards.data.length > 0}}",
+                "props": {
+                  "className": "grid grid-cols-1 gap-4"
+                },
+                "responsive": {
+                  "desktop": {
+                    "props": {
+                      "className": "grid grid-cols-3 gap-4"
+                    }
+                  }
+                },
+                "iteration": {
+                  "source": "{{home_boards.data ?? []}}",
+                  "item_var": "item"
+                },
+                "children": [
+                  {
+                    "partial": "partials/home/_board_summary.json"
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "name": "Div",
+                "if": "{{!home_boards.data || home_boards.data.length === 0}}",
+                "props": {
+                  "className": "bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 p-8 text-center text-gray-500 dark:text-gray-400"
+                },
+                "children": [
+                  {
+                    "type": "basic",
+                    "name": "Icon",
+                    "props": {
+                      "name": "inbox",
+                      "className": "w-8 h-8 mx-auto mb-3 opacity-50"
+                    }
+                  },
+                  {
+                    "type": "basic",
+                    "name": "H3",
+                    "props": {
+                      "className": "text-lg font-semibold text-gray-900 dark:text-white mb-2"
+                    },
+                    "text": "$t:home.empty_board_title"
+                  },
+                  {
+                    "type": "basic",
+                    "name": "P",
+                    "props": {
+                      "className": "text-sm"
+                    },
+                    "text": "$t:home.empty_board_description"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "basic",
+            "name": "Div",
+            "props": {
+              "className": "grid grid-cols-2 gap-4 mb-6"
+            },
+            "responsive": {
+              "portable": {
+                "props": {
+                  "className": "grid grid-cols-1 gap-4 mb-6"
+                }
+              }
+            },
+            "children": [
+              {
+                "partial": "partials/home/_stat_card_users.json"
+              },
+              {
+                "partial": "partials/home/_stat_card_posts.json"
+              },
+              {
+                "partial": "partials/home/_stat_card_comments.json"
+              },
+              {
+                "partial": "partials/home/_stat_card_boards.json"
+              }
+            ]
+          },
+          {
+            "type": "basic",
+            "name": "Div",
+            "props": {
+              "className": "max-w-3xl"
+            },
+            "children": [
+              {
+                "partial": "partials/home/_community_guide.json"
+              }
+            ]
+          }
         ]
-    }
+      }
+    ]
+  }
 }

@@ -1,7 +1,6 @@
 {
   "meta": {
-    "is_partial": true,
-    "description": "알림 전체 삭제 확인 모달 (User)"
+    "is_partial": true
   },
   "id": "notification_delete_all_confirm_modal",
   "type": "composite",
@@ -67,7 +66,9 @@
                   "handler": "apiCall",
                   "auth_required": true,
                   "target": "/api/user/notifications/all",
-                  "params": { "method": "DELETE" },
+                  "params": {
+                    "method": "DELETE"
+                  },
                   "onSuccess": [
                     {
                       "handler": "setState",
@@ -88,15 +89,21 @@
                     },
                     {
                       "handler": "refetchDataSource",
-                      "params": { "dataSourceId": "notifications" }
+                      "params": {
+                        "dataSourceId": "notifications"
+                      }
                     },
                     {
                       "handler": "refetchDataSource",
-                      "params": { "dataSourceId": "notification_unread_count" }
+                      "params": {
+                        "dataSourceId": "notification_unread_count"
+                      }
                     },
                     {
                       "handler": "refetchDataSource",
-                      "params": { "dataSourceId": "userNotifications" }
+                      "params": {
+                        "dataSourceId": "userNotifications"
+                      }
                     },
                     {
                       "handler": "closeModal",

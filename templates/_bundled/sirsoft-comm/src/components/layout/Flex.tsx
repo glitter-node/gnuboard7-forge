@@ -96,14 +96,12 @@ export const Flex: React.FC<FlexProps> = ({
     classes.push(`gap-${gap}`);
   }
 
-  // Flex grow
   if (grow === true) {
     classes.push('flex-grow');
   } else if (typeof grow === 'number' && grow > 0) {
     classes.push(`flex-grow-${grow}`);
   }
 
-  // Flex shrink
   if (shrink === false) {
     classes.push('shrink-0');
   } else if (shrink === true) {
@@ -112,7 +110,6 @@ export const Flex: React.FC<FlexProps> = ({
     classes.push(`flex-shrink-${shrink}`);
   }
 
-  // 사용자 정의 클래스 추가
   if (className) {
     classes.push(className);
   }

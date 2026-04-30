@@ -1,23 +1,13 @@
-/**
- * @file board-comment-author-buttons.test.tsx
- * @description 게시글 상세 - 본인 댓글/답글 수정·삭제 버튼 표시 조건 테스트 (이슈 #228 B-4)
- *
- * 검증 항목:
- * 1. 본인 댓글 (is_author=true) + 게시글 권한(can_write_comments=true) → 수정/삭제 버튼 표시
- * 2. 본인 댓글 + can_write_comments=false → 수정/삭제 버튼 미표시
- * 3. 타인 댓글 (is_author=false) + 권한 없음 → 수정/삭제 버튼 미표시
- * 4. 비회원 댓글 (is_guest_comment=true) → 수정/삭제 버튼 표시
- * 5. manager 권한 (can_manage=true) → 타인 댓글도 수정/삭제 버튼 표시
- */
+
 
 import React from 'react';
 import { describe, it, expect, beforeEach } from 'vitest';
 import { createLayoutTest, screen } from '@/core/template-engine/__tests__/utils/layoutTestUtils';
 import { ComponentRegistry } from '@/core/template-engine/ComponentRegistry';
 
-// ============================================================
-// 테스트용 컴포넌트 정의
-// ============================================================
+
+
+
 
 const TestDiv: React.FC<{
   className?: string;
@@ -50,9 +40,9 @@ const TestSpan: React.FC<{
   <span className={className}>{children || text}</span>
 );
 
-// ============================================================
-// 컴포넌트 레지스트리 설정
-// ============================================================
+
+
+
 
 function setupTestRegistry(): ComponentRegistry {
   const registry = ComponentRegistry.getInstance();
@@ -69,10 +59,10 @@ function setupTestRegistry(): ComponentRegistry {
   return registry;
 }
 
-// ============================================================
-// 댓글 버튼 조건 테스트용 레이아웃 (컴포넌트 정의만)
-// _comment_item.json의 수정/삭제 버튼 if 조건 재현
-// ============================================================
+
+
+
+
 
 const commentButtonLayout = {
   version: '1.0.0',
@@ -124,9 +114,9 @@ function makeInitialData(comment: Record<string, any>, postAbilities: Record<str
   };
 }
 
-// ============================================================
-// 테스트
-// ============================================================
+
+
+
 
 describe('댓글 수정/삭제 버튼 표시 조건 (이슈 #228 B-4)', () => {
   let registry: ComponentRegistry;

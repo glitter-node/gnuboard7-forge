@@ -334,16 +334,12 @@ export function AvatarUploader({
   const currentAvatarUrl = localAvatarUrl === undefined ? src : localAvatarUrl;
   const hasAvatar = !!currentAvatarUrl;
 
-  // Avatar 컴포넌트에 전달할 사이즈
   const avatarSize = avatarSizeMap[size] || 'lg';
 
-  // 현재 표시 모드 결정
   const isConfirmMode = showDeleteConfirm || showUploadConfirm;
 
-  // 버튼 영역 렌더링
   const renderButtons = () => (
     <Div className="flex items-center justify-center gap-2">
-      {/* 숨겨진 파일 입력 */}
       <Input
         ref={inputRef}
         id={inputId}
@@ -354,7 +350,6 @@ export function AvatarUploader({
         disabled={isUploading}
       />
 
-      {/* 이미지 없을 때: 이미지 등록 버튼 */}
       {!hasAvatar && (
         <Label
           htmlFor={inputId}
@@ -371,7 +366,6 @@ export function AvatarUploader({
         </Label>
       )}
 
-      {/* 이미지 있을 때: 변경 + 삭제 버튼 */}
       {hasAvatar && (
         <>
           <Label
@@ -410,7 +404,6 @@ export function AvatarUploader({
 
   return (
     <Div className={`flex flex-col items-center gap-3 ${className}`}>
-      {/* 아바타 이미지 - 업로드 확인 시 미리보기 표시 */}
       {showUploadConfirm && previewUrl ? (
         <Div className="relative">
           <Img
@@ -434,10 +427,8 @@ export function AvatarUploader({
         />
       )}
 
-      {/* 버튼/확인 영역 */}
       {!readOnly && (
         <Div className="w-[220px] flex flex-col items-center gap-2">
-          {/* 업로드 확인 박스 */}
           {showUploadConfirm && pendingFile && (
             <Div className="w-full p-3 bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-800 rounded-lg">
               <Div className="flex items-center gap-2 mb-2">
@@ -474,7 +465,6 @@ export function AvatarUploader({
             </Div>
           )}
 
-          {/* 삭제 확인 박스 */}
           {showDeleteConfirm && (
             <Div className="w-full p-3 bg-red-50 dark:bg-red-950/50 border border-red-200 dark:border-red-800 rounded-lg">
               <Div className="flex items-center gap-2 mb-2">
@@ -508,12 +498,10 @@ export function AvatarUploader({
             </Div>
           )}
 
-          {/* 기본 모드 - 버튼들 */}
           {!isConfirmMode && renderButtons()}
         </Div>
       )}
 
-      {/* 오류 메시지 표시 */}
       {errorMessage && !isConfirmMode && (
         <Div className="flex items-center gap-2 text-sm text-red-600 dark:text-red-400">
           <Icon name="alert-circle" size="sm" />

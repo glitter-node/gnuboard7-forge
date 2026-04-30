@@ -267,7 +267,6 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
 
     return (
       <div className={`relative ${wrapperClassName}`}>
-        {/* 입력 필드 wrapper */}
         <div className="relative">
           <input
             ref={internalRef}
@@ -282,7 +281,6 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
             {...validProps}
           />
 
-          {/* 비밀번호 보기/숨기기 버튼 */}
           {showToggle && (
             <button
               type="button"
@@ -299,7 +297,6 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
           )}
         </div>
 
-        {/* CapsLock 경고 */}
         {capsLockOn && !showPassword && (
           <div className="mt-2 flex items-center gap-1.5 text-sm text-yellow-600 dark:text-yellow-400">
             <Icon name="triangle-exclamation" className="w-4 h-4" />
@@ -307,7 +304,6 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
           </div>
         )}
 
-        {/* 비밀번호 확인 일치/불일치 표시 */}
         {isConfirmField && confirmTarget !== undefined && internalValue.length > 0 && (
           <div
             className={`mt-2 flex items-center gap-1.5 text-sm ${
@@ -324,7 +320,6 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
           </div>
         )}
 
-        {/* 비밀번호 조건 검증 표시 */}
         {showValidation && !isConfirmField && internalValue.length > 0 && (
           <div className={`mt-2 space-y-1 ${validationClassName}`}>
             {displayRules.map(({ rule, param }) => {
@@ -351,7 +346,6 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
           </div>
         )}
 
-        {/* 에러 메시지 */}
         {error && (
           <p className="mt-1 text-sm text-red-600 dark:text-red-400">{error}</p>
         )}

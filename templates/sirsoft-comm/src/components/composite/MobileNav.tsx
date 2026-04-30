@@ -1,9 +1,4 @@
-/**
- * MobileNav 컴포넌트
- *
- * 모바일 환경에서 표시되는 슬라이드 드로어 네비게이션입니다.
- * 햄버거 메뉴 클릭 시 좌측에서 슬라이드하며 나타납니다.
- */
+
 
 import React, { useEffect, useRef } from 'react';
 import { Div } from '../basic/Div';
@@ -16,15 +11,11 @@ import { Nav } from '../basic/Nav';
 import { Ul } from '../basic/Ul';
 import { Li } from '../basic/Li';
 
-/**
- * G7Core 번역 함수
- */
+
 const t = (key: string, params?: Record<string, string | number>) =>
   (window as any).G7Core?.t?.(key, params) ?? key;
 
-/**
- * G7Core navigate 헬퍼
- */
+
 const navigate = (path: string) => {
   (window as any).G7Core?.dispatch?.({
     handler: 'navigate',
@@ -46,35 +37,21 @@ interface User {
 }
 
 interface MobileNavProps {
-  /** 드로어 열림 상태 */
+  
   isOpen: boolean;
-  /** 닫기 콜백 */
+  
   onClose: () => void;
-  /** 사이트 로고 URL */
+  
   logo?: string;
-  /** 사이트 이름 */
+  
   siteName?: string;
-  /** 현재 로그인된 사용자 */
+  
   user?: User | null;
-  /** 게시판 목록 */
+  
   boards?: Board[];
 }
 
-/**
- * 모바일 네비게이션 드로어
- *
- * @example
- * ```tsx
- * const [isOpen, setIsOpen] = useState(false);
- *
- * <MobileNav
- *   isOpen={isOpen}
- *   onClose={() => setIsOpen(false)}
- *   user={currentUser}
- *   boards={boards}
- * />
- * ```
- */
+
 const MobileNav: React.FC<MobileNavProps> = ({
   isOpen,
   onClose,
@@ -85,16 +62,16 @@ const MobileNav: React.FC<MobileNavProps> = ({
 }) => {
   const drawerRef = useRef<HTMLDivElement>(null);
 
-  // G7Core.useResponsive를 통해 반응형 상태 구독 (G7 표준 — 위지윅 overrideWidth 호환)
+  
   const G7Core = (window as any).G7Core;
   const useResponsive = G7Core?.useResponsive;
   const responsiveValue = useResponsive?.();
-  // lg 미만(< 1024px)에서만 드로어 노출 — 데스크톱은 Header의 탭 nav 사용
+  
   const isPortable = responsiveValue
     ? responsiveValue.width < 1024
     : typeof window !== 'undefined' && window.innerWidth < 1024;
 
-  // ESC 키로 닫기
+  
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -113,7 +90,7 @@ const MobileNav: React.FC<MobileNavProps> = ({
     };
   }, [isOpen, onClose]);
 
-  // 오버레이 클릭으로 닫기
+  
   const handleOverlayClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
       onClose();
@@ -121,7 +98,7 @@ const MobileNav: React.FC<MobileNavProps> = ({
   };
 
   if (!isOpen) return null;
-  // 데스크톱(lg+)에서는 모바일 드로어 자체를 노출하지 않음 (위지윅 overrideWidth 호환)
+  
   if (!isPortable) return null;
 
   return (
@@ -129,15 +106,14 @@ const MobileNav: React.FC<MobileNavProps> = ({
       className="fixed inset-0 z-50"
       onClick={handleOverlayClick}
     >
-      {/* 오버레이 */}
+      
       <Div className="fixed inset-0 bg-black/50 transition-opacity" />
 
-      {/* 드로어 */}
+      
       <Div
         ref={drawerRef}
         className={`fixed inset-y-0 left-0 w-80 max-w-[85vw] bg-white dark:bg-gray-900 shadow-xl transform transition-transform duration-300 ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}
       >
-        {/* 헤더 */}
         <Div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-800">
           <Button onClick={() => { onClose(); navigate('/'); }} className="flex items-center gap-2 cursor-pointer">
             {logo ? (
@@ -155,7 +131,6 @@ const MobileNav: React.FC<MobileNavProps> = ({
           </Button>
         </Div>
 
-        {/* 사용자 정보 */}
         {user ? (
           <Div className="p-4 border-b border-gray-200 dark:border-gray-800">
             <Div className="flex items-center gap-3">
@@ -193,10 +168,8 @@ const MobileNav: React.FC<MobileNavProps> = ({
           </Div>
         )}
 
-        {/* 메뉴 */}
         <Nav className="p-4 overflow-y-auto max-h-[calc(100vh-200px)]">
           <Ul className="space-y-1">
-            {/* 기본 메뉴 */}
             <Li>
               <Button
                 onClick={() => { onClose(); navigate('/'); }}
@@ -217,7 +190,6 @@ const MobileNav: React.FC<MobileNavProps> = ({
             </Li>
             <Li className="my-4 border-t border-gray-200 dark:border-gray-800" />
 
-            {/* 게시판 메뉴 */}
             <Li className="px-3 py-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
               {t('nav.boards')}
             </Li>
@@ -235,7 +207,6 @@ const MobileNav: React.FC<MobileNavProps> = ({
           </Ul>
         </Nav>
 
-        {/* 하단 링크 */}
         <Div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
           <Div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
             <Button onClick={() => { onClose(); navigate('/about'); }} className="hover:text-gray-700 dark:hover:text-gray-200 cursor-pointer">

@@ -192,11 +192,13 @@
     "search_placeholder_comments": "댓글 내용 검색",
     "search_result": "검색 결과",
     "search_result_unit": "건",
+    "search_result_count": "({{count}}건)",
     "meta": {
       "views": "조회 ",
       "original_views": "원글 조회 ",
       "comments": "댓글 ",
-      "comments_unit": "개"
+      "comments_unit": "개",
+      "comments_count": "{{count}}개"
     },
     "activity_type": {
       "authored": "작성",

@@ -1,7 +1,6 @@
 {
   "meta": {
-    "is_partial": true,
-    "description": "게시글 작성/수정 폼"
+    "is_partial": true
   },
   "type": "basic",
   "name": "Form",
@@ -11,7 +10,6 @@
   },
   "children": [
     {
-      "comment": "전체 에러 메시지 박스",
       "type": "basic",
       "name": "Div",
       "if": "{{_local.errors && (typeof _local.errors === 'string' || Object.keys(_local.errors).length > 0)}}",
@@ -78,7 +76,6 @@
       ]
     },
     {
-      "comment": "수정 모드일 때 작성자 정보 표시 (Avatar + UserInfo)",
       "type": "basic",
       "name": "Div",
       "if": "{{route.id && form_data?.data?.author}}",
@@ -123,7 +120,6 @@
       ]
     },
     {
-      "comment": "게시글 옵션 (공지사항/비밀글)",
       "type": "basic",
       "name": "Div",
       "if": "{{form_meta?.data?.board?.user_abilities?.can_manage || form_meta?.data?.board?.secret_mode === 'enabled' || form_meta?.data?.board?.secret_mode === 'always'}}",
@@ -136,7 +132,6 @@
           },
           "children": [
             {
-              "comment": "공지사항 카드 (관리자 전용)",
               "type": "basic",
               "name": "Label",
               "if": "{{form_meta?.data?.board?.user_abilities?.can_manage && !_local.form?.parent_id}}",
@@ -208,7 +203,6 @@
               ]
             },
             {
-              "comment": "비밀글 카드 (enabled 모드)",
               "type": "basic",
               "name": "Label",
               "if": "{{form_meta?.data?.board?.secret_mode === 'enabled'}}",
@@ -280,7 +274,6 @@
               ]
             },
             {
-              "comment": "비밀글 카드 (always 모드 - 비활성 상태)",
               "type": "basic",
               "name": "Div",
               "if": "{{form_meta?.data?.board?.secret_mode === 'always'}}",
@@ -366,7 +359,6 @@
       ]
     },
     {
-      "comment": "카테고리 선택 (카테고리가 있는 게시판만)",
       "type": "basic",
       "name": "Div",
       "if": "{{form_meta?.data?.board?.categories?.length > 0}}",
@@ -405,7 +397,6 @@
       ]
     },
     {
-      "comment": "제목 입력",
       "type": "basic",
       "name": "Div",
       "children": [
@@ -453,7 +444,6 @@
       ]
     },
     {
-      "comment": "내용 에디터 래퍼 (에러 테두리용)",
       "type": "basic",
       "name": "Div",
       "props": {
@@ -461,7 +451,6 @@
       },
       "children": [
         {
-          "comment": "내용 에디터",
           "id": "content_section",
           "type": "extension_point",
           "name": "html_editor",
@@ -506,7 +495,6 @@
       ]
     },
     {
-      "comment": "내용 필드 에러 메시지",
       "type": "basic",
       "name": "P",
       "if": "{{_local.errors?.content}}",
@@ -516,7 +504,6 @@
       "text": "{{_local.errors?.content?.[0] ?? _local.errors?.content}}"
     },
     {
-      "comment": "파일 첨부 (게시판 설정 + 권한 체크)",
       "type": "basic",
       "name": "Div",
       "if": "{{form_meta?.data?.board?.use_file_upload === true && form_meta?.data?.board?.user_abilities?.can_upload}}",
@@ -615,7 +602,6 @@
       ]
     },
     {
-      "comment": "버튼 영역",
       "type": "basic",
       "name": "Div",
       "props": {
@@ -623,7 +609,6 @@
       },
       "children": [
         {
-          "comment": "취소 버튼 (등록: 목록, 수정: 상세)",
           "type": "basic",
           "name": "Button",
           "props": {

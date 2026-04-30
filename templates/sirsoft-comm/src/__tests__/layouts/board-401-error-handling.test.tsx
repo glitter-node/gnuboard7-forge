@@ -1,14 +1,4 @@
-/**
- * @file board-401-error-handling.test.tsx
- * @description 게시판 목록/상세 - 비로그인 접근 시 401 errorHandling 검증 (이슈 #228 B-5)
- *
- * 검증 항목:
- * 1. show.json / index.json 데이터소스에 401 errorHandling이 정의되어 있는가
- * 2. 401 핸들러가 sequence(toast → navigate /login?redirect=...) 방식인가
- * 3. navigate params에 redirect 쿼리가 포함되어 있는가
- * 4. auth_required가 아닌 auth_mode: "optional"이 사용되는가
- * 5. 기존 403/404 핸들러가 유지되는가
- */
+
 
 import { describe, it, expect } from 'vitest';
 import showLayout from '../../../layouts/board/show.json';
@@ -25,7 +15,7 @@ function getDataSourceErrorHandling(layout: any, dataSourceId: string) {
 
 describe('게시판 401 errorHandling — sequence + redirect 방식 (이슈 #228 B-5)', () => {
   describe('show.json — auth_mode 및 데이터소스 401', () => {
-    // redirect: /board/{{route.slug}}/posts/{{route.id}}
+    
     const ds = getDataSource(showLayout, 'post');
     const dsErrorHandling = ds?.errorHandling ?? null;
 

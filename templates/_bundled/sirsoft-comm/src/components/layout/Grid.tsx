@@ -68,7 +68,6 @@ export const Grid: React.FC<GridProps> = ({
     classes.push(`grid-cols-${cols}`);
   }
 
-  // 반응형 그리드
   if (responsive) {
     if (responsive.sm) classes.push(`sm:grid-cols-${responsive.sm}`);
     if (responsive.md) classes.push(`md:grid-cols-${responsive.md}`);
@@ -77,22 +76,18 @@ export const Grid: React.FC<GridProps> = ({
     if (responsive['2xl']) classes.push(`2xl:grid-cols-${responsive['2xl']}`);
   }
 
-  // Gap
   if (gap !== undefined && gap > 0) {
     classes.push(`gap-${gap}`);
   }
 
-  // Row gap
   if (rowGap !== undefined && rowGap > 0) {
     classes.push(`gap-y-${rowGap}`);
   }
 
-  // Column gap
   if (colGap !== undefined && colGap > 0) {
     classes.push(`gap-x-${colGap}`);
   }
 
-  // Auto rows
   if (autoRows) {
     const autoRowsMap: Record<string, string> = {
       auto: 'auto-rows-auto',
@@ -103,7 +98,6 @@ export const Grid: React.FC<GridProps> = ({
     classes.push(autoRowsMap[autoRows]);
   }
 
-  // Auto columns
   if (autoCols) {
     const autoColsMap: Record<string, string> = {
       auto: 'auto-cols-auto',
@@ -114,7 +108,6 @@ export const Grid: React.FC<GridProps> = ({
     classes.push(autoColsMap[autoCols]);
   }
 
-  // Grid flow
   const flowMap: Record<string, string> = {
     row: 'grid-flow-row',
     col: 'grid-flow-col',
@@ -124,7 +117,6 @@ export const Grid: React.FC<GridProps> = ({
   };
   classes.push(flowMap[flow]);
 
-  // 사용자 정의 클래스 추가
   if (className) {
     classes.push(className);
   }

@@ -116,7 +116,6 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
 
   return (
     <Div ref={menuRef} className={`relative ${className}`}>
-      {/* 테마 토글 버튼 */}
       <Button
         onClick={() => setShowMenu(!showMenu)}
         className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors text-gray-600 dark:text-gray-400"
@@ -128,11 +127,9 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
         />
       </Button>
 
-      {/* 테마 선택 드롭다운 */}
       {showMenu && (
         <Div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-50">
           <Div className="py-2">
-            {/* 자동 모드 */}
             <Button
               onClick={() => handleThemeChange('auto')}
               className={`
@@ -153,7 +150,6 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
               )}
             </Button>
 
-            {/* 라이트 모드 */}
             <Button
               onClick={() => handleThemeChange('light')}
               className={`
@@ -174,7 +170,6 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
               )}
             </Button>
 
-            {/* 다크 모드 */}
             <Button
               onClick={() => handleThemeChange('dark')}
               className={`

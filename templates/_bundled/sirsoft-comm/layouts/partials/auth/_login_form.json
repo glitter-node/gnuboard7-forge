@@ -1,14 +1,14 @@
 {
   "meta": {
-    "is_partial": true,
-    "description": "로그인 폼 (이메일/비밀번호)"
+    "is_partial": true
   },
   "type": "basic",
   "name": "Form",
-  "props": { "className": "space-y-6" },
+  "props": {
+    "className": "space-y-6"
+  },
   "children": [
     {
-      "comment": "API 에러 메시지 표시",
       "type": "basic",
       "name": "Div",
       "if": "{{_global.loginError}}",
@@ -19,20 +19,23 @@
         {
           "type": "basic",
           "name": "P",
-          "props": { "className": "text-sm text-red-600 dark:text-red-400" },
+          "props": {
+            "className": "text-sm text-red-600 dark:text-red-400"
+          },
           "text": "{{_global.loginError}}"
         }
       ]
     },
     {
-      "comment": "이메일 입력 필드",
       "type": "basic",
       "name": "Div",
       "children": [
         {
           "type": "basic",
           "name": "Label",
-          "props": { "className": "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3" },
+          "props": {
+            "className": "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3"
+          },
           "text": "$t:auth.email"
         },
         {
@@ -48,24 +51,26 @@
           }
         },
         {
-          "comment": "이메일 필드 에러 메시지",
           "type": "basic",
           "name": "P",
           "if": "{{_global.loginErrors?.email}}",
-          "props": { "className": "mt-1 text-sm text-red-600 dark:text-red-400" },
+          "props": {
+            "className": "mt-1 text-sm text-red-600 dark:text-red-400"
+          },
           "text": "{{Array.isArray(_global.loginErrors?.email) ? _global.loginErrors.email[0] : _global.loginErrors?.email}}"
         }
       ]
     },
     {
-      "comment": "비밀번호 입력 필드",
       "type": "basic",
       "name": "Div",
       "children": [
         {
           "type": "basic",
           "name": "Label",
-          "props": { "className": "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3" },
+          "props": {
+            "className": "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3"
+          },
           "text": "$t:auth.password"
         },
         {
@@ -93,11 +98,12 @@
       },
       "children": [
         {
-          "comment": "버튼 내 스피너",
           "type": "basic",
           "name": "Div",
           "if": "{{_global.isLoggingIn}}",
-          "props": { "className": "w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" }
+          "props": {
+            "className": "w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"
+          }
         },
         {
           "type": "basic",
@@ -145,13 +151,44 @@
             }
           },
           "onSuccess": [
-            { "handler": "setState", "params": { "target": "global", "currentUser": "{{response.user}}" } },
-            { "handler": "setState", "params": { "target": "global", "isLoggingIn": false } },
-            { "handler": "toast", "params": { "type": "success", "message": "$t:auth.login_success" } },
-            { "handler": "navigate", "params": { "path": "{{query.redirect ?? '/'}}" } }
+            {
+              "handler": "setState",
+              "params": {
+                "target": "global",
+                "currentUser": "{{response.user}}"
+              }
+            },
+            {
+              "handler": "setState",
+              "params": {
+                "target": "global",
+                "isLoggingIn": false
+              }
+            },
+            {
+              "handler": "toast",
+              "params": {
+                "type": "success",
+                "message": "$t:auth.login_success"
+              }
+            },
+            {
+              "handler": "navigate",
+              "params": {
+                "path": "{{query.redirect ?? '/'}}"
+              }
+            }
           ],
           "onError": [
-            { "handler": "setState", "params": { "target": "global", "isLoggingIn": false, "loginError": "{{error.message}}", "loginErrors": "{{error.errors}}" } }
+            {
+              "handler": "setState",
+              "params": {
+                "target": "global",
+                "isLoggingIn": false,
+                "loginError": "{{error.message}}",
+                "loginErrors": "{{error.errors}}"
+              }
+            }
           ]
         }
       ]

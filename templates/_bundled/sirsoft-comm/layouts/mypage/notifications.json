@@ -65,7 +65,6 @@
             },
             "children": [
               {
-                "comment": "페이지 제목",
                 "type": "basic",
                 "name": "Div",
                 "props": {
@@ -92,17 +91,14 @@
                 ]
               },
               {
-                "comment": "탭 네비게이션",
                 "partial": "partials/mypage/_tab_navigation.json"
               },
               {
-                "comment": "탭 컨텐츠 영역 (스켈레톤 타겟)",
                 "type": "basic",
                 "name": "Div",
                 "id": "mypage_tab_content",
                 "children": [
                   {
-                    "comment": "알림",
                     "partial": "partials/mypage/notifications/_list.json"
                   }
                 ]

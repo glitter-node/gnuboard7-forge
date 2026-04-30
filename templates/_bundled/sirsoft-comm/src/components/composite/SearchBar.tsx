@@ -101,14 +101,11 @@ export const SearchBar: React.FC<SearchBarProps> = ({
     <Div ref={containerRef} className={`relative ${className}`} style={style}>
       <Form onSubmit={handleSubmit} className="relative">
         <Div className={`relative flex items-center ${showButton ? 'gap-2' : ''}`}>
-          {/* Input wrapper */}
           <Div className="relative flex-1">
-            {/* 검색 아이콘 */}
             <Div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none">
               <Icon name={IconName.Search} className="w-5 h-5 text-gray-400 dark:text-gray-500" />
             </Div>
 
-            {/* 검색 입력 */}
             <Input
               type="search"
               name={name}
@@ -121,7 +118,6 @@ export const SearchBar: React.FC<SearchBarProps> = ({
             />
           </Div>
 
-          {/* 검색 버튼 (showButton=true일 때만 표시) */}
           {showButton && (
             <Button
               type="submit"
@@ -133,7 +129,6 @@ export const SearchBar: React.FC<SearchBarProps> = ({
         </Div>
       </Form>
 
-      {/* 자동완성 제안 목록 */}
       {shouldShowSuggestions && (
         <Div className="absolute z-10 w-full mt-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg max-h-64 overflow-y-auto">
           {suggestions.map((suggestion) => (

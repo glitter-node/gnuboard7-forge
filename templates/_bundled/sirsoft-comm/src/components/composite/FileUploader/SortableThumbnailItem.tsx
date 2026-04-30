@@ -127,7 +127,6 @@ export const SortableThumbnailItem: React.FC<SortableThumbnailItemProps> = ({
           }
         }}
       >
-        {/* 이미지 미리보기 */}
         {(preview || existingImageUrl) ? (
           <Img
             src={preview || existingImageUrl}
@@ -135,11 +134,9 @@ export const SortableThumbnailItem: React.FC<SortableThumbnailItemProps> = ({
             className="w-full h-full object-cover"
           />
         ) : (
-          /* 파일 아이콘 */
           <I className={`fa-solid ${getFileIcon(file.mime_type)} text-4xl text-gray-400 dark:text-gray-500`} />
         )}
 
-        {/* 업로드/압축 진행률 오버레이 */}
         {(isUploading || isCompressing) && (
           <Div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center">
             <Div className="w-3/4 h-2 bg-gray-700 rounded-full overflow-hidden">
@@ -152,14 +149,12 @@ export const SortableThumbnailItem: React.FC<SortableThumbnailItemProps> = ({
           </Div>
         )}
 
-        {/* 에러 오버레이 */}
         {hasError && (
           <Div className="absolute inset-0 bg-red-500/50 flex items-center justify-center">
             <I className="fa-solid fa-exclamation-triangle text-2xl text-white" />
           </Div>
         )}
 
-        {/* 대표 이미지 뱃지 */}
         {onPrimaryClick && (
           <Button
             type="button"
@@ -178,9 +173,7 @@ export const SortableThumbnailItem: React.FC<SortableThumbnailItemProps> = ({
           </Button>
         )}
 
-        {/* 호버 시 액션 버튼들 */}
         <Div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors flex items-start justify-end p-1 gap-1 opacity-0 group-hover:opacity-100">
-          {/* 드래그 핸들 */}
           <Button
             type="button"
             {...attributes}
@@ -192,7 +185,6 @@ export const SortableThumbnailItem: React.FC<SortableThumbnailItemProps> = ({
             <I className="fa-solid fa-grip-vertical text-sm" />
           </Button>
 
-          {/* 다운로드 버튼 (기존 첨부파일만) */}
           {!isPending && onDownload && (
             <Button
               type="button"
@@ -207,7 +199,6 @@ export const SortableThumbnailItem: React.FC<SortableThumbnailItemProps> = ({
             </Button>
           )}
 
-          {/* 재시도 버튼 */}
           {hasError && onRetry && (
             <Button
               type="button"
@@ -222,7 +213,6 @@ export const SortableThumbnailItem: React.FC<SortableThumbnailItemProps> = ({
             </Button>
           )}
 
-          {/* 삭제 버튼 */}
           <Button
             type="button"
             onClick={(e) => {
@@ -238,7 +228,6 @@ export const SortableThumbnailItem: React.FC<SortableThumbnailItemProps> = ({
         </Div>
       </Div>
 
-      {/* 파일 정보 */}
       <Div
         className={`p-2 ${!isPending && onDownload ? 'cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700' : ''}`}
         onClick={() => {

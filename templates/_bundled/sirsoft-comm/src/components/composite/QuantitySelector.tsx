@@ -89,7 +89,6 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
     <Div
       className={`inline-flex items-center border border-gray-300 dark:border-gray-600 rounded-lg ${classes.container} ${className}`}
     >
-      {/* 감소 버튼 */}
       <Button
         type="button"
         onClick={handleDecrease}
@@ -100,7 +99,6 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
         <Icon name="minus" className="w-4 h-4" />
       </Button>
 
-      {/* 수량 입력 */}
       <Input
         type="number"
         value={value}
@@ -113,7 +111,6 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
         aria-label="수량"
       />
 
-      {/* 증가 버튼 */}
       <Button
         type="button"
         onClick={handleIncrease}

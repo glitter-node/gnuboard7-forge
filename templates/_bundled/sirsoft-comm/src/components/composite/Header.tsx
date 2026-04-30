@@ -220,7 +220,6 @@ const Header: React.FC<HeaderProps> = ({
     });
   };
 
-  // 언어 변경 핸들러
   const handleLocaleChange = (locale: string) => {
     (window as any).G7Core?.dispatch?.({
       handler: 'setLocale',
@@ -231,10 +230,8 @@ const Header: React.FC<HeaderProps> = ({
 
   return (
     <HeaderBasic className={`sticky top-0 z-50 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 ${className}`}>
-      {/* 상단 바 */}
       <Div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <Div className="flex items-center justify-between h-16">
-          {/* 로고 */}
           <Button onClick={() => navigate('/')} className="flex items-center gap-2 flex-shrink-0 cursor-pointer">
             {logo ? (
               <Img src={logo} alt={siteName} className="h-8" />
@@ -243,7 +240,6 @@ const Header: React.FC<HeaderProps> = ({
             )}
           </Button>
 
-          {/* 검색바 (데스크톱 전용) */}
           {!isMobile && (
             <Form onSubmit={handleSearch} className="flex flex-1 max-w-lg mx-8">
               <Div className="relative w-full">
@@ -262,16 +258,13 @@ const Header: React.FC<HeaderProps> = ({
             </Form>
           )}
 
-          {/* 우측 액션 버튼들 */}
           <Div className="flex items-center gap-2">
-            {/* 다크모드 전환 */}
             <ThemeToggle
               autoText={t('common.theme.auto')}
               lightText={t('common.theme.light')}
               darkText={t('common.theme.dark')}
             />
 
-            {/* 알림센터 드롭다운 — 로그인 사용자에게만 노출 */}
             {user?.uuid && (
               <NotificationCenter
                 notifications={notifications}
@@ -295,7 +288,6 @@ const Header: React.FC<HeaderProps> = ({
               />
             )}
 
-            {/* 사용자 메뉴 */}
             {user?.uuid ? (
               <Div ref={userMenuRef} className="relative">
                 <Button
@@ -311,10 +303,8 @@ const Header: React.FC<HeaderProps> = ({
                   <Icon name="chevron-down" className="w-4 h-4" />
                 </Button>
 
-                {/* 드롭다운 메뉴 */}
                 {showUserMenu && (
                   <Div className="absolute right-0 mt-2 w-56 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg py-1 z-50">
-                    {/* 사용자 정보 헤더 */}
                     <Div className="px-4 py-3 border-b border-gray-200 dark:border-gray-700">
                       <Div className="flex items-center gap-3">
                         <Avatar
@@ -329,7 +319,6 @@ const Header: React.FC<HeaderProps> = ({
                       </Div>
                     </Div>
 
-                    {/* 메뉴 항목 */}
                     <Div className="py-1">
                       {/* 관리자 메뉴 (is_admin일 때만 표시) - 하이퍼링크로 전체 페이지 새로고침 */}
                       {user.is_admin && (
@@ -350,7 +339,6 @@ const Header: React.FC<HeaderProps> = ({
                       </Button>
                     </Div>
 
-                    {/* 언어 선택 (availableLocales가 있을 때만 표시) */}
                     {availableLocales && availableLocales.length > 1 && (
                       <>
                         <Hr className="my-1 border-gray-200 dark:border-gray-700" />
@@ -404,7 +392,6 @@ const Header: React.FC<HeaderProps> = ({
               </Div>
             )}
 
-            {/* 모바일 햄버거 메뉴 (모바일 전용) */}
             {isMobile && (
               <Button
                 onClick={onMobileMenuOpen}
@@ -417,7 +404,6 @@ const Header: React.FC<HeaderProps> = ({
         </Div>
       </Div>
 
-      {/* 탭 네비게이션 (데스크톱 전용) */}
       {!isMobile && (
       <Nav className="border-t border-gray-200 dark:border-gray-800">
         <Div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -430,7 +416,6 @@ const Header: React.FC<HeaderProps> = ({
               {t('nav.popular')}
             </Button>
 
-            {/* 게시판 링크 */}
             {visibleBoards.map((board) => (
               <Button
                 key={board.id}
@@ -442,7 +427,6 @@ const Header: React.FC<HeaderProps> = ({
               </Button>
             ))}
 
-            {/* 더보기 드롭다운 */}
             {hiddenBoards.length > 0 && (
               <Div ref={moreButtonRef} className="relative">
                 <Button

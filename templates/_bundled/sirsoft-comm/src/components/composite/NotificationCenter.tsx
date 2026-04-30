@@ -239,7 +239,6 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
         )}
       </Button>
 
-      {/* 알림 드롭다운 */}
       {showNotifications && (
         <Div ref={dropdownRef} className={`absolute ${dropdownAlign === 'left' ? 'left-0' : 'right-0'} mt-2 w-80 max-w-[calc(100vw-1rem)] bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-50`}>
           <Div className="px-4 py-3 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between gap-2">

@@ -1,9 +1,4 @@
-/**
- * TabNavigation 컴포넌트 테스트
- *
- * @description 탭 네비게이션 컴포넌트의 동작을 테스트합니다.
- * 주요 검증: 탭 렌더링, 탭 전환, 뱃지 표시, hiddenTabIds, disabled, 반응형 분기 (G7Core.useResponsive)
- */
+
 
 import React, { useState } from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
@@ -205,7 +200,7 @@ describe('TabNavigation 컴포넌트', () => {
       );
 
       expect(container.querySelector('nav')).not.toBeInTheDocument();
-      // custom Select trigger button이 존재해야 함
+      
       const trigger = container.querySelector('button');
       expect(trigger).toBeInTheDocument();
     });
@@ -231,7 +226,7 @@ describe('TabNavigation 컴포넌트', () => {
         />
       );
 
-      // 활성 라벨은 보이지만 숨김 처리된 항목은 보이지 않음 (Select 닫힌 상태)
+      
       expect(screen.getByText('상세정보')).toBeInTheDocument();
       expect(screen.queryByText('문의')).not.toBeInTheDocument();
     });

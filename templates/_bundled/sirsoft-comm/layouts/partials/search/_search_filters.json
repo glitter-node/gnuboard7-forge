@@ -1,9 +1,13 @@
 {
-  "meta": { "is_partial": true, "description": "검색 필터 (게시글 탭)" },
+  "meta": {
+    "is_partial": true
+  },
   "type": "basic",
   "name": "Div",
   "if": "{{_global?.searchActiveTab === 'posts' && query?.q}}",
-  "props": { "className": "flex flex-wrap gap-2 mb-4" },
+  "props": {
+    "className": "flex flex-wrap gap-2 mb-4"
+  },
   "children": [
     {
       "type": "basic",
@@ -15,12 +19,24 @@
         "value": "{{_global?.searchBoardFilter ?? ''}}"
       },
       "children": [
-        { "type": "basic", "name": "Option", "props": { "value": "" }, "text": "$t:search.filter.all_boards" },
         {
           "type": "basic",
           "name": "Option",
-          "iteration": { "source": "{{searchResults?.data?.posts?.available_boards ?? []}}", "item_var": "board" },
-          "props": { "value": "{{board?.slug}}" },
+          "props": {
+            "value": ""
+          },
+          "text": "$t:search.filter.all_boards"
+        },
+        {
+          "type": "basic",
+          "name": "Option",
+          "iteration": {
+            "source": "{{searchResults?.data?.posts?.available_boards ?? []}}",
+            "item_var": "board"
+          },
+          "props": {
+            "value": "{{board?.slug}}"
+          },
           "text": "{{board?.name}}"
         }
       ],
@@ -29,8 +45,20 @@
           "type": "change",
           "handler": "sequence",
           "actions": [
-            { "handler": "setState", "params": { "target": "global", "searchBoardFilter": "{{$event.target.value}}", "searchPage": 1 } },
-            { "handler": "refetchDataSource", "params": { "dataSourceId": "searchResults" } }
+            {
+              "handler": "setState",
+              "params": {
+                "target": "global",
+                "searchBoardFilter": "{{$event.target.value}}",
+                "searchPage": 1
+              }
+            },
+            {
+              "handler": "refetchDataSource",
+              "params": {
+                "dataSourceId": "searchResults"
+              }
+            }
           ]
         }
       ]
@@ -44,9 +72,18 @@
         "className": "w-32",
         "value": "{{_global?.searchSortBy ?? 'relevance'}}",
         "options": [
-          { "value": "relevance", "label": "$t:search.sort.relevance" },
-          { "value": "latest", "label": "$t:search.sort.latest" },
-          { "value": "popular", "label": "$t:search.sort.popular" }
+          {
+            "value": "relevance",
+            "label": "$t:search.sort.relevance"
+          },
+          {
+            "value": "latest",
+            "label": "$t:search.sort.latest"
+          },
+          {
+            "value": "popular",
+            "label": "$t:search.sort.popular"
+          }
         ]
       },
       "actions": [
@@ -54,8 +91,20 @@
           "type": "change",
           "handler": "sequence",
           "actions": [
-            { "handler": "setState", "params": { "target": "global", "searchSortBy": "{{$event.target.value}}", "searchPage": 1 } },
-            { "handler": "refetchDataSource", "params": { "dataSourceId": "searchResults" } }
+            {
+              "handler": "setState",
+              "params": {
+                "target": "global",
+                "searchSortBy": "{{$event.target.value}}",
+                "searchPage": 1
+              }
+            },
+            {
+              "handler": "refetchDataSource",
+              "params": {
+                "dataSourceId": "searchResults"
+              }
+            }
           ]
         }
       ]

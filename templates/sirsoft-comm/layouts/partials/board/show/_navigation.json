@@ -1,9 +1,7 @@
 {
   "meta": {
-    "is_partial": true,
-    "description": "게시글 상단 네비게이션. 목록으로 버튼 + 게시판 이름 + 이전글/다음글 버튼"
+    "is_partial": true
   },
-  "comment": "상단 네비게이션 버튼",
   "type": "basic",
   "name": "Div",
   "props": {
@@ -11,7 +9,6 @@
   },
   "children": [
     {
-      "comment": "목록으로 버튼",
       "type": "basic",
       "name": "Button",
       "props": {
@@ -43,7 +40,6 @@
       ]
     },
     {
-      "comment": "게시판 이름 (가운데)",
       "type": "basic",
       "name": "Span",
       "props": {
@@ -59,7 +55,6 @@
       },
       "children": [
         {
-          "comment": "이전글 버튼 - 아이콘 + 텍스트",
           "type": "basic",
           "name": "Button",
           "if": "{{navigation?.data?.prev?.id}}",
@@ -95,7 +90,6 @@
           ]
         },
         {
-          "comment": "다음글 버튼 - 아이콘 + 텍스트",
           "type": "basic",
           "name": "Button",
           "if": "{{navigation?.data?.next?.id}}",

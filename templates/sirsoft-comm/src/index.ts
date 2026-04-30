@@ -1,21 +1,16 @@
-/**
- * Sirsoft Comm User Template
- *
- * 그누보드7 템플릿 엔진용 사용자 템플릿 컴포넌트 패키지
- * Nexibase 스타일 기반
- */
 
-// Logger 설정 (G7Core 초기화 전에도 동작하도록 폴백 포함)
+
+
 const logger = ((window as any).G7Core?.createLogger?.('Template:sirsoft-comm')) ?? {
     log: (...args: unknown[]) => console.log('[Template:sirsoft-comm]', ...args),
     warn: (...args: unknown[]) => console.warn('[Template:sirsoft-comm]', ...args),
     error: (...args: unknown[]) => console.error('[Template:sirsoft-comm]', ...args),
 };
 
-// Styles
+
 import './styles/main.css';
 
-// Basic Components (Header, Footer는 composite에서 사용하므로 여기서는 별도 이름으로 export)
+
 export {
   Button,
   type ButtonProps,
@@ -99,47 +94,38 @@ export {
   type IconSize,
 } from './components/basic';
 
-// Composite Components
+
 export * from './components/composite';
 
-// Layout Components
+
 export * from './components/layout';
 
-// Template Metadata
+
 import templateMetadata from '../template.json';
 
-// Handlers
+
 import { handlerMap } from './handlers';
 
-// handlerMap을 전역으로 노출 (로케일 변경 시 재등록용)
+
 if (typeof window !== 'undefined') {
   (window as any).G7TemplateHandlers = handlerMap;
 }
 
-/**
- * 템플릿 메타데이터 export
- *
- * template.json 파일의 내용을 번들에 포함시켜 API 호출 없이
- * 코어 엔진에서 직접 접근 가능하도록 합니다.
- */
+
 export { templateMetadata };
 
-/**
- * 템플릿 초기화 함수
- *
- * 코어 엔진에 커스텀 핸들러를 등록합니다.
- */
+
 export function initTemplate(): void {
-  // ActionDispatcher가 로드될 때까지 대기 후 핸들러 등록
+  
   if (typeof window !== 'undefined') {
     let retryCount = 0;
-    const maxRetries = 50; // 최대 5초 대기 (50 * 100ms)
+    const maxRetries = 50; 
 
     const registerHandlers = () => {
       const actionDispatcher = (window as any).G7Core?.getActionDispatcher?.();
 
       if (actionDispatcher) {
-        // handlerMap의 모든 핸들러를 자동으로 등록
+        
         Object.entries(handlerMap).forEach(([name, handler]) => {
           actionDispatcher.registerHandler(name, handler);
         });

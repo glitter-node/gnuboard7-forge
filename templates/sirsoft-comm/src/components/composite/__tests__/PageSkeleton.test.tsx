@@ -33,7 +33,7 @@ describe('PageSkeleton', () => {
 
         const wrapper = container.querySelector('.flex.gap-4');
         expect(wrapper).toBeTruthy();
-        // H1 스켈레톤 바 + P 스켈레톤 바 = 2개 자식
+        
         expect(wrapper!.children.length).toBe(2);
     });
 
@@ -49,7 +49,7 @@ describe('PageSkeleton', () => {
 
         const status = container.querySelector('[role="status"]')!;
         const bars = status.children;
-        // H1: h-7 w-3/5, P: h-3.5 w-full
+        
         expect(bars[0].className).toContain('h-7');
         expect(bars[0].className).toContain('w-3/5');
         expect(bars[1].className).toContain('h-3');
@@ -134,7 +134,7 @@ describe('PageSkeleton', () => {
             <PageSkeleton components={components} options={{ animation: 'pulse', iteration_count: 4 }} />
         );
 
-        // iteration_count=4이므로 4개의 Div.item-container가 생성되어야 함
+        
         const items = container.querySelectorAll('.item-container');
         expect(items.length).toBe(4);
     });
@@ -149,7 +149,7 @@ describe('PageSkeleton', () => {
         );
 
         const status = container.querySelector('[role="status"]')!;
-        // DataGrid 스켈레톤: 헤더 바 + iteration_count(3)개 행
+        
         const gridContainer = status.children[0];
         expect(gridContainer).toBeTruthy();
     });
@@ -166,12 +166,12 @@ describe('PageSkeleton', () => {
         );
 
         const status = container.querySelector('[role="status"]')!;
-        // Modal, Toast, ConfirmDialog는 빈 Fragment를 반환하므로
-        // 실제 DOM에 내용이 없어야 함
-        // 3개 모두 빈 div (className wrapper) 렌더링
+        
+        
+        
         const children = Array.from(status.children);
         children.forEach((child) => {
-            // 빈 wrapper div이거나 내용이 없어야 함
+            
             expect(child.textContent).toBe('');
         });
     });
@@ -236,7 +236,7 @@ describe('PageSkeleton', () => {
         const level2 = level1?.querySelector('.level-2');
         const level3 = level2?.querySelector('.level-3');
         expect(level3).toBeTruthy();
-        expect(level3!.children.length).toBe(1); // Span 스켈레톤 바
+        expect(level3!.children.length).toBe(1); 
     });
 
     it('다크 모드 클래스가 포함되어야 한다', () => {
@@ -249,7 +249,7 @@ describe('PageSkeleton', () => {
         );
 
         const status = container.querySelector('[role="status"]')!;
-        // 스켈레톤 바에 다크 모드 배경 클래스
+        
         expect(status.children[0].className).toContain('dark:bg-gray-700');
     });
 
@@ -264,7 +264,7 @@ describe('PageSkeleton', () => {
         );
 
         const status = container.querySelector('[role="status"]')!;
-        // name 없는 컴포넌트는 스킵, P만 렌더링
+        
         expect(status.children.length).toBe(1);
     });
 
@@ -369,10 +369,10 @@ describe('PageSkeleton', () => {
 
         const flex = container.querySelector('.flex.items-center');
         expect(flex).toBeTruthy();
-        // 레이아웃 클래스 유지
+        
         expect(flex!.className).toContain('justify-between');
         expect(flex!.className).toContain('gap-4');
-        // 시각적 클래스 제거
+        
         expect(flex!.className).not.toContain('bg-white');
         expect(flex!.className).not.toContain('text-gray-800');
         expect(flex!.className).not.toContain('shadow-md');
@@ -399,7 +399,7 @@ describe('PageSkeleton', () => {
 
         const grid = container.querySelector('.grid');
         expect(grid).toBeTruthy();
-        // grid-cols-3 유지 (4 이하)
+        
         expect(grid!.className).toContain('grid-cols-3');
     });
 
@@ -423,7 +423,7 @@ describe('PageSkeleton', () => {
 
         const grid = container.querySelector('.grid');
         expect(grid).toBeTruthy();
-        // grid-cols-6 → grid-cols-3 (절반)
+        
         expect(grid!.className).toContain('grid-cols-3');
     });
 
@@ -462,7 +462,7 @@ describe('PageSkeleton', () => {
         expect(status.className).not.toContain('min-h-full');
     });
 
-    // === Flex/Grid 레이아웃 props → Tailwind 클래스 변환 ===
+    
 
     it('Flex 컴포넌트의 justify/align props를 Tailwind 클래스로 변환해야 한다', () => {
         const components = [
@@ -487,13 +487,13 @@ describe('PageSkeleton', () => {
 
         const flex = container.querySelector('.flex');
         expect(flex).toBeTruthy();
-        // props에서 변환된 Tailwind 클래스
+        
         expect(flex!.className).toContain('justify-center');
         expect(flex!.className).toContain('items-start');
         expect(flex!.className).toContain('flex-row');
-        // className에서 유지된 레이아웃 클래스
+        
         expect(flex!.className).toContain('py-12');
-        // 자식 렌더
+        
         expect(flex!.children.length).toBe(2);
     });
 
@@ -581,9 +581,9 @@ describe('PageSkeleton', () => {
         expect(grid).toBeTruthy();
         expect(grid!.className).toContain('grid-cols-1');
         expect(grid!.className).toContain('gap-6');
-        // 반응형 접두사는 resolveResponsiveDisplay에서 처리됨
-        // sm:grid-cols-2, md:grid-cols-3은 뷰포트에 따라 해석
-        expect(grid!.className).toContain('grid-cols-4'); // lg:grid-cols-4 → 1280px에서 적용
+        
+        
+        expect(grid!.className).toContain('grid-cols-4'); 
 
         Object.defineProperty(window, 'innerWidth', { value: 0, writable: true });
     });
@@ -608,13 +608,13 @@ describe('PageSkeleton', () => {
 
         const flex = container.querySelector('.flex');
         expect(flex).toBeTruthy();
-        // className에 직접 작성된 클래스도 유지
+        
         expect(flex!.className).toContain('items-center');
         expect(flex!.className).toContain('justify-between');
         expect(flex!.className).toContain('gap-4');
     });
 
-    // === Leaf 컨테이너 처리 ===
+    
 
     it('자식 없는 Div(leaf 컨테이너)를 스켈레톤 바로 표시해야 한다', () => {
         const components = [
@@ -648,7 +648,7 @@ describe('PageSkeleton', () => {
         expect(bar.className).toContain('bg-gray-200');
     });
 
-    // === 조건부 분기 필터링 ===
+    
 
     it('부정 조건(!)의 if 분기를 스킵해야 한다', () => {
         const components = [
@@ -677,10 +677,10 @@ describe('PageSkeleton', () => {
         );
 
         const status = container.querySelector('[role="status"]')!;
-        // 부정 조건은 스킵, 긍정 조건만 렌더
+        
         const contentBranch = status.querySelector('.content-branch');
         expect(contentBranch).toBeTruthy();
-        expect(contentBranch!.children.length).toBe(2); // H1 + P
+        expect(contentBranch!.children.length).toBe(2); 
     });
 
     it('hasError 조건의 if 분기를 스킵해야 한다', () => {
@@ -713,7 +713,7 @@ describe('PageSkeleton', () => {
         const status = container.querySelector('[role="status"]')!;
         const mainContent = status.querySelector('.main-content');
         expect(mainContent).toBeTruthy();
-        expect(mainContent!.children.length).toBe(3); // H1 + P + Button
+        expect(mainContent!.children.length).toBe(3); 
     });
 
     it('상호 배타적 긍정 분기 중 가장 풍부한 것을 선택해야 한다', () => {
@@ -748,7 +748,7 @@ describe('PageSkeleton', () => {
         );
 
         const status = container.querySelector('[role="status"]')!;
-        // basic 분기가 더 풍부 → 선택됨
+        
         expect(status.querySelector('.basic-branch')).toBeTruthy();
         expect(status.querySelector('.gallery-branch')).toBeFalsy();
     });
@@ -780,7 +780,7 @@ describe('PageSkeleton', () => {
     });
 
     it('혼재(withoutIf + withIf) 시 상호 배타적 값 분기(=== value)는 richest만 선택해야 한다', () => {
-        // _type_renderer 패턴: navigation(no if) + basic/gallery/card(if)
+        
         const components = [
             {
                 name: 'Div',
@@ -832,11 +832,11 @@ describe('PageSkeleton', () => {
         );
 
         const status = container.querySelector('[role="status"]')!;
-        // navigation은 항상 렌더
+        
         expect(status.querySelector('.navigation')).toBeTruthy();
-        // basic이 가장 풍부 → 선택
+        
         expect(status.querySelector('.basic-type')).toBeTruthy();
-        // gallery, card는 상호 배타적이므로 렌더 안 됨
+        
         expect(status.querySelector('.gallery-type')).toBeFalsy();
         expect(status.querySelector('.card-type')).toBeFalsy();
     });
@@ -870,13 +870,13 @@ describe('PageSkeleton', () => {
         );
 
         const status = container.querySelector('[role="status"]')!;
-        // 독립적 조건 → 모두 렌더
+        
         expect(status.querySelector('.always-shown')).toBeTruthy();
         expect(status.querySelector('.logged-in-content')).toBeTruthy();
         expect(status.querySelector('.attachments')).toBeTruthy();
     });
 
-    // === 복합 컴포넌트 스켈레톤 ===
+    
 
     it('ProductCard를 이미지+텍스트 카드 스켈레톤으로 치환해야 한다', () => {
         const components = [
@@ -889,9 +889,9 @@ describe('PageSkeleton', () => {
 
         const status = container.querySelector('[role="status"]')!;
         expect(status.children[0]).toBeTruthy();
-        // ProductCard 스켈레톤에 이미지 영역 + 텍스트 영역
+        
         const card = status.children[0];
-        expect(card.querySelector('.h-48')).toBeTruthy(); // 이미지 영역
+        expect(card.querySelector('.h-48')).toBeTruthy(); 
     });
 
     it('UserInfo를 작은 텍스트 바로 치환해야 한다', () => {
@@ -938,10 +938,10 @@ describe('PageSkeleton', () => {
         expect(status.children[0].className).toContain('bg-gray-200');
     });
 
-    // === Tailwind 반응형 display 해석 ===
+    
 
     it('hidden lg:grid 패턴을 데스크톱에서 grid로 해석해야 한다', () => {
-        // jsdom에서 window.innerWidth 기본값은 0 → 1024로 설정
+        
         Object.defineProperty(window, 'innerWidth', { value: 1280, writable: true });
 
         const components = [
@@ -963,14 +963,14 @@ describe('PageSkeleton', () => {
         );
 
         const status = container.querySelector('[role="status"]')!;
-        // hidden lg:grid → desktop에서 grid로 해석되어 렌더링됨
+        
         const gridDiv = status.querySelector('.grid');
         expect(gridDiv).toBeTruthy();
         expect(gridDiv!.className).toContain('gap-4');
         expect(gridDiv!.className).not.toContain('hidden');
         expect(gridDiv!.children.length).toBe(2);
 
-        // cleanup
+        
         Object.defineProperty(window, 'innerWidth', { value: 0, writable: true });
     });
 
@@ -995,7 +995,7 @@ describe('PageSkeleton', () => {
         );
 
         const status = container.querySelector('[role="status"]')!;
-        // lg:hidden → desktop에서 숨겨짐
+        
         expect(status.children.length).toBe(0);
 
         Object.defineProperty(window, 'innerWidth', { value: 0, writable: true });
@@ -1022,7 +1022,7 @@ describe('PageSkeleton', () => {
         );
 
         const status = container.querySelector('[role="status"]')!;
-        // 모바일에서 hidden 유지 → 스킵
+        
         expect(status.children.length).toBe(0);
 
         Object.defineProperty(window, 'innerWidth', { value: 0, writable: true });
@@ -1049,7 +1049,7 @@ describe('PageSkeleton', () => {
         );
 
         const status = container.querySelector('[role="status"]')!;
-        // 모바일에서 flex 유지 → 렌더링됨
+        
         const flexDiv = status.querySelector('.flex');
         expect(flexDiv).toBeTruthy();
         expect(flexDiv!.className).toContain('flex-col');
@@ -1057,7 +1057,7 @@ describe('PageSkeleton', () => {
         Object.defineProperty(window, 'innerWidth', { value: 0, writable: true });
     });
 
-    // === Arbitrary grid-cols-[...] → inline style ===
+    
 
     it('arbitrary grid-cols-[...] 값을 inline gridTemplateColumns style로 변환해야 한다', () => {
         Object.defineProperty(window, 'innerWidth', { value: 1280, writable: true });
@@ -1085,9 +1085,9 @@ describe('PageSkeleton', () => {
 
         const gridDiv = container.querySelector('.grid')!;
         expect(gridDiv).toBeTruthy();
-        // className에서 arbitrary value 제거됨
+        
         expect(gridDiv.className).not.toContain('grid-cols-[');
-        // inline style로 변환됨
+        
         expect((gridDiv as HTMLElement).style.gridTemplateColumns).toBe(
             '60px minmax(300px,1fr) 160px 100px 70px'
         );
@@ -1095,10 +1095,10 @@ describe('PageSkeleton', () => {
         Object.defineProperty(window, 'innerWidth', { value: 0, writable: true });
     });
 
-    // === 로딩/에러 wrapper 전체 스킵 ===
+    
 
     it('모든 자식이 부정 조건이면 컨테이너 자체를 스킵해야 한다 (_loading_error 패턴)', () => {
-        // _loading_error.json 구조: Div(no if) → [Container(!data), Container(hasError)]
+        
         const components = [
             {
                 name: 'Div',
@@ -1139,17 +1139,17 @@ describe('PageSkeleton', () => {
         );
 
         const status = container.querySelector('[role="status"]')!;
-        // _loading_error Div의 모든 자식이 부정 조건 → children empty → 컨테이너 스킵
-        // actual-content만 렌더
+        
+        
         const actualContent = status.querySelector('.actual-content');
         expect(actualContent).toBeTruthy();
-        // H1 + P = 2개
+        
         expect(actualContent!.children.length).toBe(2);
-        // 로딩 스켈레톤(h-8 w-48)이 렌더되지 않아야 함
+        
         expect(status.querySelector('.h-8.w-48')).toBeFalsy();
     });
 
-    // === {{...}} 표현식 + 반응형 통합 ===
+    
 
     it('{{...}} 삼항 표현식과 hidden lg:grid를 함께 처리해야 한다', () => {
         Object.defineProperty(window, 'innerWidth', { value: 1280, writable: true });
@@ -1175,17 +1175,17 @@ describe('PageSkeleton', () => {
 
         const gridDiv = container.querySelector('.grid')!;
         expect(gridDiv).toBeTruthy();
-        // 삼항에서 true 분기 추출: grid-cols-[60px_1fr_160px] → inline style
+        
         expect((gridDiv as HTMLElement).style.gridTemplateColumns).toBe('60px 1fr 160px');
         expect(gridDiv.className).not.toContain('hidden');
 
         Object.defineProperty(window, 'innerWidth', { value: 0, writable: true });
     });
 
-    // === empty state 조건 스킵 ===
+    
 
     it('empty state 조건(=== 0)을 부정 조건으로 감지하여 스킵해야 한다', () => {
-        // _empty_states.json 패턴: 모든 자식이 === 0 조건
+        
         const components = [
             {
                 name: 'Div',
@@ -1226,11 +1226,11 @@ describe('PageSkeleton', () => {
         );
 
         const status = container.querySelector('[role="status"]')!;
-        // 모든 자식이 === 0 (empty state) → 부정 조건 → 컨테이너 스킵
+        
         expect(status.children.length).toBe(0);
     });
 
-    // === Button-as-container (게시판 행 래퍼) ===
+    
 
     it('children이 있는 Button은 컨테이너로 처리하여 자식을 렌더해야 한다', () => {
         Object.defineProperty(window, 'innerWidth', { value: 1280, writable: true });
@@ -1267,10 +1267,10 @@ describe('PageSkeleton', () => {
         );
 
         const status = container.querySelector('[role="status"]')!;
-        // Button → div wrapper with sanitized className (색상 제거)
+        
         const buttonWrapper = status.firstElementChild as HTMLElement;
         expect(buttonWrapper).toBeTruthy();
-        // desktop: hidden lg:grid → grid 렌더, lg:hidden → 스킵
+        
         const gridChild = buttonWrapper.querySelector('.grid');
         expect(gridChild).toBeTruthy();
         expect(gridChild!.children.length).toBe(2);
@@ -1294,16 +1294,16 @@ describe('PageSkeleton', () => {
         expect(btn.className).toContain('w-24');
     });
 
-    // === 게시판/상품 레이아웃 시뮬레이션 ===
+    
 
     it('게시판 목록 레이아웃 구조를 올바르게 반영해야 한다', () => {
-        // 실제 게시판 레이아웃의 핵심 구조 시뮬레이션
+        
         const components = [
             {
                 name: 'Container',
                 type: 'layout',
                 children: [
-                    // 로딩 상태 (부정 조건 → 스킵)
+                    
                     {
                         name: 'Div',
                         type: 'basic',
@@ -1312,7 +1312,7 @@ describe('PageSkeleton', () => {
                             { name: 'Div', type: 'basic', props: { className: 'h-8 w-48' } },
                         ],
                     },
-                    // 에러 상태 (hasError → 스킵)
+                    
                     {
                         name: 'Div',
                         type: 'basic',
@@ -1321,13 +1321,13 @@ describe('PageSkeleton', () => {
                             { name: 'H2', type: 'basic' },
                         ],
                     },
-                    // 실제 콘텐츠 (긍정 조건 → 렌더)
+                    
                     {
                         name: 'Container',
                         type: 'layout',
                         if: '{{posts?.data?.board}}',
                         children: [
-                            // 헤더
+                            
                             {
                                 name: 'Div',
                                 type: 'basic',
@@ -1337,7 +1337,7 @@ describe('PageSkeleton', () => {
                                     { name: 'Button', type: 'basic' },
                                 ],
                             },
-                            // 검색바
+                            
                             {
                                 name: 'Div',
                                 type: 'basic',
@@ -1346,7 +1346,7 @@ describe('PageSkeleton', () => {
                                     { name: 'SearchBar', type: 'composite' },
                                 ],
                             },
-                            // 테이블 (iteration)
+                            
                             {
                                 name: 'Div',
                                 type: 'basic',
@@ -1363,7 +1363,7 @@ describe('PageSkeleton', () => {
                                     },
                                 ],
                             },
-                            // 페이지네이션
+                            
                             { name: 'Pagination', type: 'composite' },
                         ],
                     },
@@ -1376,17 +1376,17 @@ describe('PageSkeleton', () => {
         );
 
         const status = container.querySelector('[role="status"]')!;
-        // 로딩/에러 분기 스킵 → 실제 콘텐츠만 렌더
-        // H1 (헤더) 존재
+        
+        
         const h1Bar = status.querySelector('.h-7');
         expect(h1Bar).toBeTruthy();
-        // SearchBar (인풋) 존재
+        
         const searchBar = status.querySelector('.h-9');
         expect(searchBar).toBeTruthy();
-        // iteration 3회 반복 → Avatar 3개
+        
         const avatars = status.querySelectorAll('.rounded-full');
         expect(avatars.length).toBe(3);
-        // Pagination 존재
+        
         const paginationBtns = status.querySelectorAll('.w-8.h-8');
         expect(paginationBtns.length).toBe(5);
     });

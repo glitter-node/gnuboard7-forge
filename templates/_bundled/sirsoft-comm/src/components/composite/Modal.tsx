@@ -149,7 +149,6 @@ export const Modal: React.FC<ModalProps> = ({
         aria-modal="true"
         aria-labelledby={title ? 'modal-title' : undefined}
       >
-        {/* Header */}
         {(title || icon || showCloseButton) && (
           <Div className="flex items-center justify-between p-4">
             {(title || icon) && (
@@ -185,7 +184,6 @@ export const Modal: React.FC<ModalProps> = ({
           </Div>
         )}
 
-        {/* Body */}
         <Div className="px-6 py-4 overflow-y-auto max-h-[calc(90vh-140px)]">
           {children}
         </Div>

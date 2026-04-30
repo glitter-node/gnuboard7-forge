@@ -1,24 +1,13 @@
-/**
- * @file board-form-type-renderer.test.tsx
- * @description 게시글 작성/수정 - _type_renderer 유형별 분기 렌더링 테스트 (이슈 #153)
- *
- * 검증 항목:
- * 1. basic 유형: 폼 영역 렌더링
- * 2. gallery 유형: 폼 영역 렌더링 (현재 basic 공유)
- * 3. card 유형: 폼 영역 렌더링 (현재 basic 공유)
- * 4. 알 수 없는 유형 fallback: basic으로 렌더링
- * 5. 비밀번호 확인 조건부 렌더링 (requires_password)
- * 6. dataKey 2단계 partial 전파 검증 (trackChanges/blur_until_loaded)
- */
+
 
 import React from 'react';
 import { describe, it, expect, beforeEach } from 'vitest';
 import { createLayoutTest, screen } from '@/core/template-engine/__tests__/utils/layoutTestUtils';
 import { ComponentRegistry } from '@/core/template-engine/ComponentRegistry';
 
-// ============================================================
-// 테스트용 컴포넌트 정의
-// ============================================================
+
+
+
 
 const TestDiv: React.FC<{
   className?: string;

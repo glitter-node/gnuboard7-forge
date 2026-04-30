@@ -13,39 +13,10 @@ const t = (key: string, params?: Record<string, string | number>) =>
 
 
 const PageLoading: React.FC<PageLoadingProps> = ({ options }) => {
-    const isDark = document.documentElement.classList.contains('dark');
-
-    const bgColor = isDark ? 'rgb(17,24,39)' : 'rgb(249,250,251)';
-    const spinnerColor = isDark ? '#6b7280' : '#9ca3af';
-    const textColor = isDark ? '#9ca3af' : '#6b7280';
-
     return (
-        <div
-            style={{
-                position: 'absolute',
-                inset: 0,
-                zIndex: 2147483647,
-                overflow: 'hidden',
-                background: bgColor,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'flex-start',
-                paddingTop: '15%',
-                gap: '12px',
-            }}
-        >
-            <div
-                style={{
-                    width: '32px',
-                    height: '32px',
-                    border: `3px solid ${spinnerColor}`,
-                    borderTopColor: 'transparent',
-                    borderRadius: '50%',
-                    animation: 'g7-spin 0.8s linear infinite',
-                }}
-            />
-            <span style={{ color: textColor, fontSize: '14px' }}>
+        <div className="absolute inset-0 z-[2147483647] overflow-hidden bg-gray-50 dark:bg-gray-900 flex flex-col items-center justify-start pt-[15%] gap-3">
+            <div className="w-8 h-8 border-[3px] border-gray-400 dark:border-gray-500 border-t-transparent rounded-full animate-[g7-spin_0.8s_linear_infinite]" />
+            <span className="text-sm text-gray-500 dark:text-gray-400">
                 {options?.text || t('nav.loading')}
             </span>
         </div>

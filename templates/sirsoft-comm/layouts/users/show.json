@@ -6,7 +6,9 @@
   "meta": {
     "seo": {
       "enabled": true,
-      "data_sources": ["profile"],
+      "data_sources": [
+        "profile"
+      ],
       "priority": 0.4,
       "changefreq": "monthly",
       "og": {
@@ -29,10 +31,10 @@
       "loading_strategy": "progressive",
       "errorHandling": {
         "404": {
-            "handler": "showErrorPage",
-            "params": {
-                "target": "content"
-            }
+          "handler": "showErrorPage",
+          "params": {
+            "target": "content"
+          }
         }
       }
     },
@@ -82,7 +84,6 @@
             },
             "children": [
               {
-                "comment": "로딩/에러 상태 처리",
                 "type": "basic",
                 "name": "Div",
                 "if": "{{profile.loading}}",
@@ -100,7 +101,6 @@
                 ]
               },
               {
-                "comment": "프로필 내용",
                 "type": "basic",
                 "name": "Div",
                 "if": "{{profile.data && !profile.loading && !profile.error}}",
@@ -109,7 +109,6 @@
                 },
                 "children": [
                   {
-                    "comment": "페이지 헤더",
                     "type": "basic",
                     "name": "Div",
                     "props": {
@@ -136,7 +135,6 @@
                     ]
                   },
                   {
-                    "comment": "프로필 카드",
                     "type": "basic",
                     "name": "Div",
                     "props": {
@@ -165,7 +163,6 @@
                         },
                         "children": [
                           {
-                            "comment": "아바타 (author 객체로 탈퇴 사용자 자동 처리)",
                             "type": "composite",
                             "name": "Avatar",
                             "props": {
@@ -181,7 +178,6 @@
                             }
                           },
                           {
-                            "comment": "기본 정보 (일반 사용자)",
                             "type": "basic",
                             "name": "Div",
                             "if": "{{profile.data?.status !== 'withdrawn'}}",
@@ -197,7 +193,6 @@
                             },
                             "children": [
                               {
-                                "comment": "이름 (배지 제거)",
                                 "type": "basic",
                                 "name": "H2",
                                 "props": {
@@ -213,7 +208,6 @@
                                 "text": "{{profile.data?.name ?? '-'}}"
                               },
                               {
-                                "comment": "가입일",
                                 "type": "basic",
                                 "name": "Div",
                                 "props": {
@@ -251,7 +245,6 @@
                                 ]
                               },
                               {
-                                "comment": "자기소개",
                                 "if": "{{profile.data?.bio}}",
                                 "type": "basic",
                                 "name": "P",
@@ -263,7 +256,6 @@
                             ]
                           },
                           {
-                            "comment": "기본 정보 (탈퇴한 사용자)",
                             "type": "basic",
                             "name": "Div",
                             "if": "{{profile.data?.status === 'withdrawn'}}",
@@ -279,7 +271,6 @@
                             },
                             "children": [
                               {
-                                "comment": "탈퇴한 사용자 텍스트",
                                 "type": "basic",
                                 "name": "H2",
                                 "props": {
@@ -301,7 +292,6 @@
                     ]
                   },
                   {
-                    "comment": "활동 통계 카드",
                     "type": "basic",
                     "name": "Div",
                     "props": {
@@ -316,7 +306,6 @@
                     },
                     "children": [
                       {
-                        "comment": "게시글 수",
                         "type": "basic",
                         "name": "Div",
                         "props": {
@@ -342,7 +331,6 @@
                         ]
                       },
                       {
-                        "comment": "댓글 수",
                         "type": "basic",
                         "name": "Div",
                         "props": {
@@ -370,7 +358,6 @@
                     ]
                   },
                   {
-                    "comment": "최근 게시글 섹션",
                     "if": "{{recentPosts.data?.data?.length > 0}}",
                     "type": "basic",
                     "name": "Div",
@@ -453,7 +440,6 @@
                                 },
                                 "children": [
                                   {
-                                    "comment": "제목 영역",
                                     "type": "basic",
                                     "name": "Div",
                                     "props": {
@@ -461,7 +447,6 @@
                                     },
                                     "children": [
                                       {
-                                        "comment": "게시판명 배지",
                                         "type": "basic",
                                         "name": "Span",
                                         "props": {
@@ -470,7 +455,6 @@
                                         "text": "{{post.board_name}}"
                                       },
                                       {
-                                        "comment": "카테고리 배지",
                                         "type": "basic",
                                         "name": "Span",
                                         "if": "{{post.category}}",
@@ -480,7 +464,6 @@
                                         "text": "{{post.category}}"
                                       },
                                       {
-                                        "comment": "비밀글 아이콘",
                                         "type": "basic",
                                         "name": "Icon",
                                         "if": "{{post.is_secret}}",
@@ -491,7 +474,6 @@
                                         }
                                       },
                                       {
-                                        "comment": "블라인드 아이콘",
                                         "type": "basic",
                                         "name": "Icon",
                                         "if": "{{post.status === 'blinded'}}",
@@ -502,7 +484,6 @@
                                         }
                                       },
                                       {
-                                        "comment": "제목 + 댓글수 컨테이너",
                                         "type": "basic",
                                         "name": "Div",
                                         "props": {
@@ -510,7 +491,6 @@
                                         },
                                         "children": [
                                           {
-                                            "comment": "제목",
                                             "type": "basic",
                                             "name": "Span",
                                             "props": {
@@ -519,7 +499,6 @@
                                             "text": "{{post.title}}"
                                           },
                                           {
-                                            "comment": "댓글 수",
                                             "type": "basic",
                                             "name": "Span",
                                             "if": "{{post.comments_count > 0}}",
@@ -550,7 +529,6 @@
                     ]
                   },
                   {
-                    "comment": "최근 게시글 없음 상태",
                     "if": "{{!recentPosts.data?.data?.length}}",
                     "type": "basic",
                     "name": "Div",

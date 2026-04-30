@@ -1,7 +1,6 @@
 {
   "meta": {
-    "is_partial": true,
-    "description": "댓글 섹션 전체"
+    "is_partial": true
   },
   "type": "basic",
   "name": "Div",
@@ -19,7 +18,9 @@
         {
           "type": "basic",
           "name": "Div",
-          "props": { "className": "flex items-center gap-2" },
+          "props": {
+            "className": "flex items-center gap-2"
+          },
           "children": [
             {
               "type": "composite",
@@ -42,7 +43,6 @@
           ]
         },
         {
-          "comment": "삭제된 댓글 포함 토글 버튼 (manager 권한 보유 시에만 표시)",
           "type": "basic",
           "name": "Button",
           "if": "{{post?.data?.abilities?.can_manage}}",
@@ -64,14 +64,24 @@
             }
           ],
           "children": [
-            { "type": "basic", "name": "Icon", "props": { "name": "eye", "size": "sm" } },
-            { "type": "basic", "name": "Span", "text": "$t:board.filter.include_deleted_comments" }
+            {
+              "type": "basic",
+              "name": "Icon",
+              "props": {
+                "name": "eye",
+                "size": "sm"
+              }
+            },
+            {
+              "type": "basic",
+              "name": "Span",
+              "text": "$t:board.filter.include_deleted_comments"
+            }
           ]
         }
       ]
     },
     {
-      "comment": "헤더 구분선",
       "type": "basic",
       "name": "Div",
       "props": {
@@ -79,7 +89,6 @@
       }
     },
     {
-      "comment": "댓글 없음 안내 (조회+작성 권한 O, 댓글 0개, 블라인드 아님)",
       "type": "basic",
       "name": "Div",
       "if": "{{(post?.data?.comments ?? []).length === 0 && post?.data?.abilities?.can_write_comments && post?.data?.status !== 'blinded'}}",
@@ -122,7 +131,7 @@
           "type": "basic",
           "name": "Div",
           "if": "{{(comment?.depth ?? 0) === 0 || (_local.collapsedReplies?.[$computed.commentRootMap?.[comment?.id]] === false)}}",
-          "props":{
+          "props": {
             "className": "border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors {{(comment?.depth ?? 0) > 0 ? 'bg-gray-50 dark:bg-gray-900/50' : ''}}"
           },
           "children": [
@@ -130,7 +139,6 @@
               "partial": "partials/board/show/_comment_item.json"
             },
             {
-              "comment": "답글이 있는 경우 토글 버튼",
               "type": "basic",
               "name": "Button",
               "if": "{{(comment?.replies_count ?? 0) > 0 && (comment?.depth ?? 0) === 0}}",
@@ -168,7 +176,6 @@
       ]
     },
     {
-      "comment": "블라인드 게시글 댓글 작성 불가 안내",
       "type": "basic",
       "name": "Div",
       "if": "{{post?.data?.status === 'blinded' && post?.data?.abilities?.can_read_comments}}",
@@ -196,7 +203,6 @@
       ]
     },
     {
-      "comment": "작성 권한 없음 안내 (조회 권한 O, 작성 권한 X, 블라인드 아님)",
       "type": "basic",
       "name": "Div",
       "if": "{{post?.data?.abilities?.can_read_comments && !post?.data?.abilities?.can_write_comments && post?.data?.status !== 'blinded'}}",

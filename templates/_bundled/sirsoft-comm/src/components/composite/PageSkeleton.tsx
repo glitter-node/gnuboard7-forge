@@ -703,7 +703,6 @@ function renderSkeletonNode(
         return <div key={index} className={`h-9 w-24 bg-gray-200 dark:bg-gray-700 rounded ${animClass}`} />;
     }
 
-    // Icon
     if (name === 'Icon') {
         return <div key={index} className={`h-5 w-5 bg-gray-200 dark:bg-gray-700 rounded ${animClass}`} />;
     }

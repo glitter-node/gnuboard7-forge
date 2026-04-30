@@ -1,14 +1,4 @@
-/**
- * @file profile-edit.test.tsx
- * @description 프로필 편집/아바타 변경 후 헤더 프로필 갱신 테스트
- *
- * 테스트 케이스 (3개)
- * - 기본 렌더링: 프로필 편집 폼 렌더링
- * - API 연동: 프로필 수정 성공 시 user + current_user 데이터소스 리패치
- * - AvatarUploader 액션: uploadSuccessActions/deleteSuccessActions props 동작
- *
- * @vitest-environment jsdom
- */
+
 
 import React from 'react';
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
@@ -18,7 +8,7 @@ import {
 } from '@/core/template-engine/__tests__/utils/layoutTestUtils';
 import { ComponentRegistry } from '@/core/template-engine/ComponentRegistry';
 
-// ========== 테스트용 컴포넌트 정의 ==========
+
 
 const TestDiv: React.FC<{
   className?: string;

@@ -1,7 +1,6 @@
 {
   "meta": {
-    "is_partial": true,
-    "description": "새 댓글 입력 폼 (댓글 작성 권한 있을 때만 표시)"
+    "is_partial": true
   },
   "type": "basic",
   "name": "Div",
@@ -18,7 +17,6 @@
       },
       "children": [
         {
-          "comment": "아바타 (로그인 시: 사용자 아바타, 비회원 시: 기본 아바타)",
           "type": "composite",
           "name": "Avatar",
           "props": {
@@ -35,7 +33,6 @@
           },
           "children": [
             {
-              "comment": "비회원 작성자 정보 입력 (이름/비밀번호)",
               "type": "basic",
               "name": "Div",
               "if": "{{!_global.currentUser?.uuid}}",
@@ -88,7 +85,6 @@
               ]
             },
             {
-              "comment": "댓글 내용 입력",
               "type": "basic",
               "name": "Textarea",
               "props": {
@@ -110,7 +106,6 @@
               ]
             },
             {
-              "comment": "등록 버튼 (우측 정렬)",
               "type": "basic",
               "name": "Div",
               "props": {

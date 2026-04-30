@@ -1,18 +1,11 @@
-/**
- * SocialLoginButtons 컴포넌트
- *
- * 소셜 로그인(OAuth) 버튼 그룹입니다.
- * Google, Naver, Kakao 등의 소셜 로그인을 지원합니다.
- */
+
 
 import React from 'react';
 import { Div } from '../basic/Div';
 import { Button } from '../basic/Button';
 import { Span } from '../basic/Span';
 
-/**
- * 소셜 로그인 아이콘 SVG 컴포넌트
- */
+
 const SocialIcon: React.FC<{ provider: string; className?: string }> = ({ provider, className = 'w-5 h-5' }) => {
   switch (provider) {
     case 'google':
@@ -53,22 +46,20 @@ const SocialIcon: React.FC<{ provider: string; className?: string }> = ({ provid
   }
 };
 
-/**
- * G7Core 번역 함수
- */
+
 const t = (key: string, params?: Record<string, string | number>) =>
   (window as any).G7Core?.t?.(key, params) ?? key;
 
 type SocialProvider = 'google' | 'naver' | 'kakao' | 'facebook' | 'apple';
 
 interface SocialLoginButtonsProps {
-  /** 표시할 소셜 로그인 제공자 목록 */
+  
   providers?: SocialProvider[];
-  /** 로그인/회원가입 모드 */
+  
   mode?: 'login' | 'register';
-  /** 버튼 스타일 */
+  
   variant?: 'full' | 'icon';
-  /** 추가 CSS 클래스 */
+  
   className?: string;
 }
 
@@ -79,9 +70,7 @@ interface ProviderConfig {
   textColor: string;
 }
 
-/**
- * 소셜 로그인 제공자 설정
- */
+
 const PROVIDER_CONFIGS: ProviderConfig[] = [
   {
     id: 'google',
@@ -115,30 +104,7 @@ const PROVIDER_CONFIGS: ProviderConfig[] = [
   },
 ];
 
-/**
- * 소셜 로그인 버튼 그룹
- *
- * @example
- * ```tsx
- * <SocialLoginButtons
- *   providers={['google', 'naver', 'kakao']}
- *   mode="login"
- * />
- * ```
- *
- * @example
- * ```json
- * // 레이아웃 JSON에서 사용
- * {
- *   "type": "composite",
- *   "name": "SocialLoginButtons",
- *   "props": {
- *     "providers": ["google", "naver", "kakao"],
- *     "mode": "register"
- *   }
- * }
- * ```
- */
+
 const SocialLoginButtons: React.FC<SocialLoginButtonsProps> = ({
   providers = ['google', 'naver', 'kakao'],
   mode = 'login',
@@ -146,7 +112,7 @@ const SocialLoginButtons: React.FC<SocialLoginButtonsProps> = ({
   className = '',
 }) => {
   const handleSocialLogin = (provider: SocialProvider) => {
-    // OAuth 인증 URL로 리다이렉트
+    
     const callbackUrl = encodeURIComponent(window.location.href);
     window.location.href = `/api/auth/${provider}?redirect=${callbackUrl}`;
   };

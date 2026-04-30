@@ -53,11 +53,7 @@ export const PageTransitionIndicator: React.FC<PageTransitionIndicatorProps> = (
     >
       <Div className="h-1 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-500 animate-pulse">
         <Div
-          className="h-full bg-blue-700 animate-[loading_1.5s_ease-in-out_infinite]"
-          style={{
-            width: '30%',
-            animation: 'loading 1.5s ease-in-out infinite',
-          }}
+          className="h-full w-[30%] bg-blue-700 animate-[loading_1.5s_ease-in-out_infinite]"
         />
       </Div>
 

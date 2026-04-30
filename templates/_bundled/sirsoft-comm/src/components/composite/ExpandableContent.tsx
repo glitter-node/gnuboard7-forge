@@ -101,13 +101,11 @@ export const ExpandableContent: React.FC<ExpandableContentProps> = ({
           {children}
         </Div>
 
-        {/* 그라데이션 오버레이 */}
         {!isExpanded && needsExpand && (
           <Div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white dark:from-gray-900 to-transparent pointer-events-none" />
         )}
       </Div>
 
-      {/* 펼치기/접기 버튼 (전체 너비 바 스타일) */}
       {needsExpand && (
         <Button
           type="button"

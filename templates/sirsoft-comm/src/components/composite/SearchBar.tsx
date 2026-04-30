@@ -7,7 +7,7 @@ import { IconName } from '../basic/IconTypes';
 import { Div } from '../basic/Div';
 import { Span } from '../basic/Span';
 
-// G7Core.t() 번역 함수 참조
+
 const t = (key: string, params?: Record<string, string | number>) =>
   (window as any).G7Core?.t?.(key, params) ?? key;
 
@@ -22,7 +22,7 @@ export interface SearchBarProps {
   value?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSubmit?: (e: React.FormEvent<HTMLFormElement>) => void;
-  showButton?: boolean; // true: 검색 버튼 표시, false: 버튼 숨김 (기본값: false)
+  showButton?: boolean; 
   suggestions?: SearchSuggestion[];
   onSuggestionClick?: (suggestion: SearchSuggestion) => void;
   showSuggestions?: boolean;
@@ -30,36 +30,7 @@ export interface SearchBarProps {
   style?: React.CSSProperties;
 }
 
-/**
- * SearchBar 집합 컴포넌트
- *
- * 검색 입력 필드와 선택적 버튼을 제공하는 검색 바 컴포넌트입니다.
- * Enter 키를 누르면 항상 검색이 실행됩니다.
- *
- * 기본 컴포넌트 조합: Form + Input + Button + Icon + Div + Span
- *
- * @example
- * // 레이아웃 JSON 사용 예시 (버튼 없음)
- * {
- *   "name": "SearchBar",
- *   "props": {
- *     "placeholder": "검색어를 입력하세요",
- *     "value": "{{query.search}}",
- *     "showButton": false
- *   }
- * }
- *
- * @example
- * // 레이아웃 JSON 사용 예시 (버튼 있음)
- * {
- *   "name": "SearchBar",
- *   "props": {
- *     "placeholder": "검색어를 입력하세요",
- *     "value": "{{query.search}}",
- *     "showButton": true
- *   }
- * }
- */
+
 export const SearchBar: React.FC<SearchBarProps> = ({
   name = 'search',
   placeholder,
@@ -73,7 +44,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
   className = '',
   style,
 }) => {
-  // props로 전달된 값이 없으면 다국어 키 사용
+  
   const resolvedPlaceholder = placeholder ?? t('common.search_placeholder');
 
   const [internalValue, setInternalValue] = useState('');
@@ -84,7 +55,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
   const value = controlledValue !== undefined ? controlledValue : internalValue;
   const shouldShowSuggestions = showSuggestions && isFocused && suggestions.length > 0 && value.length > 0;
 
-  // controlledValue가 변경될 때 previousValueRef 동기화
+  
   useEffect(() => {
     if (controlledValue !== undefined) {
       previousValueRef.current = controlledValue;
@@ -96,10 +67,10 @@ export const SearchBar: React.FC<SearchBarProps> = ({
     setInternalValue(newValue);
     onChange?.(e);
 
-    // X 버튼으로 검색어를 지운 경우 감지
-    // 이전 값이 있었는데 새 값이 빈 문자열이고, nativeEvent가 없는 경우 = X 버튼 클릭
+    
+    
     if (previousValueRef.current !== '' && newValue === '' && !(e.nativeEvent as any).inputType) {
-      // X 버튼 클릭: 자동으로 검색 초기화
+      
       setTimeout(() => {
         const formElement = containerRef.current?.querySelector('form');
         if (formElement) {
@@ -130,14 +101,11 @@ export const SearchBar: React.FC<SearchBarProps> = ({
     <Div ref={containerRef} className={`relative ${className}`} style={style}>
       <Form onSubmit={handleSubmit} className="relative">
         <Div className={`relative flex items-center ${showButton ? 'gap-2' : ''}`}>
-          {/* Input wrapper */}
           <Div className="relative flex-1">
-            {/* 검색 아이콘 */}
             <Div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none">
               <Icon name={IconName.Search} className="w-5 h-5 text-gray-400 dark:text-gray-500" />
             </Div>
 
-            {/* 검색 입력 */}
             <Input
               type="search"
               name={name}
@@ -150,7 +118,6 @@ export const SearchBar: React.FC<SearchBarProps> = ({
             />
           </Div>
 
-          {/* 검색 버튼 (showButton=true일 때만 표시) */}
           {showButton && (
             <Button
               type="submit"
@@ -162,7 +129,6 @@ export const SearchBar: React.FC<SearchBarProps> = ({
         </Div>
       </Form>
 
-      {/* 자동완성 제안 목록 */}
       {shouldShowSuggestions && (
         <Div className="absolute z-10 w-full mt-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg max-h-64 overflow-y-auto">
           {suggestions.map((suggestion) => (

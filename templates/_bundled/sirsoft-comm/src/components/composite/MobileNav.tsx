@@ -114,7 +114,6 @@ const MobileNav: React.FC<MobileNavProps> = ({
         ref={drawerRef}
         className={`fixed inset-y-0 left-0 w-80 max-w-[85vw] bg-white dark:bg-gray-900 shadow-xl transform transition-transform duration-300 ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}
       >
-        {/* 헤더 */}
         <Div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-800">
           <Button onClick={() => { onClose(); navigate('/'); }} className="flex items-center gap-2 cursor-pointer">
             {logo ? (
@@ -132,7 +131,6 @@ const MobileNav: React.FC<MobileNavProps> = ({
           </Button>
         </Div>
 
-        {/* 사용자 정보 */}
         {user ? (
           <Div className="p-4 border-b border-gray-200 dark:border-gray-800">
             <Div className="flex items-center gap-3">
@@ -170,10 +168,8 @@ const MobileNav: React.FC<MobileNavProps> = ({
           </Div>
         )}
 
-        {/* 메뉴 */}
         <Nav className="p-4 overflow-y-auto max-h-[calc(100vh-200px)]">
           <Ul className="space-y-1">
-            {/* 기본 메뉴 */}
             <Li>
               <Button
                 onClick={() => { onClose(); navigate('/'); }}
@@ -194,7 +190,6 @@ const MobileNav: React.FC<MobileNavProps> = ({
             </Li>
             <Li className="my-4 border-t border-gray-200 dark:border-gray-800" />
 
-            {/* 게시판 메뉴 */}
             <Li className="px-3 py-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
               {t('nav.boards')}
             </Li>
@@ -212,7 +207,6 @@ const MobileNav: React.FC<MobileNavProps> = ({
           </Ul>
         </Nav>
 
-        {/* 하단 링크 */}
         <Div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
           <Div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
             <Button onClick={() => { onClose(); navigate('/about'); }} className="hover:text-gray-700 dark:hover:text-gray-200 cursor-pointer">

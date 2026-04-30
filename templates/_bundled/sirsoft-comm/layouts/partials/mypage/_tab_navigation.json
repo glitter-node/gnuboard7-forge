@@ -1,7 +1,6 @@
 {
   "meta": {
-    "is_partial": true,
-    "description": "마이페이지 공통 탭 네비게이션"
+    "is_partial": true
   },
   "type": "composite",
   "name": "TabNavigation",

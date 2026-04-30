@@ -1,19 +1,11 @@
-/**
- * UserInfo 컴포넌트 테스트
- *
- * @description 사용자 정보 표시 컴포넌트의 렌더링 및 상태 배지 기능을 테스트합니다.
- * - 기본 렌더링 (이름, 서브텍스트)
- * - 비회원 배지 표시
- * - 사용자 상태 배지 표시 (inactive, blocked)
- * - 드롭다운 메뉴 동작
- */
+
 
 import React from 'react';
 import { render, screen, fireEvent, act } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { UserInfo } from '../UserInfo';
 
-// G7Core mock
+
 const mockG7Core = {
   t: vi.fn((key: string) => {
     const translations: Record<string, string> = {
@@ -28,7 +20,7 @@ const mockG7Core = {
   navigate: vi.fn(),
 };
 
-// window.G7Core mock 설정
+
 beforeEach(() => {
   (window as any).G7Core = mockG7Core;
   vi.clearAllMocks();
@@ -38,7 +30,7 @@ afterEach(() => {
   delete (window as any).G7Core;
 });
 
-// UserInfo 컴포넌트 mock (basic 컴포넌트 의존성 때문에)
+
 const MockUserInfo: React.FC<{
   name?: string;
   userId?: string | number;
@@ -67,17 +59,17 @@ const MockUserInfo: React.FC<{
   const t = (key: string) => mockG7Core.t(key);
   const actualName = text ?? name ?? '';
 
-  // 상태별 배지 스타일
+  
   const statusBadgeStyles: Record<string, string> = {
     active: '',
     inactive: 'bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200',
     blocked: 'bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200',
   };
 
-  // 상태 배지 렌더링 여부
+  
   const shouldShowStatusBadge = showStatusBadge && status && status !== 'active';
 
-  // 비회원인 경우
+  
   if (isGuest || !userId) {
     return (
       <div
@@ -102,7 +94,7 @@ const MockUserInfo: React.FC<{
     );
   }
 
-  // 회원인 경우
+  
   return (
     <div className="relative inline-block" data-testid="user-info">
       <div className={layout === 'horizontal' ? 'flex items-center gap-1.5' : 'flex flex-col items-start'}>

@@ -72,7 +72,6 @@ export const FileDropZone: React.FC<FileDropZoneProps> = ({
         className="hidden"
       />
 
-      {/* 파일이 없을 때: 빈 드롭존 */}
       {!children && (
         <Div
           className="p-8 text-center cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
@@ -89,7 +88,6 @@ export const FileDropZone: React.FC<FileDropZoneProps> = ({
         </Div>
       )}
 
-      {/* 파일이 있을 때: 자식 요소 렌더링 */}
       {children}
     </Div>
   );

@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 
-// G7Core 전역 객체의 스타일 헬퍼 접근
+
 const G7Core = () => (window as any).G7Core;
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -8,9 +8,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   size?: 'sm' | 'md' | 'lg';
 }
 
-/**
- * 기본 버튼 컴포넌트
- */
+
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
   children,
   variant = 'primary',
@@ -20,7 +18,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
 }, ref) => {
   const baseClasses = 'inline-flex items-center justify-center';
 
-  // G7Core.style.mergeClasses를 사용하여 충돌하는 Tailwind 클래스 병합
+  
   const mergedClassName = G7Core()?.style?.mergeClasses?.(baseClasses, className)
     ?? `${baseClasses} ${className}`;
 

@@ -66,7 +66,6 @@ export const ProductImageViewer: React.FC<ProductImageViewerProps> = ({
     [images],
   );
 
-  // 이미지 없음
   if (!images || images.length === 0) {
     return (
       <Div
@@ -84,7 +83,6 @@ export const ProductImageViewer: React.FC<ProductImageViewerProps> = ({
 
   return (
     <Div className={className}>
-      {/* 메인 이미지 */}
       <Div className="relative overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-700 aspect-square mb-3">
         <Button
           type="button"
@@ -100,7 +98,6 @@ export const ProductImageViewer: React.FC<ProductImageViewerProps> = ({
         </Button>
       </Div>
 
-      {/* 썸네일 리스트 (2개 이상일 때만) */}
       {images.length > 1 && (
         <Div className="flex gap-2 overflow-x-auto pb-1">
           {images.map((img, index) => (
@@ -125,7 +122,6 @@ export const ProductImageViewer: React.FC<ProductImageViewerProps> = ({
         </Div>
       )}
 
-      {/* 라이트박스 */}
       <ImageGallery {...galleryProps} />
     </Div>
   );

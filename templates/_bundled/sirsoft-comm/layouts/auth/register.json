@@ -47,7 +47,6 @@
             "partial": "partials/auth/_redirect_if_logged_in.json"
           },
           {
-            "comment": "회원가입 폼",
             "type": "basic",
             "name": "Div",
             "props": {

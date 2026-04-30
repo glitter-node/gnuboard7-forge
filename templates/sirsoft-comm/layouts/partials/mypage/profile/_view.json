@@ -1,7 +1,6 @@
 {
   "meta": {
-    "is_partial": true,
-    "description": "마이페이지 프로필 - View 모드 (시안 기반 레이아웃)"
+    "is_partial": true
   },
   "type": "basic",
   "name": "Div",
@@ -21,7 +20,6 @@
   },
   "children": [
     {
-      "comment": "상태별 안내 메시지 - 비활성화 (회색 - secondary)",
       "if": "{{user.data?.status === 'inactive'}}",
       "type": "basic",
       "name": "Div",
@@ -49,7 +47,6 @@
       ]
     },
     {
-      "comment": "상태별 안내 메시지 - 차단 (빨간색 경고)",
       "if": "{{user.data?.status === 'blocked'}}",
       "type": "basic",
       "name": "Div",
@@ -77,7 +74,6 @@
       ]
     },
     {
-      "comment": "상태별 안내 메시지 - 탈퇴 (노란색 - warning)",
       "if": "{{user.data?.status === 'withdrawn'}}",
       "type": "basic",
       "name": "Div",
@@ -123,7 +119,6 @@
       ]
     },
     {
-      "comment": "섹션 헤더 - 내 정보 + 수정하기 버튼 (카드 외부)",
       "type": "basic",
       "name": "Div",
       "props": {
@@ -146,7 +141,6 @@
           "text": "$t:mypage.profile.view_title"
         },
         {
-          "comment": "버튼 그룹 - 수정하기 + 비밀번호 변경",
           "type": "basic",
           "name": "Div",
           "props": {
@@ -154,7 +148,6 @@
           },
           "children": [
             {
-              "comment": "비밀번호 변경 버튼",
               "type": "basic",
               "name": "Button",
               "props": {
@@ -187,7 +180,6 @@
               ]
             },
             {
-              "comment": "수정하기 버튼 - 편집 페이지로 이동",
               "type": "basic",
               "name": "Button",
               "props": {
@@ -224,7 +216,6 @@
       ]
     },
     {
-      "comment": "프로필 카드 - 아바타 + 이름 + 이메일 + 가입일/마지막 로그인",
       "type": "basic",
       "name": "Div",
       "props": {
@@ -239,7 +230,6 @@
       },
       "children": [
         {
-          "comment": "데스크탑: 가로 배치 (아바타 + 정보)",
           "type": "basic",
           "name": "Div",
           "props": {
@@ -254,7 +244,6 @@
           },
           "children": [
             {
-              "comment": "프로필 아바타 - AvatarUploader 컴포넌트 (xl = 96px)",
               "type": "composite",
               "name": "AvatarUploader",
               "props": {
@@ -264,12 +253,32 @@
                 "showDeleteButton": true,
                 "confirmDelete": true,
                 "uploadSuccessActions": [
-                  { "handler": "refetchDataSource", "params": { "dataSourceId": "user" } },
-                  { "handler": "refetchDataSource", "params": { "dataSourceId": "current_user" } }
+                  {
+                    "handler": "refetchDataSource",
+                    "params": {
+                      "dataSourceId": "user"
+                    }
+                  },
+                  {
+                    "handler": "refetchDataSource",
+                    "params": {
+                      "dataSourceId": "current_user"
+                    }
+                  }
                 ],
                 "deleteSuccessActions": [
-                  { "handler": "refetchDataSource", "params": { "dataSourceId": "user" } },
-                  { "handler": "refetchDataSource", "params": { "dataSourceId": "current_user" } }
+                  {
+                    "handler": "refetchDataSource",
+                    "params": {
+                      "dataSourceId": "user"
+                    }
+                  },
+                  {
+                    "handler": "refetchDataSource",
+                    "params": {
+                      "dataSourceId": "current_user"
+                    }
+                  }
                 ]
               },
               "responsive": {
@@ -281,7 +290,6 @@
               }
             },
             {
-              "comment": "기본 정보 - 데스크탑: 좌측 정렬, 모바일: 중앙 정렬",
               "type": "basic",
               "name": "Div",
               "props": {
@@ -296,7 +304,6 @@
               },
               "children": [
                 {
-                  "comment": "이름 + 닉네임 (하단 정렬)",
                   "type": "basic",
                   "name": "Div",
                   "props": {
@@ -326,7 +333,6 @@
                       "text": "{{user.data?.name ?? '-'}}"
                     },
                     {
-                      "comment": "닉네임 (있는 경우만 표시)",
                       "if": "{{user.data?.nickname}}",
                       "type": "basic",
                       "name": "Span",
@@ -336,7 +342,6 @@
                       "text": "({{user.data?.nickname}})"
                     },
                     {
-                      "comment": "상태 배지 (Active가 아닌 경우만 표시)",
                       "if": "{{user.data?.status && user.data?.status !== 'active'}}",
                       "type": "basic",
                       "name": "Span",
@@ -348,7 +353,6 @@
                   ]
                 },
                 {
-                  "comment": "이메일",
                   "type": "basic",
                   "name": "Div",
                   "props": {
@@ -364,7 +368,6 @@
                   "text": "{{user.data?.email ?? '-'}}"
                 },
                 {
-                  "comment": "구분선",
                   "type": "basic",
                   "name": "Hr",
                   "props": {
@@ -372,7 +375,6 @@
                   }
                 },
                 {
-                  "comment": "가입일 / 마지막 로그인",
                   "type": "basic",
                   "name": "Div",
                   "props": {
@@ -432,7 +434,6 @@
                       ]
                     },
                     {
-                      "comment": "탈퇴 일시 (탈퇴 상태인 경우만 표시)",
                       "if": "{{user.data?.status === 'withdrawn' && user.data?.withdrawn_at}}",
                       "type": "basic",
                       "name": "Div",
@@ -464,7 +465,6 @@
       ]
     },
     {
-      "comment": "2컬럼 카드 - 연락처 정보 / 위치 정보",
       "type": "basic",
       "name": "Div",
       "props": {
@@ -479,7 +479,6 @@
       },
       "children": [
         {
-          "comment": "연락처 정보 카드",
           "type": "basic",
           "name": "Div",
           "props": {
@@ -509,7 +508,6 @@
               },
               "children": [
                 {
-                  "comment": "휴대폰 번호",
                   "type": "basic",
                   "name": "Div",
                   "props": {
@@ -535,7 +533,6 @@
                   ]
                 },
                 {
-                  "comment": "전화번호",
                   "type": "basic",
                   "name": "Div",
                   "props": {
@@ -561,7 +558,6 @@
                   ]
                 },
                 {
-                  "comment": "홈페이지",
                   "type": "basic",
                   "name": "Div",
                   "props": {
@@ -591,7 +587,6 @@
           ]
         },
         {
-          "comment": "위치 정보 카드",
           "type": "basic",
           "name": "Div",
           "props": {
@@ -621,7 +616,6 @@
               },
               "children": [
                 {
-                  "comment": "국가",
                   "if": false,
                   "type": "basic",
                   "name": "Div",
@@ -648,7 +642,6 @@
                   ]
                 },
                 {
-                  "comment": "언어",
                   "type": "basic",
                   "name": "Div",
                   "props": {
@@ -674,7 +667,6 @@
                   ]
                 },
                 {
-                  "comment": "시간대",
                   "type": "basic",
                   "name": "Div",
                   "props": {
@@ -700,7 +692,6 @@
                   ]
                 },
                 {
-                  "comment": "주소",
                   "type": "basic",
                   "name": "Div",
                   "props": {
@@ -733,7 +724,6 @@
     },
     {
       "id": "profile_view_bio_card",
-      "comment": "서명 및 자기소개 카드",
       "type": "basic",
       "name": "Div",
       "props": {
@@ -763,7 +753,6 @@
           },
           "children": [
             {
-              "comment": "서명",
               "type": "basic",
               "name": "Div",
               "props": {
@@ -789,7 +778,6 @@
               ]
             },
             {
-              "comment": "자기소개",
               "type": "basic",
               "name": "Div",
               "props": {
@@ -819,7 +807,6 @@
       ]
     },
     {
-      "comment": "게시판 알림 설정 (sirsoft-board 모듈 설치 시 표시)",
       "if": "{{user.data?.notify_comment !== undefined}}",
       "type": "basic",
       "name": "Div",
@@ -1065,7 +1052,6 @@
       ]
     },
     {
-      "comment": "회원 탈퇴 섹션 - 탈퇴 상태가 아닌 경우만 표시",
       "if": "{{user.data?.status !== 'withdrawn'}}",
       "type": "basic",
       "name": "Div",
@@ -1081,7 +1067,6 @@
       },
       "children": [
         {
-          "comment": "제목 (아이콘 인라인)",
           "type": "basic",
           "name": "Div",
           "props": {
@@ -1115,7 +1100,6 @@
           ]
         },
         {
-          "comment": "경고 메시지 박스 (슈퍼관리자 제외)",
           "if": "{{!user.data?.is_super}}",
           "type": "basic",
           "name": "Div",
@@ -1134,7 +1118,6 @@
           ]
         },
         {
-          "comment": "슈퍼관리자 안내 메시지",
           "if": "{{user.data?.is_super}}",
           "type": "basic",
           "name": "Div",
@@ -1162,7 +1145,6 @@
           ]
         },
         {
-          "comment": "탈퇴 버튼 (슈퍼관리자 제외)",
           "if": "{{!user.data?.is_super}}",
           "type": "basic",
           "name": "Button",

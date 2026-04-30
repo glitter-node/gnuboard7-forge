@@ -15,10 +15,10 @@
       "loading_strategy": "progressive",
       "errorHandling": {
         "404": {
-            "handler": "showErrorPage",
-            "params": {
-                "target": "content"
-            }
+          "handler": "showErrorPage",
+          "params": {
+            "target": "content"
+          }
         }
       }
     },
@@ -60,7 +60,6 @@
             },
             "children": [
               {
-                "comment": "로딩 상태",
                 "type": "basic",
                 "name": "Div",
                 "if": "{{userPosts.loading && !userPosts.data}}",
@@ -78,7 +77,6 @@
                 ]
               },
               {
-                "comment": "게시글 목록",
                 "type": "basic",
                 "name": "Div",
                 "if": "{{userPosts.data && !userPosts.error}}",
@@ -87,7 +85,6 @@
                 },
                 "children": [
                   {
-                    "comment": "브레드크럼 (1행)",
                     "type": "basic",
                     "name": "Div",
                     "props": {
@@ -109,7 +106,7 @@
                             }
                           }
                         ],
-                        "text": "{{userProfile.data?.name ?? ''}} $t:user.profile.back_to_profile"
+                        "text": "$t:user.profile.back_to_profile_for_user|name={{userProfile.data?.name ?? ''}}"
                       },
                       {
                         "type": "basic",
@@ -127,7 +124,6 @@
                     ]
                   },
                   {
-                    "comment": "타이틀 + 총 게시글 수 (2행, 3행)",
                     "type": "basic",
                     "name": "Div",
                     "props": {
@@ -135,7 +131,6 @@
                     },
                     "children": [
                       {
-                        "comment": "2행: 타이틀",
                         "type": "basic",
                         "name": "Div",
                         "props": {
@@ -157,12 +152,11 @@
                             "props": {
                               "className": "text-2xl font-bold text-gray-900 dark:text-white"
                             },
-                            "text": "{{userProfile.data?.name ?? ''}}$t:user.profile.posts_suffix"
+                            "text": "$t:user.profile.posts_title_for_user|name={{userProfile.data?.name ?? ''}}"
                           }
                         ]
                       },
                       {
-                        "comment": "3행: 총 게시글 수",
                         "type": "basic",
                         "name": "Span",
                         "props": {
@@ -173,7 +167,6 @@
                     ]
                   },
                   {
-                    "comment": "게시글 테이블",
                     "type": "basic",
                     "name": "Div",
                     "props": {
@@ -181,7 +174,6 @@
                     },
                     "children": [
                       {
-                        "comment": "게시글 없음",
                         "type": "basic",
                         "name": "Div",
                         "if": "{{!userPosts.data?.data?.length}}",
@@ -209,7 +201,6 @@
                         ]
                       },
                       {
-                        "comment": "테이블 헤더",
                         "type": "basic",
                         "name": "Div",
                         "if": "{{userPosts.data?.data?.length > 0}}",
@@ -252,7 +243,6 @@
                         ]
                       },
                       {
-                        "comment": "게시글 목록 (한 줄 표시)",
                         "type": "basic",
                         "name": "Div",
                         "if": "{{userPosts.data?.data?.length > 0}}",
@@ -281,7 +271,6 @@
                             ],
                             "children": [
                               {
-                                "comment": "게시판명 컬럼",
                                 "type": "basic",
                                 "name": "Div",
                                 "props": {
@@ -290,7 +279,6 @@
                                 "text": "{{post.board_name}}"
                               },
                               {
-                                "comment": "제목 영역 (배지 + 제목 + 댓글수)",
                                 "type": "basic",
                                 "name": "Div",
                                 "props": {
@@ -298,7 +286,6 @@
                                 },
                                 "children": [
                                   {
-                                    "comment": "게시판명 배지 (모바일용)",
                                     "type": "basic",
                                     "name": "Span",
                                     "props": {
@@ -307,7 +294,6 @@
                                     "text": "{{post.board_name}}"
                                   },
                                   {
-                                    "comment": "카테고리 배지",
                                     "type": "basic",
                                     "name": "Span",
                                     "if": "{{post.category}}",
@@ -317,7 +303,6 @@
                                     "text": "{{post.category}}"
                                   },
                                   {
-                                    "comment": "비밀글 아이콘",
                                     "type": "basic",
                                     "name": "Icon",
                                     "if": "{{post.is_secret}}",
@@ -328,7 +313,6 @@
                                     }
                                   },
                                   {
-                                    "comment": "블라인드 아이콘",
                                     "type": "basic",
                                     "name": "Icon",
                                     "if": "{{post.status === 'blinded'}}",
@@ -339,7 +323,6 @@
                                     }
                                   },
                                   {
-                                    "comment": "제목 + 댓글수 컨테이너",
                                     "type": "basic",
                                     "name": "Div",
                                     "props": {
@@ -347,7 +330,6 @@
                                     },
                                     "children": [
                                       {
-                                        "comment": "제목",
                                         "type": "basic",
                                         "name": "Span",
                                         "props": {
@@ -356,7 +338,6 @@
                                         "text": "{{post.title}}"
                                       },
                                       {
-                                        "comment": "댓글 수",
                                         "type": "basic",
                                         "name": "Span",
                                         "if": "{{post.comments_count > 0}}",
@@ -370,7 +351,6 @@
                                 ]
                               },
                               {
-                                "comment": "조회수",
                                 "type": "basic",
                                 "name": "Div",
                                 "props": {
@@ -393,7 +373,6 @@
                                 ]
                               },
                               {
-                                "comment": "작성일",
                                 "type": "basic",
                                 "name": "Span",
                                 "props": {
@@ -403,7 +382,6 @@
                                 "text": "{{post.created_at_formatted ?? ''}}"
                               },
                               {
-                                "comment": "모바일용 하단 정보",
                                 "type": "basic",
                                 "name": "Div",
                                 "props": {
@@ -435,7 +413,9 @@
                                   {
                                     "type": "basic",
                                     "name": "Span",
-                                    "props": { "title": "{{post.created_at ?? ''}}" },
+                                    "props": {
+                                      "title": "{{post.created_at ?? ''}}"
+                                    },
                                     "text": "{{post.created_at_formatted ?? ''}}"
                                   }
                                 ]
@@ -447,7 +427,6 @@
                     ]
                   },
                   {
-                    "comment": "페이지네이션 (항상 표시)",
                     "type": "basic",
                     "name": "Div",
                     "props": {
