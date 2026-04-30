@@ -1,10 +1,4 @@
-/**
- * SortableThumbnailItem 컴포넌트
- *
- * 드래그 앤 드롭이 가능한 파일 썸네일 아이템입니다.
- *
- * @module composite/FileUploader/SortableThumbnailItem
- */
+
 
 import React, { useState, useEffect } from 'react';
 import { useSortable } from '@dnd-kit/sortable';
@@ -20,20 +14,20 @@ import { Img } from '../../basic/Img';
 import type { Attachment, PendingFile } from './types';
 import { getFileIcon, t } from './utils';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 const G7Core = (window as any).G7Core;
 
 export interface SortableThumbnailItemProps {
   file: PendingFile | (Attachment & { status?: string });
   onRemove: () => void;
   onRetry?: () => void;
-  /** 이미지 클릭 시 갤러리 열기 */
+  
   onImageClick?: () => void;
-  /** 비이미지 파일 클릭/다운로드 시 호출 */
+  
   onDownload?: () => void;
-  /** 대표 이미지 여부 */
+  
   isPrimary?: boolean;
-  /** 대표 이미지 설정 클릭 핸들러 */
+  
   onPrimaryClick?: () => void;
 }
 
@@ -63,16 +57,16 @@ export const SortableThumbnailItem: React.FC<SortableThumbnailItemProps> = ({
   const hasError = status === 'error';
   const progress = isPending ? (file as PendingFile).progress : 100;
   const preview = isPending ? (file as PendingFile).preview : undefined;
-  // 기존 첨부파일: is_image 필드 우선 사용, 대기 파일: mime_type 확인
+  
   const isImage = !isPending
     ? (file as Attachment).is_image
     : (file.mime_type?.startsWith('image/') ?? false);
 
-  // 인증된 이미지 로딩을 위한 상태
+  
   const [authenticatedImageUrl, setAuthenticatedImageUrl] = useState<string | undefined>(undefined);
   const downloadUrl = !isPending && isImage ? (file as Attachment).download_url : undefined;
 
-  // 기존 첨부파일의 경우 인증된 요청으로 이미지 로드
+  
   useEffect(() => {
     if (!downloadUrl) {
       setAuthenticatedImageUrl(undefined);
@@ -106,7 +100,7 @@ export const SortableThumbnailItem: React.FC<SortableThumbnailItemProps> = ({
     };
   }, [downloadUrl]);
 
-  // 기존 첨부파일의 경우 인증된 URL 사용
+  
   const existingImageUrl = authenticatedImageUrl;
 
   return (
@@ -115,7 +109,7 @@ export const SortableThumbnailItem: React.FC<SortableThumbnailItemProps> = ({
       style={style}
       className="relative group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden"
     >
-      {/* 썸네일 영역 */}
+      
       <Div
         className={`aspect-square w-full flex items-center justify-center bg-gray-50 dark:bg-gray-900 relative ${
           (isImage || !isPending) ? 'cursor-pointer' : ''

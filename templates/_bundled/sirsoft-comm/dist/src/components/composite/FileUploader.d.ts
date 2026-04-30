@@ -1,11 +1,3 @@
-/**
- * FileUploader 컴포넌트 (Re-export)
- *
- * 파일 업로드를 위한 통합 컴포넌트입니다.
- * 분리된 모듈에서 내보내기합니다.
- *
- * @module composite/FileUploader
- */
 export { FileUploader, default } from './FileUploader/index';
 export { FileDropZone } from './FileUploader/FileDropZone';
 export { FileList } from './FileUploader/FileList';

@@ -1,14 +1,10 @@
-/**
- * PasswordInput 컴포넌트 테스트
- *
- * @description 비밀번호 입력 컴포넌트의 동작을 테스트합니다.
- */
+
 
 import { render, screen, fireEvent, act } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { PasswordInput, defaultPasswordRules, availablePasswordRules } from '../PasswordInput';
 
-// Icon 컴포넌트 Mock
+
 vi.mock('../Icon', () => ({
   Icon: ({ name, className }: { name: string; className?: string }) => (
     <i data-testid={`icon-${name}`} className={className} />

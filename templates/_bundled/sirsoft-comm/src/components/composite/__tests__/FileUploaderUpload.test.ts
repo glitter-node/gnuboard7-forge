@@ -1,22 +1,13 @@
-/**
- * FileUploader 업로드 응답 파싱 테스트
- *
- * uploadSingleFile의 응답 파싱 로직과 null attachment 방어를 검증합니다.
- * - 정상 응답: pendingFile 제거 + existingFile 추가
- * - data 누락 응답: pendingFile을 에러 상태로 전환
- *
- * @vitest-environment jsdom
- * @module composite/__tests__/FileUploaderUpload.test
- */
+
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { act, renderHook } from '@testing-library/react';
 import { useFileUploader } from '../FileUploader/useFileUploader';
 import type { Attachment } from '../FileUploader/types';
 
-// G7Core 모킹
-// 주의: useFileUploader.ts가 모듈 스코프에서 G7Core = (window as any).G7Core를 캐싱하므로
-// window.G7Core를 새 객체로 교체하면 참조가 끊어짐 → 기존 객체에 프로퍼티를 직접 추가해야 함
+
+
+
 beforeEach(() => {
   const listeners = new Map<string, Set<Function>>();
 
@@ -52,16 +43,16 @@ beforeEach(() => {
   }));
 });
 
-// browser-image-compression 모킹
+
 vi.mock('browser-image-compression', () => ({
   default: vi.fn((file: File) => Promise.resolve(file)),
 }));
 
-// Node.js의 URL.createObjectURL은 jsdom 환경에서 Blob 인스턴스 불일치로 실패 → mock 필수
+
 URL.createObjectURL = vi.fn(() => 'blob:mock-url');
 URL.revokeObjectURL = vi.fn();
 
-// 테스트 헬퍼: Attachment 생성
+
 function createAttachment(overrides: Partial<Attachment> = {}): Attachment {
   const id = overrides.id ?? Math.floor(Math.random() * 10000);
   return {

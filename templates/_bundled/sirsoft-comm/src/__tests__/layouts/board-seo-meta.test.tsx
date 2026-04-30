@@ -1,19 +1,11 @@
-/**
- * @file board-seo-meta.test.tsx
- * @description 게시판 레이아웃 SEO meta 설정 구조 검증 (이슈 #78)
- *
- * 검증 항목:
- * 1. boards.json: meta.seo.extensions, page_type, toggle_setting, vars
- * 2. index.json: meta.seo.extensions, page_type, toggle_setting, vars, _seo 바인딩
- * 3. show.json: meta.seo.extensions, page_type, toggle_setting, vars, _seo 바인딩
- */
+
 
 import { describe, it, expect } from 'vitest';
 import boardsLayout from '../../../layouts/board/boards.json';
 import indexLayout from '../../../layouts/board/index.json';
 import showLayout from '../../../layouts/board/show.json';
 
-// JSON 내 문자열 포함 여부 검사 헬퍼
+
 function jsonContains(obj: unknown, str: string): boolean {
     return JSON.stringify(obj).includes(str);
 }

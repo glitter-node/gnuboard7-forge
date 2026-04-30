@@ -1,14 +1,4 @@
-/**
- * @file login.test.tsx
- * @description 로그인 폼 레이아웃 렌더링 테스트 (Issue #72)
- *
- * 테스트 케이스:
- * - 기본 렌더링: 로그인 폼 구성 요소 확인
- * - 로딩 상태: 버튼 스피너 표시, 입력 필드 비활성화, 블러 오버레이 미표시
- * - 에러 표시: API 에러 메시지 렌더링
- *
- * @vitest-environment jsdom
- */
+
 
 import React from 'react';
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
@@ -19,7 +9,7 @@ import {
 } from '@/core/template-engine/__tests__/utils/layoutTestUtils';
 import { ComponentRegistry } from '@/core/template-engine/ComponentRegistry';
 
-// ========== 테스트용 컴포넌트 정의 ==========
+
 
 const TestDiv: React.FC<{
   className?: string;
@@ -129,12 +119,9 @@ const TestP: React.FC<{
 const TestFragment: React.FC<{ children?: React.ReactNode }> =
   ({ children }) => <>{children}</>;
 
-// ========== 테스트용 레이아웃 Fixture ==========
 
-/**
- * 로그인 폼 레이아웃 (partial을 해결한 형태)
- * _login_form.json 기반 — 오버레이 제거 후 상태
- */
+
+
 const loginFormFixture = {
   version: '1.0.0',
   layout_name: 'auth/login',
@@ -146,7 +133,7 @@ const loginFormFixture = {
       name: 'Form',
       props: { className: 'space-y-6', 'data-testid': 'login-form' },
       children: [
-        // API 에러 메시지
+        
         {
           id: 'login-error',
           type: 'basic',
@@ -165,7 +152,7 @@ const loginFormFixture = {
             },
           ],
         },
-        // 이메일 입력 필드
+        
         {
           id: 'email-field',
           type: 'basic',
@@ -192,7 +179,7 @@ const loginFormFixture = {
             },
           ],
         },
-        // 비밀번호 입력 필드
+        
         {
           id: 'password-field',
           type: 'basic',
@@ -219,7 +206,7 @@ const loginFormFixture = {
             },
           ],
         },
-        // 제출 버튼
+        
         {
           id: 'submit-button',
           type: 'basic',
@@ -297,7 +284,7 @@ const loginFormFixture = {
   ],
 };
 
-// ========== 컴포넌트 레지스트리 설정 ==========
+
 
 function setupTestRegistry(): ComponentRegistry {
   const registry = ComponentRegistry.getInstance();
@@ -317,7 +304,7 @@ function setupTestRegistry(): ComponentRegistry {
   return registry;
 }
 
-// ========== 테스트 케이스 ==========
+
 
 describe('로그인 폼 레이아웃 렌더링 (Issue #72)', () => {
   let registry: ComponentRegistry;
@@ -328,15 +315,15 @@ describe('로그인 폼 레이아웃 렌더링 (Issue #72)', () => {
 
   describe('기본 렌더링', () => {
     it('로그인 폼이 이메일, 비밀번호, 제출 버튼과 함께 렌더링된다', async () => {
-      // Given
+      
       const testUtils = createLayoutTest(loginFormFixture, {
         componentRegistry: registry,
       });
 
-      // When
+      
       await testUtils.render();
 
-      // Then
+      
       expect(screen.getByTestId('login-form')).toBeInTheDocument();
       expect(screen.getByTestId('email-field')).toBeInTheDocument();
       expect(screen.getByTestId('email-input')).toBeInTheDocument();
@@ -348,15 +335,15 @@ describe('로그인 폼 레이아웃 렌더링 (Issue #72)', () => {
     });
 
     it('초기 상태에서 에러 메시지가 표시되지 않는다', async () => {
-      // Given: loginError가 없는 초기 상태
+      
       const testUtils = createLayoutTest(loginFormFixture, {
         componentRegistry: registry,
       });
 
-      // When
+      
       await testUtils.render();
 
-      // Then: 에러 div가 렌더링되지 않음
+      
       expect(screen.queryByTestId('login-error')).not.toBeInTheDocument();
 
       testUtils.cleanup();
@@ -365,39 +352,39 @@ describe('로그인 폼 레이아웃 렌더링 (Issue #72)', () => {
 
   describe('로딩 상태 (isLoggingIn)', () => {
     it('로그인 중 블러 오버레이가 표시되지 않는다 (Issue #72 핵심)', async () => {
-      // Given: isLoggingIn=true 상태
+      
       const testUtils = createLayoutTest(loginFormFixture, {
         componentRegistry: registry,
         initialState: { _global: { isLoggingIn: true } },
       });
 
-      // When
+      
       await testUtils.render();
 
-      // Then: backdrop-blur 오버레이가 존재하지 않음
+      
       const allDivs = document.querySelectorAll('div');
       const hasBackdropBlur = Array.from(allDivs).some(
         (div) => div.className && div.className.includes('backdrop-blur')
       );
       expect(hasBackdropBlur).toBe(false);
 
-      // But: 버튼 내 스피너는 표시됨
+      
       expect(screen.getByTestId('button-spinner')).toBeInTheDocument();
 
       testUtils.cleanup();
     });
 
     it('로그인 중 버튼에 스피너와 "로그인 중..." 텍스트가 표시된다', async () => {
-      // Given
+      
       const testUtils = createLayoutTest(loginFormFixture, {
         componentRegistry: registry,
         initialState: { _global: { isLoggingIn: true } },
       });
 
-      // When
+      
       await testUtils.render();
 
-      // Then
+      
       expect(screen.getByTestId('button-spinner')).toBeInTheDocument();
       expect(screen.getByTestId('login-processing-text')).toBeInTheDocument();
 
@@ -405,16 +392,16 @@ describe('로그인 폼 레이아웃 렌더링 (Issue #72)', () => {
     });
 
     it('로그인 중 입력 필드가 비활성화된다', async () => {
-      // Given
+      
       const testUtils = createLayoutTest(loginFormFixture, {
         componentRegistry: registry,
         initialState: { _global: { isLoggingIn: true } },
       });
 
-      // When
+      
       await testUtils.render();
 
-      // Then
+      
       expect(screen.getByTestId('email-input')).toBeDisabled();
       expect(screen.getByTestId('password-input')).toBeDisabled();
       expect(screen.getByTestId('login-submit-btn')).toBeDisabled();
@@ -423,16 +410,16 @@ describe('로그인 폼 레이아웃 렌더링 (Issue #72)', () => {
     });
 
     it('로그인 중이 아닐 때 스피너가 표시되지 않는다', async () => {
-      // Given: isLoggingIn=false (기본)
+      
       const testUtils = createLayoutTest(loginFormFixture, {
         componentRegistry: registry,
         initialState: { _global: { isLoggingIn: false } },
       });
 
-      // When
+      
       await testUtils.render();
 
-      // Then
+      
       expect(screen.queryByTestId('button-spinner')).not.toBeInTheDocument();
       expect(screen.queryByTestId('login-processing-text')).not.toBeInTheDocument();
 
@@ -442,16 +429,16 @@ describe('로그인 폼 레이아웃 렌더링 (Issue #72)', () => {
 
   describe('에러 표시', () => {
     it('loginError 설정 시 에러 메시지가 표시된다', async () => {
-      // Given
+      
       const testUtils = createLayoutTest(loginFormFixture, {
         componentRegistry: registry,
         initialState: { _global: { loginError: '이메일 또는 비밀번호가 올바르지 않습니다.' } },
       });
 
-      // When
+      
       await testUtils.render();
 
-      // Then
+      
       expect(screen.getByTestId('login-error')).toBeInTheDocument();
 
       testUtils.cleanup();

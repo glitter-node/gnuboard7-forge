@@ -35,15 +35,9 @@ export interface FileUploaderContextValue {
     authenticatedImageUrls: Map<number, string>;
 }
 declare const FileUploaderContext: React.Context<FileUploaderContextValue | null>;
-/**
- * FileUploader Context Provider
- */
 export declare const FileUploaderProvider: React.FC<{
     value: FileUploaderContextValue;
     children: React.ReactNode;
 }>;
-/**
- * FileUploader Context 사용 훅
- */
 export declare const useFileUploaderContext: () => FileUploaderContextValue;
 export default FileUploaderContext;

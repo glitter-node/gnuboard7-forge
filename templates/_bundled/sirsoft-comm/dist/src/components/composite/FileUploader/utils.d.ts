@@ -1,11 +1,3 @@
-/**
- * FileUploader 유틸리티 함수
- *
- * @module composite/FileUploader/utils
- */
-/**
- * 파일 크기를 읽기 쉬운 형식으로 변환합니다.
- */
 export declare const formatFileSize: (bytes: number) => string;
 /**
  * API 에러 응답에서 상세 메시지를 추출합니다.

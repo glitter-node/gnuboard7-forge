@@ -1,24 +1,13 @@
-/**
- * @file board-show-type-renderer.test.tsx
- * @description 게시글 상세 - _type_renderer 유형별 분기 렌더링 테스트 (이슈 #153)
- *
- * 검증 항목:
- * 1. basic 유형: 게시글 본문(제목, 작성자, 내용) 렌더링
- * 2. gallery 유형: basic과 동일한 show.json 사용 (현재 동일 구현)
- * 3. card 유형: basic과 동일한 show.json 사용 (현재 동일 구현)
- * 4. 알 수 없는 유형 fallback: basic으로 렌더링
- * 5. 이전글/다음글 네비게이션 버튼 조건부 렌더링
- * 6. 답글 섹션 iteration.source {{ }} 버그 수정 검증 (replies 목록 렌더링)
- */
+
 
 import React from 'react';
 import { describe, it, expect, beforeEach } from 'vitest';
 import { createLayoutTest, screen } from '@/core/template-engine/__tests__/utils/layoutTestUtils';
 import { ComponentRegistry } from '@/core/template-engine/ComponentRegistry';
 
-// ============================================================
-// 테스트용 컴포넌트 정의
-// ============================================================
+
+
+
 
 const TestDiv: React.FC<{
   className?: string;
@@ -129,9 +118,9 @@ const TestHtmlContent: React.FC<{
   <div data-testid="html-content">{content}</div>
 );
 
-// ============================================================
-// 컴포넌트 레지스트리 설정
-// ============================================================
+
+
+
 
 function setupTestRegistry(): ComponentRegistry {
   const registry = ComponentRegistry.getInstance();
@@ -157,9 +146,9 @@ function setupTestRegistry(): ComponentRegistry {
   return registry;
 }
 
-// ============================================================
-// 공통 mock post 데이터
-// ============================================================
+
+
+
 
 function makePost(overrides: Record<string, any> = {}) {
   return {
@@ -203,10 +192,10 @@ function makePost(overrides: Record<string, any> = {}) {
   };
 }
 
-// ============================================================
-// _type_renderer 유형별 분기 테스트용 레이아웃 JSON
-// (partial 분리된 내용을 인라인으로 포함)
-// ============================================================
+
+
+
+
 
 function makeShowLayout(boardType: string, postOverrides: Record<string, any> = {}) {
   const postData = makePost({ board: { name: '자유게시판', type: boardType, use_comment: false, use_reply: false, use_report: false, show_view_count: true }, ...postOverrides });
@@ -214,7 +203,7 @@ function makeShowLayout(boardType: string, postOverrides: Record<string, any> = 
   const layout = {
     version: '1.0.0',
     layout_name: 'board_show_type_renderer_test',
-    // data_sources 없음 - initialData로 직접 주입 (static type은 processDataSources에서 미처리)
+    
     components: [
       {
         comment: '_type_renderer 인라인 재현',
@@ -309,12 +298,12 @@ function makeShowLayout(boardType: string, postOverrides: Record<string, any> = 
   return { layout, initialData: { post: postData } };
 }
 
-// ============================================================
-// 답글 iteration 테스트용 레이아웃 JSON
-// (iteration.source {{ }} 버그 수정 검증)
-// ============================================================
 
-// data_sources: static은 processDataSources에서 처리되지 않으므로 initialData로 주입
+
+
+
+
+
 const repliesIterationInitialData = {
   post: {
     data: {
@@ -368,9 +357,9 @@ const repliesIterationLayout = {
   ],
 };
 
-// ============================================================
-// 테스트
-// ============================================================
+
+
+
 
 describe('board/show _type_renderer 유형별 분기 렌더링', () => {
   let registry: ComponentRegistry;
@@ -504,11 +493,7 @@ describe('board/show _type_renderer 유형별 분기 렌더링', () => {
   });
 
   describe('[6] 답글 iteration.source {{ }} 버그 수정 검증', () => {
-    /**
-     * 증상: 원본 show.json line 1252에서 iteration.source가 {{ }} 없이
-     *       "post?.data?.replies ?? []" 로 작성되어 answers 목록이 렌더링되지 않는 버그.
-     * 해결: types/basic/show.json에서 "{{post?.data?.replies ?? []}}" 로 수정.
-     */
+    
     it('replies가 있을 때 iteration으로 각 답글 제목 링크가 렌더링된다', async () => {
       const testUtils = createLayoutTest(repliesIterationLayout as any, { componentRegistry: registry, initialData: repliesIterationInitialData });
       await testUtils.render();

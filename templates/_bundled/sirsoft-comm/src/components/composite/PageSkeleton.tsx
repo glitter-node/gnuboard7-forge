@@ -1,8 +1,6 @@
 import React from 'react';
 
-/**
- * 레이아웃 컴포넌트 정의 (엔진에서 전달하는 트리 구조)
- */
+
 interface LayoutComponent {
     name?: string;
     type?: string;
@@ -21,56 +19,54 @@ interface LayoutComponent {
     };
 }
 
-/**
- * 스켈레톤 컴포넌트 Props (엔진에서 전달)
- */
+
 export interface PageSkeletonProps {
-    /** 레이아웃 JSON의 components 배열 (전체 컴포넌트 트리) */
+    
     components: LayoutComponent[];
-    /** 스켈레톤 옵션 */
+    
     options: {
         animation: 'pulse' | 'wave' | 'none';
         iteration_count: number;
     };
 }
 
-/** Tailwind 반응형 breakpoint (px) */
+
 const TAILWIND_BREAKPOINTS: Record<string, number> = {
     sm: 640, md: 768, lg: 1024, xl: 1280, '2xl': 1536,
 };
 
-/** CSS display 관련 클래스 (Tailwind) */
+
 const DISPLAY_CLASSES = new Set([
     'hidden', 'block', 'inline-block', 'inline', 'flex', 'inline-flex',
     'grid', 'inline-grid', 'table', 'table-row', 'table-cell',
     'contents', 'list-item', 'flow-root',
 ]);
 
-/** 레이아웃 컨테이너 컴포넌트 이름 목록 (자식 순회) */
+
 const LAYOUT_CONTAINERS = new Set([
     'Div', 'Flex', 'Grid', 'Section', 'Article', 'Nav', 'Aside',
     'Main', 'Header', 'Footer', 'Fragment', 'Form', 'Container',
 ]);
 
-/** 텍스트 컴포넌트 → 스켈레톤 바로 치환 */
+
 const TEXT_COMPONENTS = new Set([
     'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'P', 'Span', 'Label', 'A',
     'Strong', 'Em', 'Small', 'Badge',
 ]);
 
-/** 인풋 컴포넌트 → 스켈레톤 사각형으로 치환 */
+
 const INPUT_COMPONENTS = new Set([
     'Input', 'Textarea', 'Select', 'Checkbox', 'Radio', 'Toggle',
     'DatePicker', 'TagInput', 'SearchBar',
 ]);
 
-/** 미디어 컴포넌트 → 큰 사각형 */
+
 const MEDIA_COMPONENTS = new Set([
     'Img', 'Image', 'Avatar', 'AvatarUploader', 'ImageGallery',
     'ProductImageViewer', 'FileUploader',
 ]);
 
-/** 복합 컴포넌트 → 특화된 스켈레톤 */
+
 const COMPOSITE_SKELETONS: Record<string, (animClass: string, iterCount: number) => React.ReactElement> = {
     DataGrid: (animClass, iterCount) => (
         <div className="w-full border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">

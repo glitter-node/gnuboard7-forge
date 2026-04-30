@@ -94,10 +94,10 @@ describe('PageTransitionBlur', () => {
 
     const { container } = render(<PageTransitionBlur />);
 
-    // 초기 상태: isPending = false, 렌더링 없음
+    
     expect(container.firstChild).toBeNull();
 
-    // isPending을 true로 변경
+    
     if (subscribeCallback) {
       (subscribeCallback as (isPending: boolean) => void)(true);
     }

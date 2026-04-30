@@ -1,14 +1,10 @@
-/**
- * Header 컴포넌트 테스트
- *
- * @description 사이트 헤더 컴포넌트의 렌더링 및 동작을 테스트합니다.
- */
+
 
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
-// G7Core mock
+
 const mockG7Core = {
   t: vi.fn((key: string, params?: Record<string, string | number>) => {
     const translations: Record<string, string> = {
@@ -21,12 +17,12 @@ const mockG7Core = {
   }),
 };
 
-// window.G7Core mock 설정
+
 beforeEach(() => {
   (window as any).G7Core = mockG7Core;
 });
 
-// Header 컴포넌트 mock (basic 컴포넌트 의존성 때문에)
+
 const MockHeader: React.FC<{
   logo?: string;
   siteName?: string;

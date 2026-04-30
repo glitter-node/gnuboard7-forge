@@ -1,16 +1,4 @@
-/**
- * @file order_complete.test.tsx
- * @description 주문 완료 페이지 레이아웃 렌더링 테스트
- *
- * 테스트 케이스:
- * - 기본 렌더링: 주문 완료 메시지 표시
- * - 무통장입금 안내: 입금 계좌 정보 표시
- * - 가상계좌 안내: 가상계좌 정보 표시
- * - 카드 결제 완료: 결제 완료 메시지 표시
- * - 배송지 저장 버튼: 로그인 사용자에게만 표시
- *
- * @vitest-environment jsdom
- */
+
 
 import React from 'react';
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
@@ -21,7 +9,7 @@ import {
 } from '@/core/template-engine/__tests__/utils/layoutTestUtils';
 import { ComponentRegistry } from '@/core/template-engine/ComponentRegistry';
 
-// ========== 테스트용 컴포넌트 정의 ==========
+
 
 const TestDiv: React.FC<{
   className?: string;
@@ -95,7 +83,7 @@ const TestImg: React.FC<{
   <img src={src} alt={alt} className={className} data-testid={testId} />
 );
 
-// ========== 테스트 데이터 ==========
+
 
 const mockOrderDataCard = {
   data: {
@@ -161,7 +149,7 @@ const mockOrderDataVbank = {
   },
 };
 
-// ========== 테스트 스위트 ==========
+
 
 describe('주문 완료 페이지 레이아웃', () => {
   let testUtils: ReturnType<typeof createLayoutTest>;
@@ -412,7 +400,7 @@ describe('주문 완료 페이지 레이아웃', () => {
       testUtils.setState('auth', { isLoggedIn: false }, 'global');
       await testUtils.render();
 
-      // 버튼이 렌더링되지 않아야 함
+      
       expect(screen.queryByTestId('save-address-btn')).not.toBeInTheDocument();
     });
   });

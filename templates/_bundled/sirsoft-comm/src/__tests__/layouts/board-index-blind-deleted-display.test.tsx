@@ -1,25 +1,13 @@
-/**
- * @file board-index-blur.test.tsx
- * @description 게시판 목록 - 블라인드/삭제 게시글 표시 처리 회귀 테스트
- *
- * 검증 항목:
- * 1. [basic] 블라인드 게시글 제목에 연한 색상(text-gray-400) 클래스 적용
- * 2. [basic] 삭제된 게시글 제목에 연한 색상(text-gray-400) 클래스 적용
- * 3. [basic] 일반 게시글 제목에 연한 기본 색상(text-gray-700) 클래스 적용
- * 4. [card/gallery] 블라인드 게시글도 썸네일 있으면 이미지 표시
- * 5. [card/gallery] 삭제된 게시글도 썸네일 있으면 이미지 표시
- * 6. [card/gallery] 썸네일 없으면 플레이스홀더 표시
- * 7. [card/gallery] 블라인드 게시글 플레이스홀더에 연한 색상(text-gray-400) 클래스 적용
- */
+
 
 import React from 'react';
 import { describe, it, expect, beforeEach } from 'vitest';
 import { createLayoutTest, screen } from '@/core/template-engine/__tests__/utils/layoutTestUtils';
 import { ComponentRegistry } from '@/core/template-engine/ComponentRegistry';
 
-// ============================================================
-// 테스트용 컴포넌트 정의
-// ============================================================
+
+
+
 
 const TestDiv: React.FC<{
   className?: string;
@@ -106,9 +94,9 @@ const TestHtmlContent: React.FC<{
   </div>
 );
 
-// ============================================================
-// 컴포넌트 레지스트리 설정
-// ============================================================
+
+
+
 
 function setupTestRegistry(): ComponentRegistry {
   const registry = ComponentRegistry.getInstance();
@@ -131,14 +119,11 @@ function setupTestRegistry(): ComponentRegistry {
   return registry;
 }
 
-// ============================================================
-// 레이아웃 JSON
-// ============================================================
 
-/**
- * basic형 제목 행 색상 처리 테스트 레이아웃
- * 블라인드/삭제 시 text-gray-400, 정상 시 text-gray-700
- */
+
+
+
+
 const basicTitleColorLayoutJson = {
   version: '1.0.0',
   layout_name: 'board_basic_color_test',
@@ -156,11 +141,7 @@ const basicTitleColorLayoutJson = {
   ],
 };
 
-/**
- * card/gallery형 이미지 조건 테스트 레이아웃
- * - 썸네일 있으면 항상 표시 (블라인드/삭제 여부 무관)
- * - 썸네일 없으면 플레이스홀더 표시
- */
+
 const imageThumbnailConditionLayoutJson = {
   version: '1.0.0',
   layout_name: 'board_image_condition_test',
@@ -196,10 +177,7 @@ const imageThumbnailConditionLayoutJson = {
   ],
 };
 
-/**
- * card/gallery형 플레이스홀더 색상 테스트 레이아웃
- * 이미지 없는 경우의 플레이스홀더 텍스트 색상 처리
- */
+
 const imagePlaceholderColorLayoutJson = {
   version: '1.0.0',
   layout_name: 'board_placeholder_color_test',
@@ -216,9 +194,9 @@ const imagePlaceholderColorLayoutJson = {
   ],
 };
 
-// ============================================================
-// 테스트
-// ============================================================
+
+
+
 
 describe('게시판 목록 - 블라인드/삭제 게시글 표시 처리', () => {
   let registry: ComponentRegistry;

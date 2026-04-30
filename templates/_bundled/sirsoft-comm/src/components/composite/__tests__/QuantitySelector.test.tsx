@@ -1,14 +1,10 @@
-/**
- * QuantitySelector 컴포넌트 테스트
- *
- * @description 수량 선택기 컴포넌트의 동작을 테스트합니다.
- */
+
 
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 
-// QuantitySelector Mock (basic 컴포넌트 의존성 때문에)
+
 const MockQuantitySelector: React.FC<{
   value: number;
   min?: number;

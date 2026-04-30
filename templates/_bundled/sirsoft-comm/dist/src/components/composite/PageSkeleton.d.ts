@@ -1,7 +1,4 @@
 import { default as React } from 'react';
-/**
- * 레이아웃 컴포넌트 정의 (엔진에서 전달하는 트리 구조)
- */
 interface LayoutComponent {
     name?: string;
     type?: string;
@@ -23,13 +20,8 @@ interface LayoutComponent {
         };
     };
 }
-/**
- * 스켈레톤 컴포넌트 Props (엔진에서 전달)
- */
 export interface PageSkeletonProps {
-    /** 레이아웃 JSON의 components 배열 (전체 컴포넌트 트리) */
     components: LayoutComponent[];
-    /** 스켈레톤 옵션 */
     options: {
         animation: 'pulse' | 'wave' | 'none';
         iteration_count: number;

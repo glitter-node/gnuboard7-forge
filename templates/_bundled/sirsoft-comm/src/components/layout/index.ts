@@ -1,8 +1,4 @@
-/**
- * Layout Components
- *
- * 레이아웃 구성을 위한 컴포넌트 모음
- */
+
 
 export { Container } from './Container';
 export type { ContainerProps } from './Container';

@@ -6,7 +6,7 @@ import { Span } from './Span';
 import { Svg } from './Svg';
 import { Input } from './Input';
 
-// Logger 설정 (G7Core 초기화 전에도 동작하도록 폴백 포함)
+
 const logger = ((window as any).G7Core?.createLogger?.('Comp:Select')) ?? {
     log: (...args: unknown[]) => console.log('[Comp:Select]', ...args),
     warn: (...args: unknown[]) => console.warn('[Comp:Select]', ...args),
@@ -24,15 +24,13 @@ export interface SelectProps extends Omit<React.SelectHTMLAttributes<HTMLSelectE
   error?: string;
   options?: SelectOption[] | string[];
   onChange?: (e: React.ChangeEvent<HTMLSelectElement> | { target: { value: string | number } }) => void;
-  /** 드롭다운 내 검색 input 활성화 (engine-v1.40.0+) */
+  
   searchable?: boolean;
-  /** 검색 input placeholder */
+  
   searchPlaceholder?: string;
 }
 
-/**
- * 로케일 코드를 사람이 읽을 수 있는 이름으로 변환
- */
+
 function getLocaleName(locale: string): string {
   const localeNames: Record<string, string> = {
     ko: '한국어',
@@ -47,12 +45,7 @@ function getLocaleName(locale: string): string {
   return localeNames[locale] || locale;
 }
 
-/**
- * 커스텀 Select 컴포넌트
- *
- * options prop을 사용하여 드롭다운 메뉴를 생성합니다.
- * 둥근 모서리, 그림자, 체크마크가 있는 커스텀 스타일을 지원합니다.
- */
+
 export const Select: React.FC<SelectProps> = ({
   children,
   label,
@@ -74,20 +67,20 @@ export const Select: React.FC<SelectProps> = ({
   const searchInputRef = useRef<HTMLInputElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // options를 SelectOption[] 형식으로 정규화
+  
   const normalizedOptions = useMemo((): SelectOption[] | null => {
     if (!options) return null;
 
-    // 배열이 아닌 경우 (바인딩 에러 또는 잘못된 prop)
+    
     if (!Array.isArray(options)) {
       logger.warn('options prop is not an array:', options);
       return null;
     }
 
-    // 빈 배열인 경우
+    
     if (options.length === 0) return [];
 
-    // string[] 배열인 경우
+    
     if (typeof options[0] === 'string') {
       return (options as string[]).map((locale): SelectOption => ({
         value: locale,
@@ -95,18 +88,18 @@ export const Select: React.FC<SelectProps> = ({
       }));
     }
 
-    // SelectOption[] 배열인 경우 (기존 동작)
+    
     return options as SelectOption[];
   }, [options]);
 
-  // 현재 선택된 옵션의 라벨 가져오기
+  
   const selectedLabel = useMemo(() => {
     if (!normalizedOptions) return '';
     const selected = normalizedOptions.find(opt => String(opt.value) === String(value));
     return selected?.label || '';
   }, [normalizedOptions, value]);
 
-  // searchable 모드에서 검색어로 필터링된 옵션
+  
   const visibleOptions = useMemo((): SelectOption[] | null => {
     if (!normalizedOptions) return null;
     if (!searchable || searchTerm.trim() === '') return normalizedOptions;
@@ -117,11 +110,11 @@ export const Select: React.FC<SelectProps> = ({
     );
   }, [normalizedOptions, searchable, searchTerm]);
 
-  // 드롭다운 열릴 때 검색어 초기화 및 input 포커스
+  
   useEffect(() => {
     if (isOpen && searchable) {
       setSearchTerm('');
-      // 다음 tick에 포커스 (DOM 렌더 이후)
+      
       const timer = setTimeout(() => searchInputRef.current?.focus(), 0);
       return () => clearTimeout(timer);
     }
@@ -130,16 +123,13 @@ export const Select: React.FC<SelectProps> = ({
     }
   }, [isOpen, searchable]);
 
-  /**
-   * 드롭다운 위치 계산 (버튼 기준 fixed positioning)
-   * Modal 등 overflow:hidden 컨테이너 내부에서도 정상 표시
-   */
+  
   const updateDropdownPos = useCallback(() => {
     if (!buttonRef.current) return;
     const rect = buttonRef.current.getBoundingClientRect();
     const spaceBelow = window.innerHeight - rect.bottom;
-    const dropdownMaxH = 280; // max-h-60(240px) + search(~40px)
-    // 아래 공간 부족 시 위로 열기
+    const dropdownMaxH = 280; 
+    
     const openUpward = spaceBelow < dropdownMaxH && rect.top > spaceBelow;
     if (openUpward) {
       setDropdownPos({
@@ -156,7 +146,7 @@ export const Select: React.FC<SelectProps> = ({
     }
   }, []);
 
-  // 드롭다운 열릴 때 위치 계산 + 스크롤/리사이즈 추적
+  
   useEffect(() => {
     if (!isOpen) {
       setDropdownPos(null);
@@ -171,7 +161,7 @@ export const Select: React.FC<SelectProps> = ({
     };
   }, [isOpen, updateDropdownPos]);
 
-  // 외부 클릭 시 드롭다운 닫기 (Portal 영역 포함)
+  
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as Node;
@@ -192,7 +182,7 @@ export const Select: React.FC<SelectProps> = ({
     };
   }, [isOpen]);
 
-  // ESC 키로 드롭다운 닫기
+  
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape' && isOpen) {
@@ -213,7 +203,7 @@ export const Select: React.FC<SelectProps> = ({
 
   const handleSelect = (optionValue: string | number) => {
     if (onChange) {
-      // ActionDispatcher가 이벤트를 인식할 수 있도록 preventDefault 메서드 포함
+      
       const syntheticEvent = {
         target: { value: optionValue },
         preventDefault: () => {},
@@ -226,7 +216,7 @@ export const Select: React.FC<SelectProps> = ({
     buttonRef.current?.focus();
   };
 
-  // options가 없으면 기본 select 사용 (children 지원)
+  
   if (!normalizedOptions) {
     return (
       <select
@@ -241,9 +231,9 @@ export const Select: React.FC<SelectProps> = ({
     );
   }
 
-  // 기본 스타일 (className이 없을 때 적용)
+  
   const hasCustomStyle = className && className.includes('bg-');
-  // 커스텀 스타일에 텍스트 색상이 없으면 기본 텍스트 색상 보충
+  
   const hasTextColor = className && /text-(gray|red|blue|green|yellow|white|black|indigo|purple|pink|orange|amber|emerald|teal|cyan|slate)-\d+|text-white|text-black/.test(className);
   const baseButtonClass = hasCustomStyle
     ? `${className}${hasTextColor ? '' : ' text-gray-700 dark:text-gray-200'}`

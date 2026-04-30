@@ -1,10 +1,3 @@
-/**
- * FileUploader 모듈
- *
- * 파일 업로드 기능을 제공하는 컴포넌트 모듈입니다.
- *
- * @module composite/FileUploader
- */
 export { FileUploader } from './FileUploader';
 export { default } from './FileUploader';
 export { FileDropZone } from './FileDropZone';

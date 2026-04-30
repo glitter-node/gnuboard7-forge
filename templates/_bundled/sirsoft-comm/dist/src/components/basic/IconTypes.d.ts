@@ -1,20 +1,5 @@
-/**
- * Font Awesome 아이콘 스타일
- */
 export type IconStyle = 'solid' | 'regular' | 'light' | 'duotone' | 'brands';
-/**
- * Font Awesome 아이콘 크기
- */
 export type IconSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2x' | '3x' | '4x' | '5x';
-/**
- * 자주 사용되는 Font Awesome 아이콘 이름
- *
- * @example
- * // 사용 예시
- * <Icon name="user" />
- * <Icon name="search" />
- * <Icon name="shopping-cart" />
- */
 export declare enum IconName {
     User = "fa-user",
     Users = "fa-users",
@@ -136,8 +121,4 @@ export declare enum IconName {
     MapPin = "fa-map-marker-alt",
     HelpCircle = "fa-question-circle"
 }
-/**
- * 문자열 아이콘 이름을 IconName enum으로 매핑합니다.
- * JSON 레이아웃에서 문자열로 아이콘 이름을 지정할 때 사용합니다.
- */
 export declare const iconNameMap: Record<string, IconName>;

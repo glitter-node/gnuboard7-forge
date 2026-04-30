@@ -1,10 +1,4 @@
-/**
- * FileDropZone 컴포넌트
- *
- * 파일을 드래그 앤 드롭하거나 클릭하여 선택할 수 있는 영역입니다.
- *
- * @module composite/FileUploader/FileDropZone
- */
+
 
 import React from 'react';
 
@@ -15,23 +9,23 @@ import { I } from '../../basic/I';
 import { t } from './utils';
 
 export interface FileDropZoneProps {
-  /** 드래그 오버 상태 */
+  
   isDragOver: boolean;
-  /** 추가 가능 여부 */
+  
   canAddMore: boolean;
-  /** 파일 처리 핸들러 */
+  
   onFiles: (files: FileList) => void;
-  /** 드래그 오버 상태 설정 */
+  
   setIsDragOver: (value: boolean) => void;
-  /** Input 요소 ref */
+  
   inputRef: React.RefObject<HTMLInputElement | null>;
-  /** 허용 확장자 */
+  
   accept?: string;
-  /** 최대 파일 수 */
+  
   maxFiles: number;
-  /** 최대 파일 크기 (MB) */
+  
   maxSize: number;
-  /** 자식 요소 */
+  
   children?: React.ReactNode;
 }
 

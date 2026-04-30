@@ -1,14 +1,10 @@
-/**
- * ExpandableContent 컴포넌트 테스트
- *
- * @description 콘텐츠 펼치기/접기 컴포넌트의 동작을 테스트합니다.
- */
+
 
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
-// Mock basic 컴포넌트
+
 vi.mock('../../basic/Div', () => ({
   Div: React.forwardRef(({ children, className, style, ...props }: any, ref: any) => (
     <div ref={ref} className={className} style={style} {...props}>{children}</div>

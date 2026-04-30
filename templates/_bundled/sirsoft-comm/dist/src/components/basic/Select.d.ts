@@ -13,15 +13,7 @@ export interface SelectProps extends Omit<React.SelectHTMLAttributes<HTMLSelectE
             value: string | number;
         };
     }) => void;
-    /** 드롭다운 내 검색 input 활성화 (engine-v1.40.0+) */
     searchable?: boolean;
-    /** 검색 input placeholder */
     searchPlaceholder?: string;
 }
-/**
- * 커스텀 Select 컴포넌트
- *
- * options prop을 사용하여 드롭다운 메뉴를 생성합니다.
- * 둥근 모서리, 그림자, 체크마크가 있는 커스텀 스타일을 지원합니다.
- */
 export declare const Select: React.FC<SelectProps>;

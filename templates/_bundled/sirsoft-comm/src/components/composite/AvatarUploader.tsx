@@ -1,15 +1,4 @@
-/**
- * AvatarUploader 컴포넌트
- *
- * 프로필 아바타 이미지 업로드를 위한 컴포넌트입니다.
- * - 원형 아바타 UI
- * - 파일 선택 시 즉시 업로드
- * - 업로드/삭제 API 지원
- * - 업로드 오류 표시
- * - 삭제 확인 다이얼로그
- *
- * @module composite/AvatarUploader
- */
+
 
 import { useRef, useState, useCallback, useEffect } from 'react';
 
@@ -22,68 +11,68 @@ import { Input } from '../basic/Input';
 import { Img } from '../basic/Img';
 import { Avatar } from './Avatar';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 const G7Core = (window as any).G7Core;
 
 export interface AvatarUploaderProps {
-  /** 현재 아바타 URL */
+  
   src?: string;
-  /** 이미지 없을 때 표시할 텍스트 (이니셜) */
+  
   fallbackText?: string;
-  /** 아바타 크기 */
+  
   size?: 'sm' | 'md' | 'lg' | 'xl' | '2xl';
-  /** 업로드 API 엔드포인트 (기본: /api/me/avatar) */
+  
   uploadEndpoint?: string;
-  /** 삭제 API 엔드포인트 (기본: /api/me/avatar) */
+  
   deleteEndpoint?: string;
-  /** 업로드 성공 콜백 */
+  
   onUploadSuccess?: (data: { avatar: string; attachment_id: number }) => void;
-  /** 업로드 에러 콜백 */
+  
   onUploadError?: (error: Error) => void;
-  /** 삭제 성공 콜백 */
+  
   onDeleteSuccess?: () => void;
-  /** 삭제 에러 콜백 */
+  
   onDeleteError?: (error: Error) => void;
-  /** 삭제 버튼 표시 여부 */
+  
   showDeleteButton?: boolean;
-  /** 허용 파일 타입 (기본: image/*) */
+  
   accept?: string;
-  /** 최대 파일 크기 (MB, 기본: 5) */
+  
   maxSize?: number;
-  /** 추가 CSS 클래스 */
+  
   className?: string;
-  /** 업로드 버튼 텍스트 */
+  
   uploadButtonText?: string;
-  /** 삭제 버튼 텍스트 */
+  
   deleteButtonText?: string;
-  /** 읽기 전용 모드 */
+  
   readOnly?: boolean;
-  /** 삭제 확인 다이얼로그 표시 여부 (기본: true) */
+  
   confirmDelete?: boolean;
-  /** 삭제 확인 메시지 */
+  
   deleteConfirmMessage?: string;
-  /** 업로드 확인 다이얼로그 표시 여부 (기본: true) */
+  
   confirmUpload?: boolean;
-  /** 업로드 확인 메시지 */
+  
   uploadConfirmMessage?: string;
-  /** 업로드 성공 시 실행할 액션 배열 (G7Core.dispatch) */
+  
   uploadSuccessActions?: Array<Record<string, any>>;
-  /** 업로드 실패 시 실행할 액션 배열 */
+  
   uploadErrorActions?: Array<Record<string, any>>;
-  /** 삭제 성공 시 실행할 액션 배열 */
+  
   deleteSuccessActions?: Array<Record<string, any>>;
-  /** 삭제 실패 시 실행할 액션 배열 */
+  
   deleteErrorActions?: Array<Record<string, any>>;
 }
 
-// AvatarUploader size를 Avatar size로 매핑
-// AvatarUploader는 프로필 편집용으로 더 큰 사이즈 사용
+
+
 const avatarSizeMap: Record<string, 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl'> = {
-  sm: 'md',     // AvatarUploader sm → Avatar md (w-10, 40px)
-  md: 'lg',     // AvatarUploader md → Avatar lg (w-12, 48px)
-  lg: 'xl',     // AvatarUploader lg → Avatar xl (w-16, 64px)
-  xl: '2xl',    // AvatarUploader xl → Avatar 2xl (w-24, 96px)
-  '2xl': '3xl', // AvatarUploader 2xl → Avatar 3xl (w-32, 128px)
+  sm: 'md',     
+  md: 'lg',     
+  lg: 'xl',     
+  xl: '2xl',    
+  '2xl': '3xl', 
 };
 
 export function AvatarUploader({
@@ -115,7 +104,7 @@ export function AvatarUploader({
   const inputRef = useRef<HTMLInputElement>(null);
   const [isUploading, setIsUploading] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
-  // undefined: 초기 상태(props 사용), null: 삭제됨, string: 새 이미지 URL
+  
   const [localAvatarUrl, setLocalAvatarUrl] = useState<string | null | undefined>(undefined);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);

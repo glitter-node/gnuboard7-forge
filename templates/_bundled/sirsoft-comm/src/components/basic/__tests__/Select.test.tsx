@@ -188,7 +188,7 @@ describe('Select 컴포넌트', () => {
 
   describe('Label 및 Error Props', () => {
     it('label prop이 존재한다', () => {
-      // label prop은 있지만 렌더링하지 않음 (부모에서 처리)
+      
       const { container } = render(
         <Select label="카테고리 선택">
           <option value="1">옵션 1</option>
@@ -199,7 +199,7 @@ describe('Select 컴포넌트', () => {
     });
 
     it('error prop이 존재한다', () => {
-      // error prop은 있지만 렌더링하지 않음 (부모에서 처리)
+      
       const { container } = render(
         <Select error="카테고리를 선택해주세요">
           <option value="">선택</option>
@@ -293,9 +293,9 @@ describe('Select 컴포넌트', () => {
     });
   });
 
-  // ========================================
-  // 커스텀 드롭다운 모드 (options prop 사용)
-  // ========================================
+  
+  
+  
   describe('커스텀 드롭다운 렌더링 (options 모드)', () => {
     const options = [
       { value: '', label: '전체' },
@@ -306,7 +306,7 @@ describe('Select 컴포넌트', () => {
     it('options prop으로 커스텀 드롭다운이 렌더링된다', () => {
       render(<Select options={options} value="" onChange={() => {}} />);
 
-      // 버튼이 렌더링되어야 함 (select가 아닌 button)
+      
       const button = screen.getByRole('button');
       expect(button).toBeTruthy();
     });
@@ -329,11 +329,11 @@ describe('Select 컴포넌트', () => {
       const button = screen.getByRole('button');
       fireEvent.click(button);
 
-      // 드롭다운 메뉴가 열림 (listbox)
+      
       const listbox = screen.getByRole('listbox');
       expect(listbox).toBeTruthy();
 
-      // 모든 옵션이 표시됨 (옵션은 role="option"으로 찾음)
+      
       const optionElements = screen.getAllByRole('option');
       expect(optionElements.length).toBe(3);
     });
@@ -342,17 +342,17 @@ describe('Select 컴포넌트', () => {
       const handleChange = vi.fn();
       render(<Select options={options} value="" onChange={handleChange} />);
 
-      // 드롭다운 열기
+      
       const button = screen.getByRole('button');
       fireEvent.click(button);
 
-      // 옵션 선택
+      
       const nameOption = screen.getAllByRole('option').find(
         opt => opt.textContent?.includes('이름')
       );
       fireEvent.click(nameOption!);
 
-      // onChange가 호출됨 (synthetic event 형식)
+      
       expect(handleChange).toHaveBeenCalledTimes(1);
       expect(handleChange).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -361,7 +361,7 @@ describe('Select 컴포넌트', () => {
         })
       );
 
-      // 드롭다운이 닫힘
+      
       expect(screen.queryByRole('listbox')).toBeNull();
     });
 
@@ -371,7 +371,7 @@ describe('Select 컴포넌트', () => {
       const button = screen.getByRole('button');
       fireEvent.click(button);
 
-      // 선택된 옵션 찾기
+      
       const selectedOption = screen.getAllByRole('option').find(
         opt => opt.getAttribute('aria-selected') === 'true'
       );
@@ -388,7 +388,7 @@ describe('Select 컴포넌트', () => {
 
       fireEvent.click(button);
 
-      // 드롭다운이 열리지 않음
+      
       expect(screen.queryByRole('listbox')).toBeNull();
     });
 
@@ -400,31 +400,31 @@ describe('Select 컴포넌트', () => {
         </div>
       );
 
-      // 드롭다운 열기
+      
       const button = screen.getByRole('button');
       fireEvent.click(button);
       expect(screen.getByRole('listbox')).toBeTruthy();
 
-      // 외부 클릭
+      
       const outside = screen.getByTestId('outside');
       fireEvent.mouseDown(outside);
 
-      // 드롭다운이 닫힘
+      
       expect(screen.queryByRole('listbox')).toBeNull();
     });
 
     it('ESC 키로 드롭다운이 닫힌다', () => {
       render(<Select options={options} value="" onChange={() => {}} />);
 
-      // 드롭다운 열기
+      
       const button = screen.getByRole('button');
       fireEvent.click(button);
       expect(screen.getByRole('listbox')).toBeTruthy();
 
-      // ESC 키 입력
+      
       fireEvent.keyDown(document, { key: 'Escape' });
 
-      // 드롭다운이 닫힘
+      
       expect(screen.queryByRole('listbox')).toBeNull();
     });
   });
@@ -477,7 +477,7 @@ describe('Select 컴포넌트', () => {
       const button = screen.getByRole('button');
       fireEvent.click(button);
 
-      // 로케일 이름으로 변환됨 (role="option"으로 찾음)
+      
       const optionElements = screen.getAllByRole('option');
       const labels = optionElements.map(opt => opt.textContent);
       expect(labels).toContain('한국어');
@@ -510,7 +510,7 @@ describe('Select 컴포넌트', () => {
 
       expect(disabledOption).toHaveProperty('disabled', true);
 
-      // 클릭해도 onChange가 호출되지 않음
+      
       fireEvent.click(disabledOption!);
       expect(handleChange).not.toHaveBeenCalled();
     });
@@ -587,13 +587,13 @@ describe('Select 컴포넌트', () => {
 
       render(<TestComponent />);
 
-      // 초기값 확인
+      
       expect(screen.getByText('옵션 1')).toBeTruthy();
 
-      // 외부에서 값 변경
+      
       fireEvent.click(screen.getByText('변경'));
 
-      // 표시가 업데이트됨
+      
       expect(screen.getByText('옵션 2')).toBeTruthy();
     });
   });
@@ -607,7 +607,7 @@ describe('Select 컴포넌트', () => {
     });
 
     it('options가 배열이 아닐 때 기본 select로 폴백된다', () => {
-      // @ts-expect-error - 의도적으로 잘못된 타입 전달
+      
       const { container } = render(<Select options="invalid" />);
 
       const select = container.querySelector('select');
@@ -615,9 +615,9 @@ describe('Select 컴포넌트', () => {
     });
   });
 
-  // ========================================
-  // searchable 모드 (engine-v1.40.0+)
-  // ========================================
+  
+  
+  
   describe('searchable 모드', () => {
     const timezoneOptions = [
       { value: 'Asia/Seoul', label: '(UTC+09:00) Asia/Seoul' },
@@ -718,16 +718,16 @@ describe('Select 컴포넌트', () => {
     it('드롭다운을 다시 열면 검색어가 초기화된다', () => {
       render(<Select options={timezoneOptions} value="Asia/Seoul" onChange={() => {}} searchable />);
 
-      // 첫 번째 열기 + 필터링
+      
       fireEvent.click(screen.getByRole('button'));
       fireEvent.change(screen.getByRole('searchbox'), { target: { value: 'tokyo' } });
       expect(screen.getAllByRole('option').length).toBe(1);
 
-      // 닫기 (외부 클릭 대신 ESC)
+      
       fireEvent.keyDown(document, { key: 'Escape' });
       expect(screen.queryByRole('listbox')).toBeNull();
 
-      // 다시 열기 — 검색어가 초기화되어 모든 옵션이 보여야 함
+      
       fireEvent.click(screen.getByRole('button'));
       expect(screen.getAllByRole('option').length).toBe(timezoneOptions.length);
       const input = screen.getByRole('searchbox') as HTMLInputElement;

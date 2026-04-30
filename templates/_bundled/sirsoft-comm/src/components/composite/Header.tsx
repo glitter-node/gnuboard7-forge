@@ -1,20 +1,8 @@
-/**
- * Header 컴포넌트
- *
- * 사이트 상단 헤더 컴포넌트입니다.
- * 로고, 검색바, 네비게이션, 사용자 메뉴, 알림을 포함합니다.
- *
- * @see 화면 구성:
- * ┌─────────────────────────────────────────────────────────────────┐
- * │ [Logo] [검색바................] [🔔] [👤 닉네임 ▼]            │
- * ├───────────────────────────────────────────────────────────────┤
- * │ [홈] [🔥인기] [자유게시판] [질문답변] [갤러리] [더보기▼]      │
- * └─────────────────────────────────────────────────────────────────┘
- */
+
 
 import React, { useState, useRef, useEffect } from 'react';
 
-// 기본 컴포넌트 import
+
 import { Div } from '../basic/Div';
 import { Button } from '../basic/Button';
 import { Input } from '../basic/Input';
@@ -27,20 +15,20 @@ import { Header as HeaderBasic } from '../basic/Header';
 import { Hr } from '../basic/Hr';
 import { A } from '../basic/A';
 
-// ThemeToggle 컴포넌트 import
+
 import { ThemeToggle } from './ThemeToggle';
 
-// Avatar 컴포넌트 import
+
 import { Avatar } from './Avatar';
 
-// NotificationCenter 컴포넌트 import
+
 import { NotificationCenter, type NotificationItem } from './NotificationCenter';
 
-// G7Core.t() 번역 함수 참조
+
 const t = (key: string, params?: Record<string, string | number>) =>
   (window as any).G7Core?.t?.(key, params) ?? key;
 
-// G7Core.dispatch() navigate 헬퍼
+
 const navigate = (path: string) => {
   (window as any).G7Core?.dispatch?.({
     handler: 'navigate',
@@ -63,82 +51,63 @@ interface User {
 }
 
 interface HeaderProps {
-  /** 사이트 로고 URL */
+  
   logo?: string;
-  /** 사이트 이름 */
+  
   siteName?: string;
-  /** 현재 로그인된 사용자 */
+  
   user?: User | null;
-  /** 읽지 않은 알림 수 */
+  
   notificationCount?: number;
-  /** 게시판 목록 */
+  
   boards?: Board[];
-  /** 탭에 표시할 최대 게시판 수 */
+  
   maxVisibleBoards?: number;
-  /** 모바일 메뉴 열기 콜백 */
+  
   onMobileMenuOpen?: () => void;
-  /** 사용 가능한 언어 목록 */
+  
   availableLocales?: string[];
-  /** 현재 언어 */
+  
   currentLocale?: string;
-  /** 추가 CSS 클래스 */
+  
   className?: string;
 
-  // ===== 알림센터 드롭다운 Props =====
-  /** 알림 목록 (NotificationCenter에 전달) */
+  
+  
   notifications?: NotificationItem[];
-  /** 더 불러올 페이지 존재 여부 */
+  
   notificationHasMore?: boolean;
-  /** 알림 로딩 상태 */
+  
   notificationLoading?: boolean;
-  /** "안 읽은 알림만" 필터 상태 */
+  
   notificationUnreadOnly?: boolean;
-  /** 알림 드롭다운 제목 */
+  
   notificationTitleText?: string;
-  /** 알림 없음 텍스트 */
+  
   notificationEmptyText?: string;
-  /** "모두 읽음" 텍스트 */
+  
   notificationMarkAllReadText?: string;
-  /** "모두 삭제" 텍스트 */
+  
   notificationDeleteAllText?: string;
-  /** "안 읽은 알림만" 체크박스 텍스트 */
+  
   notificationUnreadOnlyText?: string;
-  /** 알림 드롭다운 닫힐 때 (뷰포트에 보인 미읽음 ID 배열 전달) */
+  
   onNotificationClose?: (visibleUnreadIds: (string | number)[]) => void;
-  /** 개별 알림 클릭 */
+  
   onNotificationClick?: (notification: NotificationItem) => void;
-  /** 무한 스크롤: 추가 로드 */
+  
   onNotificationLoadMore?: () => void;
-  /** "모두 읽음" 처리 */
+  
   onNotificationMarkAllRead?: () => void;
-  /** "모두 삭제" 요청 (모달 오픈) */
+  
   onNotificationDeleteAll?: () => void;
-  /** 개별 알림 삭제 */
+  
   onNotificationDelete?: (notification: NotificationItem) => void;
-  /** "안 읽은 알림만" 체크박스 토글 */
+  
   onNotificationUnreadOnlyToggle?: (checked: boolean) => void;
 }
 
-/**
- * 사이트 헤더 컴포넌트
- *
- * @example
- * ```json
- * // 레이아웃 JSON에서 사용
- * {
- *   "type": "composite",
- *   "name": "Header",
- *   "props": {
- *     "logo": "{{_global.settings.site_logo}}",
- *     "siteName": "{{_global.settings.site_name}}",
- *     "user": "{{_global.currentUser}}",
- *     "notificationCount": "{{_global.notificationCount}}",
- *     "boards": "{{boards.data}}",
- *     "maxVisibleBoards": 5
- *   }
- * }
- * ```
- */
+
 const Header: React.FC<HeaderProps> = ({
   logo,
   siteName = '그누보드7',
@@ -150,7 +119,7 @@ const Header: React.FC<HeaderProps> = ({
   availableLocales = [],
   currentLocale = 'ko',
   className = '',
-  // 알림센터
+  
   notifications = [],
   notificationHasMore = false,
   notificationLoading = false,
@@ -176,7 +145,7 @@ const Header: React.FC<HeaderProps> = ({
   const userMenuRef = useRef<HTMLDivElement>(null);
   const moreButtonRef = useRef<HTMLDivElement>(null);
 
-  // G7Core.useResponsive를 통해 반응형 상태 구독 (G7 표준 — 위지윅 overrideWidth 호환)
+  
   const G7Core = (window as any).G7Core;
   const useResponsive = G7Core?.useResponsive;
   const responsiveValue = useResponsive?.();
@@ -184,12 +153,12 @@ const Header: React.FC<HeaderProps> = ({
     ? responsiveValue.width < 768
     : typeof window !== 'undefined' && window.innerWidth < 768;
 
-  // 경로 변경 감지 (SPA 네비게이션 대응)
+  
   useEffect(() => {
     const handlePopState = () => setCurrentPath(window.location.pathname);
     window.addEventListener('popstate', handlePopState);
 
-    // G7Core의 navigate 이벤트 감지
+    
     const originalPushState = history.pushState;
     history.pushState = function(...args) {
       originalPushState.apply(this, args);
@@ -202,7 +171,7 @@ const Header: React.FC<HeaderProps> = ({
     };
   }, []);
 
-  // 경로 매칭 헬퍼 함수
+  
   const isActiveRoute = (path: string, exact = false): boolean => {
     if (exact) {
       return currentPath === path;
@@ -210,7 +179,7 @@ const Header: React.FC<HeaderProps> = ({
     return currentPath === path || currentPath.startsWith(path + '/');
   };
 
-  // 네비게이션 버튼 스타일
+  
   const getNavButtonClass = (isActive: boolean): string => {
     const baseClass = 'px-3 py-2 text-sm font-medium whitespace-nowrap cursor-pointer rounded-lg transition-colors';
     if (isActive) {

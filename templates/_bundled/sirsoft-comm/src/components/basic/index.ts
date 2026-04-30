@@ -1,8 +1,4 @@
-/**
- * 기본 HTML 매핑 컴포넌트 Export
- *
- * DOM 요소에 직접 매핑되는 기본 컴포넌트들
- */
+
 
 export { Button, type ButtonProps } from './Button';
 export { FileInput, type FileInputProps } from './FileInput';
@@ -42,5 +38,5 @@ export { Footer, type FooterProps } from './Footer';
 export { Header, type HeaderProps } from './Header';
 export { Hr, type HrProps } from './Hr';
 
-// Icon 타입 정의 (enum 및 타입)
+
 export { IconName, type IconStyle, type IconSize } from './IconTypes';

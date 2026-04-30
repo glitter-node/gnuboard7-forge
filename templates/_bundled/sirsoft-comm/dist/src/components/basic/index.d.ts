@@ -1,8 +1,3 @@
-/**
- * 기본 HTML 매핑 컴포넌트 Export
- *
- * DOM 요소에 직접 매핑되는 기본 컴포넌트들
- */
 export { Button, type ButtonProps } from './Button';
 export { FileInput, type FileInputProps } from './FileInput';
 export { Input, type InputProps } from './Input';

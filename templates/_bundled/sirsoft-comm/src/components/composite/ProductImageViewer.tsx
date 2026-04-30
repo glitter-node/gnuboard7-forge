@@ -1,11 +1,4 @@
-/**
- * ProductImageViewer 컴포넌트
- *
- * 상품 상세 페이지용 이미지 뷰어입니다.
- * 메인 이미지 + 썸네일 리스트 + 라이트박스(ImageGallery) 연동을 지원합니다.
- *
- * @module composite/ProductImageViewer
- */
+
 
 import React, { useState, useMemo } from 'react';
 import { Div } from '../basic/Div';
@@ -14,46 +7,44 @@ import { Button } from '../basic/Button';
 import { Icon } from '../basic/Icon';
 import { ImageGallery, useImageGallery, GalleryImage } from './ImageGallery';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 const G7Core = (window as any).G7Core;
 
 const t = (key: string, params?: Record<string, string | number>) =>
   G7Core?.t?.(key, params) ?? key;
 
-// ========== Types ==========
+
 
 export interface ProductImage {
-  /** 이미지 ID */
+  
   id: number;
-  /** 외부 URL (CDN 등, nullable) */
+  
   url: string | null;
-  /** API 서빙 URL (항상 존재) */
+  
   download_url: string;
-  /** 현재 로케일 대체 텍스트 */
+  
   alt_text_current?: string;
-  /** 대표 이미지 여부 */
+  
   is_thumbnail?: boolean;
-  /** 정렬 순서 */
+  
   sort_order?: number;
 }
 
 export interface ProductImageViewerProps {
-  /** 상품 이미지 배열 (API 응답 그대로) */
+  
   images: ProductImage[];
-  /** 커스텀 클래스 */
+  
   className?: string;
 }
 
-// ========== Helper ==========
 
-/**
- * 이미지 표시용 URL 반환 (url 우선, 없으면 download_url)
- */
+
+
 const getImageSrc = (image: ProductImage): string => {
   return image.url ?? image.download_url;
 };
 
-// ========== Main Component ==========
+
 
 export const ProductImageViewer: React.FC<ProductImageViewerProps> = ({
   images = [],
@@ -62,7 +53,7 @@ export const ProductImageViewer: React.FC<ProductImageViewerProps> = ({
   const [selectedIndex, setSelectedIndex] = useState(0);
   const { openGallery, galleryProps } = useImageGallery();
 
-  // 이미지를 ImageGallery용 형식으로 변환
+  
   const galleryImages: GalleryImage[] = useMemo(
     () =>
       images.map((img) => ({

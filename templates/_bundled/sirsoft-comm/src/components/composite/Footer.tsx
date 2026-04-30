@@ -1,23 +1,8 @@
-/**
- * Footer 컴포넌트
- *
- * 사이트 하단 푸터 컴포넌트입니다.
- * 사이트 정보, 링크 그룹, 소셜 링크, 저작권 표시를 포함합니다.
- *
- * @see 화면 구성:
- * ┌─────────────────────────────────────────────────────────────────┐
- * │ [사이트명]                                                       │
- * │ 함께 성장하는 커뮤니티                                            │
- * ├────────────┬────────────┬────────────┬────────────────────────────┤
- * │ 커뮤니티    │ 정보       │ 정책       │ [GitHub] [Twitter] [Discord]│
- * ├─────────────────────────────────────────────────────────────────┤
- * │ © 2026 사이트명. All rights reserved.        Made with ❤️        │
- * └─────────────────────────────────────────────────────────────────┘
- */
+
 
 import React from 'react';
 
-// 기본 컴포넌트 import
+
 import { Div } from '../basic/Div';
 import { A } from '../basic/A';
 import { Button } from '../basic/Button';
@@ -29,11 +14,11 @@ import { Li } from '../basic/Li';
 import { Footer as FooterBasic } from '../basic/Footer';
 import { Icon } from '../basic/Icon';
 
-// G7Core.t() 번역 함수 참조
+
 const t = (key: string, params?: Record<string, string | number>) =>
   (window as any).G7Core?.t?.(key, params) ?? key;
 
-// G7Core.dispatch() navigate 헬퍼
+
 const navigate = (path: string) => {
   (window as any).G7Core?.dispatch?.({
     handler: 'navigate',
@@ -60,42 +45,21 @@ interface FooterLinkGroup {
 }
 
 interface FooterProps {
-  /** 사이트 이름 */
+  
   siteName?: string;
-  /** 사이트 설명 */
+  
   siteDescription?: string;
-  /** 저작권 텍스트 */
+  
   copyrightText?: string;
-  /** 소셜 미디어 링크 */
+  
   socialLinks?: SocialLinks;
-  /** 링크 그룹 (미지정 시 기본값 사용) */
+  
   linkGroups?: FooterLinkGroup[];
-  /** 추가 CSS 클래스 */
+  
   className?: string;
 }
 
-/**
- * 사이트 푸터 컴포넌트
- *
- * @example
- * ```json
- * // 레이아웃 JSON에서 사용
- * {
- *   "type": "composite",
- *   "name": "Footer",
- *   "props": {
- *     "siteName": "{{_global.settings.site_name}}",
- *     "siteDescription": "{{_global.settings.site_description}}",
- *     "copyrightText": "{{_global.settings.copyright_text}}",
- *     "socialLinks": {
- *       "github": "https://github.com/...",
- *       "twitter": "https://twitter.com/...",
- *       "discord": "https://discord.gg/..."
- *     }
- *   }
- * }
- * ```
- */
+
 const Footer: React.FC<FooterProps> = ({
   siteName = '그누보드7',
   siteDescription,
@@ -106,7 +70,7 @@ const Footer: React.FC<FooterProps> = ({
 }) => {
   const currentYear = new Date().getFullYear();
 
-  // 기본 링크 그룹
+  
   const defaultLinkGroups: FooterLinkGroup[] = [
     {
       title: t('footer.community'),
@@ -136,7 +100,7 @@ const Footer: React.FC<FooterProps> = ({
 
   const groups = linkGroups || defaultLinkGroups;
 
-  // 소셜 아이콘 이름 매핑
+  
   const socialIconMap: Record<keyof SocialLinks, string> = {
     github: 'github',
     twitter: 'twitter',
