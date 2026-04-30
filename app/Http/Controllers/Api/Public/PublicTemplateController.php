@@ -7,6 +7,7 @@ use App\Extension\Traits\ClearsTemplateCaches;
 use App\Http\Controllers\Api\Base\PublicBaseController;
 use App\Http\Requests\Public\Template\ServeTemplateAssetRequest;
 use App\Services\TemplateService;
+use App\Support\SafeJsonLoader;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -128,10 +129,17 @@ class PublicTemplateController extends PublicBaseController
             };
         }
 
-        // JSON 파싱 및 반환
-        $components = json_decode(file_get_contents($result['componentsPath']), true);
+        $componentsResult = SafeJsonLoader::load($result['componentsPath']);
+        if (! $componentsResult['success']) {
+            return match ($componentsResult['error']) {
+                'file_not_found' => $this->notFound(__('templates.errors.components_not_found')),
+                'invalid_json' => $this->error(__('templates.errors.invalid_json'), 500),
+                'permission_denied', 'read_failed' => $this->error(__('templates.errors.unknown_error'), 500),
+                default => $this->error(__('templates.errors.unknown_error'), 500),
+            };
+        }
 
-        return $this->cachedJsonResponse($components, 3600);
+        return $this->cachedJsonResponse($componentsResult['data'], 3600);
     }
 
     /**
@@ -159,18 +167,14 @@ class PublicTemplateController extends PublicBaseController
                 // template.json 파일 경로
                 $configPath = base_path("templates/{$identifier}/template.json");
 
-                if (! file_exists($configPath)) {
-                    return ['error' => 'config_not_found'];
+                $configResult = SafeJsonLoader::load($configPath);
+                if (! $configResult['success']) {
+                    return ['error' => $configResult['error'] === 'file_not_found'
+                        ? 'config_not_found'
+                        : $configResult['error']];
                 }
 
-                $content = file_get_contents($configPath);
-                $data = json_decode($content, true);
-
-                if (json_last_error() !== JSON_ERROR_NONE) {
-                    return ['error' => 'invalid_json'];
-                }
-
-                return ['success' => true, 'data' => $data];
+                return ['success' => true, 'data' => $configResult['data']];
             },
             3600
         );
@@ -186,6 +190,10 @@ class PublicTemplateController extends PublicBaseController
                 ),
                 'invalid_json' => $this->error(
                     __('templates.errors.invalid_json'),
+                    500
+                ),
+                'permission_denied', 'read_failed' => $this->error(
+                    __('templates.errors.unknown_error'),
                     500
                 ),
                 default => $this->error(__('templates.errors.unknown_error'), 500),

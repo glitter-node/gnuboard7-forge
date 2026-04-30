@@ -761,9 +761,9 @@ class SettingsService
             'g7_release_year' => config('app.release_year', '2026'),
             'laravel_version' => app()->version(),
             'environment' => app()->environment(),
-            'cpu_info' => $this->getCpuInfo(),
-            'memory_usage' => $this->getMemoryUsage(),
-            'disk_usage' => $this->getDiskUsage(),
+            'cpu_info' => $this->safeSystemMetric(fn () => $this->getCpuInfo(), 'Unknown'),
+            'memory_usage' => $this->safeSystemMetric(fn () => $this->getMemoryUsage(), 'Unknown'),
+            'disk_usage' => $this->safeSystemMetric(fn () => $this->getDiskUsage(), $this->unknownDiskUsage()),
             'php_memory_limit' => ini_get('memory_limit'),
             'max_execution_time' => ini_get('max_execution_time').__('settings.seconds'),
             'upload_max_filesize' => ini_get('upload_max_filesize'),
@@ -771,11 +771,39 @@ class SettingsService
             'config_path' => storage_path('app/settings'),
             'log_path' => storage_path('logs'),
             'upload_path' => storage_path('app/public'),
-            'php_extensions' => $this->getPhpExtensions(),
-            'database_config' => $this->getDatabaseConfig(),
+            'php_extensions' => $this->safeSystemMetric(fn () => $this->getPhpExtensions(), [
+                'required' => [],
+                'optional' => [],
+            ]),
+            'database_config' => $this->safeSystemMetric(fn () => $this->getDatabaseConfig(), [
+                'has_read_write_split' => false,
+                'write' => [
+                    'host' => 'unknown',
+                    'port' => null,
+                    'database' => 'unknown',
+                    'username' => 'unknown',
+                ],
+                'read' => [],
+            ]),
             'server_time' => now()->format('Y-m-d H:i:s'),
             'timezone' => config('app.timezone'),
         ];
+    }
+
+    /**
+     * 시스템 메트릭 수집 중 발생하는 예외를 fallback 값으로 대체합니다.
+     *
+     * @param  callable  $resolver  실제 메트릭 수집 함수
+     * @param  mixed  $fallback  실패 시 반환할 값
+     * @return mixed
+     */
+    protected function safeSystemMetric(callable $resolver, mixed $fallback): mixed
+    {
+        try {
+            return $resolver();
+        } catch (\Throwable $e) {
+            return $fallback;
+        }
     }
 
     /**
@@ -890,7 +918,7 @@ class SettingsService
      *
      * @return string 메모리 사용량 문자열
      */
-    private function getMemoryUsage(): string
+    protected function getMemoryUsage(): string
     {
         $bytes = memory_get_usage(true);
         $units = ['B', 'KB', 'MB', 'GB'];
@@ -907,12 +935,17 @@ class SettingsService
      *
      * @return array 디스크 사용량 정보 배열
      */
-    private function getDiskUsage(): array
+    protected function getDiskUsage(): array
     {
-        $path = PHP_OS_FAMILY === 'Windows' ? 'C:' : '/';
-        $total = disk_total_space($path);
-        $free = disk_free_space($path);
-        $used = $total - $free;
+        $path = $this->getDiskUsagePath();
+        $total = @disk_total_space($path);
+        $free = @disk_free_space($path);
+
+        if (! is_numeric($total) || ! is_numeric($free) || $total <= 0 || $free < 0) {
+            return $this->unknownDiskUsage();
+        }
+
+        $used = max(0, $total - $free);
 
         return [
             'total' => $this->formatBytes($total),
@@ -923,12 +956,38 @@ class SettingsService
     }
 
     /**
+     * 디스크 사용량 계산에 사용할 기준 경로를 반환합니다.
+     *
+     * Synology/FPM open_basedir 환경에서는 "/" 접근이 차단될 수 있으므로
+     * 애플리케이션 루트 경로를 우선 사용합니다.
+     */
+    protected function getDiskUsagePath(): string
+    {
+        return PHP_OS_FAMILY === 'Windows' ? 'C:' : base_path();
+    }
+
+    /**
+     * 디스크 사용량을 읽지 못할 때 반환할 fallback 구조입니다.
+     *
+     * @return array{total:null,used:null,free:null,percentage:null}
+     */
+    protected function unknownDiskUsage(): array
+    {
+        return [
+            'total' => null,
+            'used' => null,
+            'free' => null,
+            'percentage' => null,
+        ];
+    }
+
+    /**
      * 바이트 단위를 읽기 쉬운 형태로 변환합니다.
      *
      * @param  int  $bytes  변환할 바이트 수
      * @return string 형식화된 문자열
      */
-    private function formatBytes(int $bytes): string
+    protected function formatBytes(int|float $bytes): string
     {
         $units = ['B', 'KB', 'MB', 'GB', 'TB'];
 
@@ -944,25 +1003,29 @@ class SettingsService
      *
      * @return string CPU 정보 문자열
      */
-    private function getCpuInfo(): string
+    protected function getCpuInfo(): string
     {
-        if (PHP_OS_FAMILY === 'Windows') {
-            $output = shell_exec('wmic cpu get name 2>&1');
-            if ($output) {
-                $lines = explode("\n", trim($output));
-                if (isset($lines[1])) {
-                    return trim($lines[1]);
+        try {
+            if (PHP_OS_FAMILY === 'Windows') {
+                $output = shell_exec('wmic cpu get name 2>&1');
+                if ($output) {
+                    $lines = explode("\n", trim($output));
+                    if (isset($lines[1])) {
+                        return trim($lines[1]);
+                    }
+                }
+
+                return 'Unknown';
+            }
+
+            if (@is_readable('/proc/cpuinfo')) {
+                $cpuInfo = @file_get_contents('/proc/cpuinfo');
+                if (is_string($cpuInfo) && preg_match('/model name\s*:\s*(.+)/i', $cpuInfo, $matches)) {
+                    return trim($matches[1]);
                 }
             }
-
+        } catch (\Throwable $e) {
             return 'Unknown';
-        }
-
-        if (file_exists('/proc/cpuinfo')) {
-            $cpuInfo = file_get_contents('/proc/cpuinfo');
-            if (preg_match('/model name\s*:\s*(.+)/i', $cpuInfo, $matches)) {
-                return trim($matches[1]);
-            }
         }
 
         return 'Unknown';

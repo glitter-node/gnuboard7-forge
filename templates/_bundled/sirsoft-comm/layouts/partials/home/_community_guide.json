@@ -28,7 +28,7 @@
           "name": "Li",
           "props": { "className": "flex items-start gap-2" },
           "children": [
-            { "type": "basic", "name": "Span", "props": { "className": "text-green-500 mt-0.5" }, "text": "•" },
+            { "type": "basic", "name": "Span", "props": { "className": "text-green-500 mt-0.5" }, "text": "$t:home.guide_bullet" },
             { "type": "basic", "name": "Span", "text": "$t:home.guide_rule_1" }
           ]
         },
@@ -37,7 +37,7 @@
           "name": "Li",
           "props": { "className": "flex items-start gap-2" },
           "children": [
-            { "type": "basic", "name": "Span", "props": { "className": "text-red-500 mt-0.5" }, "text": "•" },
+            { "type": "basic", "name": "Span", "props": { "className": "text-red-500 mt-0.5" }, "text": "$t:home.guide_bullet" },
             { "type": "basic", "name": "Span", "text": "$t:home.guide_rule_2" }
           ]
         },
@@ -46,7 +46,7 @@
           "name": "Li",
           "props": { "className": "flex items-start gap-2" },
           "children": [
-            { "type": "basic", "name": "Span", "props": { "className": "text-red-500 mt-0.5" }, "text": "•" },
+            { "type": "basic", "name": "Span", "props": { "className": "text-red-500 mt-0.5" }, "text": "$t:home.guide_bullet" },
             { "type": "basic", "name": "Span", "text": "$t:home.guide_rule_3" }
           ]
         }

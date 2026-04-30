@@ -54,8 +54,8 @@
                 "data": {
                     "php_version": "-",
                     "laravel_version": "-",
-                    "database_type": "-",
-                    "server_software": "-"
+                    "mysql_version": "-",
+                    "web_server": "-"
                 }
             }
         },

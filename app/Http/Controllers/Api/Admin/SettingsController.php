@@ -15,6 +15,7 @@ use App\Services\SettingsService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use Throwable;
 
 /**
  * 관리자용 시스템 설정 컨트롤러
@@ -45,8 +46,10 @@ class SettingsController extends AdminBaseController
             return $this->success('settings.fetch_success',
                 (new SettingsResource($settings))->toArray(request())
             );
-        } catch (\Exception $e) {
-            return $this->error('settings.fetch_failed', 500, $e->getMessage());
+        } catch (Throwable $e) {
+            return $this->handleUnexpectedException($e, 'settings.fetch_failed', [
+                'action' => 'index',
+            ]);
         }
     }
 
@@ -77,8 +80,10 @@ class SettingsController extends AdminBaseController
             }
         } catch (ValidationException $e) {
             return $this->error('settings.save_failed', 422, $e->errors());
-        } catch (\Exception $e) {
-            return $this->error('settings.save_error', 500, $e->getMessage());
+        } catch (Throwable $e) {
+            return $this->handleUnexpectedException($e, 'settings.save_error', [
+                'action' => 'store',
+            ]);
         }
     }
 
@@ -97,8 +102,11 @@ class SettingsController extends AdminBaseController
                 'key' => $key,
                 'value' => $value,
             ]);
-        } catch (\Exception $e) {
-            return $this->error('settings.fetch_failed', 500, $e->getMessage());
+        } catch (Throwable $e) {
+            return $this->handleUnexpectedException($e, 'settings.fetch_failed', [
+                'action' => 'show',
+                'key' => $key,
+            ]);
         }
     }
 
@@ -121,8 +129,11 @@ class SettingsController extends AdminBaseController
             }
         } catch (ValidationException $e) {
             return $this->error('settings.update_failed', 422, $e->errors());
-        } catch (\Exception $e) {
-            return $this->error('settings.update_error', 500, $e->getMessage());
+        } catch (Throwable $e) {
+            return $this->handleUnexpectedException($e, 'settings.update_error', [
+                'action' => 'update',
+                'key' => $key,
+            ]);
         }
     }
 
@@ -137,8 +148,10 @@ class SettingsController extends AdminBaseController
             $systemInfo = $this->settingsService->getSystemInfo();
 
             return $this->success('common.success', $systemInfo);
-        } catch (\Exception $e) {
-            return $this->error('common.error_occurred', 500, $e->getMessage());
+        } catch (Throwable $e) {
+            return $this->handleUnexpectedException($e, 'common.error_occurred', [
+                'action' => 'system_info',
+            ]);
         }
     }
 
@@ -157,8 +170,10 @@ class SettingsController extends AdminBaseController
             } else {
                 return $this->error('settings.cache_clear_failed');
             }
-        } catch (\Exception $e) {
-            return $this->error('settings.cache_clear_error', 500, $e->getMessage());
+        } catch (Throwable $e) {
+            return $this->handleUnexpectedException($e, 'settings.cache_clear_error', [
+                'action' => 'clear_cache',
+            ]);
         }
     }
 
@@ -177,8 +192,10 @@ class SettingsController extends AdminBaseController
             } else {
                 return $this->error('settings.optimize_failed');
             }
-        } catch (\Exception $e) {
-            return $this->error('settings.optimize_error', 500, $e->getMessage());
+        } catch (Throwable $e) {
+            return $this->handleUnexpectedException($e, 'settings.optimize_error', [
+                'action' => 'optimize_system',
+            ]);
         }
     }
 
@@ -197,8 +214,10 @@ class SettingsController extends AdminBaseController
             } else {
                 return $this->error('settings.backup_failed');
             }
-        } catch (\Exception $e) {
-            return $this->error('settings.backup_error', 500, $e->getMessage());
+        } catch (Throwable $e) {
+            return $this->handleUnexpectedException($e, 'settings.backup_error', [
+                'action' => 'backup_database',
+            ]);
         }
     }
 
@@ -215,8 +234,10 @@ class SettingsController extends AdminBaseController
             return $this->success('common.success', [
                 'app_key' => $maskedKey,
             ]);
-        } catch (\Exception $e) {
-            return $this->error('common.error_occurred', 500, $e->getMessage());
+        } catch (Throwable $e) {
+            return $this->handleUnexpectedException($e, 'common.error_occurred', [
+                'action' => 'get_app_key',
+            ]);
         }
     }
 
@@ -238,8 +259,10 @@ class SettingsController extends AdminBaseController
             return $this->success('settings.app_key_regenerated', [
                 'app_key' => $result['app_key'],
             ]);
-        } catch (\Exception $e) {
-            return $this->error('settings.app_key_regenerate_failed', 500, $e->getMessage());
+        } catch (Throwable $e) {
+            return $this->handleUnexpectedException($e, 'settings.app_key_regenerate_failed', [
+                'action' => 'regenerate_app_key',
+            ]);
         }
     }
 
@@ -256,8 +279,10 @@ class SettingsController extends AdminBaseController
             return $this->success('settings.backup_success', [
                 'backup_path' => $backupPath,
             ]);
-        } catch (\Exception $e) {
-            return $this->error('settings.backup_failed', 500, $e->getMessage());
+        } catch (Throwable $e) {
+            return $this->handleUnexpectedException($e, 'settings.backup_failed', [
+                'action' => 'backup',
+            ]);
         }
     }
 
@@ -282,8 +307,11 @@ class SettingsController extends AdminBaseController
             }
 
             return $this->error('settings.restore_failed');
-        } catch (\Exception $e) {
-            return $this->error('settings.restore_error', 500, $e->getMessage());
+        } catch (Throwable $e) {
+            return $this->handleUnexpectedException($e, 'settings.restore_error', [
+                'action' => 'restore',
+                'backup_path' => $backupPath ?? null,
+            ]);
         }
     }
 
@@ -310,8 +338,10 @@ class SettingsController extends AdminBaseController
             }
 
             return $this->error($result['message'], 500, $result['error'] ?? null);
-        } catch (\Exception $e) {
-            return $this->error('settings.test_mail_error', 500, $e->getMessage());
+        } catch (Throwable $e) {
+            return $this->handleUnexpectedException($e, 'settings.test_mail_error', [
+                'action' => 'test_mail',
+            ]);
         }
     }
 
@@ -336,8 +366,24 @@ class SettingsController extends AdminBaseController
 
             // 일부 테스트 실패 시에도 결과 반환 (성공 상태지만 all_passed가 false)
             return $this->success('settings.driver_test_partial', $result);
-        } catch (\Exception $e) {
-            return $this->error('settings.driver_test_error', 500, $e->getMessage());
+        } catch (Throwable $e) {
+            return $this->handleUnexpectedException($e, 'settings.driver_test_error', [
+                'action' => 'test_driver_connection',
+            ]);
         }
+    }
+
+    private function handleUnexpectedException(Throwable $e, string $message, array $context = []): JsonResponse
+    {
+        report($e);
+
+        logger()->error('Admin settings request failed.', array_filter([
+            'path' => request()->path(),
+            'controller' => static::class,
+            'exception' => $e::class,
+            ...$context,
+        ], static fn ($value) => $value !== null && $value !== ''));
+
+        return $this->error($message, 500);
     }
 }

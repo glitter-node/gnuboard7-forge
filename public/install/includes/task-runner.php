@@ -133,7 +133,9 @@ if (!function_exists('getPhpBinary')) {
     function getPhpBinary(): string
     {
         $state = getInstallationState();
-        return $state['config']['php_binary'] ?? 'php' ?: 'php';
+        $phpBinary = trim((string) ($state['config']['php_binary'] ?? ''));
+
+        return $phpBinary !== '' ? $phpBinary : '/usr/local/bin/php83';
     }
 }
 
@@ -141,7 +143,7 @@ if (!function_exists('getComposerCommand')) {
     function getComposerCommand(): string
     {
         $state = getInstallationState();
-        $composerBinary = $state['config']['composer_binary'] ?? '';
+        $composerBinary = trim((string) ($state['config']['composer_binary'] ?? ''));
 
         if ($composerBinary) {
             if (str_contains($composerBinary, ' ')) {
@@ -152,7 +154,7 @@ if (!function_exists('getComposerCommand')) {
                 : escapeshellarg($composerBinary);
         }
 
-        return 'composer';
+        return escapeshellarg('/usr/local/bin/php83').' '.escapeshellarg('/usr/local/bin/composer');
     }
 }
 
@@ -160,7 +162,7 @@ if (!function_exists('getComposerCommandForDisplay')) {
     function getComposerCommandForDisplay(): string
     {
         $state = getInstallationState();
-        $composerBinary = $state['config']['composer_binary'] ?? '';
+        $composerBinary = trim((string) ($state['config']['composer_binary'] ?? ''));
 
         if ($composerBinary) {
             if (str_contains($composerBinary, ' ')) {
@@ -171,7 +173,7 @@ if (!function_exists('getComposerCommandForDisplay')) {
                 : $composerBinary;
         }
 
-        return 'composer';
+        return '/usr/local/bin/php83 /usr/local/bin/composer';
     }
 }
 

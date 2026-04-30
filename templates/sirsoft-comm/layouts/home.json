@@ -92,124 +92,118 @@
                 },
                 "children": [
                     {
-                        "comment": "=== 1행: Welcome + 통계 카드 4개 (PC: 3컬럼, 모바일: 1컬럼) ===",
                         "type": "basic",
                         "name": "Div",
                         "props": {
-                            "className": "grid grid-cols-3 grid-rows-2 gap-4 mb-4"
+                            "className": "mb-6"
+                        },
+                        "children": [
+                            {
+                                "partial": "partials/home/_welcome_card.json"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "basic",
+                        "name": "Div",
+                        "props": {
+                            "className": "grid grid-cols-1 gap-4 mb-6"
                         },
                         "responsive": {
-                            "portable": {
+                            "desktop": {
                                 "props": {
-                                    "className": "grid grid-cols-1 gap-4 mb-4"
+                                    "className": "grid grid-cols-2 gap-4 mb-6"
                                 }
                             }
                         },
                         "children": [
                             {
-                                "comment": "=== 좌측: 웰컴 카드 (row-span-2) ===",
-                                "type": "basic",
-                                "name": "Div",
-                                "props": {
-                                    "className": "row-span-2"
-                                },
-                                "children": [
-                                    {
-                                        "partial": "partials/home/_welcome_card.json"
-                                    }
-                                ]
+                                "partial": "partials/home/_recent_posts.json"
                             },
                             {
-                                "comment": "=== 통계 카드 4개 (PC: 개별 배치, 모바일: 2x2 그리드) ===",
+                                "partial": "partials/home/_popular_boards.json"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "basic",
+                        "name": "Div",
+                        "props": {
+                            "className": "mb-6"
+                        },
+                        "children": [
+                            {
                                 "type": "basic",
                                 "name": "Div",
                                 "props": {
-                                    "className": "contents"
+                                    "className": "flex items-center justify-between gap-3 mb-4"
                                 },
                                 "responsive": {
                                     "portable": {
                                         "props": {
-                                            "className": "col-span-1 grid grid-cols-2 gap-4"
+                                            "className": "flex flex-col items-start gap-3 mb-4"
                                         }
                                     }
                                 },
                                 "children": [
                                     {
-                                        "comment": "=== 회원 통계 ===",
-                                        "partial": "partials/home/_stat_card_users.json"
+                                        "type": "basic",
+                                        "name": "Div",
+                                        "props": {
+                                            "className": "space-y-1"
+                                        },
+                                        "children": [
+                                            {
+                                                "type": "basic",
+                                                "name": "H2",
+                                                "props": {
+                                                    "className": "text-2xl font-semibold text-gray-900 dark:text-white"
+                                                },
+                                                "text": "$t:home.featured_boards"
+                                            },
+                                            {
+                                                "type": "basic",
+                                                "name": "P",
+                                                "props": {
+                                                    "className": "text-sm text-gray-600 dark:text-gray-400"
+                                                },
+                                                "text": "$t:home.featured_boards_description"
+                                            }
+                                        ]
                                     },
                                     {
-                                        "comment": "=== 게시글 통계 ===",
-                                        "partial": "partials/home/_stat_card_posts.json"
-                                    },
-                                    {
-                                        "comment": "=== 댓글 통계 ===",
-                                        "partial": "partials/home/_stat_card_comments.json"
-                                    },
-                                    {
-                                        "comment": "=== 게시판 통계 ===",
-                                        "partial": "partials/home/_stat_card_boards.json"
+                                        "type": "basic",
+                                        "name": "Button",
+                                        "props": {
+                                            "className": "text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline cursor-pointer"
+                                        },
+                                        "actions": [
+                                            {
+                                                "type": "click",
+                                                "handler": "navigate",
+                                                "params": {
+                                                    "path": "/boards"
+                                                }
+                                            }
+                                        ],
+                                        "text": "$t:home.browse_all_boards"
                                     }
                                 ]
-                            }
-                        ]
-                    },
-                    {
-                        "comment": "=== 2행: 최근 게시글 + 인기 게시판 + 커뮤니티 가이드 (PC: 3컬럼) ===",
-                        "type": "basic",
-                        "name": "Div",
-                        "props": {
-                            "className": "grid grid-cols-3 gap-4 mb-4"
-                        },
-                        "responsive": {
-                            "portable": {
-                                "props": {
-                                    "className": "grid grid-cols-1 gap-4 mb-4"
-                                }
-                            }
-                        },
-                        "children": [
-                            {
-                                "comment": "=== 좌측: 최근 게시글 ===",
-                                "partial": "partials/home/_recent_posts.json"
                             },
                             {
-                                "comment": "=== 중앙: 인기 게시판 ===",
-                                "partial": "partials/home/_popular_boards.json"
-                            },
-                            {
-                                "comment": "=== 우측: 커뮤니티 가이드 ===",
                                 "type": "basic",
                                 "name": "Div",
-                                "props": {
-                                    "className": "flex flex-col gap-4"
-                                },
-                                "children": [
-                                    {
-                                        "partial": "partials/home/_community_guide.json"
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        "comment": "=== 하단: 게시판 요약 카드 (PC: 3컬럼, 모바일: 2컬럼) ===",
-                        "type": "basic",
-                        "name": "Div",
-                        "props": {
-                            "className": "grid grid-cols-3 gap-4"
-                        },
-                        "responsive": {
-                            "portable": {
+                                "if": "{{home_boards.data && home_boards.data.length > 0}}",
                                 "props": {
                                     "className": "grid grid-cols-1 gap-4"
-                                }
-                            }
-                        },
-                        "children": [
-                            {
-                                "type": "basic",
-                                "name": "Div",
+                                },
+                                "responsive": {
+                                    "desktop": {
+                                        "props": {
+                                            "className": "grid grid-cols-3 gap-4"
+                                        }
+                                    }
+                                },
                                 "iteration": {
                                     "source": "{{home_boards.data ?? []}}",
                                     "item_var": "item"
@@ -219,6 +213,80 @@
                                         "partial": "partials/home/_board_summary.json"
                                     }
                                 ]
+                            },
+                            {
+                                "type": "basic",
+                                "name": "Div",
+                                "if": "{{!home_boards.data || home_boards.data.length === 0}}",
+                                "props": {
+                                    "className": "bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 p-8 text-center text-gray-500 dark:text-gray-400"
+                                },
+                                "children": [
+                                    {
+                                        "type": "basic",
+                                        "name": "Icon",
+                                        "props": {
+                                            "name": "inbox",
+                                            "className": "w-8 h-8 mx-auto mb-3 opacity-50"
+                                        }
+                                    },
+                                    {
+                                        "type": "basic",
+                                        "name": "H3",
+                                        "props": {
+                                            "className": "text-lg font-semibold text-gray-900 dark:text-white mb-2"
+                                        },
+                                        "text": "$t:home.empty_board_title"
+                                    },
+                                    {
+                                        "type": "basic",
+                                        "name": "P",
+                                        "props": {
+                                            "className": "text-sm"
+                                        },
+                                        "text": "$t:home.empty_board_description"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type": "basic",
+                        "name": "Div",
+                        "props": {
+                            "className": "grid grid-cols-2 gap-4 mb-6"
+                        },
+                        "responsive": {
+                            "portable": {
+                                "props": {
+                                    "className": "grid grid-cols-1 gap-4 mb-6"
+                                }
+                            }
+                        },
+                        "children": [
+                            {
+                                "partial": "partials/home/_stat_card_users.json"
+                            },
+                            {
+                                "partial": "partials/home/_stat_card_posts.json"
+                            },
+                            {
+                                "partial": "partials/home/_stat_card_comments.json"
+                            },
+                            {
+                                "partial": "partials/home/_stat_card_boards.json"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "basic",
+                        "name": "Div",
+                        "props": {
+                            "className": "max-w-3xl"
+                        },
+                        "children": [
+                            {
+                                "partial": "partials/home/_community_guide.json"
                             }
                         ]
                     }

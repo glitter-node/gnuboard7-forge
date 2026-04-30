@@ -6,71 +6,113 @@
   "type": "basic",
   "name": "Div",
   "props": {
-    "className": "col-span-2 bg-gradient-to-br from-blue-600 to-purple-700 rounded-xl px-6 py-10 text-white"
+    "className": "relative -mx-4 overflow-hidden bg-slate-950 px-6 py-16 text-white sm:-mx-6 sm:px-8 sm:py-20 lg:-mx-8 lg:px-12 lg:py-28"
   },
   "children": [
     {
       "type": "basic",
       "name": "Div",
-      "props": { "className": "flex items-center gap-2 mb-2" },
-      "children": [
-        { "type": "basic", "name": "Icon", "props": { "name": "sparkles", "className": "w-5 h-5" } },
-        { "type": "basic", "name": "Span", "props": { "className": "text-sm font-medium opacity-90" }, "text": "Welcome" }
-      ]
-    },
-    {
-      "type": "basic",
-      "name": "H2",
-      "props": { "className": "text-xl font-bold mb-2" },
-      "text": "{{_global.settings?.general?.site_name ?? 'Site'}}$t:home.welcome_suffix"
-    },
-    {
-      "type": "basic",
-      "name": "P",
-      "props": { "className": "text-sm opacity-90 mb-4" },
-      "text": "{{_global.settings?.general?.site_description ?? '$t:home.welcome_description'}}"
+      "props": {
+        "className": "absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-amber-950/80"
+      }
     },
     {
       "type": "basic",
       "name": "Div",
-      "props": { "className": "flex gap-3" },
+      "props": {
+        "className": "absolute -right-20 top-0 h-64 w-64 rounded-full bg-amber-400/15 blur-3xl sm:h-80 sm:w-80"
+      }
+    },
+    {
+      "type": "basic",
+      "name": "Div",
+      "props": {
+        "className": "absolute left-0 top-24 h-56 w-56 rounded-full bg-blue-500/10 blur-3xl sm:h-72 sm:w-72"
+      }
+    },
+    {
+      "type": "basic",
+      "name": "Div",
+      "props": {
+        "className": "relative z-10"
+      },
       "children": [
         {
-          "id": "register_button",
           "type": "basic",
-          "name": "Button",
-          "if": "{{!_global.currentUser?.uuid}}",
-          "props": {
-            "className": "px-4 py-2 bg-white dark:bg-gray-800 text-blue-600 dark:text-blue-400 rounded-lg font-medium text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors flex items-center gap-1 cursor-pointer"
-          },
-          "actions": [{ "type": "click", "handler": "navigate", "params": { "path": "/register" } }],
+          "name": "Div",
+          "props": { "className": "flex items-center gap-2 mb-4" },
           "children": [
-            { "type": "basic", "name": "Span", "text": "$t:home.get_started" },
-            { "type": "basic", "name": "Icon", "props": { "name": "arrow-right", "className": "w-4 h-4" } }
-          ]
-        },
-        {
-          "id": "dashboard_button",
-          "type": "basic",
-          "name": "Button",
-          "if": "{{_global.currentUser?.uuid}}",
-          "props": {
-            "className": "px-4 py-2 bg-white dark:bg-gray-800 text-blue-600 dark:text-blue-400 rounded-lg font-medium text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors flex items-center gap-1 cursor-pointer"
-          },
-          "actions": [{ "type": "click", "handler": "navigate", "params": { "path": "/mypage" } }],
-          "children": [
-            { "type": "basic", "name": "Span", "text": "$t:home.go_to_mypage" },
-            { "type": "basic", "name": "Icon", "props": { "name": "arrow-right", "className": "w-4 h-4" } }
+            { "type": "basic", "name": "Icon", "props": { "name": "sparkles", "className": "w-5 h-5 text-amber-300" } },
+            { "type": "basic", "name": "Span", "props": { "className": "text-sm font-medium uppercase tracking-[0.18em] text-slate-300" }, "text": "$t:home.community_landing" }
           ]
         },
         {
           "type": "basic",
-          "name": "Button",
+          "name": "H2",
+          "props": { "className": "text-4xl font-semibold leading-tight text-white sm:text-5xl lg:text-6xl" },
+          "text": "$t:home.hero_title|site_name={{_global.settings?.general?.site_name ?? ''}}"
+        },
+        {
+          "type": "basic",
+          "name": "P",
+          "props": { "className": "mt-5 max-w-3xl text-base leading-7 text-slate-300 sm:text-lg" },
+          "text": "$t:home.hero_description"
+        },
+        {
+          "type": "basic",
+          "name": "Div",
+          "props": { "className": "mt-8 flex flex-wrap gap-3" },
+          "children": [
+            {
+              "type": "basic",
+              "name": "Button",
+              "props": {
+                "className": "px-5 py-3 rounded-lg bg-amber-400 text-slate-950 text-sm font-semibold hover:bg-amber-300 transition-colors flex items-center gap-2 cursor-pointer"
+              },
+              "actions": [{ "type": "click", "handler": "navigate", "params": { "path": "/boards" } }],
+              "children": [
+                { "type": "basic", "name": "Span", "text": "$t:home.browse_posts" },
+                { "type": "basic", "name": "Icon", "props": { "name": "arrow-right", "className": "w-4 h-4" } }
+              ]
+            },
+            {
+              "type": "basic",
+              "name": "Button",
+              "if": "{{_global.currentUser?.uuid}}",
+              "props": {
+                "className": "px-5 py-3 rounded-lg border border-slate-600 bg-transparent text-white text-sm font-medium hover:bg-slate-800 transition-colors flex items-center gap-2 cursor-pointer"
+              },
+              "actions": [{ "type": "click", "handler": "navigate", "params": { "path": "/mypage" } }],
+              "children": [
+                { "type": "basic", "name": "Span", "text": "$t:home.write_post" },
+                { "type": "basic", "name": "Icon", "props": { "name": "arrow-right", "className": "w-4 h-4" } }
+              ]
+            },
+            {
+              "type": "basic",
+              "name": "Button",
+              "if": "{{!_global.currentUser?.uuid}}",
+              "props": {
+                "className": "px-5 py-3 rounded-lg border border-slate-600 bg-transparent text-white text-sm font-medium hover:bg-slate-800 transition-colors flex items-center gap-2 cursor-pointer"
+              },
+              "actions": [{ "type": "click", "handler": "navigate", "params": { "path": "/register" } }],
+              "children": [
+                { "type": "basic", "name": "Span", "text": "$t:home.join_register" },
+                { "type": "basic", "name": "Icon", "props": { "name": "arrow-right", "className": "w-4 h-4" } }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "name": "Div",
           "props": {
-            "className": "px-4 py-2 bg-white/20 text-white rounded-lg font-medium text-sm hover:bg-white/30 transition-colors cursor-pointer"
+            "className": "mt-8 flex items-center gap-2 text-sm text-slate-300"
           },
-          "actions": [{ "type": "click", "handler": "navigate", "params": { "path": "/page/about" } }],
-          "text": "$t:home.learn_more"
+          "children": [
+            { "type": "basic", "name": "Icon", "props": { "name": "users", "className": "w-4 h-4 text-slate-400" } },
+            { "type": "basic", "name": "Span", "text": "$t:home.hero_footer" }
+          ]
         }
       ]
     }

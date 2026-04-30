@@ -7,24 +7,29 @@
  * phpunit.xml의 bootstrap 속성에서 이 파일을 지정합니다.
  */
 
+$testingEnvPath = __DIR__.'/../.env.testing';
+$testingEnvExamplePath = __DIR__.'/../.env.testing.example';
+
 /*
 |--------------------------------------------------------------------------
-| .env.testing 존재 확인 (프로덕션 DB 오염 방지)
+| .env.testing 자동 생성 (프로덕션 DB 오염 방지)
 |--------------------------------------------------------------------------
 |
-| .env.testing 파일이 없으면 Laravel이 .env(프로덕션)를 사용하여
-| 테스트가 프로덕션 DB에서 실행될 위험이 있습니다.
-| .env.testing.example을 복사하여 .env.testing을 생성하세요.
+| 테스트 환경 파일이 없으면 예제 파일에서 즉시 생성합니다.
+| Laravel이 .env(프로덕션)를 사용하는 것을 막기 위한 안전장치입니다.
 |
 */
-if (! file_exists(__DIR__.'/../.env.testing')) {
-    fwrite(STDERR, "\n".str_repeat('=', 60)."\n");
-    fwrite(STDERR, "  ERROR: .env.testing 파일이 없습니다.\n");
-    fwrite(STDERR, "  .env.testing.example을 복사하여 생성하세요:\n\n");
-    fwrite(STDERR, "    cp .env.testing.example .env.testing\n\n");
-    fwrite(STDERR, "  그 후 DB 접속 정보와 APP_KEY를 설정하세요.\n");
-    fwrite(STDERR, str_repeat('=', 60)."\n\n");
-    exit(1);
+if (! file_exists($testingEnvPath)) {
+    if (! file_exists($testingEnvExamplePath)) {
+        fwrite(STDERR, "\n".str_repeat('=', 60)."\n");
+        fwrite(STDERR, "  ERROR: .env.testing.example 파일이 없습니다.\n");
+        fwrite(STDERR, "  테스트 환경 부트스트랩을 진행할 수 없습니다.\n");
+        fwrite(STDERR, str_repeat('=', 60)."\n\n");
+        exit(1);
+    }
+
+    copy($testingEnvExamplePath, $testingEnvPath);
+    fwrite(STDERR, "[tests/bootstrap] .env.testing 을 .env.testing.example 에서 생성했습니다.\n");
 }
 
 /*
@@ -58,7 +63,7 @@ $parseDbName = static function (string $envFile): ?string {
 };
 
 $prodDbName = $parseDbName(__DIR__.'/../.env');
-$testDbName = $parseDbName(__DIR__.'/../.env.testing');
+$testDbName = $parseDbName($testingEnvPath);
 
 if ($prodDbName !== null && $testDbName !== null && $prodDbName === $testDbName) {
     fwrite(STDERR, "\n".str_repeat('=', 60)."\n");

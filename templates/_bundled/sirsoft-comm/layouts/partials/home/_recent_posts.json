@@ -6,7 +6,7 @@
   "type": "basic",
   "name": "Div",
   "props": {
-    "className": "bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 h-full flex flex-col"
+    "className": "bg-gray-50 dark:bg-gray-800 rounded-xl p-5 shadow-md border border-gray-200/70 dark:border-gray-700 h-full flex flex-col transition-all hover:shadow-lg"
   },
   "children": [
     {
@@ -61,8 +61,8 @@
                     { "type": "basic", "name": "Span", "props": { "className": "text-blue-600 dark:text-blue-400 shrink-0" }, "text": "{{post.board_name}}" },
                     { "type": "basic", "name": "Icon", "if": "{{post.is_secret}}", "props": { "name": "lock", "className": "w-3.5 h-3.5 text-gray-400 dark:text-gray-500 shrink-0" } },
                     { "type": "basic", "name": "Span", "props": { "className": "text-sm font-medium text-gray-900 dark:text-white text-left line-clamp-1" }, "text": "{{post.title}}" },
-                    { "type": "basic", "name": "Span", "if": "{{post.is_new}}", "props": { "className": "px-1.5 py-0.5 text-xs bg-red-500 text-white rounded shrink-0" }, "text": "N" },
-                    { "type": "basic", "name": "Span", "if": "{{post.comment_count > 0}}", "props": { "className": "text-xs font-medium text-blue-500 dark:text-blue-400 shrink-0" }, "text": "[{{post.comment_count}}]" }
+                    { "type": "basic", "name": "Span", "if": "{{post.is_new}}", "props": { "className": "px-1.5 py-0.5 text-xs bg-red-500 text-white rounded shrink-0" }, "text": "$t:board.new_badge" },
+                    { "type": "basic", "name": "Span", "if": "{{post.comment_count > 0}}", "props": { "className": "text-xs font-medium text-blue-500 dark:text-blue-400 shrink-0" }, "text": "$t:home.comment_count_badge|count={{post.comment_count}}" }
                   ]
                 },
                 { "type": "basic", "name": "Span", "props": { "className": "text-xs text-gray-500 dark:text-gray-400 shrink-0", "title": "{{post.created_at ?? ''}}" }, "text": "{{post.created_at_formatted ?? ''}}" }

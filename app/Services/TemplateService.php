@@ -13,6 +13,7 @@ use App\Extension\Helpers\GithubHelper;
 use App\Extension\Helpers\ZipInstallHelper;
 use App\Extension\HookManager;
 use App\Extension\Traits\ResolvesLanguageFragments;
+use App\Support\SafeJsonLoader;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
@@ -599,8 +600,10 @@ class TemplateService
         // 2. Path Traversal 방지
         $safePath = $this->sanitizePath($path);
 
-        // 3. 파일 경로 구성
-        $filePath = base_path("templates/{$identifier}/dist/{$safePath}");
+        // 3. 활성 템플릿의 실제 dist 경로 기준으로 파일 경로 구성
+        $distRoot = $this->resolveTemplateDistRoot($identifier);
+        $relativePath = preg_replace('#^dist/#', '', ltrim($safePath, '/')) ?? ltrim($safePath, '/');
+        $filePath = $distRoot.DIRECTORY_SEPARATOR.$relativePath;
 
         // 4. 파일 존재 확인
         if (! file_exists($filePath) || ! is_file($filePath)) {
@@ -669,6 +672,33 @@ class TemplateService
             'componentsPath' => $componentsPath,
             'error' => null,
         ];
+    }
+
+    /**
+     * 활성 템플릿의 실제 dist 루트 경로를 반환합니다.
+     *
+     * 템플릿은 templates/, _pending/, _bundled 중 어느 디렉토리에서 로드될 수 있으므로
+     * DB identifier 하드코딩 경로 대신 TemplateManager의 실제 로드 경로를 우선 사용합니다.
+     */
+    private function resolveTemplateDistRoot(string $identifier): string
+    {
+        $templateData = $this->templateManager->getTemplate($identifier);
+        $candidateRoots = array_filter([
+            $templateData['_paths']['root'] ?? null,
+            base_path("templates/{$identifier}"),
+            base_path("templates/_pending/{$identifier}"),
+            base_path("templates/_bundled/{$identifier}"),
+        ]);
+
+        $templateRoot = base_path("templates/{$identifier}");
+        foreach ($candidateRoots as $candidateRoot) {
+            if (is_dir($candidateRoot)) {
+                $templateRoot = $candidateRoot;
+                break;
+            }
+        }
+
+        return rtrim($templateRoot, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR.'dist';
     }
 
     /**
@@ -807,22 +837,30 @@ class TemplateService
      */
     private function loadLanguageFileWithFragments(string $langPath): ?array
     {
-        if (! file_exists($langPath)) {
-            return [];
+        $result = SafeJsonLoader::load($langPath);
+
+        if (! $result['success']) {
+            if ($result['error'] === 'file_not_found') {
+                return [];
+            }
+
+            Log::warning('템플릿 다국어 JSON 로드 실패', [
+                'path' => $langPath,
+                'error' => $result['error'],
+            ]);
+
+            return null;
         }
 
-        $content = file_get_contents($langPath);
-        $data = json_decode($content, true);
-
-        if (json_last_error() !== JSON_ERROR_NONE) {
-            return null;
+        if (! is_array($result['data'])) {
+            return [];
         }
 
         // Fragment 해석 (basePath는 lang 디렉토리 루트, $partial 값에 fragments/ko/... 전체 경로 포함)
         $this->resetFragmentStack();
         $basePath = dirname($langPath);
 
-        return $this->resolveLanguageFragments($data, $basePath);
+        return $this->resolveLanguageFragments($result['data'], $basePath);
     }
 
     /**
@@ -912,26 +950,18 @@ class TemplateService
         // 3. 템플릿 routes.json 파일 경로
         $routesFilePath = base_path("templates/{$identifier}/routes.json");
 
-        // 4. routes.json 파일이 없는 경우
-        if (! file_exists($routesFilePath)) {
+        // 4. routes.json 데이터 로드
+        $templateRoutesResult = SafeJsonLoader::load($routesFilePath);
+        if (! $templateRoutesResult['success']) {
             return [
                 'success' => false,
                 'data' => null,
-                'error' => 'routes_not_found',
+                'error' => $templateRoutesResult['error'] === 'file_not_found'
+                    ? 'routes_not_found'
+                    : $templateRoutesResult['error'],
             ];
         }
-
-        // 5. 템플릿 routes.json 데이터 로드
-        $templateRoutesContent = file_get_contents($routesFilePath);
-        $templateRoutesData = json_decode($templateRoutesContent, true);
-
-        if (json_last_error() !== JSON_ERROR_NONE) {
-            return [
-                'success' => false,
-                'data' => null,
-                'error' => 'invalid_json',
-            ];
-        }
+        $templateRoutesData = $templateRoutesResult['data'];
 
         // 6. 템플릿 타입 추출 (admin 또는 user)
         $templateType = $template->type;
@@ -1011,11 +1041,20 @@ class TemplateService
                 continue;
             }
 
-            $content = file_get_contents($routesFilePath);
-            $data = json_decode($content, true);
+            $result = SafeJsonLoader::load($routesFilePath);
+
+            if (! $result['success']) {
+                Log::warning('모듈 routes JSON 로드 실패', [
+                    'module' => $moduleIdentifier,
+                    'path' => $routesFilePath,
+                    'error' => $result['error'],
+                ]);
+
+                continue;
+            }
 
             // JSON 파싱 성공 시 routes 배열 병합
-            if (json_last_error() === JSON_ERROR_NONE && isset($data['routes']) && is_array($data['routes'])) {
+            if (isset($result['data']['routes']) && is_array($result['data']['routes'])) {
                 // 모듈 routes의 layout 필드에 moduleIdentifier 접두사 추가
                 $moduleRoutes = array_map(function ($route) use ($moduleIdentifier) {
                     if (isset($route['layout'])) {
@@ -1023,7 +1062,7 @@ class TemplateService
                     }
 
                     return $route;
-                }, $data['routes']);
+                }, $result['data']['routes']);
 
                 $routes = array_merge($routes, $moduleRoutes);
             }
@@ -1048,11 +1087,18 @@ class TemplateService
 
             // routes.json 파일이 존재하는 경우에만 로드
             if (file_exists($routesFilePath)) {
-                $content = file_get_contents($routesFilePath);
-                $data = json_decode($content, true);
+                $result = SafeJsonLoader::load($routesFilePath);
+
+                if (! $result['success']) {
+                    Log::warning('플러그인 routes JSON 로드 실패', [
+                        'plugin' => $pluginIdentifier,
+                        'path' => $routesFilePath,
+                        'error' => $result['error'],
+                    ]);
+                }
 
                 // JSON 파싱 성공 시 routes 배열 병합
-                if (json_last_error() === JSON_ERROR_NONE && isset($data['routes']) && is_array($data['routes'])) {
+                if ($result['success'] && isset($result['data']['routes']) && is_array($result['data']['routes'])) {
                     // 플러그인 routes의 layout 필드에 pluginIdentifier 접두사 추가
                     $pluginRoutes = array_map(function ($route) use ($pluginIdentifier) {
                         if (isset($route['layout'])) {
@@ -1060,7 +1106,7 @@ class TemplateService
                         }
 
                         return $route;
-                    }, $data['routes']);
+                    }, $result['data']['routes']);
 
                     $routes = array_merge($routes, $pluginRoutes);
                 }
@@ -1295,12 +1341,17 @@ class TemplateService
             return ['basic' => [], 'composite' => []];
         }
 
-        $content = File::get($componentsPath);
-        $components = json_decode($content, true);
+        $result = SafeJsonLoader::load($componentsPath);
+        if (! $result['success']) {
+            Log::warning('템플릿 components JSON 로드 실패', [
+                'template' => $identifier,
+                'path' => $componentsPath,
+                'error' => $result['error'],
+            ]);
 
-        if (json_last_error() !== JSON_ERROR_NONE) {
             return ['basic' => [], 'composite' => []];
         }
+        $components = $result['data'];
 
         $basic = [];
         $composite = [];

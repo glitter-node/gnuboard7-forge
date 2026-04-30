@@ -12,6 +12,62 @@ class PublicTemplateControllerTest extends TestCase
 {
     use RefreshDatabase;
 
+    private array $temporaryTemplateRoots = [];
+
+    protected function tearDown(): void
+    {
+        foreach ($this->temporaryTemplateRoots as $path) {
+            $this->deleteDirectory($path);
+        }
+
+        parent::tearDown();
+    }
+
+    private function createBundledTemplateFixture(string $identifier): string
+    {
+        $root = base_path("templates/_bundled/{$identifier}");
+        $this->temporaryTemplateRoots[] = $root;
+
+        @mkdir($root.'/dist/css', 0755, true);
+        @mkdir($root.'/dist/js', 0755, true);
+
+        file_put_contents($root.'/template.json', json_encode([
+            'identifier' => $identifier,
+            'vendor' => 'test',
+            'name' => ['ko' => '테스트 템플릿', 'en' => 'Test Template'],
+            'version' => '1.0.0',
+            'type' => 'user',
+            'description' => ['ko' => '테스트 템플릿', 'en' => 'Test Template'],
+        ], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+        file_put_contents($root.'/dist/css/components.css', '.fixture { color: red; }');
+        file_put_contents($root.'/dist/js/components.iife.js', 'window.SirsoftComm = window.SirsoftComm || {};');
+
+        return $root;
+    }
+
+    private function deleteDirectory(string $dir): bool
+    {
+        if (! file_exists($dir)) {
+            return true;
+        }
+
+        if (! is_dir($dir)) {
+            return unlink($dir);
+        }
+
+        foreach (scandir($dir) as $item) {
+            if ($item === '.' || $item === '..') {
+                continue;
+            }
+
+            if (! $this->deleteDirectory($dir.DIRECTORY_SEPARATOR.$item)) {
+                return false;
+            }
+        }
+
+        return rmdir($dir);
+    }
+
     /**
      * 활성화된 템플릿의 라우트 정보 조회 성공 테스트
      */
@@ -157,5 +213,55 @@ class PublicTemplateControllerTest extends TestCase
 
         // 두 응답의 데이터가 동일한지 확인
         $this->assertEquals($response1->json('data'), $response2->json('data'));
+    }
+
+    public function test_can_serve_css_asset_from_actual_active_template_path(): void
+    {
+        $identifier = 'test-bundled-asset-template';
+        $this->createBundledTemplateFixture($identifier);
+
+        Template::create([
+            'identifier' => $identifier,
+            'vendor' => 'test',
+            'name' => ['ko' => '테스트 템플릿', 'en' => 'Test Template'],
+            'version' => '1.0.0',
+            'type' => 'user',
+            'status' => ExtensionStatus::Active->value,
+            'description' => ['ko' => '테스트 템플릿', 'en' => 'Test Template'],
+        ]);
+
+        $response = $this->get("/api/templates/assets/{$identifier}/css/components.css");
+
+        $response->assertStatus(200);
+        $response->assertHeader('content-type', 'text/css; charset=UTF-8');
+        $this->assertStringContainsString(
+            '.fixture { color: red; }',
+            file_get_contents($response->baseResponse->getFile()->getPathname())
+        );
+    }
+
+    public function test_can_serve_js_asset_from_actual_active_template_path(): void
+    {
+        $identifier = 'test-bundled-asset-template-js';
+        $this->createBundledTemplateFixture($identifier);
+
+        Template::create([
+            'identifier' => $identifier,
+            'vendor' => 'test',
+            'name' => ['ko' => '테스트 템플릿', 'en' => 'Test Template'],
+            'version' => '1.0.0',
+            'type' => 'user',
+            'status' => ExtensionStatus::Active->value,
+            'description' => ['ko' => '테스트 템플릿', 'en' => 'Test Template'],
+        ]);
+
+        $response = $this->get("/api/templates/assets/{$identifier}/js/components.iife.js");
+
+        $response->assertStatus(200);
+        $response->assertHeader('content-type', 'application/javascript');
+        $this->assertStringContainsString(
+            'window.SirsoftComm',
+            file_get_contents($response->baseResponse->getFile()->getPathname())
+        );
     }
 }

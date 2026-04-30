@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Public\Template;
 
+use App\Contracts\Extension\TemplateManagerInterface;
 use App\Rules\AllowedTemplateFileType;
 use App\Rules\SafeTemplatePath;
 use Illuminate\Foundation\Http\FormRequest;
@@ -23,9 +24,24 @@ class ServeTemplateAssetRequest extends FormRequest
      */
     public function rules(): array
     {
-        // 템플릿 식별자로부터 기준 경로 구성
+        // 템플릿 식별자로부터 실제 활성 템플릿 dist 기준 경로 구성
         $identifier = $this->route('identifier');
-        $basePath = base_path("templates/{$identifier}/dist");
+        $templateManager = app(TemplateManagerInterface::class);
+        $templateData = $templateManager->getTemplate($identifier);
+        $candidateRoots = array_filter([
+            $templateData['_paths']['root'] ?? null,
+            base_path("templates/{$identifier}"),
+            base_path("templates/_pending/{$identifier}"),
+            base_path("templates/_bundled/{$identifier}"),
+        ]);
+        $templateRoot = base_path("templates/{$identifier}");
+        foreach ($candidateRoots as $candidateRoot) {
+            if (is_dir($candidateRoot)) {
+                $templateRoot = $candidateRoot;
+                break;
+            }
+        }
+        $basePath = rtrim($templateRoot, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR.'dist';
 
         return [
             'identifier' => ['required', 'string'],

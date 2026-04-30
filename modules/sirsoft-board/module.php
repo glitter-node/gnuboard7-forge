@@ -6,6 +6,7 @@ use App\Extension\AbstractModule;
 use App\Models\Role;
 use Illuminate\Database\Seeder;
 use Modules\Sirsoft\Board\Database\Seeders\BoardTypeSeeder;
+use Modules\Sirsoft\Board\Database\Seeders\Install\BoardDefaultsSeeder;
 use Modules\Sirsoft\Board\Database\Seeders\InstallSeeder;
 use Modules\Sirsoft\Board\Listeners\ActivityLogDescriptionResolver;
 use Modules\Sirsoft\Board\Listeners\BoardActivityLogListener;
@@ -326,6 +327,7 @@ class Module extends AbstractModule
         return [
             BoardTypeSeeder::class,
             InstallSeeder::class,
+            BoardDefaultsSeeder::class,
         ];
     }
 
