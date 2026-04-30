@@ -1442,7 +1442,7 @@
             "type": "string",
             "required": false,
             "default": "white",
-            "description": "배경색 (white | gray | transparent)"
+            "description": "배경색 (white | slate | transparent)"
           },
           "className": {
             "type": "string",

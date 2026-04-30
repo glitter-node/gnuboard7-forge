@@ -439,7 +439,7 @@ describe('Select 컴포넌트', () => {
       render(<Select options={options} value="1" onChange={() => {}} />);
 
       const button = screen.getByRole('button');
-      expect(button.className).toContain('bg-gray-100');
+      expect(button.className).toContain('bg-slate-100');
       expect(button.className).toContain('rounded-xl');
     });
 
@@ -449,12 +449,12 @@ describe('Select 컴포넌트', () => {
           options={options}
           value="1"
           onChange={() => {}}
-          className="bg-blue-100 custom-class"
+          className="bg-teal-100 custom-class"
         />
       );
 
       const button = screen.getByRole('button');
-      expect(button.className).toContain('bg-blue-100');
+      expect(button.className).toContain('bg-teal-100');
       expect(button.className).toContain('custom-class');
     });
 

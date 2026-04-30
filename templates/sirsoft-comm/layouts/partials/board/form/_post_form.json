@@ -80,7 +80,7 @@
       "name": "Div",
       "if": "{{route.id && form_data?.data?.author}}",
       "props": {
-        "className": "flex items-center gap-3 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700"
+        "className": "flex items-center gap-3 p-4 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-200 dark:border-slate-700"
       },
       "children": [
         {
@@ -111,7 +111,7 @@
               "type": "basic",
               "name": "P",
               "props": {
-                "className": "text-xs text-gray-500 dark:text-gray-400 mt-0.5"
+                "className": "text-xs text-slate-500 dark:text-slate-400 mt-0.5"
               },
               "text": "$t:board.created_at: {{form_data?.data?.created_at}}"
             }
@@ -136,7 +136,7 @@
               "name": "Label",
               "if": "{{form_meta?.data?.board?.user_abilities?.can_manage && !_local.form?.parent_id}}",
               "props": {
-                "className": "block bg-white dark:bg-gray-800 rounded-lg p-3 border border-gray-200 dark:border-gray-700 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-750 transition-colors"
+                "className": "block bg-white dark:bg-slate-800 rounded-lg p-3 border border-slate-200 dark:border-slate-700 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-750 transition-colors"
               },
               "children": [
                 {
@@ -152,7 +152,7 @@
                       "props": {
                         "type": "checkbox",
                         "name": "is_notice",
-                        "className": "mt-0.5 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                        "className": "mt-0.5 w-4 h-4 text-teal-600 bg-slate-100 border-slate-300 rounded focus:ring-teal-500 dark:focus:ring-teal-600 dark:ring-offset-slate-800 focus:ring-2 dark:bg-slate-700 dark:border-slate-600"
                       }
                     },
                     {
@@ -175,14 +175,14 @@
                               "props": {
                                 "name": "bell",
                                 "size": "sm",
-                                "className": "text-blue-600 dark:text-blue-400"
+                                "className": "text-teal-600 dark:text-teal-400"
                               }
                             },
                             {
                               "type": "basic",
                               "name": "Span",
                               "props": {
-                                "className": "text-sm font-semibold text-gray-900 dark:text-white"
+                                "className": "text-sm font-semibold text-slate-900 dark:text-white"
                               },
                               "text": "$t:board.form.is_notice"
                             }
@@ -192,7 +192,7 @@
                           "type": "basic",
                           "name": "P",
                           "props": {
-                            "className": "text-xs text-gray-500 dark:text-gray-400"
+                            "className": "text-xs text-slate-500 dark:text-slate-400"
                           },
                           "text": "$t:board.form.notice_description"
                         }
@@ -207,7 +207,7 @@
               "name": "Label",
               "if": "{{form_meta?.data?.board?.secret_mode === 'enabled'}}",
               "props": {
-                "className": "block bg-white dark:bg-gray-800 rounded-lg p-3 border border-gray-200 dark:border-gray-700 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-750 transition-colors"
+                "className": "block bg-white dark:bg-slate-800 rounded-lg p-3 border border-slate-200 dark:border-slate-700 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-750 transition-colors"
               },
               "children": [
                 {
@@ -223,7 +223,7 @@
                       "props": {
                         "type": "checkbox",
                         "name": "is_secret",
-                        "className": "mt-0.5 w-4 h-4 text-amber-600 bg-gray-100 border-gray-300 rounded focus:ring-amber-500 dark:focus:ring-amber-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                        "className": "mt-0.5 w-4 h-4 text-amber-600 bg-slate-100 border-slate-300 rounded focus:ring-amber-500 dark:focus:ring-amber-600 dark:ring-offset-slate-800 focus:ring-2 dark:bg-slate-700 dark:border-slate-600"
                       }
                     },
                     {
@@ -253,7 +253,7 @@
                               "type": "basic",
                               "name": "Span",
                               "props": {
-                                "className": "text-sm font-semibold text-gray-900 dark:text-white"
+                                "className": "text-sm font-semibold text-slate-900 dark:text-white"
                               },
                               "text": "$t:board.form.secret_post"
                             }
@@ -263,7 +263,7 @@
                           "type": "basic",
                           "name": "P",
                           "props": {
-                            "className": "text-xs text-gray-500 dark:text-gray-400"
+                            "className": "text-xs text-slate-500 dark:text-slate-400"
                           },
                           "text": "$t:board.form.secret_description"
                         }
@@ -278,7 +278,7 @@
               "name": "Div",
               "if": "{{form_meta?.data?.board?.secret_mode === 'always'}}",
               "props": {
-                "className": "bg-gray-100 dark:bg-gray-800 rounded-lg p-3 border border-gray-200 dark:border-gray-700 opacity-75"
+                "className": "bg-slate-100 dark:bg-slate-800 rounded-lg p-3 border border-slate-200 dark:border-slate-700 opacity-75"
               },
               "children": [
                 {
@@ -304,7 +304,7 @@
                         "type": "checkbox",
                         "checked": true,
                         "disabled": true,
-                        "className": "mt-0.5 w-4 h-4 text-amber-600 bg-gray-100 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600 opacity-50 cursor-not-allowed"
+                        "className": "mt-0.5 w-4 h-4 text-amber-600 bg-slate-100 border-slate-300 rounded dark:bg-slate-700 dark:border-slate-600 opacity-50 cursor-not-allowed"
                       }
                     },
                     {
@@ -334,7 +334,7 @@
                               "type": "basic",
                               "name": "Span",
                               "props": {
-                                "className": "text-sm font-semibold text-gray-900 dark:text-white"
+                                "className": "text-sm font-semibold text-slate-900 dark:text-white"
                               },
                               "text": "$t:board.form.secret_post"
                             }
@@ -344,7 +344,7 @@
                           "type": "basic",
                           "name": "P",
                           "props": {
-                            "className": "text-xs text-gray-500 dark:text-gray-400"
+                            "className": "text-xs text-slate-500 dark:text-slate-400"
                           },
                           "text": "$t:board.form.secret_always_description"
                         }
@@ -367,7 +367,7 @@
           "type": "basic",
           "name": "Label",
           "props": {
-            "className": "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+            "className": "block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1"
           },
           "text": "$t:board.form.category"
         },
@@ -377,7 +377,7 @@
           "props": {
             "name": "category",
             "value": "{{_local.form?.category ?? ''}}",
-            "className": "w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500",
+            "className": "w-full px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-teal-500",
             "options": "{{[{value: '', label: $t('board.form.select_category')}, ...(form_meta?.data?.board?.categories ?? []).map(c => ({value: c, label: c}))]}}"
           },
           "actions": [
@@ -404,7 +404,7 @@
           "type": "basic",
           "name": "Label",
           "props": {
-            "className": "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+            "className": "block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1"
           },
           "children": [
             {
@@ -429,7 +429,7 @@
             "type": "text",
             "name": "title",
             "placeholder": "$t:board.form.title_placeholder",
-            "className": "w-full px-4 py-2 border rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 {{_local.errors?.title ? 'border-red-500 dark:border-red-500 focus:ring-red-500' : 'border-gray-300 dark:border-gray-600 focus:ring-blue-500'}}"
+            "className": "w-full px-4 py-2 border rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 {{_local.errors?.title ? 'border-red-500 dark:border-red-500 focus:ring-red-500' : 'border-slate-300 dark:border-slate-600 focus:ring-teal-500'}}"
           }
         },
         {
@@ -512,7 +512,7 @@
           "type": "basic",
           "name": "Label",
           "props": {
-            "className": "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+            "className": "block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1"
           },
           "children": [
             {
@@ -535,7 +535,7 @@
           "type": "basic",
           "name": "P",
           "props": {
-            "className": "text-xs text-gray-500 dark:text-gray-400 mb-2"
+            "className": "text-xs text-slate-500 dark:text-slate-400 mb-2"
           },
           "text": "$t:board.form.attachments_desc|maxFiles={{form_meta?.data?.board?.max_file_count ?? 5}}|maxSize={{form_meta?.data?.board?.max_file_size ?? 10}}"
         },
@@ -605,7 +605,7 @@
       "type": "basic",
       "name": "Div",
       "props": {
-        "className": "flex justify-end gap-3 pt-4 border-t border-gray-200 dark:border-gray-700"
+        "className": "flex justify-end gap-3 pt-4 border-t border-slate-200 dark:border-slate-700"
       },
       "children": [
         {
@@ -613,7 +613,7 @@
           "name": "Button",
           "props": {
             "type": "button",
-            "className": "px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer"
+            "className": "px-4 py-2 border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 cursor-pointer"
           },
           "actions": [
             {
@@ -632,7 +632,7 @@
           "props": {
             "type": "button",
             "disabled": "{{_local?.isSaving}}",
-            "className": "flex items-center gap-2 px-4 py-2 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-lg font-medium hover:bg-gray-800 dark:hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+            "className": "flex items-center gap-2 px-4 py-2 bg-teal-600 dark:bg-teal-500 text-white rounded-lg font-medium hover:bg-teal-700 dark:hover:bg-teal-600 disabled:opacity-50 disabled:cursor-not-allowed"
           },
           "actions": [
             {

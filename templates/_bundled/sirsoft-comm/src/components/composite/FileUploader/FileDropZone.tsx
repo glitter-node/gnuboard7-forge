@@ -46,8 +46,8 @@ export const FileDropZone: React.FC<FileDropZoneProps> = ({
         relative border-2 border-dashed rounded-lg transition-colors
         ${
           isDragOver
-            ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
-            : 'border-gray-300 dark:border-gray-600'
+            ? 'border-teal-500 bg-teal-50 dark:bg-teal-900/20'
+            : 'border-slate-300 dark:border-slate-600'
         }
       `}
       onDragOver={(e) => {
@@ -74,14 +74,14 @@ export const FileDropZone: React.FC<FileDropZoneProps> = ({
 
       {!children && (
         <Div
-          className="p-8 text-center cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
+          className="p-8 text-center cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
           onClick={() => inputRef.current?.click()}
         >
-          <I className="fa-solid fa-cloud-arrow-up text-4xl text-gray-400 dark:text-gray-500 mb-4" />
-          <P className="text-sm text-gray-600 dark:text-gray-400">
+          <I className="fa-solid fa-cloud-arrow-up text-4xl text-slate-400 dark:text-slate-500 mb-4" />
+          <P className="text-sm text-slate-600 dark:text-slate-400">
             {t('attachment.drop_or_click')}
           </P>
-          <P className="text-xs text-gray-500 dark:text-gray-500 mt-2">
+          <P className="text-xs text-slate-500 dark:text-slate-500 mt-2">
             {t('attachment.upload_limit', { maxFiles, maxSize })}
             {accept && ` (${accept})`}
           </P>

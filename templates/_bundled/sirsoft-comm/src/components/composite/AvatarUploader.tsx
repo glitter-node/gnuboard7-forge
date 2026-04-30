@@ -353,7 +353,7 @@ export function AvatarUploader({
       {!hasAvatar && (
         <Label
           htmlFor={inputId}
-          className={`inline-flex items-center gap-2 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer ${
+          className={`inline-flex items-center gap-2 px-4 py-2 border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors cursor-pointer ${
             isUploading ? 'opacity-50 cursor-not-allowed' : ''
           }`}
         >
@@ -370,7 +370,7 @@ export function AvatarUploader({
         <>
           <Label
             htmlFor={inputId}
-            className={`inline-flex items-center gap-2 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer ${
+            className={`inline-flex items-center gap-2 px-4 py-2 border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors cursor-pointer ${
               isUploading ? 'opacity-50 cursor-not-allowed' : ''
             }`}
           >
@@ -417,7 +417,7 @@ export function AvatarUploader({
               'w-32 h-32'
             }`}
           />
-          <Div className="absolute inset-0 rounded-full bg-blue-500/20 border-2 border-blue-500 border-dashed" />
+          <Div className="absolute inset-0 rounded-full bg-teal-500/20 border-2 border-teal-500 border-dashed" />
         </Div>
       ) : (
         <Avatar
@@ -430,20 +430,20 @@ export function AvatarUploader({
       {!readOnly && (
         <Div className="w-[220px] flex flex-col items-center gap-2">
           {showUploadConfirm && pendingFile && (
-            <Div className="w-full p-3 bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-800 rounded-lg">
+            <Div className="w-full p-3 bg-teal-50 dark:bg-teal-950/50 border border-teal-200 dark:border-teal-800 rounded-lg">
               <Div className="flex items-center gap-2 mb-2">
-                <Icon name="upload" size="sm" className="text-blue-600 dark:text-blue-400 shrink-0" />
-                <Span className="text-sm font-medium text-blue-800 dark:text-blue-300">
+                <Icon name="upload" size="sm" className="text-teal-600 dark:text-teal-400 shrink-0" />
+                <Span className="text-sm font-medium text-teal-800 dark:text-teal-300">
                   {uploadConfirmMessage || t('mypage.profile.upload_avatar_confirm')}
                 </Span>
               </Div>
-              <Div className="text-xs text-blue-600 dark:text-blue-400 truncate mb-3" title={pendingFile.name}>
+              <Div className="text-xs text-teal-600 dark:text-teal-400 truncate mb-3" title={pendingFile.name}>
                 {pendingFile.name} ({(pendingFile.size / 1024 / 1024).toFixed(2)}MB)
               </Div>
               <Div className="grid grid-cols-2 gap-2">
                 <Button
                   type="button"
-                  className="inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md text-sm font-medium transition-colors disabled:opacity-50"
+                  className="inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-teal-600 hover:bg-teal-700 text-white rounded-md text-sm font-medium transition-colors disabled:opacity-50"
                   onClick={handleUploadConfirm}
                   disabled={isUploading}
                 >
@@ -456,7 +456,7 @@ export function AvatarUploader({
                 </Button>
                 <Button
                   type="button"
-                  className="inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-md text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                  className="inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 rounded-md text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
                   onClick={handleUploadCancel}
                 >
                   <Span>{t('common.cancel')}</Span>
@@ -489,7 +489,7 @@ export function AvatarUploader({
                 </Button>
                 <Button
                   type="button"
-                  className="inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-md text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                  className="inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 rounded-md text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
                   onClick={handleDeleteCancel}
                 >
                   <Span>{t('common.cancel')}</Span>

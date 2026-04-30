@@ -118,7 +118,7 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
     <Div ref={menuRef} className={`relative ${className}`}>
       <Button
         onClick={() => setShowMenu(!showMenu)}
-        className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors text-gray-600 dark:text-gray-400"
+        className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors text-slate-600 dark:text-slate-400"
         aria-label="Toggle theme"
       >
         <Icon
@@ -128,24 +128,24 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
       </Button>
 
       {showMenu && (
-        <Div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-50">
+        <Div className="absolute right-0 mt-2 w-48 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-lg z-50">
           <Div className="py-2">
             <Button
               onClick={() => handleThemeChange('auto')}
               className={`
-                w-full px-4 py-2 text-left hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-3 transition-colors
-                ${currentMode === 'auto' ? 'bg-gray-50 dark:bg-gray-700' : ''}
+                w-full px-4 py-2 text-left hover:bg-slate-50 dark:hover:bg-slate-700 flex items-center gap-3 transition-colors
+                ${currentMode === 'auto' ? 'bg-slate-50 dark:bg-slate-700' : ''}
               `}
             >
               <Icon
                 name={IconName.Settings}
-                className="w-5 h-5 text-gray-600 dark:text-gray-400"
+                className="w-5 h-5 text-slate-600 dark:text-slate-400"
               />
-              <Span className="flex-1 text-left text-gray-900 dark:text-white">{autoText}</Span>
+              <Span className="flex-1 text-left text-slate-900 dark:text-white">{autoText}</Span>
               {currentMode === 'auto' && (
                 <Icon
                   name={IconName.Check}
-                  className="w-4 h-4 text-blue-600 dark:text-blue-400 ml-auto"
+                  className="w-4 h-4 text-teal-600 dark:text-teal-400 ml-auto"
                 />
               )}
             </Button>
@@ -153,19 +153,19 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
             <Button
               onClick={() => handleThemeChange('light')}
               className={`
-                w-full px-4 py-2 text-left hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-3 transition-colors
-                ${currentMode === 'light' ? 'bg-gray-50 dark:bg-gray-700' : ''}
+                w-full px-4 py-2 text-left hover:bg-slate-50 dark:hover:bg-slate-700 flex items-center gap-3 transition-colors
+                ${currentMode === 'light' ? 'bg-slate-50 dark:bg-slate-700' : ''}
               `}
             >
               <Icon
                 name={IconName.Sun}
-                className="w-5 h-5 text-gray-600 dark:text-gray-400"
+                className="w-5 h-5 text-slate-600 dark:text-slate-400"
               />
-              <Span className="flex-1 text-left text-gray-900 dark:text-white">{lightText}</Span>
+              <Span className="flex-1 text-left text-slate-900 dark:text-white">{lightText}</Span>
               {currentMode === 'light' && (
                 <Icon
                   name={IconName.Check}
-                  className="w-4 h-4 text-blue-600 dark:text-blue-400 ml-auto"
+                  className="w-4 h-4 text-teal-600 dark:text-teal-400 ml-auto"
                 />
               )}
             </Button>
@@ -173,19 +173,19 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
             <Button
               onClick={() => handleThemeChange('dark')}
               className={`
-                w-full px-4 py-2 text-left hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-3 transition-colors
-                ${currentMode === 'dark' ? 'bg-gray-50 dark:bg-gray-700' : ''}
+                w-full px-4 py-2 text-left hover:bg-slate-50 dark:hover:bg-slate-700 flex items-center gap-3 transition-colors
+                ${currentMode === 'dark' ? 'bg-slate-50 dark:bg-slate-700' : ''}
               `}
             >
               <Icon
                 name={IconName.Moon}
-                className="w-5 h-5 text-gray-600 dark:text-gray-400"
+                className="w-5 h-5 text-slate-600 dark:text-slate-400"
               />
-              <Span className="flex-1 text-left text-gray-900 dark:text-white">{darkText}</Span>
+              <Span className="flex-1 text-left text-slate-900 dark:text-white">{darkText}</Span>
               {currentMode === 'dark' && (
                 <Icon
                   name={IconName.Check}
-                  className="w-4 h-4 text-blue-600 dark:text-blue-400 ml-auto"
+                  className="w-4 h-4 text-teal-600 dark:text-teal-400 ml-auto"
                 />
               )}
             </Button>

@@ -96,31 +96,31 @@ export const TabNavigation: React.FC<TabNavigationProps> = ({
       'flex items-center gap-2 px-3 py-2 font-medium text-sm transition-all shrink-0 whitespace-nowrap';
 
     if (tab.disabled) {
-      return `${baseClasses} opacity-50 cursor-not-allowed text-gray-400 dark:text-gray-600`;
+      return `${baseClasses} opacity-50 cursor-not-allowed text-slate-400 dark:text-slate-600`;
     }
 
     switch (variant) {
       case 'pills':
         return isActive
-          ? `${baseClasses} bg-blue-600 dark:bg-blue-500 text-white rounded-lg`
-          : `${baseClasses} text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg`;
+          ? `${baseClasses} bg-teal-600 dark:bg-teal-500 text-white rounded-lg`
+          : `${baseClasses} text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg`;
 
       case 'underline':
         return isActive
-          ? `${baseClasses} text-gray-900 dark:text-white border-b-2 border-gray-900 dark:border-white`
-          : `${baseClasses} text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 border-b-2 border-transparent hover:border-gray-300 dark:hover:border-gray-600`;
+          ? `${baseClasses} text-slate-900 dark:text-white border-b-2 border-slate-900 dark:border-white`
+          : `${baseClasses} text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 border-b-2 border-transparent hover:border-slate-300 dark:hover:border-slate-600`;
 
       case 'default':
       default:
         return isActive
-          ? `${baseClasses} text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 border-b-2 border-blue-600 dark:border-blue-400`
-          : `${baseClasses} text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 border-b-2 border-transparent`;
+          ? `${baseClasses} text-teal-600 dark:text-teal-400 bg-teal-50 dark:bg-teal-900/20 border-b-2 border-teal-600 dark:border-teal-400`
+          : `${baseClasses} text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 border-b-2 border-transparent`;
     }
   };
 
   const navClasses =
     variant === 'underline'
-      ? 'flex gap-0 border-b border-gray-200 dark:border-gray-700'
+      ? 'flex gap-0 border-b border-slate-200 dark:border-slate-700'
       : 'flex gap-2';
 
   // 데스크톱: 탭 버튼 단일 렌더

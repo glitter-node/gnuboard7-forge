@@ -250,7 +250,7 @@ describe('PageSkeleton', () => {
 
         const status = container.querySelector('[role="status"]')!;
         
-        expect(status.children[0].className).toContain('dark:bg-gray-700');
+        expect(status.children[0].className).toContain('dark:bg-slate-700');
     });
 
     it('name이 없는 컴포넌트는 건너뛰어야 한다', () => {
@@ -300,7 +300,7 @@ describe('PageSkeleton', () => {
 
         const status = container.querySelector('[role="status"]')!;
         expect(status.children[0].className).toContain('h-3');
-        expect(status.children[0].className).toContain('bg-gray-200');
+        expect(status.children[0].className).toContain('bg-slate-200');
     });
 
     it('Checkbox/Radio/Toggle을 작은 사각형으로 치환해야 한다', () => {
@@ -354,7 +354,7 @@ describe('PageSkeleton', () => {
                 name: 'Flex',
                 type: 'layout',
                 props: {
-                    className: 'flex items-center justify-between gap-4 bg-white text-gray-800 shadow-md',
+                    className: 'flex items-center justify-between gap-4 bg-white text-slate-800 shadow-md',
                 },
                 children: [
                     { name: 'H2', type: 'basic' },
@@ -374,7 +374,7 @@ describe('PageSkeleton', () => {
         expect(flex!.className).toContain('gap-4');
         
         expect(flex!.className).not.toContain('bg-white');
-        expect(flex!.className).not.toContain('text-gray-800');
+        expect(flex!.className).not.toContain('text-slate-800');
         expect(flex!.className).not.toContain('shadow-md');
     });
 
@@ -457,7 +457,7 @@ describe('PageSkeleton', () => {
         );
 
         const status = container.querySelector('[role="status"]')!;
-        expect(status.className).not.toContain('bg-gray-50');
+        expect(status.className).not.toContain('bg-slate-50');
         expect(status.className).not.toContain('py-6');
         expect(status.className).not.toContain('min-h-full');
     });
@@ -629,7 +629,7 @@ describe('PageSkeleton', () => {
         const bar = status.children[0];
         expect(bar.className).toContain('h-8');
         expect(bar.className).toContain('w-48');
-        expect(bar.className).toContain('bg-gray-200');
+        expect(bar.className).toContain('bg-slate-200');
     });
 
     it('자식 없는 Div에 크기 클래스 없으면 기본 크기 바를 렌더해야 한다', () => {
@@ -645,7 +645,7 @@ describe('PageSkeleton', () => {
         const bar = status.children[0];
         expect(bar.className).toContain('h-3.5');
         expect(bar.className).toContain('w-full');
-        expect(bar.className).toContain('bg-gray-200');
+        expect(bar.className).toContain('bg-slate-200');
     });
 
     
@@ -935,7 +935,7 @@ describe('PageSkeleton', () => {
 
         const status = container.querySelector('[role="status"]')!;
         expect(status.children[0].className).toContain('h-80');
-        expect(status.children[0].className).toContain('bg-gray-200');
+        expect(status.children[0].className).toContain('bg-slate-200');
     });
 
     

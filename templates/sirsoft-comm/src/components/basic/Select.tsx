@@ -234,10 +234,10 @@ export const Select: React.FC<SelectProps> = ({
   
   const hasCustomStyle = className && className.includes('bg-');
   
-  const hasTextColor = className && /text-(gray|red|blue|green|yellow|white|black|indigo|purple|pink|orange|amber|emerald|teal|cyan|slate)-\d+|text-white|text-black/.test(className);
+  const hasTextColor = className && /text-(slate|red|teal|green|orange|white|black|pink|amber|emerald|cyan)-\d+|text-white|text-black/.test(className);
   const baseButtonClass = hasCustomStyle
-    ? `${className}${hasTextColor ? '' : ' text-gray-700 dark:text-gray-200'}`
-    : `w-full px-4 py-2.5 bg-gray-100 dark:bg-gray-700 border-0 rounded-xl text-gray-700 dark:text-gray-200 font-medium focus:ring-2 focus:ring-blue-500 focus:outline-none ${className}`;
+    ? `${className}${hasTextColor ? '' : ' text-slate-700 dark:text-slate-200'}`
+    : `w-full px-4 py-2.5 bg-slate-100 dark:bg-slate-700 border-0 rounded-xl text-slate-700 dark:text-slate-200 font-medium focus:ring-2 focus:ring-teal-500 focus:outline-none ${className}`;
 
   return (
     <Div ref={containerRef} className="relative">
@@ -264,19 +264,19 @@ export const Select: React.FC<SelectProps> = ({
       {isOpen && dropdownPos && createPortal(
         <Div
           ref={dropdownRef}
-          className="fixed z-[9999] bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-600 overflow-hidden"
+          className="fixed z-[9999] bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-600 overflow-hidden"
           style={{ top: dropdownPos.top, bottom: dropdownPos.bottom, left: dropdownPos.left, width: dropdownPos.width }}
           role="listbox"
         >
           {searchable && (
-            <Div className="p-2 border-b border-gray-200 dark:border-gray-600">
+            <Div className="p-2 border-b border-slate-200 dark:border-slate-600">
               <Input
                 ref={searchInputRef}
                 type="text"
                 value={searchTerm}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
                 placeholder={searchPlaceholder ?? 'Search...'}
-                className="w-full px-3 py-2 bg-gray-100 dark:bg-gray-700 border-0 rounded-lg text-sm text-gray-700 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                className="w-full px-3 py-2 bg-slate-100 dark:bg-slate-700 border-0 rounded-lg text-sm text-slate-700 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:ring-2 focus:ring-teal-500 focus:outline-none"
                 role="searchbox"
                 aria-label={searchPlaceholder ?? 'Search'}
               />
@@ -284,7 +284,7 @@ export const Select: React.FC<SelectProps> = ({
           )}
           <Div className="py-2 max-h-60 overflow-auto">
             {visibleOptions && visibleOptions.length === 0 && (
-              <Div className="px-4 py-3 text-sm text-gray-500 dark:text-gray-400 text-center">
+              <Div className="px-4 py-3 text-sm text-slate-500 dark:text-slate-400 text-center">
                 {searchTerm ? 'No results' : ''}
               </Div>
             )}
@@ -296,8 +296,8 @@ export const Select: React.FC<SelectProps> = ({
                   type="button"
                   onClick={() => !option.disabled && handleSelect(option.value)}
                   disabled={option.disabled}
-                  className={`w-full px-4 py-3 text-left flex items-center justify-between hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors ${
-                    isSelected ? 'text-blue-600 dark:text-blue-400 font-medium' : 'text-gray-700 dark:text-gray-200'
+                  className={`w-full px-4 py-3 text-left flex items-center justify-between hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors ${
+                    isSelected ? 'text-teal-600 dark:text-teal-400 font-medium' : 'text-slate-700 dark:text-slate-200'
                   } ${option.disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
                   role="option"
                   aria-selected={isSelected}
@@ -305,7 +305,7 @@ export const Select: React.FC<SelectProps> = ({
                   <Span>{option.label}</Span>
                   {isSelected && (
                     <Svg
-                      className="w-5 h-5 text-blue-600 dark:text-blue-400"
+                      className="w-5 h-5 text-teal-600 dark:text-teal-400"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"

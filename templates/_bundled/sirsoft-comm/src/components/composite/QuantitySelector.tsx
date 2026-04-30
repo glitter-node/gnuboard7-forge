@@ -87,13 +87,13 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
 
   return (
     <Div
-      className={`inline-flex items-center border border-gray-300 dark:border-gray-600 rounded-lg ${classes.container} ${className}`}
+      className={`inline-flex items-center border border-slate-300 dark:border-slate-600 rounded-lg ${classes.container} ${className}`}
     >
       <Button
         type="button"
         onClick={handleDecrease}
         disabled={isMinDisabled}
-        className={`${classes.button} flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed rounded-l-lg transition-colors`}
+        className={`${classes.button} flex items-center justify-center text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed rounded-l-lg transition-colors`}
         aria-label="수량 감소"
       >
         <Icon name="minus" className="w-4 h-4" />
@@ -107,7 +107,7 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
         min={min}
         max={max}
         disabled={disabled}
-        className={`${classes.input} text-center border-x border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none`}
+        className={`${classes.input} text-center border-x border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none`}
         aria-label="수량"
       />
 
@@ -115,7 +115,7 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
         type="button"
         onClick={handleIncrease}
         disabled={isMaxDisabled}
-        className={`${classes.button} flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed rounded-r-lg transition-colors`}
+        className={`${classes.button} flex items-center justify-center text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed rounded-r-lg transition-colors`}
         aria-label="수량 증가"
       >
         <Icon name="plus" className="w-4 h-4" />

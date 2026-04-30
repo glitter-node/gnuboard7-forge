@@ -75,8 +75,8 @@ const PROVIDER_CONFIGS: ProviderConfig[] = [
   {
     id: 'google',
     name: 'Google',
-    color: 'bg-white dark:bg-gray-800',
-    textColor: 'text-gray-700 dark:text-gray-300',
+    color: 'bg-white dark:bg-slate-800',
+    textColor: 'text-slate-700 dark:text-slate-300',
   },
   {
     id: 'naver',
@@ -135,7 +135,7 @@ const SocialLoginButtons: React.FC<SocialLoginButtonsProps> = ({
           <Button
             key={provider.id}
             onClick={() => handleSocialLogin(provider.id)}
-            className={`w-12 h-12 flex items-center justify-center rounded-full ${provider.color} ${provider.textColor} border border-gray-200 dark:border-gray-700 hover:opacity-90 transition-opacity`}
+            className={`w-12 h-12 flex items-center justify-center rounded-full ${provider.color} ${provider.textColor} border border-slate-200 dark:border-slate-700 hover:opacity-90 transition-opacity`}
             aria-label={getButtonText(provider.name)}
           >
             <SocialIcon provider={provider.id} className="w-5 h-5" />
@@ -151,7 +151,7 @@ const SocialLoginButtons: React.FC<SocialLoginButtonsProps> = ({
         <Button
           key={provider.id}
           onClick={() => handleSocialLogin(provider.id)}
-          className={`w-full flex items-center justify-center gap-3 px-4 py-3 rounded-lg font-medium border border-gray-200 dark:border-gray-700 ${provider.color} ${provider.textColor} hover:opacity-90 transition-opacity`}
+          className={`w-full flex items-center justify-center gap-3 px-4 py-3 rounded-lg font-medium border border-slate-200 dark:border-slate-700 ${provider.color} ${provider.textColor} hover:opacity-90 transition-opacity`}
         >
           <SocialIcon provider={provider.id} className="w-5 h-5" />
           <Span>{getButtonText(provider.name)}</Span>

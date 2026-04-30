@@ -20,16 +20,16 @@ const SIZE_CLASSES: Record<AvatarSize, string> = {
 } as const;
 
 
-const BASE_CONTAINER_CLASSES = 'rounded-full overflow-hidden flex-shrink-0 border border-gray-200 dark:border-gray-700';
+const BASE_CONTAINER_CLASSES = 'rounded-full overflow-hidden flex-shrink-0 border border-slate-200 dark:border-slate-700';
 
 
-const WITHDRAWN_CLASSES = 'grayscale opacity-50';
+const WITHDRAWN_CLASSES = 'slatescale opacity-50';
 
 
 const INITIAL_BG_CLASSES = {
-  normal: 'bg-gradient-to-br from-blue-500 to-purple-600',
-  withdrawn: 'bg-gray-300 dark:bg-gray-600',
-  guest: 'bg-gray-200 dark:bg-gray-700',
+  normal: 'bg-gradient-to-br from-teal-500 to-teal-600',
+  withdrawn: 'bg-slate-300 dark:bg-slate-600',
+  guest: 'bg-slate-200 dark:bg-slate-700',
 } as const;
 
 
@@ -104,14 +104,14 @@ export const Avatar: React.FC<AvatarProps> = ({
     if (actualIsGuest) {
       return (
         <Div className={`w-full h-full flex items-center justify-center ${initialBgClass}`}>
-          <Icon name="user" className="text-gray-400 dark:text-gray-500" />
+          <Icon name="user" className="text-slate-400 dark:text-slate-500" />
         </Div>
       );
     }
     if (actualIsWithdrawn) {
       return (
         <Div className={`w-full h-full flex items-center justify-center ${initialBgClass}`}>
-          <Icon name="user" className="text-gray-500 dark:text-gray-400" />
+          <Icon name="user" className="text-slate-500 dark:text-slate-400" />
         </Div>
       );
     }

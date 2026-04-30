@@ -92,14 +92,14 @@
                     "props": {
                       "name": "table-cells-large",
                       "size": "xl",
-                      "className": "text-gray-900 dark:text-white"
+                      "className": "text-slate-900 dark:text-white"
                     },
                     "responsive": {
                       "portable": {
                         "props": {
                           "name": "table-cells-large",
                           "size": "lg",
-                          "className": "text-gray-900 dark:text-white"
+                          "className": "text-slate-900 dark:text-white"
                         }
                       }
                     }
@@ -108,13 +108,13 @@
                     "type": "basic",
                     "name": "H1",
                     "props": {
-                      "className": "text-2xl font-bold text-gray-900 dark:text-white"
+                      "className": "text-2xl font-bold text-slate-900 dark:text-white"
                     },
                     "text": "$t:board.all_boards.title",
                     "responsive": {
                       "portable": {
                         "props": {
-                          "className": "text-xl font-bold text-gray-900 dark:text-white"
+                          "className": "text-xl font-bold text-slate-900 dark:text-white"
                         }
                       }
                     }
@@ -125,7 +125,7 @@
                 "type": "basic",
                 "name": "P",
                 "props": {
-                  "className": "text-gray-600 dark:text-gray-400"
+                  "className": "text-slate-600 dark:text-slate-400"
                 },
                 "text": "$t:board.all_boards.description"
               }
@@ -175,14 +175,14 @@
                 "props": {
                   "name": "inbox",
                   "size": "3x",
-                  "className": "text-gray-400 dark:text-gray-500 mx-auto mb-4"
+                  "className": "text-slate-400 dark:text-slate-500 mx-auto mb-4"
                 }
               },
               {
                 "type": "basic",
                 "name": "P",
                 "props": {
-                  "className": "text-gray-500 dark:text-gray-400"
+                  "className": "text-slate-500 dark:text-slate-400"
                 },
                 "text": "$t:board.all_boards.empty"
               }

@@ -47,11 +47,11 @@ interface ReactionConfig {
 
 
 const REACTION_CONFIGS: ReactionConfig[] = [
-  { type: 'like', emoji: '👍', labelKey: 'board.reactions.like', activeColor: 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' },
-  { type: 'funny', emoji: '😂', labelKey: 'board.reactions.funny', activeColor: 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-400' },
+  { type: 'like', emoji: '👍', labelKey: 'board.reactions.like', activeColor: 'bg-teal-100 dark:bg-teal-900/30 text-teal-600 dark:text-teal-400' },
+  { type: 'funny', emoji: '😂', labelKey: 'board.reactions.funny', activeColor: 'bg-teal-100 dark:bg-teal-900/30 text-teal-600 dark:text-teal-400' },
   { type: 'agree', emoji: '👌', labelKey: 'board.reactions.agree', activeColor: 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400' },
-  { type: 'thanks', emoji: '🙏', labelKey: 'board.reactions.thanks', activeColor: 'bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400' },
-  { type: 'wow', emoji: '😮', labelKey: 'board.reactions.wow', activeColor: 'bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400' },
+  { type: 'thanks', emoji: '🙏', labelKey: 'board.reactions.thanks', activeColor: 'bg-teal-100 dark:bg-teal-900/30 text-teal-600 dark:text-teal-400' },
+  { type: 'wow', emoji: '😮', labelKey: 'board.reactions.wow', activeColor: 'bg-teal-100 dark:bg-teal-900/30 text-teal-600 dark:text-teal-400' },
 ];
 
 
@@ -123,7 +123,7 @@ const PostReactions: React.FC<PostReactionsProps> = ({
               ${sizeClasses[size]}
               ${isActive
                 ? `${config.activeColor} border-transparent`
-                : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+                : 'border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700'
               }
             `}
             title={t(config.labelKey)}

@@ -152,16 +152,16 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
   ];
 
   return (
-    <Div className={`border border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden ${className}`}>
-      <Div className="flex flex-wrap items-center gap-1 p-2 bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-        <Div className="flex items-center gap-1 pr-2 border-r border-gray-200 dark:border-gray-700">
+    <Div className={`border border-slate-300 dark:border-slate-600 rounded-lg overflow-hidden ${className}`}>
+      <Div className="flex flex-wrap items-center gap-1 p-2 bg-slate-50 dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700">
+        <Div className="flex items-center gap-1 pr-2 border-r border-slate-200 dark:border-slate-700">
           {toolbarButtons.map((btn) => (
             <Button
               key={btn.format}
               type="button"
               onClick={() => applyFormat(btn.format)}
               disabled={disabled}
-              className="w-8 h-8 flex items-center justify-center text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded disabled:opacity-50"
+              className="w-8 h-8 flex items-center justify-center text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 rounded disabled:opacity-50"
               title={btn.title}
             >
               {btn.icon}
@@ -169,28 +169,28 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
           ))}
         </Div>
 
-        <Div className="flex items-center gap-1 pr-2 border-r border-gray-200 dark:border-gray-700">
+        <Div className="flex items-center gap-1 pr-2 border-r border-slate-200 dark:border-slate-700">
           {headingButtons.map((btn) => (
             <Button
               key={btn.format}
               type="button"
               onClick={() => applyFormat(btn.format)}
               disabled={disabled}
-              className="px-2 h-8 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded disabled:opacity-50"
+              className="px-2 h-8 text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 rounded disabled:opacity-50"
             >
               {btn.label}
             </Button>
           ))}
         </Div>
 
-        <Div className="flex items-center gap-1 pr-2 border-r border-gray-200 dark:border-gray-700">
+        <Div className="flex items-center gap-1 pr-2 border-r border-slate-200 dark:border-slate-700">
           {listButtons.map((btn) => (
             <Button
               key={btn.format}
               type="button"
               onClick={() => applyFormat(btn.format)}
               disabled={disabled}
-              className="w-8 h-8 flex items-center justify-center text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded disabled:opacity-50"
+              className="w-8 h-8 flex items-center justify-center text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 rounded disabled:opacity-50"
               title={btn.title}
             >
               {btn.icon}
@@ -198,17 +198,17 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
           ))}
         </Div>
 
-        <Div className="flex items-center gap-1 pr-2 border-r border-gray-200 dark:border-gray-700">
+        <Div className="flex items-center gap-1 pr-2 border-r border-slate-200 dark:border-slate-700">
           <Button
             type="button"
             onClick={() => setShowLinkModal(true)}
             disabled={disabled}
-            className="w-8 h-8 flex items-center justify-center text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded disabled:opacity-50"
+            className="w-8 h-8 flex items-center justify-center text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 rounded disabled:opacity-50"
             title={t('editor.toolbar.link')}
           >
             🔗
           </Button>
-          <Label className="w-8 h-8 flex items-center justify-center text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded cursor-pointer">
+          <Label className="w-8 h-8 flex items-center justify-center text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 rounded cursor-pointer">
             🖼
             <Input
               type="file"
@@ -224,8 +224,8 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
           type="button"
           onClick={() => setShowCodeView(!showCodeView)}
           disabled={disabled}
-          className={`px-2 h-8 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded disabled:opacity-50 ${
-            showCodeView ? 'bg-gray-200 dark:bg-gray-700' : ''
+          className={`px-2 h-8 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 rounded disabled:opacity-50 ${
+            showCodeView ? 'bg-slate-200 dark:bg-slate-700' : ''
           }`}
         >
           {'</>'}
@@ -239,7 +239,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
           onChange={(e) => setContent(e.target.value)}
           placeholder={placeholder}
           disabled={disabled}
-          className="w-full p-4 bg-gray-900 text-gray-100 font-mono text-sm focus:outline-none resize-none"
+          className="w-full p-4 bg-slate-900 text-slate-100 font-mono text-sm focus:outline-none resize-none"
           style={{ minHeight }}
         />
       ) : (
@@ -247,7 +247,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
           ref={editorRef}
           contentEditable={!disabled}
           onInput={(e) => setContent(e.currentTarget.innerHTML)}
-          className="p-4 bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none prose dark:prose-invert max-w-none"
+          className="p-4 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none prose dark:prose-invert max-w-none"
           style={{ minHeight }}
           data-placeholder={placeholder}
         />
@@ -257,8 +257,8 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
 
       {showLinkModal && (
         <Div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <Div className="bg-white dark:bg-gray-800 rounded-lg p-6 w-96">
-            <H3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+          <Div className="bg-white dark:bg-slate-800 rounded-lg p-6 w-96">
+            <H3 className="text-lg font-medium text-slate-900 dark:text-white mb-4">
               {t('editor.link_modal.title')}
             </H3>
             <Input
@@ -266,7 +266,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
               value={linkUrl}
               onChange={(e) => setLinkUrl(e.target.value)}
               placeholder="https://example.com"
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white mb-4"
+              className="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white mb-4"
             />
             <Div className="flex justify-end gap-2">
               <Button
@@ -275,14 +275,14 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
                   setShowLinkModal(false);
                   setLinkUrl('');
                 }}
-                className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg"
+                className="px-4 py-2 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg"
               >
                 {t('common.cancel')}
               </Button>
               <Button
                 type="button"
                 onClick={insertLink}
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                className="px-4 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700"
               >
                 {t('editor.link_modal.insert')}
               </Button>

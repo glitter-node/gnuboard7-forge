@@ -24,7 +24,7 @@
           "type": "basic",
           "name": "P",
           "props": {
-            "className": "text-gray-600 dark:text-gray-400"
+            "className": "text-slate-600 dark:text-slate-400"
           },
           "text": "{{_global.deleteModal.isGuest ? (_global.deleteModal.type === 'comment' ? '$t:board.guest_password_comment_delete_message' : '$t:board.guest_password_post_delete_message') : (_global.deleteModal.type === 'comment' ? '$t:board.modals.delete_comment_confirm' : '$t:board.modals.delete_post_confirm')}}"
         },
@@ -46,14 +46,14 @@
                   "props": {
                     "name": "lock",
                     "size": "xs",
-                    "className": "text-gray-500 dark:text-gray-400"
+                    "className": "text-slate-500 dark:text-slate-400"
                   }
                 },
                 {
                   "type": "basic",
                   "name": "Span",
                   "props": {
-                    "className": "text-sm font-medium text-gray-700 dark:text-gray-300"
+                    "className": "text-sm font-medium text-slate-700 dark:text-slate-300"
                   },
                   "text": "$t:board.guest_password"
                 }
@@ -66,7 +66,7 @@
                 "type": "password",
                 "placeholder": "$t:board.guest_password_placeholder",
                 "value": "{{_global.deleteModal.password ?? ''}}",
-                "className": "w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
+                "className": "w-full px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-teal-500"
               },
               "actions": [
                 {
@@ -106,7 +106,7 @@
               "type": "basic",
               "name": "Button",
               "props": {
-                "className": "px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer"
+                "className": "px-4 py-2 border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 cursor-pointer"
               },
               "text": "$t:common.cancel",
               "actions": [

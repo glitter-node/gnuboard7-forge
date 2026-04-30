@@ -124,11 +124,11 @@ export const FileList: React.FC<FileListProps> = ({
             
             {canAddMore && (
               <Div
-                className="aspect-square flex flex-col items-center justify-center border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg cursor-pointer hover:border-gray-400 dark:hover:border-gray-500 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
+                className="aspect-square flex flex-col items-center justify-center border-2 border-dashed border-slate-300 dark:border-slate-600 rounded-lg cursor-pointer hover:border-slate-400 dark:hover:border-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
                 onClick={onAddClick}
               >
-                <I className="fa-solid fa-plus text-2xl text-gray-400 dark:text-gray-500 mb-1" />
-                <Span className="text-xs text-gray-500 dark:text-gray-400">{t('common.add')}</Span>
+                <I className="fa-solid fa-plus text-2xl text-slate-400 dark:text-slate-500 mb-1" />
+                <Span className="text-xs text-slate-500 dark:text-slate-400">{t('common.add')}</Span>
               </Div>
             )}
           </Div>
@@ -136,7 +136,7 @@ export const FileList: React.FC<FileListProps> = ({
       </DndContext>
 
       
-      <Div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700 flex justify-between items-center text-xs text-gray-500 dark:text-gray-400">
+      <Div className="mt-3 pt-3 border-t border-slate-200 dark:border-slate-700 flex justify-between items-center text-xs text-slate-500 dark:text-slate-400">
         <Span>{t('attachment.attached_count', { count: totalCount, max: maxFiles })}</Span>
         <Span>{t('attachment.max_size', { size: maxSize })}{accept && ` (${accept})`}</Span>
       </Div>

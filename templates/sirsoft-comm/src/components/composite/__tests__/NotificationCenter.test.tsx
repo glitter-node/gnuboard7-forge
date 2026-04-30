@@ -209,16 +209,16 @@ describe('NotificationCenter (sirsoft-comm)', () => {
         <NotificationCenter notifications={mockNotifications} />
       );
       fireEvent.click(screen.getByLabelText('알림'));
-      const blueDots = container.querySelectorAll('.bg-blue-500.rounded-full');
+      const tealDots = container.querySelectorAll('.bg-teal-500.rounded-full');
       
-      expect(blueDots.length).toBe(1);
+      expect(tealDots.length).toBe(1);
     });
 
     it('미읽음 카드에는 파란 배경 클래스가 적용됨', () => {
       render(<NotificationCenter notifications={mockNotifications} />);
       fireEvent.click(screen.getByLabelText('알림'));
       const unread = screen.getByText('새 댓글').closest('[data-notification-id]');
-      expect(unread?.className).toMatch(/bg-blue-50/);
+      expect(unread?.className).toMatch(/bg-teal-50/);
     });
 
     it('읽음 카드에는 opacity-70 클래스가 적용됨', () => {

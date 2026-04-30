@@ -110,7 +110,7 @@ export const Pagination: React.FC<PaginationProps> = ({
         <Button
           onClick={() => handlePageClick(1)}
           disabled={currentPage === 1}
-          className="px-3 py-1 text-sm border border-gray-300 dark:border-gray-600 rounded hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800"
+          className="px-3 py-1 text-sm border border-slate-300 dark:border-slate-600 rounded hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800"
           aria-label={t('common.first_page')}
         >
           &#171;
@@ -120,7 +120,7 @@ export const Pagination: React.FC<PaginationProps> = ({
       <Button
         onClick={handlePrevious}
         disabled={currentPage === 1}
-        className="px-3 py-1 text-sm border border-gray-300 dark:border-gray-600 rounded hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800"
+        className="px-3 py-1 text-sm border border-slate-300 dark:border-slate-600 rounded hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800"
         aria-label={t('common.prev_page')}
       >
         {prevText || <>&#8249;</>}
@@ -132,7 +132,7 @@ export const Pagination: React.FC<PaginationProps> = ({
             return (
               <Span
                 key={`ellipsis-${index}`}
-                className="px-3 py-1 text-sm text-gray-500 dark:text-gray-400"
+                className="px-3 py-1 text-sm text-slate-500 dark:text-slate-400"
               >
                 ...
               </Span>
@@ -148,8 +148,8 @@ export const Pagination: React.FC<PaginationProps> = ({
               onClick={() => handlePageClick(pageNum)}
               className={`px-3 py-1 text-sm border rounded ${
                 isActive
-                  ? 'bg-blue-500 dark:bg-blue-600 text-white border-blue-500 dark:border-blue-600'
-                  : 'border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800'
+                  ? 'bg-teal-500 dark:bg-teal-600 text-white border-teal-500 dark:border-teal-600'
+                  : 'border-slate-300 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800'
               }`}
               aria-label={t('common.page_n', { n: pageNum })}
               aria-current={isActive ? 'page' : undefined}
@@ -163,7 +163,7 @@ export const Pagination: React.FC<PaginationProps> = ({
       <Button
         onClick={handleNext}
         disabled={currentPage === totalPages}
-        className="px-3 py-1 text-sm border border-gray-300 dark:border-gray-600 rounded hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800"
+        className="px-3 py-1 text-sm border border-slate-300 dark:border-slate-600 rounded hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800"
         aria-label={t('common.next_page')}
       >
         {nextText || <>&#8250;</>}
@@ -173,7 +173,7 @@ export const Pagination: React.FC<PaginationProps> = ({
         <Button
           onClick={() => handlePageClick(totalPages)}
           disabled={currentPage === totalPages}
-          className="px-3 py-1 text-sm border border-gray-300 dark:border-gray-600 rounded hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800"
+          className="px-3 py-1 text-sm border border-slate-300 dark:border-slate-600 rounded hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800"
           aria-label={t('common.last_page')}
         >
           &#187;

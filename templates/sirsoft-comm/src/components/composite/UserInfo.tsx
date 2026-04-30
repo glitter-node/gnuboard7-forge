@@ -124,7 +124,7 @@ const createDefaultMenuItems = (): MenuItemConfig[] => [
 const SubText: React.FC<{ text?: string; title?: string }> = ({ text, title }) => {
   if (!text) return null;
   return (
-    <Span className="text-sm text-gray-500 dark:text-gray-400" title={title}>
+    <Span className="text-sm text-slate-500 dark:text-slate-400" title={title}>
       {text}
     </Span>
   );
@@ -281,9 +281,9 @@ export const UserInfo: React.FC<UserInfoProps> = ({
   if (actualIsGuest || !actualUserId) {
     return (
       <Div className={containerClass}>
-        <Div className="flex items-center gap-1.5 text-gray-400 dark:text-gray-500">
+        <Div className="flex items-center gap-1.5 text-slate-400 dark:text-slate-500">
           <Span>{actualName}</Span>
-          <Span className="text-xs px-1.5 py-0.5 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded">
+          <Span className="text-xs px-1.5 py-0.5 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded">
             {t('userinfo.guest_badge')}
           </Span>
         </Div>
@@ -296,7 +296,7 @@ export const UserInfo: React.FC<UserInfoProps> = ({
   if (actualIsWithdrawn) {
     return (
       <Div className={containerClass}>
-        <Span className="text-gray-400 dark:text-gray-500 line-through">
+        <Span className="text-slate-400 dark:text-slate-500 line-through">
           {actualName}
         </Span>
         <SubText text={subText} title={subTextTitle} />
@@ -308,9 +308,9 @@ export const UserInfo: React.FC<UserInfoProps> = ({
   const finalMenuItems = getMenuItems();
   // className에 text- 색상 클래스가 있으면 nameButtonClass의 기본 색상을 대체
   const hasCustomColor = /\btext-\S+/.test(className);
-  const defaultColorClass = hasCustomColor ? '' : 'text-gray-900 dark:text-white';
+  const defaultColorClass = hasCustomColor ? '' : 'text-slate-900 dark:text-white';
   const nameButtonClass = (showDropdown || clickable)
-    ? `${defaultColorClass} hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer font-medium`.trim()
+    ? `${defaultColorClass} hover:text-teal-600 dark:hover:text-teal-400 cursor-pointer font-medium`.trim()
     : `${defaultColorClass} font-medium`.trim();
 
   return (
@@ -330,7 +330,7 @@ export const UserInfo: React.FC<UserInfoProps> = ({
       {showDropdown && showMenu && finalMenuItems.length > 0 && createPortal(
         <Div
           ref={dropdownRef}
-          className="fixed w-40 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg py-1 z-[9999]"
+          className="fixed w-40 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-lg py-1 z-[9999]"
           style={{ top: menuPosition.top, left: menuPosition.left }}
           data-testid="author-dropdown-menu"
         >
@@ -338,7 +338,7 @@ export const UserInfo: React.FC<UserInfoProps> = ({
             <Button
               key={item.key}
               onClick={(e) => handleMenuItemClick(item, e)}
-              className="flex items-center justify-start gap-2 w-full text-left px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+              className="flex items-center justify-start gap-2 w-full text-left px-3 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 cursor-pointer"
               data-testid={`menu-item-${item.key}`}
             >
               {item.icon && <Icon name={item.icon} className="w-4 h-4" />}

@@ -5,7 +5,7 @@
   "type": "basic",
   "name": "Button",
   "props": {
-    "className": "block w-full text-left bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-5 hover:border-gray-300 dark:hover:border-gray-600 hover:shadow-sm transition-all cursor-pointer"
+    "className": "block w-full text-left bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-5 hover:border-slate-300 dark:hover:border-slate-600 hover:shadow-sm transition-all cursor-pointer"
   },
   "actions": [
     {
@@ -19,7 +19,7 @@
   "responsive": {
     "portable": {
       "props": {
-        "className": "block w-full text-left bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4 hover:border-gray-300 dark:hover:border-gray-600 hover:shadow-sm transition-all cursor-pointer"
+        "className": "block w-full text-left bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-4 hover:border-slate-300 dark:hover:border-slate-600 hover:shadow-sm transition-all cursor-pointer"
       }
     }
   },
@@ -44,14 +44,14 @@
               "props": {
                 "name": "file-text",
                 "size": "lg",
-                "className": "text-gray-600 dark:text-gray-400 flex-shrink-0"
+                "className": "text-slate-600 dark:text-slate-400 flex-shrink-0"
               }
             },
             {
               "type": "basic",
               "name": "H3",
               "props": {
-                "className": "font-semibold text-gray-900 dark:text-white"
+                "className": "font-semibold text-slate-900 dark:text-white"
               },
               "text": "{{board.name}}"
             }
@@ -71,7 +71,7 @@
       "type": "basic",
       "name": "P",
       "props": {
-        "className": "text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mb-3"
+        "className": "text-sm text-slate-600 dark:text-slate-400 line-clamp-2 mb-3"
       },
       "text": "{{board.description ?? ''}}"
     },
@@ -79,7 +79,7 @@
       "type": "basic",
       "name": "Div",
       "props": {
-        "className": "flex items-center justify-end gap-2 text-sm font-medium text-blue-600 dark:text-blue-400"
+        "className": "flex items-center justify-end gap-2 text-sm font-medium text-teal-600 dark:text-teal-400"
       },
       "children": [
         {

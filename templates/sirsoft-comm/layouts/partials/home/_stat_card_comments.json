@@ -5,7 +5,7 @@
   "type": "basic",
   "name": "Div",
   "props": {
-    "className": "bg-gray-50/60 dark:bg-gray-900/40 rounded-xl p-4 shadow-none border border-gray-200/40 dark:border-gray-800/60"
+    "className": "bg-slate-50/60 dark:bg-slate-900/40 rounded-xl p-4 shadow-none border border-slate-200/40 dark:border-slate-800/60"
   },
   "children": [
     {
@@ -19,7 +19,7 @@
           "type": "basic",
           "name": "Div",
           "props": {
-            "className": "w-10 h-10 rounded-lg flex items-center justify-center bg-purple-50/70 dark:bg-purple-900/20"
+            "className": "w-10 h-10 rounded-lg flex items-center justify-center bg-teal-50/70 dark:bg-teal-900/20"
           },
           "children": [
             {
@@ -27,7 +27,7 @@
               "name": "Icon",
               "props": {
                 "name": "comments",
-                "className": "w-5 h-5 text-purple-600 dark:text-purple-400"
+                "className": "w-5 h-5 text-teal-600 dark:text-teal-400"
               }
             }
           ]
@@ -40,7 +40,7 @@
               "type": "basic",
               "name": "Span",
               "props": {
-                "className": "text-xl font-semibold text-gray-800 dark:text-gray-100"
+                "className": "text-xl font-semibold text-slate-800 dark:text-slate-100"
               },
               "text": "{{stats?.data?.comments ?? 0 | number}}"
             },
@@ -48,7 +48,7 @@
               "type": "basic",
               "name": "P",
               "props": {
-                "className": "text-sm text-gray-500 dark:text-gray-500"
+                "className": "text-sm text-slate-500 dark:text-slate-500"
               },
               "text": "$t:home.stats.comments"
             }

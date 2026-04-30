@@ -51,9 +51,9 @@ export const PageTransitionIndicator: React.FC<PageTransitionIndicatorProps> = (
       role="progressbar"
       aria-label="페이지 로딩 중"
     >
-      <Div className="h-1 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-500 animate-pulse">
+      <Div className="h-1 bg-gradient-to-r from-teal-500 via-teal-600 to-teal-500 animate-pulse">
         <Div
-          className="h-full w-[30%] bg-blue-700 animate-[loading_1.5s_ease-in-out_infinite]"
+          className="h-full w-[30%] bg-teal-700 animate-[loading_1.5s_ease-in-out_infinite]"
         />
       </Div>
 

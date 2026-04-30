@@ -15,7 +15,7 @@ export interface SectionLayoutProps {
   padding?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
 
   
-  background?: 'none' | 'white' | 'gray' | 'primary' | 'secondary';
+  background?: 'none' | 'white' | 'slate' | 'primary' | 'secondary';
 
   
   maxWidth?: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '4xl' | '6xl' | '7xl' | 'full';
@@ -77,10 +77,10 @@ export const SectionLayout: React.FC<SectionLayoutProps> = ({
   
   const backgroundMap: Record<string, string> = {
     none: '',
-    white: 'bg-white dark:bg-gray-700',
-    gray: 'bg-gray-50 dark:bg-gray-800',
-    primary: 'bg-blue-50 dark:bg-blue-900/20',
-    secondary: 'bg-gray-50 dark:bg-gray-800',
+    white: 'bg-white dark:bg-slate-700',
+    slate: 'bg-slate-50 dark:bg-slate-800',
+    primary: 'bg-teal-50 dark:bg-teal-900/20',
+    secondary: 'bg-slate-50 dark:bg-slate-800',
   };
   if (background !== 'none') {
     classes.push(backgroundMap[background]);
@@ -109,7 +109,7 @@ export const SectionLayout: React.FC<SectionLayoutProps> = ({
 
   
   if (border) {
-    classes.push('border', 'border-gray-200', 'dark:border-gray-700');
+    classes.push('border', 'border-slate-200', 'dark:border-slate-700');
   }
 
   
@@ -139,8 +139,8 @@ export const SectionLayout: React.FC<SectionLayoutProps> = ({
       
       {(title || subtitle) && (
         <Div className="mb-4">
-          {title && <H2 className="text-2xl font-bold text-gray-900 dark:text-white">{title}</H2>}
-          {subtitle && <P className="mt-1 text-sm text-gray-600 dark:text-gray-400">{subtitle}</P>}
+          {title && <H2 className="text-2xl font-bold text-slate-900 dark:text-white">{title}</H2>}
+          {subtitle && <P className="mt-1 text-sm text-slate-600 dark:text-slate-400">{subtitle}</P>}
         </Div>
       )}
 

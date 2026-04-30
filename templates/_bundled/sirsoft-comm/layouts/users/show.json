@@ -66,7 +66,7 @@
         "type": "basic",
         "name": "Div",
         "props": {
-          "className": "min-h-screen bg-gray-50 dark:bg-gray-900"
+          "className": "min-h-screen bg-slate-50 dark:bg-slate-900"
         },
         "children": [
           {
@@ -95,7 +95,7 @@
                     "type": "basic",
                     "name": "Div",
                     "props": {
-                      "className": "animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 dark:border-white"
+                      "className": "animate-spin rounded-full h-8 w-8 border-b-2 border-slate-900 dark:border-white"
                     }
                   }
                 ]
@@ -121,14 +121,14 @@
                         "props": {
                           "name": "user",
                           "size": "xl",
-                          "className": "text-gray-900 dark:text-white"
+                          "className": "text-slate-900 dark:text-white"
                         }
                       },
                       {
                         "type": "basic",
                         "name": "H1",
                         "props": {
-                          "className": "text-2xl font-bold text-gray-900 dark:text-white"
+                          "className": "text-2xl font-bold text-slate-900 dark:text-white"
                         },
                         "text": "$t:user.profile.page_title"
                       }
@@ -138,12 +138,12 @@
                     "type": "basic",
                     "name": "Div",
                     "props": {
-                      "className": "bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6"
+                      "className": "bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 p-6"
                     },
                     "responsive": {
                       "portable": {
                         "props": {
-                          "className": "bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-4"
+                          "className": "bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 p-4"
                         }
                       }
                     },
@@ -196,12 +196,12 @@
                                 "type": "basic",
                                 "name": "H2",
                                 "props": {
-                                  "className": "text-2xl font-bold text-gray-900 dark:text-white"
+                                  "className": "text-2xl font-bold text-slate-900 dark:text-white"
                                 },
                                 "responsive": {
                                   "portable": {
                                     "props": {
-                                      "className": "text-xl font-bold text-gray-900 dark:text-white"
+                                      "className": "text-xl font-bold text-slate-900 dark:text-white"
                                     }
                                   }
                                 },
@@ -211,12 +211,12 @@
                                 "type": "basic",
                                 "name": "Div",
                                 "props": {
-                                  "className": "flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400"
+                                  "className": "flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400"
                                 },
                                 "responsive": {
                                   "portable": {
                                     "props": {
-                                      "className": "flex items-center justify-center gap-2 text-sm text-gray-500 dark:text-gray-400"
+                                      "className": "flex items-center justify-center gap-2 text-sm text-slate-500 dark:text-slate-400"
                                     }
                                   }
                                 },
@@ -238,7 +238,7 @@
                                     "type": "basic",
                                     "name": "Span",
                                     "props": {
-                                      "className": "font-medium text-gray-700 dark:text-gray-300"
+                                      "className": "font-medium text-slate-700 dark:text-slate-300"
                                     },
                                     "text": "{{profile.data?.created_at ?? '-'}}"
                                   }
@@ -249,7 +249,7 @@
                                 "type": "basic",
                                 "name": "P",
                                 "props": {
-                                  "className": "text-gray-600 dark:text-gray-300 whitespace-pre-wrap mt-4"
+                                  "className": "text-slate-600 dark:text-slate-300 whitespace-pre-wrap mt-4"
                                 },
                                 "text": "{{profile.data?.bio}}"
                               }
@@ -274,12 +274,12 @@
                                 "type": "basic",
                                 "name": "H2",
                                 "props": {
-                                  "className": "text-2xl font-bold text-gray-400 dark:text-gray-500 line-through"
+                                  "className": "text-2xl font-bold text-slate-400 dark:text-slate-500 line-through"
                                 },
                                 "responsive": {
                                   "portable": {
                                     "props": {
-                                      "className": "text-xl font-bold text-gray-400 dark:text-gray-500 line-through"
+                                      "className": "text-xl font-bold text-slate-400 dark:text-slate-500 line-through"
                                     }
                                   }
                                 },
@@ -309,14 +309,14 @@
                         "type": "basic",
                         "name": "Div",
                         "props": {
-                          "className": "bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-4 text-center"
+                          "className": "bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 p-4 text-center"
                         },
                         "children": [
                           {
                             "type": "basic",
                             "name": "Div",
                             "props": {
-                              "className": "text-3xl font-bold text-blue-600 dark:text-blue-400"
+                              "className": "text-3xl font-bold text-teal-600 dark:text-teal-400"
                             },
                             "text": "{{postStats.data.posts_count ?? 0 | number}}"
                           },
@@ -324,7 +324,7 @@
                             "type": "basic",
                             "name": "Div",
                             "props": {
-                              "className": "text-sm text-gray-500 dark:text-gray-400 mt-1"
+                              "className": "text-sm text-slate-500 dark:text-slate-400 mt-1"
                             },
                             "text": "$t:user.profile.posts_count"
                           }
@@ -334,7 +334,7 @@
                         "type": "basic",
                         "name": "Div",
                         "props": {
-                          "className": "bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-4 text-center"
+                          "className": "bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 p-4 text-center"
                         },
                         "children": [
                           {
@@ -349,7 +349,7 @@
                             "type": "basic",
                             "name": "Div",
                             "props": {
-                              "className": "text-sm text-gray-500 dark:text-gray-400 mt-1"
+                              "className": "text-sm text-slate-500 dark:text-slate-400 mt-1"
                             },
                             "text": "$t:user.profile.comments_count"
                           }
@@ -362,21 +362,21 @@
                     "type": "basic",
                     "name": "Div",
                     "props": {
-                      "className": "bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700"
+                      "className": "bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700"
                     },
                     "children": [
                       {
                         "type": "basic",
                         "name": "Div",
                         "props": {
-                          "className": "px-6 py-4 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between"
+                          "className": "px-6 py-4 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between"
                         },
                         "children": [
                           {
                             "type": "basic",
                             "name": "H3",
                             "props": {
-                              "className": "text-lg font-semibold text-gray-900 dark:text-white"
+                              "className": "text-lg font-semibold text-slate-900 dark:text-white"
                             },
                             "text": "$t:user.profile.recent_posts"
                           },
@@ -384,7 +384,7 @@
                             "type": "basic",
                             "name": "Button",
                             "props": {
-                              "className": "text-sm text-blue-600 dark:text-blue-400 hover:underline cursor-pointer"
+                              "className": "text-sm text-teal-600 dark:text-teal-400 hover:underline cursor-pointer"
                             },
                             "actions": [
                               {
@@ -409,7 +409,7 @@
                         "type": "basic",
                         "name": "Div",
                         "props": {
-                          "className": "divide-y divide-gray-200 dark:divide-gray-700"
+                          "className": "divide-y divide-slate-200 dark:divide-slate-700"
                         },
                         "children": [
                           {
@@ -420,7 +420,7 @@
                               "item_var": "post"
                             },
                             "props": {
-                              "className": "block w-full text-left px-6 py-3 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors cursor-pointer"
+                              "className": "block w-full text-left px-6 py-3 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors cursor-pointer"
                             },
                             "actions": [
                               {
@@ -450,7 +450,7 @@
                                         "type": "basic",
                                         "name": "Span",
                                         "props": {
-                                          "className": "flex-shrink-0 text-xs px-1.5 py-0.5 bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 rounded whitespace-nowrap"
+                                          "className": "flex-shrink-0 text-xs px-1.5 py-0.5 bg-teal-100 dark:bg-teal-900/50 text-teal-700 dark:text-teal-300 rounded whitespace-nowrap"
                                         },
                                         "text": "{{post.board_name}}"
                                       },
@@ -459,7 +459,7 @@
                                         "name": "Span",
                                         "if": "{{post.category}}",
                                         "props": {
-                                          "className": "flex-shrink-0 text-xs px-1.5 py-0.5 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 rounded whitespace-nowrap"
+                                          "className": "flex-shrink-0 text-xs px-1.5 py-0.5 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-400 rounded whitespace-nowrap"
                                         },
                                         "text": "{{post.category}}"
                                       },
@@ -470,7 +470,7 @@
                                         "props": {
                                           "name": "lock",
                                           "size": "xs",
-                                          "className": "flex-shrink-0 text-yellow-500 dark:text-yellow-400"
+                                          "className": "flex-shrink-0 text-orange-500 dark:text-orange-400"
                                         }
                                       },
                                       {
@@ -494,7 +494,7 @@
                                             "type": "basic",
                                             "name": "Span",
                                             "props": {
-                                              "className": "truncate text-sm font-medium text-gray-900 dark:text-white"
+                                              "className": "truncate text-sm font-medium text-slate-900 dark:text-white"
                                             },
                                             "text": "{{post.title}}"
                                           },
@@ -503,7 +503,7 @@
                                             "name": "Span",
                                             "if": "{{post.comments_count > 0}}",
                                             "props": {
-                                              "className": "flex-shrink-0 text-xs text-blue-600 dark:text-blue-400 font-medium"
+                                              "className": "flex-shrink-0 text-xs text-teal-600 dark:text-teal-400 font-medium"
                                             },
                                             "text": "[{{post.comments_count}}]"
                                           }
@@ -515,7 +515,7 @@
                                     "type": "basic",
                                     "name": "Span",
                                     "props": {
-                                      "className": "text-xs text-gray-500 dark:text-gray-400 flex-shrink-0 hidden md:inline",
+                                      "className": "text-xs text-slate-500 dark:text-slate-400 flex-shrink-0 hidden md:inline",
                                       "title": "{{post.created_at ?? ''}}"
                                     },
                                     "text": "{{post.created_at_formatted ?? ''}}"
@@ -533,21 +533,21 @@
                     "type": "basic",
                     "name": "Div",
                     "props": {
-                      "className": "bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700"
+                      "className": "bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700"
                     },
                     "children": [
                       {
                         "type": "basic",
                         "name": "Div",
                         "props": {
-                          "className": "px-6 py-4 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between"
+                          "className": "px-6 py-4 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between"
                         },
                         "children": [
                           {
                             "type": "basic",
                             "name": "H3",
                             "props": {
-                              "className": "text-lg font-semibold text-gray-900 dark:text-white"
+                              "className": "text-lg font-semibold text-slate-900 dark:text-white"
                             },
                             "text": "$t:user.profile.recent_posts"
                           },
@@ -555,7 +555,7 @@
                             "type": "basic",
                             "name": "Button",
                             "props": {
-                              "className": "text-sm text-blue-600 dark:text-blue-400 hover:underline cursor-pointer"
+                              "className": "text-sm text-teal-600 dark:text-teal-400 hover:underline cursor-pointer"
                             },
                             "actions": [
                               {
@@ -589,14 +589,14 @@
                             "props": {
                               "name": "file-circle-xmark",
                               "size": "3x",
-                              "className": "text-gray-300 dark:text-gray-600 mb-4"
+                              "className": "text-slate-300 dark:text-slate-600 mb-4"
                             }
                           },
                           {
                             "type": "basic",
                             "name": "P",
                             "props": {
-                              "className": "text-gray-500 dark:text-gray-400"
+                              "className": "text-slate-500 dark:text-slate-400"
                             },
                             "text": "$t:user.profile.no_posts"
                           }

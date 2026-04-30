@@ -69,9 +69,9 @@ export const ProductImageViewer: React.FC<ProductImageViewerProps> = ({
   if (!images || images.length === 0) {
     return (
       <Div
-        className={`flex items-center justify-center bg-gray-100 dark:bg-gray-700 rounded-lg aspect-square ${className}`}
+        className={`flex items-center justify-center bg-slate-100 dark:bg-slate-700 rounded-lg aspect-square ${className}`}
       >
-        <Div className="text-center text-gray-400 dark:text-gray-500">
+        <Div className="text-center text-slate-400 dark:text-slate-500">
           <Icon name="image" size="3x" className="mb-3 opacity-50" />
           <Div className="text-sm">{t('shop.no_image')}</Div>
         </Div>
@@ -83,7 +83,7 @@ export const ProductImageViewer: React.FC<ProductImageViewerProps> = ({
 
   return (
     <Div className={className}>
-      <Div className="relative overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-700 aspect-square mb-3">
+      <Div className="relative overflow-hidden rounded-lg bg-slate-100 dark:bg-slate-700 aspect-square mb-3">
         <Button
           type="button"
           className="w-full h-full cursor-zoom-in block"
@@ -106,8 +106,8 @@ export const ProductImageViewer: React.FC<ProductImageViewerProps> = ({
               type="button"
               className={`flex-shrink-0 w-16 h-16 rounded-md overflow-hidden border-2 transition-colors cursor-pointer ${
                 index === selectedIndex
-                  ? 'border-gray-900 dark:border-white'
-                  : 'border-gray-200 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-400'
+                  ? 'border-slate-900 dark:border-white'
+                  : 'border-slate-200 dark:border-slate-600 hover:border-slate-400 dark:hover:border-slate-400'
               }`}
               onClick={() => setSelectedIndex(index)}
               aria-label={img.alt_text_current ?? `${t('shop.image')} ${index + 1}`}

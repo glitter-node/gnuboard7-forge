@@ -95,7 +95,7 @@ const postToggleLayoutJson = {
       props: {
         type: 'button',
         'data-testid': 'include-deleted-toggle',
-        className: 'inline-flex items-center gap-1.5 px-3 py-2 border border-gray-300 rounded-lg text-sm',
+        className: 'inline-flex items-center gap-1.5 px-3 py-2 border border-slate-300 rounded-lg text-sm',
       },
       children: [
         {
@@ -150,7 +150,7 @@ const commentToggleLayoutJson = {
           props: {
             type: 'button',
             'data-testid': 'include-deleted-comments-toggle',
-            className: 'inline-flex items-center gap-1.5 px-3 py-2 border border-gray-300 rounded-lg text-sm',
+            className: 'inline-flex items-center gap-1.5 px-3 py-2 border border-slate-300 rounded-lg text-sm',
           },
           children: [
             {

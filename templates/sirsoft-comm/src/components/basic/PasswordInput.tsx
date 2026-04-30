@@ -286,7 +286,7 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
               type="button"
               onClick={handleToggle}
               disabled={disabled}
-              className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed dark:disabled:opacity-50"
+              className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 disabled:opacity-50 disabled:cursor-not-allowed dark:disabled:opacity-50"
               aria-label={showPassword ? t('auth.password_input.hide') : t('auth.password_input.show')}
             >
               <Icon
@@ -298,7 +298,7 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
         </div>
 
         {capsLockOn && !showPassword && (
-          <div className="mt-2 flex items-center gap-1.5 text-sm text-yellow-600 dark:text-yellow-400">
+          <div className="mt-2 flex items-center gap-1.5 text-sm text-orange-600 dark:text-orange-400">
             <Icon name="triangle-exclamation" className="w-4 h-4" />
             <span>{t('auth.password_input.caps_lock_on')}</span>
           </div>
@@ -332,7 +332,7 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
                   className={`flex items-center gap-1.5 text-sm ${
                     passed
                       ? 'text-green-600 dark:text-green-400'
-                      : 'text-gray-500 dark:text-gray-400'
+                      : 'text-slate-500 dark:text-slate-400'
                   }`}
                 >
                   <Icon

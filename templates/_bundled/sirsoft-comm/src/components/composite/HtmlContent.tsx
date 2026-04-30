@@ -40,7 +40,7 @@ export const HtmlContent: React.FC<HtmlContentProps> = ({
   if (!isHtml) {
     const textClasses = `
       whitespace-pre-wrap
-      text-gray-900 dark:text-gray-100
+      text-slate-900 dark:text-slate-100
       font-sans
       ${className}
     `.trim().replace(/\s+/g, ' ');
@@ -118,21 +118,21 @@ export const HtmlContent: React.FC<HtmlContentProps> = ({
     prose-p:my-2
     prose-headings:font-bold prose-headings:mt-6 prose-headings:mb-4
     prose-h1:text-2xl prose-h2:text-xl prose-h3:text-lg
-    prose-a:text-blue-600 dark:prose-a:text-blue-400
+    prose-a:text-teal-600 dark:prose-a:text-teal-400
     prose-a:no-underline hover:prose-a:underline
-    prose-blockquote:border-l-4 prose-blockquote:border-gray-300 dark:prose-blockquote:border-gray-600
+    prose-blockquote:border-l-4 prose-blockquote:border-slate-300 dark:prose-blockquote:border-slate-600
     prose-blockquote:pl-4 prose-blockquote:italic
-    prose-code:bg-gray-100 dark:prose-code:bg-gray-800
+    prose-code:bg-slate-100 dark:prose-code:bg-slate-800
     prose-code:px-1 prose-code:py-0.5 prose-code:rounded
-    prose-pre:bg-gray-100 dark:prose-pre:bg-gray-800
+    prose-pre:bg-slate-100 dark:prose-pre:bg-slate-800
     prose-pre:p-4 prose-pre:rounded-lg prose-pre:overflow-x-auto
-    [&_table]:w-full [&_table]:border-collapse [&_table]:border [&_table]:border-gray-300
-    dark:[&_table]:border-gray-600
-    [&_th]:border [&_th]:border-gray-300 [&_th]:px-4 [&_th]:py-2 [&_th]:bg-gray-100 [&_th]:text-left
-    dark:[&_th]:border-gray-600 dark:[&_th]:bg-gray-800
-    [&_td]:border [&_td]:border-gray-300 [&_td]:px-4 [&_td]:py-2
-    dark:[&_td]:border-gray-600
-    [&_tr:hover]:bg-gray-50 dark:[&_tr:hover]:bg-gray-700/50
+    [&_table]:w-full [&_table]:border-collapse [&_table]:border [&_table]:border-slate-300
+    dark:[&_table]:border-slate-600
+    [&_th]:border [&_th]:border-slate-300 [&_th]:px-4 [&_th]:py-2 [&_th]:bg-slate-100 [&_th]:text-left
+    dark:[&_th]:border-slate-600 dark:[&_th]:bg-slate-800
+    [&_td]:border [&_td]:border-slate-300 [&_td]:px-4 [&_td]:py-2
+    dark:[&_td]:border-slate-600
+    [&_tr:hover]:bg-slate-50 dark:[&_tr:hover]:bg-slate-700/50
     after:content-[''] after:block after:clear-both
     ${className}
   `.trim().replace(/\s+/g, ' ');

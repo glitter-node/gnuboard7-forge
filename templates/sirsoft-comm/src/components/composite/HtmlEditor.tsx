@@ -138,7 +138,7 @@ export const HtmlEditor: React.FC<HtmlEditorProps> = ({
       <Div className="flex items-center justify-between">
 
         {label && (
-          <Label className="block text-sm font-medium text-gray-500 dark:text-gray-400">
+          <Label className="block text-sm font-medium text-slate-500 dark:text-slate-400">
             {label}
           </Label>
         )}
@@ -150,8 +150,8 @@ export const HtmlEditor: React.FC<HtmlEditorProps> = ({
               onClick={handlePreviewModeToggle}
               className={`px-3 py-1.5 text-xs font-bold rounded-lg focus:outline-none focus:ring-2 ${
                 previewMode
-                  ? 'text-gray-700 dark:text-gray-200 bg-gray-200 dark:bg-gray-600 border border-gray-300 dark:border-gray-500 hover:bg-gray-300 dark:hover:bg-gray-500 focus:ring-gray-400 dark:focus:ring-gray-500'
-                  : 'text-blue-600 dark:text-blue-400 bg-white dark:bg-gray-700 border border-blue-300 dark:border-blue-600 hover:bg-blue-50 dark:hover:bg-gray-600 focus:ring-blue-500 dark:focus:ring-blue-600'
+                  ? 'text-slate-700 dark:text-slate-200 bg-slate-200 dark:bg-slate-600 border border-slate-300 dark:border-slate-500 hover:bg-slate-300 dark:hover:bg-slate-500 focus:ring-slate-400 dark:focus:ring-slate-500'
+                  : 'text-teal-600 dark:text-teal-400 bg-white dark:bg-slate-700 border border-teal-300 dark:border-teal-600 hover:bg-teal-50 dark:hover:bg-slate-600 focus:ring-teal-500 dark:focus:ring-teal-600'
               }`}
             >
               {previewMode ? t('common.preview_off') : t('common.preview')}
@@ -166,9 +166,9 @@ export const HtmlEditor: React.FC<HtmlEditorProps> = ({
                 checked={isHtml}
                 onChange={handleHtmlModeChange}
                 disabled={readOnly}
-                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                className="w-4 h-4 text-teal-600 bg-slate-100 border-slate-300 rounded focus:ring-teal-500 dark:focus:ring-teal-600 dark:ring-offset-slate-800 focus:ring-2 dark:bg-slate-700 dark:border-slate-600"
               />
-              <Div className="text-sm font-medium text-gray-700 dark:text-gray-300">
+              <Div className="text-sm font-medium text-slate-700 dark:text-slate-300">
                 {t('common.html_mode')}
               </Div>
             </Label>
@@ -184,20 +184,20 @@ export const HtmlEditor: React.FC<HtmlEditorProps> = ({
           placeholder={placeholder}
           rows={rows}
           readOnly={readOnly}
-          className={`block w-full rounded-lg border px-3 py-2 text-sm placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-1 disabled:opacity-50 disabled:cursor-not-allowed ${
+          className={`block w-full rounded-lg border px-3 py-2 text-sm placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-1 disabled:opacity-50 disabled:cursor-not-allowed ${
             isHtml
-              ? 'font-mono bg-white dark:bg-gray-800 border-blue-300 dark:border-blue-600 text-gray-800 dark:text-gray-200 focus:border-blue-500 focus:ring-blue-500'
-              : 'bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white focus:border-blue-500 focus:ring-blue-500'
+              ? 'font-mono bg-white dark:bg-slate-800 border-teal-300 dark:border-teal-600 text-slate-800 dark:text-slate-200 focus:border-teal-500 focus:ring-teal-500'
+              : 'bg-white dark:bg-slate-800 border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white focus:border-teal-500 focus:ring-teal-500'
           }`}
         />
       )}
 
       {previewMode && (
-        <Div className="p-4 bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 min-h-[400px]">
+        <Div className="p-4 bg-slate-50 dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800 min-h-[400px]">
           <HtmlContent
             content={localContent}
             isHtml={true}
-            className={contentClassName || 'prose dark:prose-invert max-w-none text-gray-900 dark:text-gray-100'}
+            className={contentClassName || 'prose dark:prose-invert max-w-none text-slate-900 dark:text-slate-100'}
             purifyConfig={purifyConfig}
           />
         </Div>

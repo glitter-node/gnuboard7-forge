@@ -26,7 +26,7 @@
           "type": "basic",
           "name": "H2",
           "props": {
-            "className": "text-xl font-bold text-gray-900 dark:text-white"
+            "className": "text-xl font-bold text-slate-900 dark:text-white"
           },
           "text": "$t:mypage.board_activities.title"
         },
@@ -34,7 +34,7 @@
           "type": "basic",
           "name": "P",
           "props": {
-            "className": "mt-1 text-sm text-gray-500 dark:text-gray-400"
+            "className": "mt-1 text-sm text-slate-500 dark:text-slate-400"
           },
           "text": "$t:mypage.board_activities.description"
         }
@@ -64,7 +64,7 @@
           "type": "basic",
           "name": "Div",
           "props": {
-            "className": "bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4 text-center"
+            "className": "bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-4 text-center"
           },
           "children": [
             {
@@ -73,14 +73,14 @@
               "props": {
                 "name": "file-text",
                 "size": "lg",
-                "className": "mx-auto text-gray-400 dark:text-gray-500 mb-2"
+                "className": "mx-auto text-slate-400 dark:text-slate-500 mb-2"
               }
             },
             {
               "type": "basic",
               "name": "Div",
               "props": {
-                "className": "text-2xl font-bold text-gray-900 dark:text-white"
+                "className": "text-2xl font-bold text-slate-900 dark:text-white"
               },
               "text": "{{(myActivityStats?.data?.total_posts ?? 0) | number}}"
             },
@@ -88,7 +88,7 @@
               "type": "basic",
               "name": "Div",
               "props": {
-                "className": "text-sm text-gray-500 dark:text-gray-400"
+                "className": "text-sm text-slate-500 dark:text-slate-400"
               },
               "text": "$t:mypage.board_activities.stats.total_posts"
             }
@@ -98,7 +98,7 @@
           "type": "basic",
           "name": "Div",
           "props": {
-            "className": "bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4 text-center"
+            "className": "bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-4 text-center"
           },
           "children": [
             {
@@ -107,14 +107,14 @@
               "props": {
                 "name": "comment",
                 "size": "lg",
-                "className": "mx-auto text-gray-400 dark:text-gray-500 mb-2"
+                "className": "mx-auto text-slate-400 dark:text-slate-500 mb-2"
               }
             },
             {
               "type": "basic",
               "name": "Div",
               "props": {
-                "className": "text-2xl font-bold text-gray-900 dark:text-white"
+                "className": "text-2xl font-bold text-slate-900 dark:text-white"
               },
               "text": "{{(myActivityStats?.data?.total_comments ?? 0) | number}}"
             },
@@ -122,7 +122,7 @@
               "type": "basic",
               "name": "Div",
               "props": {
-                "className": "text-sm text-gray-500 dark:text-gray-400"
+                "className": "text-sm text-slate-500 dark:text-slate-400"
               },
               "text": "$t:mypage.board_activities.stats.total_comments"
             }
@@ -132,7 +132,7 @@
           "type": "basic",
           "name": "Div",
           "props": {
-            "className": "bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4 text-center"
+            "className": "bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-4 text-center"
           },
           "children": [
             {
@@ -141,14 +141,14 @@
               "props": {
                 "name": "eye",
                 "size": "lg",
-                "className": "mx-auto text-gray-400 dark:text-gray-500 mb-2"
+                "className": "mx-auto text-slate-400 dark:text-slate-500 mb-2"
               }
             },
             {
               "type": "basic",
               "name": "Div",
               "props": {
-                "className": "text-2xl font-bold text-gray-900 dark:text-white"
+                "className": "text-2xl font-bold text-slate-900 dark:text-white"
               },
               "text": "{{(myActivityStats?.data?.total_views ?? 0) | number}}"
             },
@@ -156,7 +156,7 @@
               "type": "basic",
               "name": "Div",
               "props": {
-                "className": "text-sm text-gray-500 dark:text-gray-400"
+                "className": "text-sm text-slate-500 dark:text-slate-400"
               },
               "text": "$t:mypage.board_activities.stats.total_views"
             }
@@ -168,14 +168,14 @@
       "type": "basic",
       "name": "Div",
       "props": {
-        "className": "flex gap-2 mb-4 border-b border-gray-200 dark:border-gray-700"
+        "className": "flex gap-2 mb-4 border-b border-slate-200 dark:border-slate-700"
       },
       "children": [
         {
           "type": "basic",
           "name": "Button",
           "props": {
-            "className": "px-4 py-2 text-sm font-medium border-b-2 transition-colors flex items-center gap-2 {{(_global.boardActivitySubTab ?? 'my-posts') === 'my-posts' ? 'border-gray-900 dark:border-white text-gray-900 dark:text-white' : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'}}"
+            "className": "px-4 py-2 text-sm font-medium border-b-2 transition-colors flex items-center gap-2 {{(_global.boardActivitySubTab ?? 'my-posts') === 'my-posts' ? 'border-slate-900 dark:border-white text-slate-900 dark:text-white' : 'border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300'}}"
           },
           "children": [
             {
@@ -195,7 +195,7 @@
               "type": "basic",
               "name": "Span",
               "props": {
-                "className": "ml-1 text-xs bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 px-1.5 py-0.5 rounded-full"
+                "className": "ml-1 text-xs bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 px-1.5 py-0.5 rounded-full"
               },
               "text": "{{(myActivityStats?.data?.total_posts ?? 0) | number}}"
             }
@@ -227,7 +227,7 @@
           "type": "basic",
           "name": "Button",
           "props": {
-            "className": "px-4 py-2 text-sm font-medium border-b-2 transition-colors flex items-center gap-2 {{(_global.boardActivitySubTab ?? 'my-posts') === 'my-comments' ? 'border-gray-900 dark:border-white text-gray-900 dark:text-white' : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'}}"
+            "className": "px-4 py-2 text-sm font-medium border-b-2 transition-colors flex items-center gap-2 {{(_global.boardActivitySubTab ?? 'my-posts') === 'my-comments' ? 'border-slate-900 dark:border-white text-slate-900 dark:text-white' : 'border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300'}}"
           },
           "children": [
             {
@@ -247,7 +247,7 @@
               "type": "basic",
               "name": "Span",
               "props": {
-                "className": "ml-1 text-xs bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 px-1.5 py-0.5 rounded-full"
+                "className": "ml-1 text-xs bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 px-1.5 py-0.5 rounded-full"
               },
               "text": "{{(myActivityStats?.data?.total_comments ?? 0) | number}}"
             }

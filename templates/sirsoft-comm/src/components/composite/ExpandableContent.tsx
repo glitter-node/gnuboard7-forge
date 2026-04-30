@@ -102,7 +102,7 @@ export const ExpandableContent: React.FC<ExpandableContentProps> = ({
         </Div>
 
         {!isExpanded && needsExpand && (
-          <Div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white dark:from-gray-900 to-transparent pointer-events-none" />
+          <Div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white dark:from-slate-900 to-transparent pointer-events-none" />
         )}
       </Div>
 
@@ -110,9 +110,9 @@ export const ExpandableContent: React.FC<ExpandableContentProps> = ({
         <Button
           type="button"
           onClick={toggleExpand}
-          className="flex items-center justify-center w-full py-3.5 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer gap-1.5"
+          className="flex items-center justify-center w-full py-3.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors cursor-pointer gap-1.5"
         >
-          <Span className="text-sm font-semibold text-gray-600 dark:text-gray-400">
+          <Span className="text-sm font-semibold text-slate-600 dark:text-slate-400">
             {isExpanded ? resolvedCollapseText : resolvedExpandText}
           </Span>
           <Icon

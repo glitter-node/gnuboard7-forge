@@ -162,7 +162,7 @@ const loginFormFixture = {
             {
               type: 'basic',
               name: 'Label',
-              props: { className: 'block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3' },
+              props: { className: 'block text-sm font-medium text-slate-700 dark:text-slate-300 mb-3' },
               text: '이메일',
             },
             {
@@ -189,7 +189,7 @@ const loginFormFixture = {
             {
               type: 'basic',
               name: 'Label',
-              props: { className: 'block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3' },
+              props: { className: 'block text-sm font-medium text-slate-700 dark:text-slate-300 mb-3' },
               text: '비밀번호',
             },
             {
@@ -213,7 +213,7 @@ const loginFormFixture = {
           name: 'Button',
           props: {
             type: 'submit',
-            className: 'w-full py-3 mt-12 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-lg font-medium hover:bg-gray-800 dark:hover:bg-gray-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2',
+            className: 'w-full py-3 mt-12 bg-teal-600 dark:bg-teal-500 text-white rounded-lg font-medium hover:bg-teal-700 dark:hover:bg-teal-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2',
             disabled: '{{_global.isLoggingIn}}',
             'data-testid': 'login-submit-btn',
           },

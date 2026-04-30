@@ -74,10 +74,10 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
 
   
   const confirmVariantClassMap: Record<'primary' | 'secondary' | 'danger' | 'ghost', string> = {
-    primary: 'bg-blue-600 text-white hover:bg-blue-700',
-    secondary: 'bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600',
+    primary: 'bg-teal-600 text-white hover:bg-teal-700',
+    secondary: 'bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 hover:bg-slate-300 dark:hover:bg-slate-600',
     danger: 'bg-red-600 text-white hover:bg-red-700',
-    ghost: 'bg-transparent text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700',
+    ghost: 'bg-transparent text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700',
   };
 
   return (
@@ -90,7 +90,7 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
       
       <Div className="py-2">
         {typeof message === 'string' ? (
-          <P className="text-gray-700 dark:text-gray-300">{message}</P>
+          <P className="text-slate-700 dark:text-slate-300">{message}</P>
         ) : (
           message
         )}
@@ -102,7 +102,7 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
         <Button
           onClick={handleCancel}
           disabled={isLoading}
-          className="px-4 py-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="px-4 py-2 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-600 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <Span>{resolvedCancelText}</Span>
         </Button>

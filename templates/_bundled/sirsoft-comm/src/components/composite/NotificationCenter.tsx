@@ -228,7 +228,7 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
     <Div ref={notificationRef} className={`relative ${className}`}>
       <Button
         onClick={handleToggle}
-        className="relative p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors cursor-pointer"
+        className="relative p-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors cursor-pointer"
         aria-label={titleText}
       >
         <Icon name={IconName.Bell} className="w-5 h-5" />
@@ -240,10 +240,10 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
       </Button>
 
       {showNotifications && (
-        <Div ref={dropdownRef} className={`absolute ${dropdownAlign === 'left' ? 'left-0' : 'right-0'} mt-2 w-80 max-w-[calc(100vw-1rem)] bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-50`}>
-          <Div className="px-4 py-3 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between gap-2">
+        <Div ref={dropdownRef} className={`absolute ${dropdownAlign === 'left' ? 'left-0' : 'right-0'} mt-2 w-80 max-w-[calc(100vw-1rem)] bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-lg z-50`}>
+          <Div className="px-4 py-3 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between gap-2">
             <Div className="flex items-center gap-3 min-w-0">
-              <Span className="font-semibold text-gray-900 dark:text-white">{titleText}</Span>
+              <Span className="font-semibold text-slate-900 dark:text-white">{titleText}</Span>
               {onUnreadOnlyToggle && (
                 <Div
                   className="flex items-center gap-1.5 cursor-pointer select-none"
@@ -257,9 +257,9 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
                       onUnreadOnlyToggle(e.target.checked);
                     }}
                     onClick={(e: React.MouseEvent) => e.stopPropagation()}
-                    className="w-3.5 h-3.5 rounded border-gray-300 dark:border-gray-600 text-blue-600 focus:ring-blue-500 cursor-pointer"
+                    className="w-3.5 h-3.5 rounded border-slate-300 dark:border-slate-600 text-teal-600 focus:ring-teal-500 cursor-pointer"
                   />
-                  <Span className="text-xs text-gray-600 dark:text-gray-400">{unreadOnlyText}</Span>
+                  <Span className="text-xs text-slate-600 dark:text-slate-400">{unreadOnlyText}</Span>
                 </Div>
               )}
             </Div>
@@ -270,7 +270,7 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
                     onMarkAllRead();
                     visibleUnreadIdsRef.current.clear();
                   }}
-                  className="text-xs text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 hover:underline cursor-pointer"
+                  className="text-xs text-teal-600 dark:text-teal-400 hover:text-teal-800 dark:hover:text-teal-300 hover:underline cursor-pointer"
                 >
                   {markAllReadText}
                 </Button>
@@ -291,7 +291,7 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
           </Div>
           <Div ref={scrollRef} className="max-h-96 overflow-y-auto">
             {notifications.length === 0 && !loading ? (
-              <Div className="px-4 py-8 text-center text-gray-500 dark:text-gray-400">
+              <Div className="px-4 py-8 text-center text-slate-500 dark:text-slate-400">
                 <Span>{emptyText}</Span>
               </Div>
             ) : (
@@ -308,17 +308,17 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
                         onNotificationClick?.(notification);
                         setShowNotifications(false);
                       }}
-                      className={`group flex items-start gap-3 px-4 py-3 text-left border-b border-gray-100 dark:border-gray-700 transition-colors cursor-pointer ${
+                      className={`group flex items-start gap-3 px-4 py-3 text-left border-b border-slate-100 dark:border-slate-700 transition-colors cursor-pointer ${
                         isUnread
-                          ? 'bg-blue-50/70 dark:bg-blue-900/20 hover:bg-blue-50 dark:hover:bg-blue-900/30'
-                          : 'bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700/50 opacity-70'
+                          ? 'bg-teal-50/70 dark:bg-teal-900/20 hover:bg-teal-50 dark:hover:bg-teal-900/30'
+                          : 'bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700/50 opacity-70'
                       }`}
                     >
                       {notification.iconName && (
                         <Icon
                           name={notification.iconName}
                           className={`w-5 h-5 mt-0.5 flex-shrink-0 ${
-                            isUnread ? 'text-blue-600 dark:text-blue-400' : 'text-gray-400 dark:text-gray-500'
+                            isUnread ? 'text-teal-600 dark:text-teal-400' : 'text-slate-400 dark:text-slate-500'
                           }`}
                         />
                       )}
@@ -326,26 +326,26 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
                         <Div
                           className={`text-sm truncate ${
                             isUnread
-                              ? 'font-semibold text-gray-900 dark:text-white'
-                              : 'font-normal text-gray-600 dark:text-gray-400'
+                              ? 'font-semibold text-slate-900 dark:text-white'
+                              : 'font-normal text-slate-600 dark:text-slate-400'
                           }`}
                         >
                           {notification.title}
                         </Div>
                         <Div
                           className={`text-sm mt-1 line-clamp-2 ${
-                            isUnread ? 'text-gray-700 dark:text-gray-300' : 'text-gray-500 dark:text-gray-500'
+                            isUnread ? 'text-slate-700 dark:text-slate-300' : 'text-slate-500 dark:text-slate-500'
                           }`}
                         >
                           {notification.message}
                         </Div>
-                        <Div className="text-gray-400 dark:text-gray-500 text-xs mt-1 font-mono">
+                        <Div className="text-slate-400 dark:text-slate-500 text-xs mt-1 font-mono">
                           {notification.time}
                         </Div>
                       </Div>
                       <Div className="flex flex-col items-center gap-2 flex-shrink-0">
                         {isUnread && (
-                          <Span className="w-2 h-2 bg-blue-500 rounded-full mt-1.5" />
+                          <Span className="w-2 h-2 bg-teal-500 rounded-full mt-1.5" />
                         )}
                         {onDelete && (
                           <Button
@@ -353,7 +353,7 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
                               e.stopPropagation();
                               onDelete(notification);
                             }}
-                            className="p-1 text-gray-400 dark:text-gray-500 hover:text-red-600 dark:hover:text-red-400 rounded hover:bg-red-50 dark:hover:bg-red-900/20 cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity"
+                            className="p-1 text-slate-400 dark:text-slate-500 hover:text-red-600 dark:hover:text-red-400 rounded hover:bg-red-50 dark:hover:bg-red-900/20 cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity"
                             aria-label="Delete notification"
                           >
                             <Icon name={IconName.Trash} className="w-4 h-4" />
@@ -367,15 +367,15 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
                 {hasMore && (
                   <Div ref={sentinelRef} className="px-4 py-3 text-center">
                     {loading ? (
-                      <Span className="text-sm text-gray-400 dark:text-gray-500">...</Span>
+                      <Span className="text-sm text-slate-400 dark:text-slate-500">...</Span>
                     ) : (
-                      <Span className="text-sm text-gray-400 dark:text-gray-500" />
+                      <Span className="text-sm text-slate-400 dark:text-slate-500" />
                     )}
                   </Div>
                 )}
                 {loading && !hasMore && notifications.length > 0 && (
                   <Div className="px-4 py-2 text-center">
-                    <Span className="text-sm text-gray-400 dark:text-gray-500">...</Span>
+                    <Span className="text-sm text-slate-400 dark:text-slate-500">...</Span>
                   </Div>
                 )}
               </>

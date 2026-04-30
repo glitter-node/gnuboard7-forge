@@ -5,7 +5,7 @@
   "type": "basic",
   "name": "Div",
   "props": {
-    "className": "bg-white dark:bg-gray-800 rounded-lg shadow p-6"
+    "className": "bg-white dark:bg-slate-800 rounded-lg shadow p-6"
   },
   "children": [
     {
@@ -26,7 +26,7 @@
               "type": "basic",
               "name": "Button",
               "props": {
-                "className": "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 cursor-pointer"
+                "className": "text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 cursor-pointer"
               },
               "actions": [
                 {
@@ -73,7 +73,7 @@
                       "type": "basic",
                       "name": "Span",
                       "props": {
-                        "className": "text-sm text-gray-500 dark:text-gray-400"
+                        "className": "text-sm text-slate-500 dark:text-slate-400"
                       },
                       "text": "{{form_meta?.data?.board?.name}}"
                     }
@@ -95,7 +95,7 @@
               "type": "basic",
               "name": "Div",
               "props": {
-                "className": "flex items-center gap-1.5 bg-gray-100 dark:bg-gray-800 rounded-full px-3 py-1"
+                "className": "flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800 rounded-full px-3 py-1"
               },
               "children": [
                 {
@@ -104,14 +104,14 @@
                   "props": {
                     "name": "user",
                     "size": "xs",
-                    "className": "text-gray-500 dark:text-gray-400"
+                    "className": "text-slate-500 dark:text-slate-400"
                   }
                 },
                 {
                   "type": "basic",
                   "name": "Span",
                   "props": {
-                    "className": "text-gray-700 dark:text-gray-300 font-medium"
+                    "className": "text-slate-700 dark:text-slate-300 font-medium"
                   },
                   "text": "{{form_meta?.data?.author?.name}}"
                 },
@@ -120,7 +120,7 @@
                   "name": "Span",
                   "if": "{{form_meta?.data?.is_guest_post}}",
                   "props": {
-                    "className": "ml-1 text-xs text-gray-500 dark:text-gray-400"
+                    "className": "ml-1 text-xs text-slate-500 dark:text-slate-400"
                   },
                   "text": "$t:userinfo.guest_badge_parenthesized"
                 }
@@ -130,7 +130,7 @@
               "type": "basic",
               "name": "Div",
               "props": {
-                "className": "flex items-center gap-1.5 bg-gray-100 dark:bg-gray-800 rounded-full px-3 py-1"
+                "className": "flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800 rounded-full px-3 py-1"
               },
               "children": [
                 {
@@ -139,14 +139,14 @@
                   "props": {
                     "name": "clock",
                     "size": "xs",
-                    "className": "text-gray-500 dark:text-gray-400"
+                    "className": "text-slate-500 dark:text-slate-400"
                   }
                 },
                 {
                   "type": "basic",
                   "name": "Span",
                   "props": {
-                    "className": "text-gray-600 dark:text-gray-400"
+                    "className": "text-slate-600 dark:text-slate-400"
                   },
                   "text": "{{form_meta?.data?.created_at}}"
                 }

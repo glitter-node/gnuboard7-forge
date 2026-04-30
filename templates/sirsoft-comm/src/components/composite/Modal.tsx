@@ -35,7 +35,7 @@ export const Modal: React.FC<ModalProps> = ({
   onClose,
   title,
   icon,
-  iconClassName = 'text-gray-500 dark:text-gray-400',
+  iconClassName = 'text-slate-500 dark:text-slate-400',
   closeOnBackdropClick = true,
   closeOnOverlayClick,
   showCloseButton = true,
@@ -142,7 +142,7 @@ export const Modal: React.FC<ModalProps> = ({
       
       <Div
         ref={modalRef}
-        className={`relative bg-white dark:bg-gray-800 rounded-lg shadow-xl max-h-[90vh] overflow-hidden ${className}`}
+        className={`relative bg-white dark:bg-slate-800 rounded-lg shadow-xl max-h-[90vh] overflow-hidden ${className}`}
         style={{ width, ...(style ? { ...style, zIndex: undefined } : {}) }}
         onClick={(e) => e.stopPropagation()}
         role="dialog"
@@ -154,7 +154,7 @@ export const Modal: React.FC<ModalProps> = ({
             {(title || icon) && (
               <Div
                 id="modal-title"
-                className="flex items-center gap-3 text-lg font-semibold text-gray-900 dark:text-white"
+                className="flex items-center gap-3 text-lg font-semibold text-slate-900 dark:text-white"
               >
                 {icon && <Icon name={icon} size="md" className={iconClassName} />}
                 {title}
@@ -163,7 +163,7 @@ export const Modal: React.FC<ModalProps> = ({
             {showCloseButton && (
               <Button
                 onClick={onClose}
-                className="ml-auto text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 focus:outline-none"
+                className="ml-auto text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 focus:outline-none"
                 aria-label={t('common.close_modal')}
               >
                 <svg

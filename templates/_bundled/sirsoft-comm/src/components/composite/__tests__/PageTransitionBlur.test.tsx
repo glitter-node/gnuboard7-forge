@@ -53,7 +53,7 @@ describe('PageTransitionBlur', () => {
     await waitFor(() => {
       const overlay = screen.getByTestId('page-transition-blur');
       expect(overlay.className).toContain('bg-white/30');
-      expect(overlay.className).toContain('dark:bg-gray-900/30');
+      expect(overlay.className).toContain('dark:bg-slate-900/30');
     });
   });
 

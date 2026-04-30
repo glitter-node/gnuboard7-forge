@@ -69,22 +69,22 @@ const MEDIA_COMPONENTS = new Set([
 
 const COMPOSITE_SKELETONS: Record<string, (animClass: string, iterCount: number) => React.ReactElement> = {
     DataGrid: (animClass, iterCount) => (
-        <div className="w-full border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
-            <div className={`h-10 bg-gray-100 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 ${animClass}`}>
+        <div className="w-full border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden">
+            <div className={`h-10 bg-slate-100 dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 ${animClass}`}>
                 <div className="flex items-center h-full px-4 gap-8">
-                    <div className="h-3 w-16 bg-gray-300 dark:bg-gray-600 rounded" />
-                    <div className="h-3 w-24 bg-gray-300 dark:bg-gray-600 rounded" />
-                    <div className="h-3 w-20 bg-gray-300 dark:bg-gray-600 rounded" />
-                    <div className="h-3 w-16 bg-gray-300 dark:bg-gray-600 rounded" />
+                    <div className="h-3 w-16 bg-slate-300 dark:bg-slate-600 rounded" />
+                    <div className="h-3 w-24 bg-slate-300 dark:bg-slate-600 rounded" />
+                    <div className="h-3 w-20 bg-slate-300 dark:bg-slate-600 rounded" />
+                    <div className="h-3 w-16 bg-slate-300 dark:bg-slate-600 rounded" />
                 </div>
             </div>
             {Array.from({ length: iterCount }, (_, i) => (
-                <div key={i} className={`h-12 border-b border-gray-100 dark:border-gray-800 ${animClass}`} style={{ animationDelay: `${i * 75}ms` }}>
+                <div key={i} className={`h-12 border-b border-slate-100 dark:border-slate-800 ${animClass}`} style={{ animationDelay: `${i * 75}ms` }}>
                     <div className="flex items-center h-full px-4 gap-8">
-                        <div className="h-3 w-12 bg-gray-200 dark:bg-gray-700 rounded" />
-                        <div className="h-3 flex-1 bg-gray-200 dark:bg-gray-700 rounded" />
-                        <div className="h-3 w-16 bg-gray-100 dark:bg-gray-800 rounded" />
-                        <div className="h-3 w-14 bg-gray-100 dark:bg-gray-800 rounded" />
+                        <div className="h-3 w-12 bg-slate-200 dark:bg-slate-700 rounded" />
+                        <div className="h-3 flex-1 bg-slate-200 dark:bg-slate-700 rounded" />
+                        <div className="h-3 w-16 bg-slate-100 dark:bg-slate-800 rounded" />
+                        <div className="h-3 w-14 bg-slate-100 dark:bg-slate-800 rounded" />
                     </div>
                 </div>
             ))}
@@ -93,57 +93,57 @@ const COMPOSITE_SKELETONS: Record<string, (animClass: string, iterCount: number)
     Pagination: (animClass) => (
         <div className="flex justify-center gap-1.5 py-3">
             {Array.from({ length: 5 }, (_, i) => (
-                <div key={i} className={`w-8 h-8 bg-gray-200 dark:bg-gray-700 rounded ${animClass}`} />
+                <div key={i} className={`w-8 h-8 bg-slate-200 dark:bg-slate-700 rounded ${animClass}`} />
             ))}
         </div>
     ),
     Tabs: (animClass) => (
         <div>
-            <div className="flex gap-4 border-b border-gray-200 dark:border-gray-700 pb-2 mb-3">
+            <div className="flex gap-4 border-b border-slate-200 dark:border-slate-700 pb-2 mb-3">
                 {Array.from({ length: 3 }, (_, i) => (
-                    <div key={i} className={`h-4 w-20 bg-gray-200 dark:bg-gray-700 rounded ${animClass}`} />
+                    <div key={i} className={`h-4 w-20 bg-slate-200 dark:bg-slate-700 rounded ${animClass}`} />
                 ))}
             </div>
-            <div className={`h-32 bg-gray-100 dark:bg-gray-800 rounded ${animClass}`} />
+            <div className={`h-32 bg-slate-100 dark:bg-slate-800 rounded ${animClass}`} />
         </div>
     ),
     TabNavigation: (animClass) => (
-        <div className="flex gap-4 border-b border-gray-200 dark:border-gray-700 pb-2">
+        <div className="flex gap-4 border-b border-slate-200 dark:border-slate-700 pb-2">
             {Array.from({ length: 3 }, (_, i) => (
-                <div key={i} className={`h-4 w-20 bg-gray-200 dark:bg-gray-700 rounded ${animClass}`} />
+                <div key={i} className={`h-4 w-20 bg-slate-200 dark:bg-slate-700 rounded ${animClass}`} />
             ))}
         </div>
     ),
     ProductCard: (animClass) => (
         <div className="rounded-lg overflow-hidden">
-            <div className={`h-48 w-full bg-gray-200 dark:bg-gray-700 ${animClass}`} />
+            <div className={`h-48 w-full bg-slate-200 dark:bg-slate-700 ${animClass}`} />
             <div className="p-3 space-y-2">
-                <div className={`h-3.5 w-3/4 bg-gray-200 dark:bg-gray-700 rounded ${animClass}`} />
-                <div className={`h-4 w-1/3 bg-gray-300 dark:bg-gray-600 rounded ${animClass}`} />
+                <div className={`h-3.5 w-3/4 bg-slate-200 dark:bg-slate-700 rounded ${animClass}`} />
+                <div className={`h-4 w-1/3 bg-slate-300 dark:bg-slate-600 rounded ${animClass}`} />
             </div>
         </div>
     ),
     UserInfo: (animClass) => (
-        <div className={`h-3 w-14 bg-gray-200 dark:bg-gray-700 rounded ${animClass}`} />
+        <div className={`h-3 w-14 bg-slate-200 dark:bg-slate-700 rounded ${animClass}`} />
     ),
     QuantitySelector: (animClass) => (
-        <div className={`h-9 w-28 bg-gray-100 dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700 ${animClass}`} />
+        <div className={`h-9 w-28 bg-slate-100 dark:bg-slate-800 rounded border border-slate-200 dark:border-slate-700 ${animClass}`} />
     ),
     Header: (animClass) => (
-        <header className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+        <header className="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
                     <div className="flex items-center gap-8">
-                        <div className={`h-8 w-24 bg-gray-200 dark:bg-gray-700 rounded ${animClass}`} />
+                        <div className={`h-8 w-24 bg-slate-200 dark:bg-slate-700 rounded ${animClass}`} />
                         <div className="hidden lg:flex items-center gap-6">
                             {Array.from({ length: 4 }, (_, i) => (
-                                <div key={i} className={`h-3.5 w-16 bg-gray-200 dark:bg-gray-700 rounded ${animClass}`} />
+                                <div key={i} className={`h-3.5 w-16 bg-slate-200 dark:bg-slate-700 rounded ${animClass}`} />
                             ))}
                         </div>
                     </div>
                     <div className="flex items-center gap-4">
                         {Array.from({ length: 3 }, (_, i) => (
-                            <div key={i} className={`h-8 w-8 bg-gray-200 dark:bg-gray-700 rounded-full ${animClass}`} />
+                            <div key={i} className={`h-8 w-8 bg-slate-200 dark:bg-slate-700 rounded-full ${animClass}`} />
                         ))}
                     </div>
                 </div>
@@ -151,17 +151,17 @@ const COMPOSITE_SKELETONS: Record<string, (animClass: string, iterCount: number)
         </header>
     ),
     Footer: (animClass) => (
-        <footer className="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 mt-auto">
+        <footer className="bg-white dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700 mt-auto">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <div className="flex flex-col items-center gap-4">
-                    <div className={`h-4 w-32 bg-gray-200 dark:bg-gray-700 rounded ${animClass}`} />
-                    <div className={`h-3 w-48 bg-gray-100 dark:bg-gray-800 rounded ${animClass}`} />
+                    <div className={`h-4 w-32 bg-slate-200 dark:bg-slate-700 rounded ${animClass}`} />
+                    <div className={`h-3 w-48 bg-slate-100 dark:bg-slate-800 rounded ${animClass}`} />
                     <div className="flex gap-3">
                         {Array.from({ length: 3 }, (_, i) => (
-                            <div key={i} className={`h-6 w-6 bg-gray-200 dark:bg-gray-700 rounded-full ${animClass}`} />
+                            <div key={i} className={`h-6 w-6 bg-slate-200 dark:bg-slate-700 rounded-full ${animClass}`} />
                         ))}
                     </div>
-                    <div className={`h-3 w-40 bg-gray-100 dark:bg-gray-800 rounded ${animClass}`} />
+                    <div className={`h-3 w-40 bg-slate-100 dark:bg-slate-800 rounded ${animClass}`} />
                 </div>
             </div>
         </footer>
@@ -614,8 +614,8 @@ function renderSkeletonNode(
         if (!children || children.length === 0) {
             const hasDimension = /\b(h-\S|w-\S)/.test(sanitized);
             const barClass = hasDimension
-                ? `${sanitized} bg-gray-200 dark:bg-gray-700 rounded ${animClass}`
-                : `${sanitized} h-3.5 w-full bg-gray-200 dark:bg-gray-700 rounded ${animClass}`.trim();
+                ? `${sanitized} bg-slate-200 dark:bg-slate-700 rounded ${animClass}`
+                : `${sanitized} h-3.5 w-full bg-slate-200 dark:bg-slate-700 rounded ${animClass}`.trim();
             return <div key={index} className={barClass} />;
         }
 
@@ -637,7 +637,7 @@ function renderSkeletonNode(
     }
 
     // 비-컨테이너 컴포넌트: 원본 className에서 시각적 클래스(색상 등)를 제거
-    // 스켈레톤 바의 색상은 고정(gray-200)이므로 원본 bg-red-500 등이 누출되면 안 됨
+    // 스켈레톤 바의 색상은 고정(slate-200)이므로 원본 bg-red-500 등이 누출되면 안 됨
     const sanitizedLeafClass = sanitizeClassName(className, name);
 
     // 텍스트 컴포넌트: 회색 바
@@ -656,30 +656,30 @@ function renderSkeletonNode(
         const width = widthMap[name] || 'w-full';
         const spacing = name.startsWith('H') ? 'mb-2 mt-1' : 'mb-1.5';
         return (
-            <div key={index} className={`${height} ${width} bg-gray-200 dark:bg-gray-700 rounded ${animClass} ${spacing} ${sanitizedLeafClass}`.trim()} />
+            <div key={index} className={`${height} ${width} bg-slate-200 dark:bg-slate-700 rounded ${animClass} ${spacing} ${sanitizedLeafClass}`.trim()} />
         );
     }
 
     // 인풋 컴포넌트: 사각형
     if (INPUT_COMPONENTS.has(name)) {
         if (name === 'Textarea') {
-            return <div key={index} className={`h-20 w-full bg-gray-100 dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700 mb-2 ${animClass}`} />;
+            return <div key={index} className={`h-20 w-full bg-slate-100 dark:bg-slate-800 rounded border border-slate-200 dark:border-slate-700 mb-2 ${animClass}`} />;
         }
         if (name === 'Checkbox' || name === 'Radio' || name === 'Toggle') {
-            return <div key={index} className={`h-5 w-5 bg-gray-200 dark:bg-gray-700 rounded mb-1.5 ${animClass}`} />;
+            return <div key={index} className={`h-5 w-5 bg-slate-200 dark:bg-slate-700 rounded mb-1.5 ${animClass}`} />;
         }
-        return <div key={index} className={`h-9 w-full bg-gray-100 dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700 mb-2 ${animClass}`} />;
+        return <div key={index} className={`h-9 w-full bg-slate-100 dark:bg-slate-800 rounded border border-slate-200 dark:border-slate-700 mb-2 ${animClass}`} />;
     }
 
     // 미디어 컴포넌트: 큰 사각형
     if (MEDIA_COMPONENTS.has(name)) {
         if (name === 'Avatar' || name === 'AvatarUploader') {
-            return <div key={index} className={`h-10 w-10 bg-gray-200 dark:bg-gray-700 rounded-full ${animClass}`} />;
+            return <div key={index} className={`h-10 w-10 bg-slate-200 dark:bg-slate-700 rounded-full ${animClass}`} />;
         }
         if (name === 'ProductImageViewer') {
-            return <div key={index} className={`h-80 w-full bg-gray-200 dark:bg-gray-700 rounded ${animClass}`} />;
+            return <div key={index} className={`h-80 w-full bg-slate-200 dark:bg-slate-700 rounded ${animClass}`} />;
         }
-        return <div key={index} className={`h-40 w-full bg-gray-200 dark:bg-gray-700 rounded mb-2 ${animClass}`} />;
+        return <div key={index} className={`h-40 w-full bg-slate-200 dark:bg-slate-700 rounded mb-2 ${animClass}`} />;
     }
 
     // Button: children이 있으면 래퍼(컨테이너)로 처리, 없으면 바
@@ -692,7 +692,7 @@ function renderSkeletonNode(
             // 원본 className에 border/rounded가 있으면 실제 버튼 형태 → 스켈레톤 경계 추가
             const hasBorderStyle = /\b(border|rounded|px-\d|py-\d)/.test(rawClassName);
             const borderClass = hasBorderStyle
-                ? 'border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50 rounded-lg'
+                ? 'border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 rounded-lg'
                 : '';
             return (
                 <div key={index} className={`${sanitized} ${borderClass}`.trim()}>
@@ -700,11 +700,11 @@ function renderSkeletonNode(
                 </div>
             );
         }
-        return <div key={index} className={`h-9 w-24 bg-gray-200 dark:bg-gray-700 rounded ${animClass}`} />;
+        return <div key={index} className={`h-9 w-24 bg-slate-200 dark:bg-slate-700 rounded ${animClass}`} />;
     }
 
     if (name === 'Icon') {
-        return <div key={index} className={`h-5 w-5 bg-gray-200 dark:bg-gray-700 rounded ${animClass}`} />;
+        return <div key={index} className={`h-5 w-5 bg-slate-200 dark:bg-slate-700 rounded ${animClass}`} />;
     }
 
     // 기타: children이 있으면 컨테이너로, 없으면 범용 바
@@ -717,7 +717,7 @@ function renderSkeletonNode(
     }
 
     // 기본 폴백: 범용 스켈레톤 바
-    return <div key={index} className={`h-3.5 w-full bg-gray-200 dark:bg-gray-700 rounded mb-1.5 ${animClass}`} />;
+    return <div key={index} className={`h-3.5 w-full bg-slate-200 dark:bg-slate-700 rounded mb-1.5 ${animClass}`} />;
 }
 
 /**

@@ -27,7 +27,7 @@
       "name": "Div",
       "if": "{{_local?.isRegistering}}",
       "props": {
-        "className": "absolute inset-0 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm z-10 flex items-center justify-center rounded-lg"
+        "className": "absolute inset-0 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm z-10 flex items-center justify-center rounded-lg"
       },
       "children": [
         {
@@ -41,14 +41,14 @@
               "type": "basic",
               "name": "Div",
               "props": {
-                "className": "w-8 h-8 border-4 border-gray-300 dark:border-gray-600 border-t-blue-500 rounded-full animate-spin"
+                "className": "w-8 h-8 border-4 border-slate-300 dark:border-slate-600 border-t-teal-500 rounded-full animate-spin"
               }
             },
             {
               "type": "basic",
               "name": "Span",
               "props": {
-                "className": "text-sm text-gray-600 dark:text-gray-400"
+                "className": "text-sm text-slate-600 dark:text-slate-400"
               },
               "text": "$t:auth.register.processing"
             }
@@ -82,7 +82,7 @@
           "type": "basic",
           "name": "Label",
           "props": {
-            "className": "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+            "className": "block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1"
           },
           "children": [
             {
@@ -107,7 +107,7 @@
             "type": "email",
             "name": "email",
             "placeholder": "$t:auth.email_placeholder",
-            "className": "w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500",
+            "className": "w-full px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-teal-500 focus:border-teal-500",
             "required": true,
             "disabled": "{{_local?.isRegistering}}"
           }
@@ -131,7 +131,7 @@
           "type": "basic",
           "name": "Label",
           "props": {
-            "className": "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+            "className": "block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1"
           },
           "children": [
             {
@@ -155,7 +155,7 @@
           "props": {
             "name": "password",
             "placeholder": "$t:auth.register.password_placeholder|count=8",
-            "className": "w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500",
+            "className": "w-full px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-teal-500 focus:border-teal-500",
             "required": true,
             "disabled": "{{_local?.isRegistering}}",
             "showToggle": true,
@@ -176,7 +176,7 @@
           "type": "basic",
           "name": "Label",
           "props": {
-            "className": "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+            "className": "block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1"
           },
           "children": [
             {
@@ -200,7 +200,7 @@
           "props": {
             "name": "password_confirmation",
             "placeholder": "$t:auth.password_confirm_placeholder",
-            "className": "w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500",
+            "className": "w-full px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-teal-500 focus:border-teal-500",
             "required": true,
             "disabled": "{{_local?.isRegistering}}",
             "showToggle": true,
@@ -219,7 +219,7 @@
           "type": "basic",
           "name": "Label",
           "props": {
-            "className": "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+            "className": "block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1"
           },
           "children": [
             {
@@ -244,7 +244,7 @@
             "type": "text",
             "name": "name",
             "placeholder": "$t:auth.name_placeholder",
-            "className": "w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500",
+            "className": "w-full px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-teal-500 focus:border-teal-500",
             "required": true,
             "disabled": "{{_local?.isRegistering}}"
           }
@@ -268,7 +268,7 @@
           "type": "basic",
           "name": "Label",
           "props": {
-            "className": "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+            "className": "block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1"
           },
           "text": "$t:auth.nickname"
         },
@@ -279,7 +279,7 @@
             "type": "text",
             "name": "nickname",
             "placeholder": "$t:auth.nickname_placeholder",
-            "className": "w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500",
+            "className": "w-full px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-teal-500 focus:border-teal-500",
             "disabled": "{{_local?.isRegistering}}"
           }
         },
@@ -302,7 +302,7 @@
           "type": "basic",
           "name": "Label",
           "props": {
-            "className": "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+            "className": "block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1"
           },
           "text": "$t:auth.language"
         },
@@ -312,7 +312,7 @@
           "props": {
             "name": "language",
             "options": "{{($locales ?? []).map(l => ({ value: l, label: _global.appConfig?.localeNames?.[l] ?? l }))}}",
-            "className": "w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500",
+            "className": "w-full px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-teal-500 focus:border-teal-500",
             "disabled": "{{_local?.isRegistering}}"
           }
         }
@@ -350,7 +350,7 @@
                   "type": "basic",
                   "name": "Label",
                   "props": {
-                    "className": "text-sm text-gray-700 dark:text-gray-300 inline-flex items-center gap-1"
+                    "className": "text-sm text-slate-700 dark:text-slate-300 inline-flex items-center gap-1"
                   },
                   "children": [
                     {
@@ -358,7 +358,7 @@
                       "name": "Button",
                       "props": {
                         "type": "button",
-                        "className": "text-blue-600 dark:text-blue-400 hover:underline cursor-pointer"
+                        "className": "text-teal-600 dark:text-teal-400 hover:underline cursor-pointer"
                       },
                       "actions": [
                         {
@@ -426,7 +426,7 @@
                   "type": "basic",
                   "name": "Label",
                   "props": {
-                    "className": "text-sm text-gray-700 dark:text-gray-300 inline-flex items-center gap-1"
+                    "className": "text-sm text-slate-700 dark:text-slate-300 inline-flex items-center gap-1"
                   },
                   "children": [
                     {
@@ -434,7 +434,7 @@
                       "name": "Button",
                       "props": {
                         "type": "button",
-                        "className": "text-blue-600 dark:text-blue-400 hover:underline cursor-pointer"
+                        "className": "text-teal-600 dark:text-teal-400 hover:underline cursor-pointer"
                       },
                       "actions": [
                         {
@@ -483,7 +483,7 @@
       "name": "Button",
       "props": {
         "type": "submit",
-        "className": "w-full py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-lg font-medium hover:bg-gray-800 dark:hover:bg-gray-100 transition-colors mt-4 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2",
+        "className": "w-full py-3 bg-teal-600 dark:bg-teal-500 text-white rounded-lg font-medium hover:bg-teal-700 dark:hover:bg-teal-600 transition-colors mt-4 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2",
         "disabled": "{{_local?.isRegistering}}"
       },
       "children": [

@@ -13,7 +13,7 @@
       "type": "basic",
       "name": "Button",
       "props": {
-        "className": "{{(_global.searchActiveTab ?? 'all') === 'all' ? 'px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white rounded-full font-medium' : 'px-4 py-2 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-full'}}"
+        "className": "{{(_global.searchActiveTab ?? 'all') === 'all' ? 'px-4 py-2 bg-slate-100 dark:bg-slate-700 text-slate-900 dark:text-white rounded-full font-medium' : 'px-4 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-full'}}"
       },
       "children": [
         {
@@ -34,7 +34,7 @@
           "type": "basic",
           "name": "Span",
           "props": {
-            "className": "ml-1.5 {{(_global.searchActiveTab ?? 'all') === 'all' ? 'text-blue-600 dark:text-blue-400' : 'text-gray-500 dark:text-gray-400'}}"
+            "className": "ml-1.5 {{(_global.searchActiveTab ?? 'all') === 'all' ? 'text-teal-600 dark:text-teal-400' : 'text-slate-500 dark:text-slate-400'}}"
           },
           "text": "{{(searchResults.data.all_count ?? searchResults.data.total ?? 0) | number}}"
         }
@@ -67,7 +67,7 @@
       "type": "basic",
       "name": "Button",
       "props": {
-        "className": "{{_global.searchActiveTab === 'posts' ? 'px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white rounded-full font-medium' : 'px-4 py-2 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-full'}}"
+        "className": "{{_global.searchActiveTab === 'posts' ? 'px-4 py-2 bg-slate-100 dark:bg-slate-700 text-slate-900 dark:text-white rounded-full font-medium' : 'px-4 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-full'}}"
       },
       "children": [
         {
@@ -88,7 +88,7 @@
           "type": "basic",
           "name": "Span",
           "props": {
-            "className": "ml-1.5 {{_global.searchActiveTab === 'posts' ? 'text-blue-600 dark:text-blue-400' : 'text-gray-500 dark:text-gray-400'}}"
+            "className": "ml-1.5 {{_global.searchActiveTab === 'posts' ? 'text-teal-600 dark:text-teal-400' : 'text-slate-500 dark:text-slate-400'}}"
           },
           "text": "{{(searchResults.data.posts_count ?? 0) | number}}"
         }
@@ -121,7 +121,7 @@
       "type": "basic",
       "name": "Button",
       "props": {
-        "className": "{{_global.searchActiveTab === 'pages' ? 'px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white rounded-full font-medium' : 'px-4 py-2 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-full'}}"
+        "className": "{{_global.searchActiveTab === 'pages' ? 'px-4 py-2 bg-slate-100 dark:bg-slate-700 text-slate-900 dark:text-white rounded-full font-medium' : 'px-4 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-full'}}"
       },
       "children": [
         {
@@ -142,7 +142,7 @@
           "type": "basic",
           "name": "Span",
           "props": {
-            "className": "ml-1.5 {{_global.searchActiveTab === 'pages' ? 'text-blue-600 dark:text-blue-400' : 'text-gray-500 dark:text-gray-400'}}"
+            "className": "ml-1.5 {{_global.searchActiveTab === 'pages' ? 'text-teal-600 dark:text-teal-400' : 'text-slate-500 dark:text-slate-400'}}"
           },
           "text": "{{(searchResults.data.pages_count ?? 0) | number}}"
         }

@@ -112,19 +112,19 @@ const MobileNav: React.FC<MobileNavProps> = ({
       
       <Div
         ref={drawerRef}
-        className={`fixed inset-y-0 left-0 w-80 max-w-[85vw] bg-white dark:bg-gray-900 shadow-xl transform transition-transform duration-300 ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}
+        className={`fixed inset-y-0 left-0 w-80 max-w-[85vw] bg-white dark:bg-slate-900 shadow-xl transform transition-transform duration-300 ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}
       >
-        <Div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-800">
+        <Div className="flex items-center justify-between p-4 border-b border-slate-200 dark:border-slate-800">
           <Button onClick={() => { onClose(); navigate('/'); }} className="flex items-center gap-2 cursor-pointer">
             {logo ? (
               <Img src={logo} alt={siteName} className="h-8" />
             ) : (
-              <Span className="text-xl font-bold text-gray-900 dark:text-white">{siteName}</Span>
+              <Span className="text-xl font-bold text-slate-900 dark:text-white">{siteName}</Span>
             )}
           </Button>
           <Button
             onClick={onClose}
-            className="p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+            className="p-2 text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200"
             aria-label="메뉴 닫기"
           >
             <Icon name="x" className="w-6 h-6" />
@@ -132,35 +132,35 @@ const MobileNav: React.FC<MobileNavProps> = ({
         </Div>
 
         {user ? (
-          <Div className="p-4 border-b border-gray-200 dark:border-gray-800">
+          <Div className="p-4 border-b border-slate-200 dark:border-slate-800">
             <Div className="flex items-center gap-3">
               {user.avatar ? (
                 <Img src={user.avatar} alt={user.name} className="w-12 h-12 rounded-full" />
               ) : (
-                <Div className="w-12 h-12 rounded-full bg-blue-500 flex items-center justify-center text-white text-lg font-medium">
+                <Div className="w-12 h-12 rounded-full bg-teal-500 flex items-center justify-center text-white text-lg font-medium">
                   {(user.name || 'U').charAt(0).toUpperCase()}
                 </Div>
               )}
               <Div>
-                <P className="font-medium text-gray-900 dark:text-white">{user.name}</P>
-                <Button onClick={() => { onClose(); navigate('/mypage'); }} className="text-sm text-blue-600 dark:text-blue-400 hover:underline cursor-pointer">
+                <P className="font-medium text-slate-900 dark:text-white">{user.name}</P>
+                <Button onClick={() => { onClose(); navigate('/mypage'); }} className="text-sm text-teal-600 dark:text-teal-400 hover:underline cursor-pointer">
                   {t('common.mypage')}
                 </Button>
               </Div>
             </Div>
           </Div>
         ) : (
-          <Div className="p-4 border-b border-gray-200 dark:border-gray-800">
+          <Div className="p-4 border-b border-slate-200 dark:border-slate-800">
             <Div className="flex gap-2">
               <Button
                 onClick={() => { onClose(); navigate('/login'); }}
-                className="flex-1 py-2 text-center text-sm font-medium text-white bg-gray-900 dark:bg-white dark:text-gray-900 rounded-lg cursor-pointer"
+                className="flex-1 py-2 text-center text-sm font-medium text-white bg-teal-600 dark:bg-teal-500 rounded-lg cursor-pointer"
               >
                 {t('auth.login')}
               </Button>
               <Button
                 onClick={() => { onClose(); navigate('/register'); }}
-                className="flex-1 py-2 text-center text-sm font-medium text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-lg cursor-pointer"
+                className="flex-1 py-2 text-center text-sm font-medium text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-600 rounded-lg cursor-pointer"
               >
                 {t('auth.register')}
               </Button>
@@ -173,7 +173,7 @@ const MobileNav: React.FC<MobileNavProps> = ({
             <Li>
               <Button
                 onClick={() => { onClose(); navigate('/'); }}
-                className="flex items-center gap-3 px-3 py-2 w-full text-left text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg cursor-pointer"
+                className="flex items-center gap-3 px-3 py-2 w-full text-left text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg cursor-pointer"
               >
                 <Icon name="home" className="w-5 h-5" />
                 {t('nav.home')}
@@ -182,22 +182,22 @@ const MobileNav: React.FC<MobileNavProps> = ({
             <Li>
               <Button
                 onClick={() => { onClose(); navigate('/popular'); }}
-                className="flex items-center gap-3 px-3 py-2 w-full text-left text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg cursor-pointer"
+                className="flex items-center gap-3 px-3 py-2 w-full text-left text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg cursor-pointer"
               >
                 <Span className="text-orange-500">🔥</Span>
                 {t('nav.popular')}
               </Button>
             </Li>
-            <Li className="my-4 border-t border-gray-200 dark:border-gray-800" />
+            <Li className="my-4 border-t border-slate-200 dark:border-slate-800" />
 
-            <Li className="px-3 py-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+            <Li className="px-3 py-2 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
               {t('nav.boards')}
             </Li>
             {boards.map((board) => (
               <Li key={board.id}>
                 <Button
                   onClick={() => { onClose(); navigate(`/board/${board.slug}`); }}
-                  className="flex items-center gap-3 px-3 py-2 w-full text-left text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg cursor-pointer"
+                  className="flex items-center gap-3 px-3 py-2 w-full text-left text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg cursor-pointer"
                 >
                   {board.icon && <Span>{board.icon}</Span>}
                   {board.name}
@@ -207,15 +207,15 @@ const MobileNav: React.FC<MobileNavProps> = ({
           </Ul>
         </Nav>
 
-        <Div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
-          <Div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
-            <Button onClick={() => { onClose(); navigate('/about'); }} className="hover:text-gray-700 dark:hover:text-gray-200 cursor-pointer">
+        <Div className="absolute bottom-0 left-0 right-0 p-4 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+          <Div className="flex items-center justify-between text-sm text-slate-500 dark:text-slate-400">
+            <Button onClick={() => { onClose(); navigate('/about'); }} className="hover:text-slate-700 dark:hover:text-slate-200 cursor-pointer">
               {t('footer.about')}
             </Button>
-            <Button onClick={() => { onClose(); navigate('/terms'); }} className="hover:text-gray-700 dark:hover:text-gray-200 cursor-pointer">
+            <Button onClick={() => { onClose(); navigate('/terms'); }} className="hover:text-slate-700 dark:hover:text-slate-200 cursor-pointer">
               {t('footer.terms')}
             </Button>
-            <Button onClick={() => { onClose(); navigate('/privacy'); }} className="hover:text-gray-700 dark:hover:text-gray-200 cursor-pointer">
+            <Button onClick={() => { onClose(); navigate('/privacy'); }} className="hover:text-slate-700 dark:hover:text-slate-200 cursor-pointer">
               {t('footer.privacy')}
             </Button>
           </Div>

@@ -42,7 +42,7 @@ export const PageTransitionBlur: React.FC<PageTransitionBlurProps> = ({
 
   return (
     <Div
-      className={`fixed inset-0 z-40 bg-white/30 dark:bg-gray-900/30 backdrop-blur-sm transition-opacity duration-150 pointer-events-none ${className}`}
+      className={`fixed inset-0 z-40 bg-white/30 dark:bg-slate-900/30 backdrop-blur-sm transition-opacity duration-150 pointer-events-none ${className}`}
       style={style}
       role="status"
       aria-label="페이지 전환 중"

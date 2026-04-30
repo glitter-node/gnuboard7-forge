@@ -165,7 +165,7 @@
       "type": "basic",
       "name": "Div",
       "props": {
-        "className": "min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900"
+        "className": "min-h-screen flex flex-col bg-slate-50 dark:bg-slate-900"
       },
       "children": [
         {
@@ -202,7 +202,7 @@
           "responsive": {
             "portable": {
               "props": {
-                "className": "flex items-center justify-between h-14 px-4 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-30"
+                "className": "flex items-center justify-between h-14 px-4 bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 sticky top-0 z-30"
               }
             }
           },
@@ -245,7 +245,7 @@
                   "name": "Span",
                   "if": "{{!_global.settings?.general?.site_logo_url}}",
                   "props": {
-                    "className": "text-lg font-bold text-gray-900 dark:text-white"
+                    "className": "text-lg font-bold text-slate-900 dark:text-white"
                   },
                   "text": "{{_global.settings?.general?.site_name ?? '$t:common.site_fallback'}}"
                 }
@@ -506,7 +506,7 @@
                   "type": "basic",
                   "name": "Button",
                   "props": {
-                    "className": "p-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg cursor-pointer"
+                    "className": "p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg cursor-pointer"
                   },
                   "actions": [
                     {
@@ -533,7 +533,7 @@
                   "type": "basic",
                   "name": "Button",
                   "props": {
-                    "className": "p-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg"
+                    "className": "p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg"
                   },
                   "actions": [
                     {
@@ -570,7 +570,7 @@
           "responsive": {
             "portable": {
               "props": {
-                "className": "{{_global.mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}} fixed inset-y-0 right-0 z-50 w-80 max-w-full transition-transform duration-300 bg-white dark:bg-gray-800 shadow-xl overflow-y-auto"
+                "className": "{{_global.mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}} fixed inset-y-0 right-0 z-50 w-80 max-w-full transition-transform duration-300 bg-white dark:bg-slate-800 shadow-xl overflow-y-auto"
               }
             }
           },
@@ -579,14 +579,14 @@
               "type": "basic",
               "name": "Div",
               "props": {
-                "className": "flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700"
+                "className": "flex items-center justify-between p-4 border-b border-slate-200 dark:border-slate-700"
               },
               "children": [
                 {
                   "type": "basic",
                   "name": "Span",
                   "props": {
-                    "className": "font-semibold text-gray-900 dark:text-white"
+                    "className": "font-semibold text-slate-900 dark:text-white"
                   },
                   "text": "$t:user.menu"
                 },
@@ -594,7 +594,7 @@
                   "type": "basic",
                   "name": "Button",
                   "props": {
-                    "className": "p-2 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg"
+                    "className": "p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg"
                   },
                   "actions": [
                     {
@@ -638,7 +638,7 @@
                       "name": "Icon",
                       "props": {
                         "name": "search",
-                        "className": "absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-gray-500"
+                        "className": "absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-slate-500"
                       }
                     },
                     {
@@ -648,7 +648,7 @@
                         "type": "text",
                         "name": "q",
                         "placeholder": "$t:user.search_placeholder",
-                        "className": "w-full pl-10 pr-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500"
+                        "className": "w-full pl-10 pr-4 py-2.5 border border-slate-300 dark:border-slate-600 rounded-lg bg-slate-50 dark:bg-slate-700 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-teal-500"
                       },
                       "actions": [
                         {
@@ -685,14 +685,14 @@
               "name": "Div",
               "if": "{{_global.currentUser?.uuid}}",
               "props": {
-                "className": "px-4 pb-4 border-b border-gray-200 dark:border-gray-700"
+                "className": "px-4 pb-4 border-b border-slate-200 dark:border-slate-700"
               },
               "children": [
                 {
                   "type": "basic",
                   "name": "Button",
                   "props": {
-                    "className": "w-full flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer"
+                    "className": "w-full flex items-center gap-3 p-3 bg-slate-50 dark:bg-slate-700 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-600 cursor-pointer"
                   },
                   "actions": [
                     {
@@ -725,7 +725,7 @@
                           "type": "basic",
                           "name": "Div",
                           "props": {
-                            "className": "font-medium text-gray-900 dark:text-white truncate"
+                            "className": "font-medium text-slate-900 dark:text-white truncate"
                           },
                           "text": "{{_global.currentUser?.name}}"
                         },
@@ -733,7 +733,7 @@
                           "type": "basic",
                           "name": "Div",
                           "props": {
-                            "className": "text-sm text-gray-500 dark:text-gray-400 truncate"
+                            "className": "text-sm text-slate-500 dark:text-slate-400 truncate"
                           },
                           "text": "{{_global.currentUser?.email}}"
                         }
@@ -744,7 +744,7 @@
                       "name": "Icon",
                       "props": {
                         "name": "chevron-down",
-                        "className": "{{_global.mobileUserMenuOpen ? 'rotate-180' : ''}} w-5 h-5 text-gray-400 dark:text-gray-500 transition-transform duration-200"
+                        "className": "{{_global.mobileUserMenuOpen ? 'rotate-180' : ''}} w-5 h-5 text-slate-400 dark:text-slate-500 transition-transform duration-200"
                       }
                     }
                   ]
@@ -760,7 +760,7 @@
                       "type": "basic",
                       "name": "Div",
                       "props": {
-                        "className": "overflow-hidden min-h-0 py-2 bg-gray-100 dark:bg-gray-700/50 rounded-lg"
+                        "className": "overflow-hidden min-h-0 py-2 bg-slate-100 dark:bg-slate-700/50 rounded-lg"
                       },
                       "children": [
                         {
@@ -769,7 +769,7 @@
                           "if": "{{_global.currentUser?.is_admin}}",
                           "props": {
                             "href": "/admin",
-                            "className": "w-full flex items-center justify-start gap-3 px-4 py-2.5 text-blue-600 dark:text-blue-400 hover:bg-gray-200 dark:hover:bg-gray-600 font-medium"
+                            "className": "w-full flex items-center justify-start gap-3 px-4 py-2.5 text-teal-600 dark:text-teal-400 hover:bg-slate-200 dark:hover:bg-slate-600 font-medium"
                           },
                           "children": [
                             {
@@ -791,7 +791,7 @@
                           "type": "basic",
                           "name": "Button",
                           "props": {
-                            "className": "w-full flex items-center justify-start gap-3 px-4 py-2.5 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 cursor-pointer"
+                            "className": "w-full flex items-center justify-start gap-3 px-4 py-2.5 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 cursor-pointer"
                           },
                           "actions": [
                             {
@@ -836,14 +836,14 @@
                           "name": "Div",
                           "if": "{{$locales.length > 1}}",
                           "props": {
-                            "className": "mt-2 pt-2 border-t border-gray-200 dark:border-gray-600"
+                            "className": "mt-2 pt-2 border-t border-slate-200 dark:border-slate-600"
                           },
                           "children": [
                             {
                               "type": "basic",
                               "name": "Div",
                               "props": {
-                                "className": "px-4 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase"
+                                "className": "px-4 py-1 text-xs font-medium text-slate-500 dark:text-slate-400 uppercase"
                               },
                               "text": "$t:common.language"
                             },
@@ -859,7 +859,7 @@
                                   "type": "basic",
                                   "name": "Button",
                                   "props": {
-                                    "className": "{{loc === $locale ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400' : 'text-gray-700 dark:text-gray-300'}} w-full flex items-center justify-start gap-3 px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-600 cursor-pointer"
+                                    "className": "{{loc === $locale ? 'bg-teal-50 dark:bg-teal-900/20 text-teal-600 dark:text-teal-400' : 'text-slate-700 dark:text-slate-300'}} w-full flex items-center justify-start gap-3 px-4 py-2 hover:bg-slate-200 dark:hover:bg-slate-600 cursor-pointer"
                                   },
                                   "actions": [
                                     {
@@ -892,7 +892,7 @@
                           "type": "basic",
                           "name": "Button",
                           "props": {
-                            "className": "w-full flex items-center gap-3 px-4 py-2.5 mt-2 pt-2 border-t border-gray-200 dark:border-gray-600 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 cursor-pointer"
+                            "className": "w-full flex items-center gap-3 px-4 py-2.5 mt-2 pt-2 border-t border-slate-200 dark:border-slate-600 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 cursor-pointer"
                           },
                           "actions": [
                             {
@@ -937,7 +937,7 @@
               "name": "Div",
               "if": "{{!_global.currentUser?.uuid}}",
               "props": {
-                "className": "px-4 pb-4 border-b border-gray-200 dark:border-gray-700"
+                "className": "px-4 pb-4 border-b border-slate-200 dark:border-slate-700"
               },
               "children": [
                 {
@@ -951,7 +951,7 @@
                       "type": "basic",
                       "name": "Button",
                       "props": {
-                        "className": "flex-1 py-2.5 text-center bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-lg font-medium text-sm cursor-pointer"
+                        "className": "flex-1 py-2.5 text-center bg-teal-600 dark:bg-teal-500 text-white rounded-lg font-medium text-sm cursor-pointer"
                       },
                       "actions": [
                         {
@@ -980,7 +980,7 @@
                       "type": "basic",
                       "name": "Button",
                       "props": {
-                        "className": "flex-1 py-2.5 text-center border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg font-medium text-sm cursor-pointer"
+                        "className": "flex-1 py-2.5 text-center border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 rounded-lg font-medium text-sm cursor-pointer"
                       },
                       "actions": [
                         {
@@ -1020,7 +1020,7 @@
                   "type": "basic",
                   "name": "Button",
                   "props": {
-                    "className": "w-full flex items-center justify-start gap-3 px-3 py-2.5 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg font-medium cursor-pointer"
+                    "className": "w-full flex items-center justify-start gap-3 px-3 py-2.5 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg font-medium cursor-pointer"
                   },
                   "actions": [
                     {
@@ -1063,7 +1063,7 @@
                   "type": "basic",
                   "name": "Button",
                   "props": {
-                    "className": "w-full flex items-center justify-start gap-3 px-3 py-2.5 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg cursor-pointer"
+                    "className": "w-full flex items-center justify-start gap-3 px-3 py-2.5 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg cursor-pointer"
                   },
                   "actions": [
                     {
@@ -1115,7 +1115,7 @@
                   "type": "basic",
                   "name": "Div",
                   "props": {
-                    "className": "text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2 px-3"
+                    "className": "text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2 px-3"
                   },
                   "text": "$t:user.nav.boards"
                 },
@@ -1131,7 +1131,7 @@
                       "type": "basic",
                       "name": "Button",
                       "props": {
-                        "className": "w-full flex items-center justify-between px-3 py-2.5 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg cursor-pointer"
+                        "className": "w-full flex items-center justify-between px-3 py-2.5 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg cursor-pointer"
                       },
                       "actions": [
                         {
@@ -1165,7 +1165,7 @@
                           "name": "Span",
                           "if": "{{board.post_count > 0}}",
                           "props": {
-                            "className": "text-xs text-gray-500 dark:text-gray-400"
+                            "className": "text-xs text-slate-500 dark:text-slate-400"
                           },
                           "text": "{{board.post_count}}"
                         }
@@ -1179,7 +1179,7 @@
               "type": "basic",
               "name": "Div",
               "props": {
-                "className": "px-4 py-4 border-b border-gray-200 dark:border-gray-700"
+                "className": "px-4 py-4 border-b border-slate-200 dark:border-slate-700"
               },
               "children": [
                 {
@@ -1197,7 +1197,7 @@
                           "type": "basic",
                           "name": "Div",
                           "props": {
-                            "className": "text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2"
+                            "className": "text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2"
                           },
                           "text": "$t:user.footer.info"
                         },
@@ -1205,7 +1205,7 @@
                           "type": "basic",
                           "name": "Button",
                           "props": {
-                            "className": "block w-full py-1.5 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-left cursor-pointer"
+                            "className": "block w-full py-1.5 text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white text-left cursor-pointer"
                           },
                           "actions": [
                             {
@@ -1234,7 +1234,7 @@
                           "type": "basic",
                           "name": "Button",
                           "props": {
-                            "className": "block w-full py-1.5 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-left cursor-pointer"
+                            "className": "block w-full py-1.5 text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white text-left cursor-pointer"
                           },
                           "actions": [
                             {
@@ -1263,7 +1263,7 @@
                           "type": "basic",
                           "name": "Button",
                           "props": {
-                            "className": "block w-full py-1.5 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-left cursor-pointer"
+                            "className": "block w-full py-1.5 text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white text-left cursor-pointer"
                           },
                           "actions": [
                             {
@@ -1298,7 +1298,7 @@
                           "type": "basic",
                           "name": "Div",
                           "props": {
-                            "className": "text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2"
+                            "className": "text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2"
                           },
                           "text": "$t:user.footer.policy"
                         },
@@ -1306,7 +1306,7 @@
                           "type": "basic",
                           "name": "Button",
                           "props": {
-                            "className": "block w-full py-1.5 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-left cursor-pointer"
+                            "className": "block w-full py-1.5 text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white text-left cursor-pointer"
                           },
                           "actions": [
                             {
@@ -1335,7 +1335,7 @@
                           "type": "basic",
                           "name": "Button",
                           "props": {
-                            "className": "block w-full py-1.5 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-left cursor-pointer"
+                            "className": "block w-full py-1.5 text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white text-left cursor-pointer"
                           },
                           "actions": [
                             {
@@ -1364,7 +1364,7 @@
                           "type": "basic",
                           "name": "Button",
                           "props": {
-                            "className": "block w-full py-1.5 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-left cursor-pointer"
+                            "className": "block w-full py-1.5 text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white text-left cursor-pointer"
                           },
                           "actions": [
                             {

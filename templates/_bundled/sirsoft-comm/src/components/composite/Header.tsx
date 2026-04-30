@@ -183,9 +183,9 @@ const Header: React.FC<HeaderProps> = ({
   const getNavButtonClass = (isActive: boolean): string => {
     const baseClass = 'px-3 py-2 text-sm font-medium whitespace-nowrap cursor-pointer rounded-lg transition-colors';
     if (isActive) {
-      return `${baseClass} bg-gray-900 text-white dark:bg-white dark:text-gray-900`;
+      return `${baseClass} bg-teal-600 text-white dark:bg-teal-500`;
     }
-    return `${baseClass} text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800`;
+    return `${baseClass} text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800`;
   };
 
   // 메뉴 외부 클릭 시 닫기
@@ -229,14 +229,14 @@ const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <HeaderBasic className={`sticky top-0 z-50 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 ${className}`}>
+    <HeaderBasic className={`sticky top-0 z-50 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 ${className}`}>
       <Div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <Div className="flex items-center justify-between h-16">
           <Button onClick={() => navigate('/')} className="flex items-center gap-2 flex-shrink-0 cursor-pointer">
             {logo ? (
               <Img src={logo} alt={siteName} className="h-8" />
             ) : (
-              <Span className="text-xl font-bold text-gray-900 dark:text-white">{siteName}</Span>
+              <Span className="text-xl font-bold text-slate-900 dark:text-white">{siteName}</Span>
             )}
           </Button>
 
@@ -248,11 +248,11 @@ const Header: React.FC<HeaderProps> = ({
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder={t('common.search_placeholder')}
-                  className="w-full px-4 py-2 pl-10 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-4 py-2 pl-10 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
                 />
                 <Icon
                   name="search"
-                  className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-gray-500"
+                  className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-slate-500"
                 />
               </Div>
             </Form>
@@ -292,7 +292,7 @@ const Header: React.FC<HeaderProps> = ({
               <Div ref={userMenuRef} className="relative">
                 <Button
                   onClick={() => setShowUserMenu(!showUserMenu)}
-                  className="flex items-center gap-2 p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+                  className="flex items-center gap-2 p-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                 >
                   <Avatar
                     avatar={user.avatar}
@@ -304,8 +304,8 @@ const Header: React.FC<HeaderProps> = ({
                 </Button>
 
                 {showUserMenu && (
-                  <Div className="absolute right-0 mt-2 w-56 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg py-1 z-50">
-                    <Div className="px-4 py-3 border-b border-gray-200 dark:border-gray-700">
+                  <Div className="absolute right-0 mt-2 w-56 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-lg py-1 z-50">
+                    <Div className="px-4 py-3 border-b border-slate-200 dark:border-slate-700">
                       <Div className="flex items-center gap-3">
                         <Avatar
                           avatar={user.avatar}
@@ -313,8 +313,8 @@ const Header: React.FC<HeaderProps> = ({
                           size="md"
                         />
                         <Div>
-                          <Div className="text-sm font-medium text-gray-900 dark:text-white">{user.name}</Div>
-                          <Div className="text-xs text-gray-500 dark:text-gray-400">{t('common.member')}</Div>
+                          <Div className="text-sm font-medium text-slate-900 dark:text-white">{user.name}</Div>
+                          <Div className="text-xs text-slate-500 dark:text-slate-400">{t('common.member')}</Div>
                         </Div>
                       </Div>
                     </Div>
@@ -325,15 +325,15 @@ const Header: React.FC<HeaderProps> = ({
                         <>
                           <A
                             href="/admin"
-                            className="block w-full text-left px-4 py-2 text-sm text-blue-600 dark:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer font-medium"
+                            className="block w-full text-left px-4 py-2 text-sm text-teal-600 dark:text-teal-400 hover:bg-slate-100 dark:hover:bg-slate-700 cursor-pointer font-medium"
                           >
                             <Icon name="settings" className="inline w-4 h-4 mr-2" />
                             {t('common.admin_menu')}
                           </A>
-                          <Hr className="my-1 border-gray-200 dark:border-gray-700" />
+                          <Hr className="my-1 border-slate-200 dark:border-slate-700" />
                         </>
                       )}
-                      <Button onClick={() => { navigate('/mypage'); setShowUserMenu(false); }} className="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
+                      <Button onClick={() => { navigate('/mypage'); setShowUserMenu(false); }} className="block w-full text-left px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 cursor-pointer">
                         <Icon name="user" className="inline w-4 h-4 mr-2" />
                         {t('common.mypage')}
                       </Button>
@@ -341,9 +341,9 @@ const Header: React.FC<HeaderProps> = ({
 
                     {availableLocales && availableLocales.length > 1 && (
                       <>
-                        <Hr className="my-1 border-gray-200 dark:border-gray-700" />
+                        <Hr className="my-1 border-slate-200 dark:border-slate-700" />
                         <Div className="py-1">
-                          <Div className="px-4 py-2 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">
+                          <Div className="px-4 py-2 text-xs font-medium text-slate-500 dark:text-slate-400 uppercase">
                             {t('common.language')}
                           </Div>
                           {availableLocales.map((locale) => (
@@ -352,8 +352,8 @@ const Header: React.FC<HeaderProps> = ({
                               onClick={() => handleLocaleChange(locale)}
                               className={`block w-full text-left px-4 py-2 text-sm cursor-pointer ${
                                 locale === currentLocale
-                                  ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20'
-                                  : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+                                  ? 'text-teal-600 dark:text-teal-400 bg-teal-50 dark:bg-teal-900/20'
+                                  : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700'
                               }`}
                             >
                               <Icon name="globe" className="inline w-4 h-4 mr-2" />
@@ -364,10 +364,10 @@ const Header: React.FC<HeaderProps> = ({
                       </>
                     )}
 
-                    <Hr className="my-1 border-gray-200 dark:border-gray-700" />
+                    <Hr className="my-1 border-slate-200 dark:border-slate-700" />
                     <Button
                       onClick={handleLogout}
-                      className="block w-full text-left px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+                      className="block w-full text-left px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-slate-100 dark:hover:bg-slate-700 cursor-pointer"
                     >
                       <Icon name="log-out" className="inline w-4 h-4 mr-2" />
                       {t('auth.logout')}
@@ -379,7 +379,7 @@ const Header: React.FC<HeaderProps> = ({
               <Div className="flex items-center gap-2">
                 <Button
                   onClick={() => navigate('/login')}
-                  className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white cursor-pointer"
+                  className="px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white cursor-pointer"
                 >
                   {t('auth.login')}
                 </Button>
@@ -395,7 +395,7 @@ const Header: React.FC<HeaderProps> = ({
             {isMobile && (
               <Button
                 onClick={onMobileMenuOpen}
-                className="p-2 text-gray-600 dark:text-gray-400"
+                className="p-2 text-slate-600 dark:text-slate-400"
               >
                 <Icon name="menu" className="w-6 h-6" />
               </Button>
@@ -405,7 +405,7 @@ const Header: React.FC<HeaderProps> = ({
       </Div>
 
       {!isMobile && (
-      <Nav className="border-t border-gray-200 dark:border-gray-800">
+      <Nav className="border-t border-slate-200 dark:border-slate-800">
         <Div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Div className="flex items-center gap-1 h-12 overflow-x-auto">
             <Button onClick={() => navigate('/')} className={getNavButtonClass(isActiveRoute('/', true))}>
@@ -440,14 +440,14 @@ const Header: React.FC<HeaderProps> = ({
                     }
                     setShowMoreBoards(!showMoreBoards);
                   }}
-                  className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
+                  className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white"
                 >
                   {t('nav.more')}
                   <Icon name="chevron-down" className="w-4 h-4" />
                 </Button>
                 {showMoreBoards && (
                   <Div
-                    className="fixed w-48 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg py-1 z-50"
+                    className="fixed w-48 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-lg py-1 z-50"
                     style={{ top: `${dropdownPosition.top}px`, left: `${dropdownPosition.left}px` }}
                   >
                     {hiddenBoards.map((board) => {
@@ -461,8 +461,8 @@ const Header: React.FC<HeaderProps> = ({
                           }}
                           className={`block w-full text-left px-4 py-2 text-sm cursor-pointer ${
                             isActive
-                              ? 'bg-gray-900 text-white dark:bg-white dark:text-gray-900'
-                              : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+                              ? 'bg-teal-600 text-white dark:bg-teal-500'
+                              : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700'
                           }`}
                         >
                           {board.icon && <Span className="mr-1">{board.icon}</Span>}

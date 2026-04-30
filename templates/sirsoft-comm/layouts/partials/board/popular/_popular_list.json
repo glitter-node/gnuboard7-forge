@@ -19,14 +19,14 @@
           "props": {
             "name": "inbox",
             "size": "4x",
-            "className": "text-gray-300 dark:text-gray-600 mb-4"
+            "className": "text-slate-300 dark:text-slate-600 mb-4"
           }
         },
         {
           "type": "basic",
           "name": "P",
           "props": {
-            "className": "text-gray-600 dark:text-gray-400 text-lg font-medium mb-2"
+            "className": "text-slate-600 dark:text-slate-400 text-lg font-medium mb-2"
           },
           "text": "$t:board.popular.no_posts"
         },
@@ -34,7 +34,7 @@
           "type": "basic",
           "name": "P",
           "props": {
-            "className": "text-sm text-gray-500 dark:text-gray-500"
+            "className": "text-sm text-slate-500 dark:text-slate-500"
           },
           "text": "$t:board.popular.no_posts_description"
         }

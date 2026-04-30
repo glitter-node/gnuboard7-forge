@@ -13,14 +13,14 @@
       "type": "basic",
       "name": "Div",
       "props": {
-        "className": "bg-white dark:bg-gray-800 rounded-lg shadow"
+        "className": "bg-white dark:bg-slate-800 rounded-lg shadow"
       },
       "children": [
         {
           "type": "basic",
           "name": "Div",
           "props": {
-            "className": "p-6 pb-2 border-b border-gray-200 dark:border-gray-700"
+            "className": "p-6 pb-2 border-b border-slate-200 dark:border-slate-700"
           },
           "children": [
             {
@@ -43,7 +43,7 @@
                       "name": "Span",
                       "if": "{{post?.data?.is_notice}}",
                       "props": {
-                        "className": "px-2 py-1 text-xs font-bold bg-blue-600 text-white dark:bg-blue-500 rounded"
+                        "className": "px-2 py-1 text-xs font-bold bg-teal-600 text-white dark:bg-teal-500 rounded"
                       },
                       "text": "$t:board.notice"
                     },
@@ -52,7 +52,7 @@
                       "name": "Span",
                       "if": "{{post?.data?.category}}",
                       "props": {
-                        "className": "px-2 py-1 text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded"
+                        "className": "px-2 py-1 text-xs font-medium bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded"
                       },
                       "text": "{{post.data.category}}"
                     },
@@ -63,7 +63,7 @@
                       "props": {
                         "name": "lock",
                         "size": "sm",
-                        "className": "text-gray-500 dark:text-gray-400 flex-shrink-0"
+                        "className": "text-slate-500 dark:text-slate-400 flex-shrink-0"
                       }
                     },
                     {
@@ -89,7 +89,7 @@
                       "type": "basic",
                       "name": "H1",
                       "props": {
-                        "className": "text-2xl font-bold text-gray-900 dark:text-white"
+                        "className": "text-2xl font-bold text-slate-900 dark:text-white"
                       },
                       "text": "{{post?.data?.title ?? ''}}"
                     },
@@ -150,7 +150,7 @@
                   "type": "basic",
                   "name": "Div",
                   "props": {
-                    "className": "flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400"
+                    "className": "flex items-center gap-4 text-sm text-slate-500 dark:text-slate-400"
                   },
                   "children": [
                     {
@@ -222,7 +222,7 @@
           "type": "basic",
           "name": "Div",
           "props": {
-            "className": "mx-6 mt-4 p-4 bg-gray-50 dark:bg-gray-700/50 border-l-4 border-gray-400 dark:border-gray-500 rounded-r-lg"
+            "className": "mx-6 mt-4 p-4 bg-slate-50 dark:bg-slate-700/50 border-l-4 border-slate-400 dark:border-slate-500 rounded-r-lg"
           },
           "children": [
             {
@@ -245,14 +245,14 @@
                       "props": {
                         "name": "message-square",
                         "size": "sm",
-                        "className": "text-gray-500 dark:text-gray-400"
+                        "className": "text-slate-500 dark:text-slate-400"
                       }
                     },
                     {
                       "type": "basic",
                       "name": "Span",
                       "props": {
-                        "className": "font-semibold text-gray-700 dark:text-gray-300"
+                        "className": "font-semibold text-slate-700 dark:text-slate-300"
                       },
                       "text": "$t:board.parent_post"
                     }
@@ -269,7 +269,7 @@
                       "type": "basic",
                       "name": "Span",
                       "props": {
-                        "className": "text-gray-500 dark:text-gray-400"
+                        "className": "text-slate-500 dark:text-slate-400"
                       },
                       "text": "{{post?.data?.parent?.author?.name ?? ''}}"
                     },
@@ -277,7 +277,7 @@
                       "type": "basic",
                       "name": "Span",
                       "props": {
-                        "className": "text-gray-400 dark:text-gray-500",
+                        "className": "text-slate-400 dark:text-slate-500",
                         "title": "{{post?.data?.parent?.created_at ?? ''}}"
                       },
                       "text": "{{post?.data?.parent?.created_at_formatted ?? ''}}"
@@ -300,7 +300,7 @@
                   "props": {
                     "name": "lock",
                     "size": "sm",
-                    "className": "text-gray-500 dark:text-gray-400"
+                    "className": "text-slate-500 dark:text-slate-400"
                   }
                 },
                 {
@@ -308,7 +308,7 @@
                   "type": "basic",
                   "name": "Span",
                   "props": {
-                    "className": "px-2 py-0.5 text-xs rounded bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300"
+                    "className": "px-2 py-0.5 text-xs rounded bg-slate-100 text-slate-700 dark:bg-slate-700 dark:text-slate-300"
                   },
                   "text": "{{post?.data?.parent?.category ?? ''}}"
                 },
@@ -317,7 +317,7 @@
                   "name": "A",
                   "props": {
                     "href": "/board/{{route.slug}}/{{post?.data?.parent?.id ?? ''}}",
-                    "className": "font-bold text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                    "className": "font-bold text-slate-900 dark:text-white hover:text-teal-600 dark:hover:text-teal-400 transition-colors"
                   },
                   "text": "{{post?.data?.parent?.title ?? ''}}"
                 },
@@ -336,7 +336,7 @@
               "type": "basic",
               "name": "Div",
               "props": {
-                "className": "text-sm text-gray-600 dark:text-gray-400 mb-3 {{_local?.parentContentExpanded ? '' : 'line-clamp-2'}}"
+                "className": "text-sm text-slate-600 dark:text-slate-400 mb-3 {{_local?.parentContentExpanded ? '' : 'line-clamp-2'}}"
               },
               "children": [
                 {
@@ -353,7 +353,7 @@
                   "type": "basic",
                   "name": "Span",
                   "props": {
-                    "className": "text-gray-500 dark:text-gray-400 italic"
+                    "className": "text-slate-500 dark:text-slate-400 italic"
                   },
                   "text": "$t:board.posts.detail.reply_secret_content"
                 },
@@ -393,7 +393,7 @@
                   "type": "basic",
                   "name": "Button",
                   "props": {
-                    "className": "text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 bg-transparent border-0 p-0 cursor-pointer flex items-center gap-1"
+                    "className": "text-sm text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 bg-transparent border-0 p-0 cursor-pointer flex items-center gap-1"
                   },
                   "actions": [
                     {
@@ -437,14 +437,14 @@
               "name": "Div",
               "if": "{{post?.data?.status === 'blinded'}}",
               "props": {
-                "className": "text-center py-12 bg-gray-50 dark:bg-gray-900/30 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-700"
+                "className": "text-center py-12 bg-slate-50 dark:bg-slate-900/30 rounded-lg border-2 border-dashed border-slate-300 dark:border-slate-700"
               },
               "children": [
                 {
                   "type": "basic",
                   "name": "P",
                   "props": {
-                    "className": "text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2"
+                    "className": "text-lg font-semibold text-slate-800 dark:text-slate-200 mb-2"
                   },
                   "children": [
                     {
@@ -459,7 +459,7 @@
                       "type": "basic",
                       "name": "P",
                       "props": {
-                        "className": "text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2"
+                        "className": "text-lg font-semibold text-slate-800 dark:text-slate-200 mb-2"
                       },
                       "text": "$t:board.blinded_post"
                     }
@@ -470,7 +470,7 @@
                   "name": "P",
                   "if": "{{post?.data?.trigger_type}}",
                   "props": {
-                    "className": "mt-3 text-sm text-gray-600 dark:text-gray-400 font-medium"
+                    "className": "mt-3 text-sm text-slate-600 dark:text-slate-400 font-medium"
                   },
                   "text": "$t:board.blinded_reason.{{post?.data?.trigger_type}}"
                 },
@@ -479,7 +479,7 @@
                   "name": "Button",
                   "if": "{{post?.data?.content}}",
                   "props": {
-                    "className": "mt-4 px-4 py-2 text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors flex items-center gap-2 mx-auto cursor-pointer"
+                    "className": "mt-4 px-4 py-2 text-sm text-teal-600 dark:text-teal-400 hover:text-teal-700 dark:hover:text-teal-300 hover:bg-teal-50 dark:hover:bg-teal-900/20 rounded-lg transition-colors flex items-center gap-2 mx-auto cursor-pointer"
                   },
                   "actions": [
                     {
@@ -514,14 +514,14 @@
               "name": "Div",
               "if": "{{post?.data?.status === 'blinded' && _local?.showBlindedPostContent && post?.data?.content}}",
               "props": {
-                "className": "mt-4 p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700"
+                "className": "mt-4 p-4 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700"
               },
               "children": [
                 {
                   "type": "basic",
                   "name": "Div",
                   "props": {
-                    "className": "flex items-center gap-2 mb-3 pb-2 border-b border-gray-200 dark:border-gray-700"
+                    "className": "flex items-center gap-2 mb-3 pb-2 border-b border-slate-200 dark:border-slate-700"
                   },
                   "children": [
                     {
@@ -530,14 +530,14 @@
                       "props": {
                         "name": "file-lines",
                         "size": "sm",
-                        "className": "text-gray-500 dark:text-gray-400"
+                        "className": "text-slate-500 dark:text-slate-400"
                       }
                     },
                     {
                       "type": "basic",
                       "name": "Span",
                       "props": {
-                        "className": "text-sm font-medium text-gray-700 dark:text-gray-300"
+                        "className": "text-sm font-medium text-slate-700 dark:text-slate-300"
                       },
                       "text": "$t:board.original_content"
                     }
@@ -579,14 +579,14 @@
                   "props": {
                     "name": "lock",
                     "size": "3x",
-                    "className": "mx-auto text-gray-400 dark:text-gray-500 mb-4"
+                    "className": "mx-auto text-slate-400 dark:text-slate-500 mb-4"
                   }
                 },
                 {
                   "type": "basic",
                   "name": "P",
                   "props": {
-                    "className": "text-gray-600 dark:text-gray-400 mb-6"
+                    "className": "text-slate-600 dark:text-slate-400 mb-6"
                   },
                   "text": "$t:board.secret_post_login_required"
                 },
@@ -595,7 +595,7 @@
                   "name": "Button",
                   "props": {
                     "type": "button",
-                    "className": "px-6 py-2 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-lg font-medium hover:bg-gray-800 dark:hover:bg-gray-100 cursor-pointer"
+                    "className": "px-6 py-2 bg-teal-600 dark:bg-teal-500 text-white rounded-lg font-medium hover:bg-teal-700 dark:hover:bg-teal-600 cursor-pointer"
                   },
                   "text": "$t:common.login",
                   "actions": [
@@ -627,14 +627,14 @@
                   "props": {
                     "name": "lock",
                     "size": "3x",
-                    "className": "mx-auto text-gray-400 dark:text-gray-500 mb-4"
+                    "className": "mx-auto text-slate-400 dark:text-slate-500 mb-4"
                   }
                 },
                 {
                   "type": "basic",
                   "name": "P",
                   "props": {
-                    "className": "text-gray-600 dark:text-gray-400"
+                    "className": "text-slate-600 dark:text-slate-400"
                   },
                   "text": "$t:board.secret_post_no_permission"
                 }
@@ -654,14 +654,14 @@
                   "props": {
                     "name": "lock",
                     "size": "3x",
-                    "className": "mx-auto text-gray-400 dark:text-gray-500 mb-4"
+                    "className": "mx-auto text-slate-400 dark:text-slate-500 mb-4"
                   }
                 },
                 {
                   "type": "basic",
                   "name": "P",
                   "props": {
-                    "className": "text-gray-600 dark:text-gray-400 mb-6"
+                    "className": "text-slate-600 dark:text-slate-400 mb-6"
                   },
                   "text": "$t:board.secret_post_locked"
                 },
@@ -688,7 +688,7 @@
                             "type": "password",
                             "name": "password",
                             "placeholder": "$t:board.form.password_placeholder",
-                            "className": "flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent",
+                            "className": "flex-1 px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-teal-500 focus:border-transparent",
                             "value": "{{_local.secretPasswordForm?.password ?? ''}}"
                           },
                           "actions": [
@@ -709,7 +709,7 @@
                           "name": "Button",
                           "props": {
                             "type": "submit",
-                            "className": "px-6 py-2 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-lg font-medium hover:bg-gray-800 dark:hover:bg-gray-100 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed",
+                            "className": "px-6 py-2 bg-teal-600 dark:bg-teal-500 text-white rounded-lg font-medium hover:bg-teal-700 dark:hover:bg-teal-600 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed",
                             "disabled": "{{_local?.isVerifyingPassword}}"
                           },
                           "children": [
@@ -826,7 +826,7 @@
           "name": "Div",
           "if": "{{post?.data?.is_guest_post || post?.data?.is_author || post?.data?.abilities?.can_manage || post?.data?.board?.use_reply || (_global.currentUser?.uuid && post?.data?.board?.use_report)}}",
           "props": {
-            "className": "flex justify-end gap-2 px-6 py-4 border-t border-gray-200 dark:border-gray-700"
+            "className": "flex justify-end gap-2 px-6 py-4 border-t border-slate-200 dark:border-slate-700"
           },
           "children": [
             {
@@ -834,7 +834,7 @@
               "name": "Button",
               "if": "{{post?.data?.board?.use_reply && !post?.data?.is_notice && (post?.data?.depth ?? 0) < (post?.data?.board?.max_reply_depth ?? 1) && post?.data?.abilities?.can_write && post?.data?.status !== 'blinded' && (!post?.data?.is_secret || post?.data?.content !== null)}}",
               "props": {
-                "className": "px-4 py-2 text-sm border border-blue-300 dark:border-blue-600 text-blue-600 dark:text-blue-400 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors flex items-center gap-1 cursor-pointer"
+                "className": "px-4 py-2 text-sm border border-teal-300 dark:border-teal-600 text-teal-600 dark:text-teal-400 rounded-lg hover:bg-teal-50 dark:hover:bg-teal-900/20 transition-colors flex items-center gap-1 cursor-pointer"
               },
               "actions": [
                 {
@@ -922,7 +922,7 @@
               "if": "{{_global.currentUser?.uuid && post?.data?.board?.use_report && !post?.data?.is_author && post?.data?.status !== 'blinded' && (!post?.data?.is_secret || post?.data?.content !== null) && post?.data?.is_already_reported}}",
               "props": {
                 "disabled": true,
-                "className": "px-4 py-2 text-sm border border-gray-300 dark:border-gray-600 text-gray-400 dark:text-gray-500 rounded-lg flex items-center gap-1 cursor-not-allowed opacity-60"
+                "className": "px-4 py-2 text-sm border border-slate-300 dark:border-slate-600 text-slate-400 dark:text-slate-500 rounded-lg flex items-center gap-1 cursor-not-allowed opacity-60"
               },
               "children": [
                 {
@@ -945,7 +945,7 @@
               "name": "Button",
               "if": "{{!post?.data?.deleted_at && ((post?.data?.is_author && post?.data?.abilities?.can_write) || post?.data?.is_guest_post || post?.data?.abilities?.can_manage)}}",
               "props": {
-                "className": "px-4 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex items-center gap-1 cursor-pointer"
+                "className": "px-4 py-2 text-sm border border-slate-300 dark:border-slate-600 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors flex items-center gap-1 cursor-pointer"
               },
               "actions": [
                 {
@@ -1028,7 +1028,7 @@
       "type": "basic",
       "name": "Div",
       "props": {
-        "className": "mt-6 bg-white dark:bg-gray-800 rounded-lg shadow"
+        "className": "mt-6 bg-white dark:bg-slate-800 rounded-lg shadow"
       },
       "children": [
         {
@@ -1044,14 +1044,14 @@
               "props": {
                 "name": "lock",
                 "size": "xl",
-                "className": "mx-auto text-gray-300 dark:text-gray-600 mb-3"
+                "className": "mx-auto text-slate-300 dark:text-slate-600 mb-3"
               }
             },
             {
               "type": "basic",
               "name": "P",
               "props": {
-                "className": "text-gray-500 dark:text-gray-400"
+                "className": "text-slate-500 dark:text-slate-400"
               },
               "text": "$t:board.no_comment_read_permission"
             }

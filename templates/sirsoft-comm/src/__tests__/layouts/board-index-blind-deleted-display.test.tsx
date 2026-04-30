@@ -134,7 +134,7 @@ const basicTitleColorLayoutJson = {
       props: {
         'data-testid': 'post-title',
         className:
-          "text-sm font-medium truncate {{(_local.post?.status === 'blinded' || _local.post?.deleted_at) ? 'text-gray-400 dark:text-gray-500' : 'text-gray-700 dark:text-gray-300'}}",
+          "text-sm font-medium truncate {{(_local.post?.status === 'blinded' || _local.post?.deleted_at) ? 'text-slate-400 dark:text-slate-500' : 'text-slate-700 dark:text-slate-300'}}",
       },
       text: '{{_local.post?.title}}',
     },
@@ -169,7 +169,7 @@ const imageThumbnailConditionLayoutJson = {
           props: {
             'data-testid': 'post-placeholder',
             className:
-              "w-full h-full flex items-center justify-center gap-2 bg-gray-200 dark:bg-gray-700",
+              "w-full h-full flex items-center justify-center gap-2 bg-slate-200 dark:bg-slate-700",
           },
         },
       ],
@@ -188,7 +188,7 @@ const imagePlaceholderColorLayoutJson = {
       props: {
         'data-testid': 'post-placeholder',
         className:
-          "w-full h-full flex items-center justify-center {{(_local.post?.status === 'blinded' || _local.post?.deleted_at) ? 'text-gray-400 dark:text-gray-500' : 'text-gray-500 dark:text-gray-400'}}",
+          "w-full h-full flex items-center justify-center {{(_local.post?.status === 'blinded' || _local.post?.deleted_at) ? 'text-slate-400 dark:text-slate-500' : 'text-slate-500 dark:text-slate-400'}}",
       },
     },
   ],
@@ -206,7 +206,7 @@ describe('게시판 목록 - 블라인드/삭제 게시글 표시 처리', () =>
   });
 
   describe('[basic] 제목 색상 처리', () => {
-    it('블라인드 게시글 제목에 연한 색상(text-gray-400) 클래스가 적용된다', async () => {
+    it('블라인드 게시글 제목에 연한 색상(text-slate-400) 클래스가 적용된다', async () => {
       const testUtils = createLayoutTest(basicTitleColorLayoutJson, {
         componentRegistry: registry,
         initialState: {
@@ -216,12 +216,12 @@ describe('게시판 목록 - 블라인드/삭제 게시글 표시 처리', () =>
 
       await testUtils.render();
       const titleEl = screen.getByTestId('post-title');
-      expect(titleEl.className).toContain('text-gray-400');
-      expect(titleEl.className).not.toContain('text-gray-700');
+      expect(titleEl.className).toContain('text-slate-400');
+      expect(titleEl.className).not.toContain('text-slate-700');
       testUtils.cleanup();
     });
 
-    it('삭제된 게시글 제목에 연한 색상(text-gray-400) 클래스가 적용된다', async () => {
+    it('삭제된 게시글 제목에 연한 색상(text-slate-400) 클래스가 적용된다', async () => {
       const testUtils = createLayoutTest(basicTitleColorLayoutJson, {
         componentRegistry: registry,
         initialState: {
@@ -231,12 +231,12 @@ describe('게시판 목록 - 블라인드/삭제 게시글 표시 처리', () =>
 
       await testUtils.render();
       const titleEl = screen.getByTestId('post-title');
-      expect(titleEl.className).toContain('text-gray-400');
-      expect(titleEl.className).not.toContain('text-gray-700');
+      expect(titleEl.className).toContain('text-slate-400');
+      expect(titleEl.className).not.toContain('text-slate-700');
       testUtils.cleanup();
     });
 
-    it('일반 게시글 제목에 기본 색상(text-gray-700) 클래스가 적용된다', async () => {
+    it('일반 게시글 제목에 기본 색상(text-slate-700) 클래스가 적용된다', async () => {
       const testUtils = createLayoutTest(basicTitleColorLayoutJson, {
         componentRegistry: registry,
         initialState: {
@@ -246,8 +246,8 @@ describe('게시판 목록 - 블라인드/삭제 게시글 표시 처리', () =>
 
       await testUtils.render();
       const titleEl = screen.getByTestId('post-title');
-      expect(titleEl.className).toContain('text-gray-700');
-      expect(titleEl.className).not.toContain('text-gray-400');
+      expect(titleEl.className).toContain('text-slate-700');
+      expect(titleEl.className).not.toContain('text-slate-400');
       testUtils.cleanup();
     });
   });
@@ -295,7 +295,7 @@ describe('게시판 목록 - 블라인드/삭제 게시글 표시 처리', () =>
       testUtils.cleanup();
     });
 
-    it('블라인드 게시글 플레이스홀더에 연한 색상(text-gray-400) 클래스가 적용된다', async () => {
+    it('블라인드 게시글 플레이스홀더에 연한 색상(text-slate-400) 클래스가 적용된다', async () => {
       const testUtils = createLayoutTest(imagePlaceholderColorLayoutJson, {
         componentRegistry: registry,
         initialState: {
@@ -305,8 +305,8 @@ describe('게시판 목록 - 블라인드/삭제 게시글 표시 처리', () =>
 
       await testUtils.render();
       const placeholderEl = screen.getByTestId('post-placeholder');
-      expect(placeholderEl.className).toContain('text-gray-400');
-      expect(placeholderEl.className).not.toContain('text-gray-500 dark:text-gray-400');
+      expect(placeholderEl.className).toContain('text-slate-400');
+      expect(placeholderEl.className).not.toContain('text-slate-500 dark:text-slate-400');
       testUtils.cleanup();
     });
   });

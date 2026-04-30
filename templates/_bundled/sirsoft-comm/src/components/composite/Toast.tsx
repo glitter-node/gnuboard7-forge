@@ -60,12 +60,12 @@ const typeStyleMap: Record<ToastType, { bg: string; text: string }> = {
     text: 'text-red-800 dark:text-red-300',
   },
   warning: {
-    bg: 'bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-800',
-    text: 'text-yellow-800 dark:text-yellow-300',
+    bg: 'bg-orange-50 dark:bg-orange-900/20 border-orange-200 dark:border-orange-800',
+    text: 'text-orange-800 dark:text-orange-300',
   },
   info: {
-    bg: 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800',
-    text: 'text-blue-800 dark:text-blue-300',
+    bg: 'bg-teal-50 dark:bg-teal-900/20 border-teal-200 dark:border-teal-800',
+    text: 'text-teal-800 dark:text-teal-300',
   },
 };
 

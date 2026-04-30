@@ -12,7 +12,7 @@
       "type": "basic",
       "name": "Button",
       "props": {
-        "className": "flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 dark:text-white bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-all shadow-sm cursor-pointer"
+        "className": "flex items-center gap-2 px-4 py-2 text-sm font-medium text-slate-700 dark:text-white bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-600 transition-all shadow-sm cursor-pointer"
       },
       "actions": [
         {
@@ -43,7 +43,7 @@
       "type": "basic",
       "name": "Span",
       "props": {
-        "className": "text-lg font-semibold text-gray-900 dark:text-white"
+        "className": "text-lg font-semibold text-slate-900 dark:text-white"
       },
       "text": "{{post?.data?.board?.name ?? ''}}"
     },
@@ -59,7 +59,7 @@
           "name": "Button",
           "if": "{{navigation?.data?.prev?.id}}",
           "props": {
-            "className": "flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 dark:text-white bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-all shadow-sm cursor-pointer"
+            "className": "flex items-center gap-2 px-4 py-2 text-sm font-medium text-slate-700 dark:text-white bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-600 transition-all shadow-sm cursor-pointer"
           },
           "actions": [
             {
@@ -94,7 +94,7 @@
           "name": "Button",
           "if": "{{navigation?.data?.next?.id}}",
           "props": {
-            "className": "flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 dark:text-white bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-all shadow-sm cursor-pointer"
+            "className": "flex items-center gap-2 px-4 py-2 text-sm font-medium text-slate-700 dark:text-white bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-600 transition-all shadow-sm cursor-pointer"
           },
           "actions": [
             {

@@ -5,25 +5,25 @@
 @source "./safelist.txt";
 
 @theme {
-  --color-primary-50: #eff6ff;
-  --color-primary-100: #dbeafe;
-  --color-primary-200: #bfdbfe;
-  --color-primary-300: #93c5fd;
-  --color-primary-400: #60a5fa;
-  --color-primary-500: #3b82f6;
-  --color-primary-600: #2563eb;
-  --color-primary-700: #1d4ed8;
-  --color-primary-800: #1e40af;
-  --color-primary-900: #1e3a8a;
-  --color-primary-950: #172554;
+  --color-primary-50: #f0fdfa;
+  --color-primary-100: #ccfbf1;
+  --color-primary-200: #99f6e4;
+  --color-primary-300: #5eead4;
+  --color-primary-400: #2dd4bf;
+  --color-primary-500: #14b8a6;
+  --color-primary-600: #0d9488;
+  --color-primary-700: #0f766e;
+  --color-primary-800: #115e59;
+  --color-primary-900: #134e4a;
+  --color-primary-950: #042f2e;
 
   --color-success-50: #f0fdf4;
   --color-success-500: #22c55e;
   --color-success-600: #16a34a;
 
-  --color-warning-50: #fefce8;
-  --color-warning-500: #eab308;
-  --color-warning-600: #ca8a04;
+  --color-warning-50: #fff7ed;
+  --color-warning-500: #f97316;
+  --color-warning-600: #ea580c;
 
   --color-danger-50: #fef2f2;
   --color-danger-500: #ef4444;
@@ -46,17 +46,17 @@
   }
 
   body {
-    @apply bg-white text-gray-900 dark:bg-gray-900 dark:text-white;
+    @apply bg-white text-slate-900 dark:bg-slate-900 dark:text-white;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   }
 
   a {
-    @apply text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300;
+    @apply text-teal-600 hover:text-teal-700 dark:text-teal-400 dark:hover:text-teal-300;
     text-decoration: none;
   }
 
   :focus-visible {
-    @apply outline-2 outline-offset-2 outline-blue-500;
+    @apply outline-2 outline-offset-2 outline-teal-500;
   }
 }
 
@@ -112,18 +112,23 @@
   }
 
   .btn-primary {
-    @apply bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500;
-    @apply dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-400;
+    @apply bg-teal-600 text-white hover:bg-teal-700 focus:ring-teal-500;
+    @apply dark:bg-teal-500 dark:hover:bg-teal-600 dark:focus:ring-teal-400;
+  }
+
+  .btn-primary-bg {
+    @apply bg-teal-600 text-white hover:bg-teal-700 focus:ring-teal-500;
+    @apply dark:bg-teal-500 dark:hover:bg-teal-600 dark:focus:ring-teal-400;
   }
 
   .btn-secondary {
-    @apply bg-gray-100 text-gray-900 hover:bg-gray-200 focus:ring-gray-500;
-    @apply dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-400;
+    @apply bg-slate-100 text-slate-900 hover:bg-slate-200 focus:ring-slate-500;
+    @apply dark:bg-slate-700 dark:text-white dark:hover:bg-slate-600 dark:focus:ring-slate-400;
   }
 
   .btn-ghost {
-    @apply bg-transparent text-gray-700 hover:bg-gray-100 focus:ring-gray-500;
-    @apply dark:text-gray-300 dark:hover:bg-gray-800 dark:focus:ring-gray-400;
+    @apply bg-transparent text-slate-700 hover:bg-slate-100 focus:ring-slate-500;
+    @apply dark:text-slate-300 dark:hover:bg-slate-800 dark:focus:ring-slate-400;
   }
 
   .btn-danger {
@@ -132,11 +137,11 @@
   }
 
   .input {
-    @apply w-full px-4 py-2 rounded-lg border border-gray-300;
-    @apply bg-white text-gray-900;
-    @apply focus:border-blue-500 focus:ring-1 focus:ring-blue-500;
-    @apply dark:bg-gray-800 dark:border-gray-600 dark:text-white;
-    @apply placeholder:text-gray-400 dark:placeholder:text-gray-500;
+    @apply w-full px-4 py-2 rounded-lg border border-slate-300;
+    @apply bg-white text-slate-900;
+    @apply focus:border-teal-500 focus:ring-1 focus:ring-teal-500;
+    @apply dark:bg-slate-800 dark:border-slate-600 dark:text-white;
+    @apply placeholder:text-slate-400 dark:placeholder:text-slate-500;
   }
 
   .input-error {
@@ -144,8 +149,8 @@
   }
 
   .card {
-    @apply bg-white rounded-lg border border-gray-200 shadow-sm;
-    @apply dark:bg-gray-800 dark:border-gray-700;
+    @apply bg-white rounded-lg border border-slate-200 shadow-sm;
+    @apply dark:bg-slate-800 dark:border-slate-700;
   }
 
   .badge {
@@ -153,7 +158,7 @@
   }
 
   .badge-primary {
-    @apply bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200;
+    @apply bg-teal-100 text-teal-800 dark:bg-teal-900 dark:text-teal-200;
   }
 
   .badge-success {
@@ -161,7 +166,7 @@
   }
 
   .badge-warning {
-    @apply bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200;
+    @apply bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200;
   }
 
   .badge-danger {

@@ -107,11 +107,11 @@ export const SortableThumbnailItem: React.FC<SortableThumbnailItemProps> = ({
     <Div
       ref={setNodeRef}
       style={style}
-      className="relative group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden"
+      className="relative group bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden"
     >
       
       <Div
-        className={`aspect-square w-full flex items-center justify-center bg-gray-50 dark:bg-gray-900 relative ${
+        className={`aspect-square w-full flex items-center justify-center bg-slate-50 dark:bg-slate-900 relative ${
           (isImage || !isPending) ? 'cursor-pointer' : ''
         }`}
         onClick={() => {
@@ -134,14 +134,14 @@ export const SortableThumbnailItem: React.FC<SortableThumbnailItemProps> = ({
             className="w-full h-full object-cover"
           />
         ) : (
-          <I className={`fa-solid ${getFileIcon(file.mime_type)} text-4xl text-gray-400 dark:text-gray-500`} />
+          <I className={`fa-solid ${getFileIcon(file.mime_type)} text-4xl text-slate-400 dark:text-slate-500`} />
         )}
 
         {(isUploading || isCompressing) && (
           <Div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center">
-            <Div className="w-3/4 h-2 bg-gray-700 rounded-full overflow-hidden">
+            <Div className="w-3/4 h-2 bg-slate-700 rounded-full overflow-hidden">
               <Div
-                className="h-full bg-blue-500 transition-all"
+                className="h-full bg-teal-500 transition-all"
                 style={{ width: `${progress}%` }}
               />
             </Div>
@@ -164,8 +164,8 @@ export const SortableThumbnailItem: React.FC<SortableThumbnailItemProps> = ({
             }}
             className={`absolute top-1.5 left-1.5 z-10 p-1 rounded-full transition-colors ${
               isPrimary
-                ? 'bg-yellow-500 text-white'
-                : 'bg-gray-800/50 text-gray-300 hover:bg-yellow-500 hover:text-white opacity-0 group-hover:opacity-100'
+                ? 'bg-teal-600 text-white'
+                : 'bg-slate-800/50 text-slate-300 hover:bg-teal-600 hover:text-white opacity-0 group-hover:opacity-100'
             }`}
             title={isPrimary ? t('attachment.primary_image') : t('attachment.set_as_primary')}
           >
@@ -178,7 +178,7 @@ export const SortableThumbnailItem: React.FC<SortableThumbnailItemProps> = ({
             type="button"
             {...attributes}
             {...listeners}
-            className="p-1.5 bg-white/90 dark:bg-gray-800/90 rounded text-gray-600 dark:text-gray-300 hover:bg-white cursor-grab active:cursor-grabbing"
+            className="p-1.5 bg-white/90 dark:bg-slate-800/90 rounded text-slate-600 dark:text-slate-300 hover:bg-white cursor-grab active:cursor-grabbing"
             title={t('attachment.drag_to_reorder')}
             onClick={(e) => e.stopPropagation()}
           >
@@ -192,7 +192,7 @@ export const SortableThumbnailItem: React.FC<SortableThumbnailItemProps> = ({
                 e.stopPropagation();
                 onDownload();
               }}
-              className="p-1.5 bg-white/90 dark:bg-gray-800/90 rounded text-blue-500 hover:bg-white"
+              className="p-1.5 bg-white/90 dark:bg-slate-800/90 rounded text-teal-500 hover:bg-white"
               title={t('common.download')}
             >
               <I className="fa-solid fa-download text-sm" />
@@ -206,7 +206,7 @@ export const SortableThumbnailItem: React.FC<SortableThumbnailItemProps> = ({
                 e.stopPropagation();
                 onRetry();
               }}
-              className="p-1.5 bg-white/90 dark:bg-gray-800/90 rounded text-orange-500 hover:bg-white"
+              className="p-1.5 bg-white/90 dark:bg-slate-800/90 rounded text-orange-500 hover:bg-white"
               title={t('common.retry')}
             >
               <I className="fa-solid fa-arrow-rotate-right text-sm" />
@@ -220,7 +220,7 @@ export const SortableThumbnailItem: React.FC<SortableThumbnailItemProps> = ({
               onRemove();
             }}
             disabled={isUploading || isCompressing}
-            className="p-1.5 bg-white/90 dark:bg-gray-800/90 rounded text-red-500 hover:bg-white disabled:opacity-50"
+            className="p-1.5 bg-white/90 dark:bg-slate-800/90 rounded text-red-500 hover:bg-white disabled:opacity-50"
             title={t('common.delete')}
           >
             <I className="fa-solid fa-times text-sm" />
@@ -229,7 +229,7 @@ export const SortableThumbnailItem: React.FC<SortableThumbnailItemProps> = ({
       </Div>
 
       <Div
-        className={`p-2 ${!isPending && onDownload ? 'cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700' : ''}`}
+        className={`p-2 ${!isPending && onDownload ? 'cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700' : ''}`}
         onClick={() => {
           // 기존 첨부파일만 클릭 시 다운로드
           if (!isPending && onDownload) {
@@ -237,10 +237,10 @@ export const SortableThumbnailItem: React.FC<SortableThumbnailItemProps> = ({
           }
         }}
       >
-        <P className="text-xs font-medium text-gray-900 dark:text-white truncate" title={file.original_filename}>
+        <P className="text-xs font-medium text-slate-900 dark:text-white truncate" title={file.original_filename}>
           {file.original_filename}
         </P>
-        <P className="text-xs text-gray-500 dark:text-gray-400">
+        <P className="text-xs text-slate-500 dark:text-slate-400">
           {isPending ? (file as PendingFile).size_formatted : (file as Attachment).size_formatted}
         </P>
       </Div>

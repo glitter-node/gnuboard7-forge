@@ -103,7 +103,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
         <Div className={`relative flex items-center ${showButton ? 'gap-2' : ''}`}>
           <Div className="relative flex-1">
             <Div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none">
-              <Icon name={IconName.Search} className="w-5 h-5 text-gray-400 dark:text-gray-500" />
+              <Icon name={IconName.Search} className="w-5 h-5 text-slate-400 dark:text-slate-500" />
             </Div>
 
             <Input
@@ -114,14 +114,14 @@ export const SearchBar: React.FC<SearchBarProps> = ({
               onFocus={() => setIsFocused(true)}
               onBlur={() => setTimeout(() => setIsFocused(false), 200)}
               placeholder={resolvedPlaceholder}
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-sm"
+              className="w-full pl-10 pr-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white text-sm"
             />
           </Div>
 
           {showButton && (
             <Button
               type="submit"
-              className="px-4 py-2 bg-gray-800 dark:bg-gray-600 text-white rounded-lg hover:bg-gray-900 dark:hover:bg-gray-500 transition-colors text-sm font-medium cursor-pointer h-[42px]"
+              className="px-4 py-2 bg-teal-600 dark:bg-teal-500 text-white rounded-lg hover:bg-teal-700 dark:hover:bg-teal-600 transition-colors text-sm font-medium cursor-pointer h-[42px]"
             >
               {t('common.search')}
             </Button>
@@ -130,16 +130,16 @@ export const SearchBar: React.FC<SearchBarProps> = ({
       </Form>
 
       {shouldShowSuggestions && (
-        <Div className="absolute z-10 w-full mt-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg max-h-64 overflow-y-auto">
+        <Div className="absolute z-10 w-full mt-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-lg max-h-64 overflow-y-auto">
           {suggestions.map((suggestion) => (
             <Div
               key={suggestion.id}
-              className="px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer border-b border-gray-100 dark:border-gray-700 last:border-b-0 transition-colors"
+              className="px-4 py-3 hover:bg-slate-50 dark:hover:bg-slate-700 cursor-pointer border-b border-slate-100 dark:border-slate-700 last:border-b-0 transition-colors"
               onClick={() => handleSuggestionClick(suggestion)}
             >
               <Div className="flex items-center gap-2">
-                <Icon name={IconName.Search} className="w-4 h-4 text-gray-400 dark:text-gray-500" />
-                <Span className="text-sm text-gray-700 dark:text-gray-300">{suggestion.text}</Span>
+                <Icon name={IconName.Search} className="w-4 h-4 text-slate-400 dark:text-slate-500" />
+                <Span className="text-sm text-slate-700 dark:text-slate-300">{suggestion.text}</Span>
               </Div>
             </Div>
           ))}

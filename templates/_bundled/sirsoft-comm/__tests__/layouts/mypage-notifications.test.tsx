@@ -95,7 +95,7 @@ const notificationsLayout = {
     {
       type: 'basic',
       name: 'Div',
-      props: { className: 'min-h-screen bg-gray-50 dark:bg-gray-900' },
+      props: { className: 'min-h-screen bg-slate-50 dark:bg-slate-900' },
       children: [
         {
           type: 'layout',

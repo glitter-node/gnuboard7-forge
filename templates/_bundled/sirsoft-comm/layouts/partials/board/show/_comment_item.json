@@ -32,7 +32,7 @@
       "props": {
         "name": "turn-up",
         "size": "sm",
-        "className": "fa-rotate-90 text-gray-400 dark:text-gray-500 flex-shrink-0 self-start mt-4"
+        "className": "fa-rotate-90 text-slate-400 dark:text-slate-500 flex-shrink-0 self-start mt-4"
       }
     },
     {
@@ -88,7 +88,7 @@
                   "type": "basic",
                   "name": "Button",
                   "props": {
-                    "className": "text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 p-1 cursor-pointer"
+                    "className": "text-sm text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 p-1 cursor-pointer"
                   },
                   "actions": [
                     {
@@ -116,7 +116,7 @@
                   "name": "Div",
                   "if": "{{_local.commentDropdownId === comment?.id}}",
                   "props": {
-                    "className": "absolute right-0 top-full mt-1 bg-white dark:bg-gray-700 rounded-lg shadow-lg border border-gray-200 dark:border-gray-600 py-1 min-w-[120px] z-10"
+                    "className": "absolute right-0 top-full mt-1 bg-white dark:bg-slate-700 rounded-lg shadow-lg border border-slate-200 dark:border-slate-600 py-1 min-w-[120px] z-10"
                   },
                   "children": [
                     {
@@ -124,7 +124,7 @@
                       "name": "Button",
                       "if": "{{comment?.abilities?.can_write && (comment?.depth ?? 0) < (post?.data?.board?.max_comment_depth ?? 10) && post?.data?.status !== 'blinded' && post?.data?.status !== 'deleted' && !post?.data?.deleted_at}}",
                       "props": {
-                        "className": "w-full px-4 py-2 text-left text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600 flex items-center gap-2 cursor-pointer"
+                        "className": "w-full px-4 py-2 text-left text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-600 flex items-center gap-2 cursor-pointer"
                       },
                       "actions": [
                         {
@@ -172,7 +172,7 @@
                       "name": "Button",
                       "if": "{{(comment?.is_author && post?.data?.abilities?.can_write_comments) || comment?.is_guest_comment || post?.data?.abilities?.can_manage}}",
                       "props": {
-                        "className": "w-full px-4 py-2 text-left text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600 flex items-center gap-2 cursor-pointer"
+                        "className": "w-full px-4 py-2 text-left text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-600 flex items-center gap-2 cursor-pointer"
                       },
                       "actions": [
                         {
@@ -247,7 +247,7 @@
                       "name": "Button",
                       "if": "{{(comment?.is_author && post?.data?.abilities?.can_write_comments) || comment?.is_guest_comment || post?.data?.abilities?.can_manage}}",
                       "props": {
-                        "className": "w-full px-4 py-2 text-left text-sm text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-600 flex items-center gap-2 cursor-pointer"
+                        "className": "w-full px-4 py-2 text-left text-sm text-red-600 dark:text-red-400 hover:bg-slate-100 dark:hover:bg-slate-600 flex items-center gap-2 cursor-pointer"
                       },
                       "actions": [
                         {
@@ -300,7 +300,7 @@
                       "name": "Button",
                       "if": "{{_global.currentUser?.uuid && post?.data?.board?.use_report && !comment?.is_author && !comment?.is_already_reported}}",
                       "props": {
-                        "className": "w-full px-4 py-2 text-left text-sm text-orange-600 dark:text-orange-400 hover:bg-gray-100 dark:hover:bg-gray-600 flex items-center gap-2 cursor-pointer"
+                        "className": "w-full px-4 py-2 text-left text-sm text-orange-600 dark:text-orange-400 hover:bg-slate-100 dark:hover:bg-slate-600 flex items-center gap-2 cursor-pointer"
                       },
                       "actions": [
                         {
@@ -367,7 +367,7 @@
                       "if": "{{_global.currentUser?.uuid && post?.data?.board?.use_report && !comment?.is_author && comment?.is_already_reported}}",
                       "props": {
                         "disabled": true,
-                        "className": "w-full px-4 py-2 text-left text-sm text-gray-400 dark:text-gray-500 flex items-center gap-2 cursor-not-allowed opacity-60"
+                        "className": "w-full px-4 py-2 text-left text-sm text-slate-400 dark:text-slate-500 flex items-center gap-2 cursor-not-allowed opacity-60"
                       },
                       "children": [
                         {
@@ -396,14 +396,14 @@
           "name": "Div",
           "if": "{{comment?.deleted_at && _global.commentEdit?.editingCommentId !== comment?.id}}",
           "props": {
-            "className": "py-3 px-4 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 mb-2"
+            "className": "py-3 px-4 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 mb-2"
           },
           "children": [
             {
               "type": "basic",
               "name": "Div",
               "props": {
-                "className": "flex items-center gap-3 text-gray-400 dark:text-gray-500"
+                "className": "flex items-center gap-3 text-slate-400 dark:text-slate-500"
               },
               "children": [
                 {
@@ -427,7 +427,7 @@
                   "name": "Button",
                   "if": "{{post?.data?.abilities?.can_manage === true}}",
                   "props": {
-                    "className": "text-xs px-2 py-0.5 rounded bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors cursor-pointer"
+                    "className": "text-xs px-2 py-0.5 rounded bg-teal-50 dark:bg-teal-900/20 text-teal-600 dark:text-teal-400 hover:bg-teal-100 dark:hover:bg-teal-900/30 transition-colors cursor-pointer"
                   },
                   "text": "{{_local.showDeletedContent === comment?.id ? '$t:board.comment.hide_original' : '$t:board.comment.view_original'}}",
                   "actions": [
@@ -448,14 +448,14 @@
               "name": "Div",
               "if": "{{_local.showDeletedContent === comment?.id}}",
               "props": {
-                "className": "mt-3 pt-3 border-t border-gray-200 dark:border-gray-700"
+                "className": "mt-3 pt-3 border-t border-slate-200 dark:border-slate-700"
               },
               "children": [
                 {
                   "type": "basic",
                   "name": "P",
                   "props": {
-                    "className": "text-sm text-gray-700 dark:text-gray-300"
+                    "className": "text-sm text-slate-700 dark:text-slate-300"
                   },
                   "text": "{{comment?.content}}"
                 }
@@ -468,14 +468,14 @@
           "name": "Div",
           "if": "{{!comment?.deleted_at && comment?.status === 'blinded' && _global.commentEdit?.editingCommentId !== comment?.id}}",
           "props": {
-            "className": "py-3 px-4 bg-gray-100 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 mb-2"
+            "className": "py-3 px-4 bg-slate-100 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 mb-2"
           },
           "children": [
             {
               "type": "basic",
               "name": "Div",
               "props": {
-                "className": "flex items-center gap-2 text-gray-500 dark:text-gray-400"
+                "className": "flex items-center gap-2 text-slate-500 dark:text-slate-400"
               },
               "children": [
                 {
@@ -499,7 +499,7 @@
                   "name": "Button",
                   "if": "{{comment?.content}}",
                   "props": {
-                    "className": "text-xs px-2 py-0.5 rounded bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors cursor-pointer"
+                    "className": "text-xs px-2 py-0.5 rounded bg-teal-50 dark:bg-teal-900/20 text-teal-600 dark:text-teal-400 hover:bg-teal-100 dark:hover:bg-teal-900/30 transition-colors cursor-pointer"
                   },
                   "actions": [
                     {
@@ -520,14 +520,14 @@
               "name": "Div",
               "if": "{{_local.showBlindedCommentContent?.[comment?.id] && comment?.content}}",
               "props": {
-                "className": "mt-3 pt-3 border-t border-gray-200 dark:border-gray-700"
+                "className": "mt-3 pt-3 border-t border-slate-200 dark:border-slate-700"
               },
               "children": [
                 {
                   "type": "basic",
                   "name": "P",
                   "props": {
-                    "className": "text-sm text-gray-700 dark:text-gray-300"
+                    "className": "text-sm text-slate-700 dark:text-slate-300"
                   },
                   "text": "{{comment?.content}}"
                 }
@@ -540,7 +540,7 @@
           "name": "P",
           "if": "{{!comment?.deleted_at && comment?.status !== 'blinded' && _global.commentEdit?.editingCommentId !== comment?.id}}",
           "props": {
-            "className": "text-gray-700 dark:text-gray-300"
+            "className": "text-slate-700 dark:text-slate-300"
           },
           "text": "{{comment?.content}}"
         },
@@ -559,7 +559,7 @@
                 "name": "editing_comment_content",
                 "value": "{{_global?.commentEdit?.editingCommentContent ?? comment?.content}}",
                 "rows": 3,
-                "className": "w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none"
+                "className": "w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 resize-none"
               },
               "actions": [
                 {
@@ -586,7 +586,7 @@
                   "type": "basic",
                   "name": "Button",
                   "props": {
-                    "className": "px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer"
+                    "className": "px-4 py-2 border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-200 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors cursor-pointer"
                   },
                   "actions": [
                     {
@@ -608,7 +608,7 @@
                   "type": "basic",
                   "name": "Button",
                   "props": {
-                    "className": "px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed",
+                    "className": "px-4 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed",
                     "disabled": "{{_local.editingCommentSubmitting === true}}"
                   },
                   "actions": [
@@ -723,14 +723,14 @@
           "name": "Div",
           "if": "{{_local.replyToCommentId === comment?.id && post?.data?.status !== 'blinded' && post?.data?.status !== 'deleted' && !post?.data?.deleted_at}}",
           "props": {
-            "className": "mt-4 ml-14 p-4 bg-blue-50 dark:bg-blue-900/10 rounded-lg border border-blue-200 dark:border-blue-800"
+            "className": "mt-4 ml-14 p-4 bg-teal-50 dark:bg-teal-900/10 rounded-lg border border-teal-200 dark:border-teal-800"
           },
           "children": [
             {
               "type": "basic",
               "name": "Div",
               "props": {
-                "className": "flex items-center gap-2 text-sm text-blue-600 dark:text-blue-400 font-medium mb-3"
+                "className": "flex items-center gap-2 text-sm text-teal-600 dark:text-teal-400 font-medium mb-3"
               },
               "children": [
                 {
@@ -764,7 +764,7 @@
                     "name": "guest_reply_author_name",
                     "value": "{{_local.guest_reply_author_name ?? ''}}",
                     "placeholder": "$t:board.guest_author_name",
-                    "className": "flex-1 px-4 py-2 border border-blue-300 dark:border-blue-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    "className": "flex-1 px-4 py-2 border border-teal-300 dark:border-teal-600 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
                   },
                   "actions": [
                     {
@@ -785,7 +785,7 @@
                     "name": "guest_reply_password",
                     "value": "{{_local.guest_reply_password ?? ''}}",
                     "placeholder": "$t:board.guest_password",
-                    "className": "flex-1 px-4 py-2 border border-blue-300 dark:border-blue-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    "className": "flex-1 px-4 py-2 border border-teal-300 dark:border-teal-600 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
                   },
                   "actions": [
                     {
@@ -832,7 +832,7 @@
                         "value": "{{_local.reply_content ?? ''}}",
                         "placeholder": "$t:board.reply_placeholder",
                         "rows": 3,
-                        "className": "w-full px-4 py-2 border border-blue-300 dark:border-blue-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none mb-2"
+                        "className": "w-full px-4 py-2 border border-teal-300 dark:border-teal-600 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 resize-none mb-2"
                       },
                       "actions": [
                         {
@@ -856,7 +856,7 @@
                           "type": "basic",
                           "name": "Button",
                           "props": {
-                            "className": "px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer"
+                            "className": "px-4 py-2 border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-200 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors cursor-pointer"
                           },
                           "text": "$t:common.cancel",
                           "actions": [
@@ -875,7 +875,7 @@
                           "type": "basic",
                           "name": "Button",
                           "props": {
-                            "className": "px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed",
+                            "className": "px-4 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed",
                             "disabled": "{{_local.commentSubmitting === true}}"
                           },
                           "actions": [

@@ -62,7 +62,7 @@ const MockUserInfo: React.FC<{
   
   const statusBadgeStyles: Record<string, string> = {
     active: '',
-    inactive: 'bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200',
+    inactive: 'bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200',
     blocked: 'bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200',
   };
 
@@ -76,17 +76,17 @@ const MockUserInfo: React.FC<{
         className={layout === 'horizontal' ? 'flex items-center gap-1.5' : 'flex flex-col items-start'}
         data-testid="user-info"
       >
-        <div className="flex items-center gap-1.5 text-gray-400 dark:text-gray-500">
+        <div className="flex items-center gap-1.5 text-slate-400 dark:text-slate-500">
           <span data-testid="user-name">{actualName}</span>
           <span
-            className="text-xs px-1.5 py-0.5 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded"
+            className="text-xs px-1.5 py-0.5 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded"
             data-testid="guest-badge"
           >
             {t('userinfo.guest_badge')}
           </span>
         </div>
         {subText && (
-          <span className="text-sm text-gray-500 dark:text-gray-400" data-testid="sub-text" title={subTextTitle}>
+          <span className="text-sm text-slate-500 dark:text-slate-400" data-testid="sub-text" title={subTextTitle}>
             {subText}
           </span>
         )}
@@ -119,7 +119,7 @@ const MockUserInfo: React.FC<{
         </div>
 
         {subText && (
-          <span className="text-sm text-gray-500 dark:text-gray-400" data-testid="sub-text" title={subTextTitle}>
+          <span className="text-sm text-slate-500 dark:text-slate-400" data-testid="sub-text" title={subTextTitle}>
             {subText}
           </span>
         )}
@@ -220,8 +220,8 @@ describe('UserInfo 컴포넌트', () => {
     it('inactive 배지에 노란색 스타일이 적용되어야 함', () => {
       render(<MockUserInfo name="홍길동" userId={1} status="inactive" />);
       const badge = screen.getByTestId('user-status-badge');
-      expect(badge.className).toContain('bg-yellow-100');
-      expect(badge.className).toContain('dark:bg-yellow-900');
+      expect(badge.className).toContain('bg-orange-100');
+      expect(badge.className).toContain('dark:bg-orange-900');
     });
 
     it('blocked 배지에 빨간색 스타일이 적용되어야 함', () => {
