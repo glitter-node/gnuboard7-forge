@@ -192,11 +192,13 @@
     "search_placeholder_comments": "Search comment content",
     "search_result": "Search results",
     "search_result_unit": " items",
+    "search_result_count": "({{count}} items)",
     "meta": {
       "views": "Views ",
       "original_views": "Post Views ",
       "comments": "Comments ",
-      "comments_unit": ""
+      "comments_unit": "",
+      "comments_count": "{{count}}"
     },
     "activity_type": {
       "authored": "Authored",

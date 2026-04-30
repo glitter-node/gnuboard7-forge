@@ -258,7 +258,7 @@
                         {
                             "type": "basic",
                             "name": "Span",
-                            "text": "({{myPosts?.data?.total ?? 0}}$t:mypage.board_activities.search_result_unit)"
+                            "text": "$t:mypage.board_activities.search_result_count|count={{myPosts?.data?.total ?? 0}}"
                         }
                     ]
                 },
@@ -440,7 +440,7 @@
                                                 {
                                                     "type": "basic",
                                                     "name": "Span",
-                                                    "text": "{{post.comments_count ?? 0}}$t:mypage.board_activities.meta.comments_unit"
+                                                    "text": "$t:mypage.board_activities.meta.comments_count|count={{post.comments_count ?? 0}}"
                                                 }
                                             ]
                                         }

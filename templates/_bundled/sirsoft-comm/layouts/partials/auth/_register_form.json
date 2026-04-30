@@ -361,7 +361,7 @@
                   "type": "basic",
                   "name": "Label",
                   "props": {
-                    "className": "text-sm text-gray-700 dark:text-gray-300"
+                    "className": "text-sm text-gray-700 dark:text-gray-300 inline-flex items-center gap-1"
                   },
                   "children": [
                     {
@@ -394,7 +394,7 @@
                     {
                       "type": "basic",
                       "name": "Span",
-                      "text": " $t:auth.agree_required"
+                      "text": "$t:auth.agree_required"
                     }
                   ]
                 }
@@ -437,7 +437,7 @@
                   "type": "basic",
                   "name": "Label",
                   "props": {
-                    "className": "text-sm text-gray-700 dark:text-gray-300"
+                    "className": "text-sm text-gray-700 dark:text-gray-300 inline-flex items-center gap-1"
                   },
                   "children": [
                     {
@@ -470,7 +470,7 @@
                     {
                       "type": "basic",
                       "name": "Span",
-                      "text": " $t:auth.agree_required"
+                      "text": "$t:auth.agree_required"
                     }
                   ]
                 }

@@ -109,7 +109,7 @@
                             }
                           }
                         ],
-                        "text": "{{userProfile.data?.name ?? ''}} $t:user.profile.back_to_profile"
+                        "text": "$t:user.profile.back_to_profile_for_user|name={{userProfile.data?.name ?? ''}}"
                       },
                       {
                         "type": "basic",
@@ -157,7 +157,7 @@
                             "props": {
                               "className": "text-2xl font-bold text-gray-900 dark:text-white"
                             },
-                            "text": "{{userProfile.data?.name ?? ''}}$t:user.profile.posts_suffix"
+                            "text": "$t:user.profile.posts_title_for_user|name={{userProfile.data?.name ?? ''}}"
                           }
                         ]
                       },

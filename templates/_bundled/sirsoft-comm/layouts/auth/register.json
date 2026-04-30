@@ -69,18 +69,13 @@
                 "type": "basic",
                 "name": "Div",
                 "props": {
-                  "className": "mt-6 text-center text-sm text-gray-600 dark:text-gray-400"
+                  "className": "mt-6 text-center text-sm text-gray-600 dark:text-gray-400 flex items-center justify-center gap-1"
                 },
                 "children": [
                   {
                     "type": "basic",
                     "name": "Span",
                     "text": "$t:auth.already_member"
-                  },
-                  {
-                    "type": "basic",
-                    "name": "Span",
-                    "text": " "
                   },
                   {
                     "type": "basic",

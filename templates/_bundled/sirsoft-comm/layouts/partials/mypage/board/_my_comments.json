@@ -250,7 +250,7 @@
                         {
                             "type": "basic",
                             "name": "Span",
-                            "text": "({{myComments?.data?.total ?? 0}}$t:mypage.board_activities.search_result_unit)"
+                            "text": "$t:mypage.board_activities.search_result_count|count={{myComments?.data?.total ?? 0}}"
                         }
                     ]
                 },

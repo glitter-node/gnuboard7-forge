@@ -159,7 +159,7 @@
                 {
                   "type": "basic",
                   "name": "Span",
-                  "text": "{{_local.collapsedReplies?.[comment?.id] === false ? '$t:board.hide_replies' : '$t:board.show_replies'}} ({{comment?.replies_count}})"
+                  "text": "$t:board.replies_toggle|action={{_local.collapsedReplies?.[comment?.id] === false ? '$t:board.hide_replies' : '$t:board.show_replies'}}|count={{comment?.replies_count}}"
                 }
               ]
             }
