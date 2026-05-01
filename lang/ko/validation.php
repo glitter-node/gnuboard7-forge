@@ -196,6 +196,7 @@ return [
         'action_type_or_event_missing' => "components[:index].actions[:actionIndex]에 'type' 또는 'event' 중 하나가 필요합니다.",
         'action_type_must_be_string' => 'components[:index].actions[:actionIndex].type은 문자열이어야 합니다.',
         'action_event_must_be_string' => 'components[:index].actions[:actionIndex].event는 문자열이어야 합니다.',
+        'semantic_color_utility_prohibited' => 'sirsoft-comm 레이아웃의 ":path"에서 클래스 토큰 ":token"은 사용할 수 없습니다. 컴포넌트 variant prop을 사용하세요.',
         // UpdateLayoutRequest 검증 메시지
         'content' => [
             'required' => '레이아웃 content가 필요합니다.',

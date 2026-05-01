@@ -35,16 +35,16 @@
 
 ## 레이아웃 JSON 서버 검증
 
-레이아웃 JSON은 저장 전 서버에서 **10가지 Custom Rule**로 사전 검증됩니다.
+레이아웃 JSON은 저장 전 서버에서 **11가지 Custom Rule**로 사전 검증됩니다.
 프론트엔드 개발자는 이를 인지하되, 검증 로직을 프론트엔드에서 재구현할 필요가 없습니다.
 
 ### 검증 시점
 
 | 시점 | FormRequest | 설명 |
 |------|-------------|------|
-| 레이아웃 생성 | `StoreLayoutRequest` | 기본 4개 Rule |
-| 레이아웃 수정 | `UpdateLayoutRequest` | 기본 4개 Rule (sometimes) |
-| 콘텐츠만 수정 | `UpdateLayoutContentRequest` | 가장 엄격 — 8개 Rule |
+| 레이아웃 생성 | `StoreLayoutRequest` | 기본 5개 Rule |
+| 레이아웃 수정 | `UpdateLayoutRequest` | 기본 5개 Rule (sometimes) |
+| 콘텐츠만 수정 | `UpdateLayoutContentRequest` | 가장 엄격 — 9개 Rule |
 | 상속 레이아웃 생성/수정 | `Store/UpdateLayoutInheritanceRequest` | 상속 전용 3개 Rule |
 
 ### Custom Rule 요약
@@ -59,10 +59,15 @@
 | 슬롯 | ValidSlotStructure | 부모에서 정의된 슬롯만 허용 |
 | 데이터소스 | ValidDataSourceMerge | 상속 체인 ID 고유성 |
 | 권한 | ValidPermissionStructure | or/and 구조 + 깊이 3 제한 |
+| 템플릿 스타일 | NoSemanticColorUtilitiesInLayout | sirsoft-comm 레이아웃의 semantic color 유틸리티는 variant props 사용 강제 |
 | 경로 | SafeTemplatePath | Path Traversal 13패턴 차단 |
 | 파일 타입 | AllowedTemplateFileType | 14개 확장자 화이트리스트 |
 
 > 상세: [SECURITY.md - Custom Validation Rules](../SECURITY.md#custom-validation-rules)
+
+### sirsoft-comm variant 색상 규칙
+
+sirsoft-comm 레이아웃 JSON의 class-like 필드(`className`, `class`, `classMap`, responsive className 등)에서는 `bg-red-*`, `text-primary-*`, `border-danger-*` 같은 semantic color Tailwind 유틸리티를 직접 사용할 수 없습니다. Button, Badge 등 variant를 지원하는 컴포넌트는 색상 의도를 `variant` prop으로 표현해야 합니다.
 
 ---
 

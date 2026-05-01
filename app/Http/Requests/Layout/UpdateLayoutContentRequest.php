@@ -4,6 +4,7 @@ namespace App\Http\Requests\Layout;
 
 use App\Extension\HookManager;
 use App\Rules\NoExternalUrls;
+use App\Rules\NoSemanticColorUtilitiesInLayout;
 use App\Rules\ValidDataSourceMerge;
 use App\Rules\ValidLayoutStructure;
 use App\Rules\ValidParentLayout;
@@ -92,6 +93,7 @@ class UpdateLayoutContentRequest extends FormRequest
                 'required',
                 'array',
                 new ValidLayoutStructure,
+                new NoSemanticColorUtilitiesInLayout($this->route('templateName')),
             ],
 
             // 버전 필드

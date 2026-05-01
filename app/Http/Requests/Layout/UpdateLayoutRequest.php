@@ -7,6 +7,7 @@ use App\Models\Template;
 use App\Models\TemplateLayout;
 use App\Rules\ComponentExists;
 use App\Rules\NoExternalUrls;
+use App\Rules\NoSemanticColorUtilitiesInLayout;
 use App\Rules\ValidLayoutStructure;
 use App\Rules\WhitelistedEndpoint;
 use Illuminate\Foundation\Http\FormRequest;
@@ -71,6 +72,7 @@ class UpdateLayoutRequest extends FormRequest
                 new WhitelistedEndpoint,
                 // 4. 외부 URL 차단
                 new NoExternalUrls,
+                new NoSemanticColorUtilitiesInLayout($this->resolveTemplateIdentifier()),
             ],
         ];
 
@@ -98,5 +100,27 @@ class UpdateLayoutRequest extends FormRequest
             // 레이아웃 JSON 검증 메시지
             'content.array' => __('validation.request.content.array'),
         ];
+    }
+
+    private function resolveTemplateIdentifier(): ?string
+    {
+        $templateId = $this->input('template_id');
+
+        if (is_numeric($templateId)) {
+            return Template::query()->whereKey((int) $templateId)->value('identifier');
+        }
+
+        $layoutId = $this->route('id');
+
+        if (! is_numeric($layoutId)) {
+            return null;
+        }
+
+        return TemplateLayout::query()
+            ->whereKey((int) $layoutId)
+            ->with('template:id,identifier')
+            ->first()
+            ?->template
+            ?->identifier;
     }
 }

@@ -194,6 +194,7 @@ return [
         'action_type_or_event_missing' => "Either 'type' or 'event' is required in components[:index].actions[:actionIndex].",
         'action_type_must_be_string' => 'components[:index].actions[:actionIndex].type must be a string.',
         'action_event_must_be_string' => 'components[:index].actions[:actionIndex].event must be a string.',
+        'semantic_color_utility_prohibited' => 'The class token ":token" at ":path" is not allowed in sirsoft-comm layouts. Use component variant props instead.',
         // UpdateLayoutRequest validation messages
         'content' => [
             'required' => 'The layout content is required.',
