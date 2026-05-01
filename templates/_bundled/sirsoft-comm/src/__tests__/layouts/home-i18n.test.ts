@@ -71,7 +71,7 @@ describe('home layout i18n enforcement', () => {
 
     expect(cta.name).toBe('Button');
     expect(cta.props.variant).toBe('primary');
-    expect(cta.props.size).toBe('lg');
+    expect(cta.props.size).toBe('md');
     expect(cta.props.className).toBe('gap-2 cursor-pointer');
     expect(cta.props.className).not.toContain('btn-primary-bg');
     expect(cta.props.className).not.toMatch(/\bbg-amber-/);

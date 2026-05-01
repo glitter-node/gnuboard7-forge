@@ -5,14 +5,14 @@
   "type": "basic",
   "name": "Div",
   "props": {
-    "className": "block w-full text-left bg-white dark:bg-slate-800 rounded-xl pt-4 shadow-sm border border-slate-100 dark:border-slate-700 hover:shadow-md hover:border-teal-200 dark:hover:border-teal-800 transition-all"
+    "className": "block w-full text-left bg-white dark:bg-slate-800 rounded-xl pt-3 shadow-sm border border-slate-100 dark:border-slate-700 hover:shadow-md hover:border-teal-200 dark:hover:border-teal-800 transition-all"
   },
   "children": [
     {
       "type": "basic",
       "name": "Div",
       "props": {
-        "className": "flex items-center justify-between mb-2 px-4"
+        "className": "flex items-center justify-between mb-2 px-3"
       },
       "children": [
         {
@@ -46,7 +46,7 @@
       "type": "basic",
       "name": "Div",
       "props": {
-        "className": "px-4 pb-2"
+        "className": "px-3 pb-2"
       },
       "children": [
         {
@@ -65,7 +65,7 @@
               "type": "basic",
               "name": "Div",
               "props": {
-                "className": "flex items-center justify-between w-full hover:bg-slate-50 dark:hover:bg-slate-700/50 rounded-lg py-2 transition-colors gap-2"
+                "className": "flex items-center justify-between w-full hover:bg-slate-50 dark:hover:bg-slate-700/50 rounded-lg py-1.5 transition-colors gap-2"
               },
               "children": [
                 {
@@ -157,7 +157,7 @@
           "name": "Div",
           "if": "{{!item.recent_posts || item.recent_posts.length === 0}}",
           "props": {
-            "className": "py-10 my-1 text-center text-sm text-slate-400 dark:text-slate-500"
+            "className": "py-6 my-1 text-center text-sm text-slate-400 dark:text-slate-500"
           },
           "children": [
             {
@@ -173,7 +173,7 @@
       "type": "basic",
       "name": "Button",
       "props": {
-        "className": "w-full px-4 py-3 text-center text-sm font-medium text-teal-600 dark:text-teal-400 hover:bg-teal-50 dark:hover:bg-teal-900/20 transition-colors cursor-pointer border-t border-slate-100 dark:border-slate-700"
+        "className": "w-full px-3 py-2.5 text-center text-sm font-medium text-teal-600 dark:text-teal-400 hover:bg-teal-50 dark:hover:bg-teal-900/20 transition-colors cursor-pointer border-t border-slate-100 dark:border-slate-700"
       },
       "actions": [
         {
