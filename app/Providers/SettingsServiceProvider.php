@@ -389,7 +389,7 @@ class SettingsServiceProvider extends ServiceProvider
      * 클라이언트(브라우저)와 서버(백엔드 broadcast HTTP API) endpoint를 분리합니다:
      * - 클라이언트: 외부에서 WebSocket으로 접속할 host/port (예: g7.dev:443)
      *   → g7.websocket.client.* 에 저장 → admin.blade.php가 브라우저로 전달
-     * - 서버: 백엔드 Pusher SDK가 broadcast HTTP API를 호출할 내부 endpoint (예: 127.0.0.1:8080)
+     * - 서버: 백엔드 Pusher SDK가 broadcast HTTP API를 호출할 endpoint
      *   → broadcasting.connections.reverb.options.* 에 저장 → Pusher SDK가 사용
      *   → reverb.apps.apps.0.options.* 에 저장 → Reverb 서버 자체 설정
      */
@@ -411,8 +411,7 @@ class SettingsServiceProvider extends ServiceProvider
         $clientScheme = $driverSettings['websocket_scheme'] ?? '';
         $verifySsl = isset($driverSettings['websocket_verify_ssl']) ? (bool) $driverSettings['websocket_verify_ssl'] : null;
 
-        // 서버 endpoint (내부 — 백엔드 broadcast HTTP API용)
-        // server 키가 비어있으면 클라이언트 값으로 fallback (단일 호스트 환경 호환)
+        // 서버 endpoint (백엔드 broadcast HTTP API용)
         $serverHost = $driverSettings['websocket_server_host'] ?? '';
         $serverPort = (int) ($driverSettings['websocket_server_port'] ?? 0);
         $serverScheme = $driverSettings['websocket_server_scheme'] ?? '';
@@ -461,14 +460,21 @@ class SettingsServiceProvider extends ServiceProvider
         }
 
         // 클라이언트(브라우저) 접속용 endpoint — Blade에서 읽어 G7Core에 전달
+        if (! empty($appKey)) {
+            Config::set('broadcasting.connections.reverb.public_options.app_key', $appKey);
+            Config::set('reverb.apps.apps.0.public_options.app_key', $appKey);
+        }
         if (! empty($clientHost)) {
-            Config::set('g7.websocket.client.host', $clientHost);
+            Config::set('broadcasting.connections.reverb.public_options.host', $clientHost);
+            Config::set('reverb.apps.apps.0.public_options.host', $clientHost);
         }
         if ($clientPort > 0) {
-            Config::set('g7.websocket.client.port', $clientPort);
+            Config::set('broadcasting.connections.reverb.public_options.port', $clientPort);
+            Config::set('reverb.apps.apps.0.public_options.port', $clientPort);
         }
         if (! empty($clientScheme)) {
-            Config::set('g7.websocket.client.scheme', $clientScheme);
+            Config::set('broadcasting.connections.reverb.public_options.scheme', $clientScheme);
+            Config::set('reverb.apps.apps.0.public_options.scheme', $clientScheme);
         }
     }
 

@@ -77,10 +77,10 @@ describe('WebSocketManager', () => {
   async function getConfiguredManager() {
     const { webSocketManager } = await import('../WebSocketManager');
     webSocketManager.configure({
-      appKey: 'test-key',
-      host: 'localhost',
-      port: 8080,
-      scheme: 'http',
+      appKey: 'public-test-key',
+      host: 'reverb-ws.glitter.tw',
+      port: 443,
+      scheme: 'https',
     });
     return webSocketManager;
   }
@@ -92,10 +92,10 @@ describe('WebSocketManager', () => {
       expect(webSocketManager.isConfigured()).toBe(false);
 
       webSocketManager.configure({
-        appKey: 'test-key',
-        host: 'localhost',
-        port: 8080,
-        scheme: 'http',
+        appKey: 'public-test-key',
+        host: 'reverb-ws.glitter.tw',
+        port: 443,
+        scheme: 'https',
       });
 
       expect(webSocketManager.isConfigured()).toBe(true);
@@ -256,9 +256,9 @@ describe('WebSocketManager', () => {
 
       webSocketManager.configure({
         appKey: '',
-        host: 'localhost',
-        port: 8080,
-        scheme: 'http',
+        host: 'reverb-ws.glitter.tw',
+        port: 443,
+        scheme: 'https',
       });
 
       const callback = vi.fn();
@@ -287,12 +287,48 @@ describe('WebSocketManager', () => {
       expect(webSocketManager.isConfigured()).toBe(false);
     });
 
-    it('should omit default tls port from pusher options', async () => {
+    it('should not initialize without public port', async () => {
       const { webSocketManager } = await import('../WebSocketManager');
 
       webSocketManager.configure({
-        appKey: 'test-key',
-        host: 'gnuboard7forge.glitter.kr',
+        appKey: 'public-test-key',
+        host: 'reverb-ws.glitter.tw',
+        scheme: 'https',
+      });
+
+      const callback = vi.fn();
+      const key = webSocketManager.subscribe('test.channel', 'test.event', callback);
+
+      expect(key).toBe('');
+      expect(mockPusherConstructor).not.toHaveBeenCalled();
+      expect(mockConnect).not.toHaveBeenCalled();
+      expect(webSocketManager.isConfigured()).toBe(false);
+    });
+
+    it('should not initialize without public scheme', async () => {
+      const { webSocketManager } = await import('../WebSocketManager');
+
+      webSocketManager.configure({
+        appKey: 'public-test-key',
+        host: 'reverb-ws.glitter.tw',
+        port: 443,
+      });
+
+      const callback = vi.fn();
+      const key = webSocketManager.subscribe('test.channel', 'test.event', callback);
+
+      expect(key).toBe('');
+      expect(mockPusherConstructor).not.toHaveBeenCalled();
+      expect(mockConnect).not.toHaveBeenCalled();
+      expect(webSocketManager.isConfigured()).toBe(false);
+    });
+
+    it('should use public host with wss transport settings', async () => {
+      const { webSocketManager } = await import('../WebSocketManager');
+
+      webSocketManager.configure({
+        appKey: '11eef33d7181b64a7394caa5f097d21a',
+        host: 'reverb-ws.glitter.tw',
         port: 443,
         scheme: 'https',
       });
@@ -301,18 +337,21 @@ describe('WebSocketManager', () => {
       webSocketManager.subscribe('test.channel', 'test.event', callback);
 
       expect(mockPusherConstructor).toHaveBeenCalledWith(
-        'test-key',
+        '11eef33d7181b64a7394caa5f097d21a',
         expect.objectContaining({
-          wsHost: 'gnuboard7forge.glitter.kr',
+          wsHost: 'reverb-ws.glitter.tw',
           forceTLS: true,
+          enabledTransports: ['ws', 'wss'],
         })
       );
       const options = mockPusherConstructor.mock.calls[0][1] as Record<string, unknown>;
       expect(options.wsPort).toBeUndefined();
       expect(options.wssPort).toBeUndefined();
+      expect(JSON.stringify(options)).not.toContain('localhost');
+      expect(JSON.stringify(options)).not.toContain('127.0.0.1');
     });
 
-    it('should include non default port in pusher options', async () => {
+    it('should allow explicit non default local config in tests', async () => {
       const { webSocketManager } = await import('../WebSocketManager');
 
       webSocketManager.configure({

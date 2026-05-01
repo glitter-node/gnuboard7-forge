@@ -369,9 +369,9 @@ class DriverConnectionTester
     public function testWebsocket(array $config): array
     {
         try {
-            $host = $config['websocket_host'] ?? 'localhost';
-            $port = (int) ($config['websocket_port'] ?? 8080);
-            $scheme = $config['websocket_scheme'] ?? 'https';
+            $host = $config['websocket_host'] ?? config('broadcasting.connections.reverb.public_options.host', '');
+            $port = (int) ($config['websocket_port'] ?? config('broadcasting.connections.reverb.public_options.port', 443));
+            $scheme = $config['websocket_scheme'] ?? config('broadcasting.connections.reverb.public_options.scheme', 'https');
 
             // Reverb 서버 상태 확인 (기본 HTTP 엔드포인트)
             $url = sprintf('%s://%s:%d', $scheme, $host, $port);

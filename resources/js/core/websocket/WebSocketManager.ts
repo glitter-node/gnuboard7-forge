@@ -30,11 +30,11 @@ export interface SubscriptionOptions {
 export interface WebSocketConfig {
   /** Reverb 앱 키 */
   appKey: string;
-  /** WebSocket 호스트 (기본값: localhost) */
+  /** WebSocket 호스트 */
   host?: string;
-  /** WebSocket 포트 (기본값: 80) */
+  /** WebSocket 포트 */
   port?: number;
-  /** 스키마 (http 또는 https, 기본값: https) */
+  /** 스키마 (http 또는 https) */
   scheme?: 'http' | 'https';
   /** Private 채널 인증 엔드포인트 (기본값: /broadcasting/auth) */
   authEndpoint?: string;
@@ -89,16 +89,16 @@ class WebSocketManager {
       return;
     }
 
-    const { appKey, host, port, scheme = 'https', authEndpoint = '/api/broadcasting/auth' } = this.config;
+    const { appKey, host, port, scheme, authEndpoint = '/api/broadcasting/auth' } = this.config;
     const resolvedHost = host?.trim();
-    if (!resolvedHost) {
-      logger.warn('[WebSocketManager] Missing public WebSocket host; initialization skipped.');
+    const numPort = Number(port);
+    if (!resolvedHost || !Number.isFinite(numPort) || numPort <= 0 || (scheme !== 'http' && scheme !== 'https')) {
+      logger.warn('[WebSocketManager] Incomplete public WebSocket config; initialization skipped.');
       this.unavailable = true;
       this.initialized = true;
       return;
     }
 
-    const numPort = Number(port) || 80;
     const useTLS = scheme === 'https';
     const usesDefaultPort = (useTLS && numPort === 443) || (!useTLS && numPort === 80);
 
@@ -332,7 +332,12 @@ class WebSocketManager {
    * @returns 설정 여부
    */
   isConfigured(): boolean {
-    return this.config !== null && !!this.config.appKey && !!this.config.host;
+    return this.config !== null
+      && !!this.config.appKey
+      && !!this.config.host?.trim()
+      && Number.isFinite(Number(this.config.port))
+      && Number(this.config.port) > 0
+      && (this.config.scheme === 'http' || this.config.scheme === 'https');
   }
 
   /**

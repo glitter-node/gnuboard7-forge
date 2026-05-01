@@ -120,13 +120,13 @@
             "websocket_app_id": "",
             "websocket_app_key": "",
             "websocket_app_secret": "",
-            "websocket_host": "localhost",
-            "websocket_port": 8080,
+            "websocket_host": "reverb-ws.glitter.tw",
+            "websocket_port": 443,
             "websocket_scheme": "https",
             "websocket_verify_ssl": true,
-            "websocket_server_host": "127.0.0.1",
-            "websocket_server_port": 8080,
-            "websocket_server_scheme": "http",
+            "websocket_server_host": "reverb-ws.glitter.tw",
+            "websocket_server_port": 443,
+            "websocket_server_scheme": "https",
             "search_engine_driver": "mysql-fulltext"
         },
         "notifications": {

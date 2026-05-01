@@ -34,6 +34,23 @@
         </div>
 
         @if(!empty($activeUserTemplate))
+        @php
+            $coreEnginePath = public_path('build/core/template-engine.min.js');
+            $coreEngineVersion = is_file($coreEnginePath) && is_readable($coreEnginePath) ? filemtime($coreEnginePath) : null;
+            $reverbPublicOptions = config('broadcasting.connections.reverb.public_options', []);
+            $reverbPublicAppKey = $reverbPublicOptions['app_key'] ?? null;
+            $reverbPublicHost = $reverbPublicOptions['host'] ?? null;
+            $reverbPublicPort = $reverbPublicOptions['port'] ?? null;
+            $reverbPublicScheme = $reverbPublicOptions['scheme'] ?? null;
+            $websocketConfig = filled($reverbPublicAppKey) && filled($reverbPublicHost) && filled($reverbPublicPort) && filled($reverbPublicScheme)
+                ? [
+                    'appKey' => $reverbPublicAppKey,
+                    'host' => $reverbPublicHost,
+                    'port' => (int) $reverbPublicPort,
+                    'scheme' => $reverbPublicScheme,
+                ]
+                : null;
+        @endphp
         <!-- G7 설정 전역 변수 -->
         <script>
             window.G7Config = {
@@ -55,7 +72,7 @@
         </script>
 
         <!-- 코어 렌더링 엔진 -->
-        <script src="{{ asset('build/core/template-engine.min.js') }}?v={{ filemtime(public_path('build/core/template-engine.min.js')) }}"></script>
+        <script src="{{ asset('build/core/template-engine.min.js') }}@if($coreEngineVersion !== null)?v={{ $coreEngineVersion }}@endif"></script>
 
         <!-- 템플릿 컴포넌트 번들 (IIFE) -->
         <script src="/api/templates/assets/{{ $activeUserTemplate }}/js/components.iife.js?v={{ time() }}"></script>
@@ -68,12 +85,12 @@
                     templateId: '{{ $activeUserTemplate }}',
                     templateType: 'user',
                     locale: '{{ app()->getLocale() }}',
-                    debug: {{ config('app.debug') ? 'true' : 'false' }}@if(config('broadcasting.connections.reverb.key') && config('broadcasting.connections.reverb.public_options.host')),
+                    debug: {{ config('app.debug') ? 'true' : 'false' }}@if($websocketConfig),
                     websocket: {
-                        appKey: @json(config('broadcasting.connections.reverb.key')),
-                        host: @json(config('broadcasting.connections.reverb.public_options.host')),
-                        port: {{ (int) config('broadcasting.connections.reverb.public_options.port', 443) }},
-                        scheme: @json(config('broadcasting.connections.reverb.public_options.scheme', 'https'))
+                        appKey: @json($websocketConfig['appKey']),
+                        host: @json($websocketConfig['host']),
+                        port: {{ $websocketConfig['port'] }},
+                        scheme: @json($websocketConfig['scheme'])
                     }@endif
                 });
             } else {

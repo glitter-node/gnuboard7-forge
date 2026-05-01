@@ -138,8 +138,9 @@ class AdminBladeTemplateLoadingTest extends TestCase
 
     public function test_admin_blade_uses_reverb_public_websocket_config(): void
     {
-        Config::set('broadcasting.connections.reverb.key', 'test-key');
-        Config::set('broadcasting.connections.reverb.public_options.host', 'gnuboard7forge.glitter.kr');
+        Config::set('broadcasting.connections.reverb.key', 'server-test-key');
+        Config::set('broadcasting.connections.reverb.public_options.app_key', 'public-test-key');
+        Config::set('broadcasting.connections.reverb.public_options.host', 'reverb-ws.glitter.tw');
         Config::set('broadcasting.connections.reverb.public_options.port', 443);
         Config::set('broadcasting.connections.reverb.public_options.scheme', 'https');
         Config::set('broadcasting.connections.reverb.options.host', 'localhost');
@@ -149,18 +150,22 @@ class AdminBladeTemplateLoadingTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertSee('websocket:', false);
-        $response->assertSee('appKey: "test-key"', false);
-        $response->assertSee('host: "gnuboard7forge.glitter.kr"', false);
+        $response->assertSee('appKey: "public-test-key"', false);
+        $response->assertDontSee('appKey: "server-test-key"', false);
+        $response->assertSee('host: "reverb-ws.glitter.tw"', false);
         $response->assertSee('port: 443', false);
         $response->assertSee('scheme: "https"', false);
         $response->assertDontSee('host: "localhost"', false);
         $response->assertDontSee('port: 8080', false);
     }
 
-    public function test_admin_blade_skips_websocket_config_without_reverb_public_host(): void
+    public function test_admin_blade_skips_websocket_config_without_reverb_public_app_key(): void
     {
-        Config::set('broadcasting.connections.reverb.key', 'test-key');
-        Config::set('broadcasting.connections.reverb.public_options.host', null);
+        Config::set('broadcasting.connections.reverb.key', 'server-test-key');
+        Config::set('broadcasting.connections.reverb.public_options.app_key', null);
+        Config::set('broadcasting.connections.reverb.public_options.host', 'reverb-ws.glitter.tw');
+        Config::set('broadcasting.connections.reverb.public_options.port', 443);
+        Config::set('broadcasting.connections.reverb.public_options.scheme', 'https');
         Config::set('broadcasting.connections.reverb.options.host', 'localhost');
         Config::set('broadcasting.connections.reverb.options.port', 8080);
 
@@ -168,6 +173,91 @@ class AdminBladeTemplateLoadingTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertDontSee('websocket:', false);
+        $response->assertDontSee('server-test-key', false);
+        $response->assertDontSee('host: "localhost"', false);
+        $response->assertDontSee('port: 8080', false);
+    }
+
+    public function test_admin_blade_skips_websocket_config_without_reverb_public_host(): void
+    {
+        Config::set('broadcasting.connections.reverb.key', 'server-test-key');
+        Config::set('broadcasting.connections.reverb.public_options.app_key', 'public-test-key');
+        Config::set('broadcasting.connections.reverb.public_options.host', null);
+        Config::set('broadcasting.connections.reverb.public_options.port', 443);
+        Config::set('broadcasting.connections.reverb.public_options.scheme', 'https');
+        Config::set('broadcasting.connections.reverb.options.host', 'localhost');
+        Config::set('broadcasting.connections.reverb.options.port', 8080);
+
+        $response = $this->get('/admin');
+
+        $response->assertStatus(200);
+        $response->assertDontSee('websocket:', false);
+        $response->assertDontSee('host: "localhost"', false);
+        $response->assertDontSee('port: 8080', false);
+    }
+
+    public function test_admin_blade_skips_websocket_config_without_reverb_public_port(): void
+    {
+        Config::set('broadcasting.connections.reverb.key', 'server-test-key');
+        Config::set('broadcasting.connections.reverb.public_options.app_key', 'public-test-key');
+        Config::set('broadcasting.connections.reverb.public_options.host', 'reverb-ws.glitter.tw');
+        Config::set('broadcasting.connections.reverb.public_options.port', null);
+        Config::set('broadcasting.connections.reverb.public_options.scheme', 'https');
+        Config::set('broadcasting.connections.reverb.options.host', 'localhost');
+        Config::set('broadcasting.connections.reverb.options.port', 8080);
+
+        $response = $this->get('/admin');
+
+        $response->assertStatus(200);
+        $response->assertDontSee('websocket:', false);
+        $response->assertDontSee('host: "localhost"', false);
+        $response->assertDontSee('port: 8080', false);
+    }
+
+    public function test_admin_blade_skips_websocket_config_without_reverb_public_scheme(): void
+    {
+        Config::set('broadcasting.connections.reverb.key', 'server-test-key');
+        Config::set('broadcasting.connections.reverb.public_options.app_key', 'public-test-key');
+        Config::set('broadcasting.connections.reverb.public_options.host', 'reverb-ws.glitter.tw');
+        Config::set('broadcasting.connections.reverb.public_options.port', 443);
+        Config::set('broadcasting.connections.reverb.public_options.scheme', null);
+        Config::set('broadcasting.connections.reverb.options.host', 'localhost');
+        Config::set('broadcasting.connections.reverb.options.port', 8080);
+
+        $response = $this->get('/admin');
+
+        $response->assertStatus(200);
+        $response->assertDontSee('websocket:', false);
+        $response->assertDontSee('host: "localhost"', false);
+        $response->assertDontSee('port: 8080', false);
+    }
+
+    public function test_app_blade_uses_only_reverb_public_websocket_config(): void
+    {
+        Config::set('broadcasting.connections.reverb.key', 'server-test-key');
+        Config::set('broadcasting.connections.reverb.public_options.app_key', 'public-test-key');
+        Config::set('broadcasting.connections.reverb.public_options.host', 'reverb-ws.glitter.tw');
+        Config::set('broadcasting.connections.reverb.public_options.port', 443);
+        Config::set('broadcasting.connections.reverb.public_options.scheme', 'https');
+        Config::set('broadcasting.connections.reverb.options.host', 'localhost');
+        Config::set('broadcasting.connections.reverb.options.port', 8080);
+
+        $response = $this->view('app', [
+            'activeUserTemplate' => 'sirsoft-comm',
+            'frontendSettings' => [],
+            'pluginSettings' => [],
+            'moduleSettings' => [],
+            'moduleAssets' => [],
+            'pluginAssets' => [],
+            'appConfig' => [],
+        ]);
+
+        $response->assertSee('websocket:', false);
+        $response->assertSee('appKey: "public-test-key"', false);
+        $response->assertDontSee('appKey: "server-test-key"', false);
+        $response->assertSee('host: "reverb-ws.glitter.tw"', false);
+        $response->assertSee('port: 443', false);
+        $response->assertSee('scheme: "https"', false);
         $response->assertDontSee('host: "localhost"', false);
         $response->assertDontSee('port: 8080', false);
     }

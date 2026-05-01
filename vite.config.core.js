@@ -29,6 +29,7 @@ function copyLangFiles() {
 export default defineConfig({
     plugins: [react(), copyLangFiles()],
     publicDir: false,
+    envPrefix: 'G7_PUBLIC_',
     // 환경 변수 정의 (React 빌드용)
     define: {
         'process.env.NODE_ENV': JSON.stringify('production'),

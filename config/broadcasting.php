@@ -42,9 +42,10 @@ return [
                 'useTLS' => env('REVERB_SCHEME', 'https') === 'https',
             ],
             'public_options' => [
+                'app_key' => env('REVERB_PUBLIC_APP_KEY'),
                 'host' => env('REVERB_PUBLIC_HOST'),
-                'port' => env('REVERB_PUBLIC_PORT', 443),
-                'scheme' => env('REVERB_PUBLIC_SCHEME', 'https'),
+                'port' => env('REVERB_PUBLIC_PORT'),
+                'scheme' => env('REVERB_PUBLIC_SCHEME'),
             ],
             'client_options' => [
                 // Guzzle client options: https://docs.guzzlephp.org/en/stable/request-options.html

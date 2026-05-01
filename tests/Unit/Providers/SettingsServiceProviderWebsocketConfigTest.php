@@ -15,7 +15,7 @@ use Tests\TestCase;
  *
  * 재현 시나리오 (이슈: 비밀번호 변경 시 Reverb 발송 시도):
  * - drivers.json: websocket_enabled=false (환경설정에서 OFF)
- * - .env: BROADCAST_CONNECTION=reverb, REVERB_HOST=localhost
+ * - .env: BROADCAST_CONNECTION=reverb, REVERB_HOST=reverb-ws.glitter.tw
  * - 기대 동작: broadcasting.default가 'null'로 강제되어 broadcast 경로가 차단되어야 함
  */
 class SettingsServiceProviderWebsocketConfigTest extends TestCase
@@ -39,7 +39,7 @@ class SettingsServiceProviderWebsocketConfigTest extends TestCase
     {
         // .env 초기 상태: BROADCAST_CONNECTION=reverb
         Config::set('broadcasting.default', 'reverb');
-        Config::set('broadcasting.connections.reverb.options.host', 'localhost');
+        Config::set('broadcasting.connections.reverb.options.host', 'reverb-ws.glitter.tw');
 
         // PO 설정: 웹소켓 OFF
         $this->callApplyWebsocketConfig([
@@ -71,12 +71,16 @@ class SettingsServiceProviderWebsocketConfigTest extends TestCase
             'websocket_host' => 'g7.dev',
             'websocket_port' => '443',
             'websocket_scheme' => 'https',
-            'websocket_server_host' => '127.0.0.1',
-            'websocket_server_port' => 8080,
-            'websocket_server_scheme' => 'http',
+            'websocket_server_host' => 'reverb-ws.glitter.tw',
+            'websocket_server_port' => 443,
+            'websocket_server_scheme' => 'https',
         ]);
 
         $this->assertSame('reverb', config('broadcasting.default'));
+        $this->assertSame('test-key', config('broadcasting.connections.reverb.public_options.app_key'));
+        $this->assertSame('g7.dev', config('broadcasting.connections.reverb.public_options.host'));
+        $this->assertSame(443, config('broadcasting.connections.reverb.public_options.port'));
+        $this->assertSame('https', config('broadcasting.connections.reverb.public_options.scheme'));
     }
 
     /**

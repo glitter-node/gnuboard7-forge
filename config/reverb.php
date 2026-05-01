@@ -88,9 +88,10 @@ return [
                     'useTLS' => env('REVERB_SCHEME', 'https') === 'https',
                 ],
                 'public_options' => [
+                    'app_key' => env('REVERB_PUBLIC_APP_KEY'),
                     'host' => env('REVERB_PUBLIC_HOST'),
-                    'port' => env('REVERB_PUBLIC_PORT', 443),
-                    'scheme' => env('REVERB_PUBLIC_SCHEME', 'https'),
+                    'port' => env('REVERB_PUBLIC_PORT'),
+                    'scheme' => env('REVERB_PUBLIC_SCHEME'),
                 ],
                 'allowed_origins' => ['*'],
                 'ping_interval' => env('REVERB_APP_PING_INTERVAL', 60),
