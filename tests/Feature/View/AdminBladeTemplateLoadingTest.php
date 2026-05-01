@@ -60,9 +60,11 @@ class AdminBladeTemplateLoadingTest extends TestCase
 
         // CSS 번들 로드 확인 (API를 통한 에셋 서빙)
         $response->assertSee('/api/templates/assets/sirsoft-admin_basic/css/components.css?v=', false);
+        $response->assertDontSee('/api/templates/assets/sirsoft-comm/css/components.css', false);
 
         // JS 번들 로드 확인 (API를 통한 에셋 서빙)
         $response->assertSee('/api/templates/assets/sirsoft-admin_basic/js/components.iife.js?v=', false);
+        $response->assertDontSee('/api/templates/assets/sirsoft-comm/js/components.iife.js', false);
 
         // 코어 렌더링 엔진 로드 확인
         $response->assertSee('/build/core/template-engine.min.js?v=', false);
@@ -108,6 +110,31 @@ class AdminBladeTemplateLoadingTest extends TestCase
         $response->assertSee("templateId: 'sirsoft-admin_basic'", false);
     }
 
+    public function test_admin_blade_does_not_load_active_user_template_assets(): void
+    {
+        Template::updateOrCreate([
+            'identifier' => 'sirsoft-comm',
+        ], [
+            'identifier' => 'sirsoft-comm',
+            'vendor' => 'sirsoft',
+            'name' => ['ko' => 'Basic Comm', 'en' => 'Basic Comm'],
+            'version' => '1.0.0-beta.3',
+            'type' => 'user',
+            'status' => \App\Enums\ExtensionStatus::Active->value,
+            'description' => ['ko' => '사용자 템플릿', 'en' => 'User template'],
+        ]);
+
+        $response = $this->get('/admin');
+
+        $response->assertStatus(200);
+        $response->assertSee('/api/templates/assets/sirsoft-admin_basic/css/components.css?v=', false);
+        $response->assertSee('/api/templates/assets/sirsoft-admin_basic/js/components.iife.js?v=', false);
+        $response->assertDontSee('/api/templates/assets/sirsoft-comm/css/components.css', false);
+        $response->assertDontSee('/api/templates/assets/sirsoft-comm/js/components.iife.js', false);
+        $response->assertSee('data-template-id="sirsoft-admin_basic"', false);
+        $response->assertDontSee('data-template-id="sirsoft-comm"', false);
+    }
+
     /**
      * 템플릿이 전혀 없을 때도 페이지가 정상 렌더링되는지 테스트
      *
@@ -130,7 +157,7 @@ class AdminBladeTemplateLoadingTest extends TestCase
 
         // Fallback UI가 표시됨
         $response->assertSee('error-container', false);
-        $response->assertSee('Template not found', false);
+        $response->assertSee('No active template found', false);
     }
 
     /**
