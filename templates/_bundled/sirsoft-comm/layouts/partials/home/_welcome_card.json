@@ -88,7 +88,9 @@
               "type": "basic",
               "name": "Button",
               "props": {
-                "className": "px-5 py-3 rounded-lg btn-primary-bg text-sm font-semibold transition-colors flex items-center gap-2 cursor-pointer"
+                "variant": "primary",
+                "size": "lg",
+                "className": "gap-2 cursor-pointer"
               },
               "actions": [
                 {

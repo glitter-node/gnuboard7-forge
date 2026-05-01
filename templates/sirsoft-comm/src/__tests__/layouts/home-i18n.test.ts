@@ -65,6 +65,20 @@ describe('home layout i18n enforcement', () => {
     expect(communityGuide).not.toContain('"text": "•"');
   });
 
+  it('uses Button variant and size props for the primary hero CTA', () => {
+    const welcomeCard = readJson<any>('layouts/partials/home/_welcome_card.json');
+    const cta = welcomeCard.children[3].children[3].children[0];
+
+    expect(cta.name).toBe('Button');
+    expect(cta.props.variant).toBe('primary');
+    expect(cta.props.size).toBe('lg');
+    expect(cta.props.className).toBe('gap-2 cursor-pointer');
+    expect(cta.props.className).not.toContain('btn-primary-bg');
+    expect(cta.props.className).not.toMatch(/\bbg-amber-/);
+    expect(cta.props.className).not.toMatch(/\btext-amber-/);
+    expect(cta.props.className).not.toMatch(/\bborder-amber-/);
+  });
+
   it('renders homepage text correctly in Korean mode', () => {
     const engine = TranslationEngine.getInstance();
 
