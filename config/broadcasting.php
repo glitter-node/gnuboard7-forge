@@ -41,6 +41,11 @@ return [
                 'scheme' => env('REVERB_SCHEME', 'https'),
                 'useTLS' => env('REVERB_SCHEME', 'https') === 'https',
             ],
+            'public_options' => [
+                'host' => env('REVERB_PUBLIC_HOST'),
+                'port' => env('REVERB_PUBLIC_PORT', 443),
+                'scheme' => env('REVERB_PUBLIC_SCHEME', 'https'),
+            ],
             'client_options' => [
                 // Guzzle client options: https://docs.guzzlephp.org/en/stable/request-options.html
                 // 개발 환경에서 자체 서명 인증서 사용 시 SSL 검증 비활성화

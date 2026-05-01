@@ -5,6 +5,12 @@
 >
 > 형식: [Keep a Changelog](https://keepachangelog.com/ko/1.1.0/)
 
+## [Unreleased]
+
+### Fixed
+
+- WebSocket 런타임이 브라우저 공개 접속 정보로 `REVERB_PUBLIC_*` 설정을 사용하도록 변경하고, 공개 host 미설정 시 localhost fallback 없이 초기화를 건너뛰도록 수정 (WebSocketManager, app.blade.php, admin.blade.php)
+
 ## [engine-v1.43.0] - 2026-04-22
 
 ### Fixed

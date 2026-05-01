@@ -52,6 +52,7 @@ class WebSocketManager {
   private echo: Echo<'reverb'> | null = null;
   private subscriptions: Map<string, ReturnType<Echo<'reverb'>['channel']>> = new Map();
   private initialized = false;
+  private unavailable = false;
   private config: WebSocketConfig | null = null;
 
   /**
@@ -88,11 +89,20 @@ class WebSocketManager {
       return;
     }
 
-    const { appKey, host = 'localhost', port = 80, scheme = 'https', authEndpoint = '/api/broadcasting/auth' } = this.config;
+    const { appKey, host, port, scheme = 'https', authEndpoint = '/api/broadcasting/auth' } = this.config;
+    const resolvedHost = host?.trim();
+    if (!resolvedHost) {
+      logger.warn('[WebSocketManager] Missing public WebSocket host; initialization skipped.');
+      this.unavailable = true;
+      this.initialized = true;
+      return;
+    }
+
     const numPort = Number(port) || 80;
     const useTLS = scheme === 'https';
+    const usesDefaultPort = (useTLS && numPort === 443) || (!useTLS && numPort === 80);
 
-    logger.log('[WebSocketManager] 연결 설정:', { host, port: numPort, scheme, useTLS, authEndpoint });
+    logger.log('[WebSocketManager] 연결 설정:', { host: resolvedHost, port: usesDefaultPort ? undefined : numPort, scheme, useTLS, authEndpoint });
 
     window.Pusher = Pusher;
 
@@ -101,15 +111,12 @@ class WebSocketManager {
     // Sanctum 토큰 가져오기
     const authToken = localStorage.getItem('auth_token');
 
-    const pusherOptions = {
-      wsHost: host,
-      wsPort: numPort,
-      wssPort: numPort,
+    const pusherOptions: Record<string, unknown> = {
+      wsHost: resolvedHost,
       forceTLS: useTLS,
       disableStats: true,
       enabledTransports: ['ws', 'wss'] as const,
-      cluster: 'mt1', // 필수 옵션이지만 Reverb에서는 무시됨
-      // Private 채널 인증 설정
+      cluster: 'mt1',
       authEndpoint: authEndpoint,
       auth: {
         headers: {
@@ -118,6 +125,11 @@ class WebSocketManager {
         },
       },
     };
+
+    if (!usesDefaultPort) {
+      pusherOptions.wsPort = numPort;
+      pusherOptions.wssPort = numPort;
+    }
 
     logger.log('[WebSocketManager] Pusher 옵션:', pusherOptions);
 
@@ -186,6 +198,10 @@ class WebSocketManager {
     options: SubscriptionOptions = {}
   ): string {
     this.initialize();
+
+    if (this.unavailable) {
+      return '';
+    }
 
     if (!this.echo) {
       logger.warn('[WebSocketManager] Echo가 초기화되지 않았습니다.');
@@ -284,10 +300,12 @@ class WebSocketManager {
   disconnect(): void {
     if (this.echo) {
       this.echo.disconnect();
-      this.subscriptions.clear();
-      this.initialized = false;
       logger.log('[WebSocketManager] 연결 종료');
     }
+
+    this.subscriptions.clear();
+    this.initialized = false;
+    this.unavailable = false;
   }
 
   /**
@@ -314,7 +332,7 @@ class WebSocketManager {
    * @returns 설정 여부
    */
   isConfigured(): boolean {
-    return this.config !== null && !!this.config.appKey;
+    return this.config !== null && !!this.config.appKey && !!this.config.host;
   }
 
   /**

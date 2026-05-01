@@ -87,6 +87,11 @@ return [
                     'scheme' => env('REVERB_SCHEME', 'https'),
                     'useTLS' => env('REVERB_SCHEME', 'https') === 'https',
                 ],
+                'public_options' => [
+                    'host' => env('REVERB_PUBLIC_HOST'),
+                    'port' => env('REVERB_PUBLIC_PORT', 443),
+                    'scheme' => env('REVERB_PUBLIC_SCHEME', 'https'),
+                ],
                 'allowed_origins' => ['*'],
                 'ping_interval' => env('REVERB_APP_PING_INTERVAL', 60),
                 'activity_timeout' => env('REVERB_APP_ACTIVITY_TIMEOUT', 30),

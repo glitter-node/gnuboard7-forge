@@ -43,9 +43,14 @@ vi.mock('laravel-echo', () => ({
 // Mock Pusher 클래스 with connection
 const mockConnectionBind = vi.fn();
 const mockConnect = vi.fn();
+const mockPusherConstructor = vi.fn();
 
 vi.mock('pusher-js', () => ({
   default: class MockPusher {
+    constructor(appKey: string, options: unknown) {
+      mockPusherConstructor(appKey, options);
+    }
+
     connection = {
       bind: mockConnectionBind,
       state: 'initialized',
@@ -262,6 +267,73 @@ describe('WebSocketManager', () => {
       expect(key).toBe('');
       expect(webSocketManager.isInitialized()).toBe(false);
       expect(webSocketManager.isConfigured()).toBe(false);
+    });
+
+    it('should not initialize without public host', async () => {
+      const { webSocketManager } = await import('../WebSocketManager');
+
+      webSocketManager.configure({
+        appKey: 'test-key',
+        port: 443,
+        scheme: 'https',
+      });
+
+      const callback = vi.fn();
+      const key = webSocketManager.subscribe('test.channel', 'test.event', callback);
+
+      expect(key).toBe('');
+      expect(mockPusherConstructor).not.toHaveBeenCalled();
+      expect(mockConnect).not.toHaveBeenCalled();
+      expect(webSocketManager.isConfigured()).toBe(false);
+    });
+
+    it('should omit default tls port from pusher options', async () => {
+      const { webSocketManager } = await import('../WebSocketManager');
+
+      webSocketManager.configure({
+        appKey: 'test-key',
+        host: 'gnuboard7forge.glitter.kr',
+        port: 443,
+        scheme: 'https',
+      });
+
+      const callback = vi.fn();
+      webSocketManager.subscribe('test.channel', 'test.event', callback);
+
+      expect(mockPusherConstructor).toHaveBeenCalledWith(
+        'test-key',
+        expect.objectContaining({
+          wsHost: 'gnuboard7forge.glitter.kr',
+          forceTLS: true,
+        })
+      );
+      const options = mockPusherConstructor.mock.calls[0][1] as Record<string, unknown>;
+      expect(options.wsPort).toBeUndefined();
+      expect(options.wssPort).toBeUndefined();
+    });
+
+    it('should include non default port in pusher options', async () => {
+      const { webSocketManager } = await import('../WebSocketManager');
+
+      webSocketManager.configure({
+        appKey: 'test-key',
+        host: 'localhost',
+        port: 8080,
+        scheme: 'http',
+      });
+
+      const callback = vi.fn();
+      webSocketManager.subscribe('test.channel', 'test.event', callback);
+
+      expect(mockPusherConstructor).toHaveBeenCalledWith(
+        'test-key',
+        expect.objectContaining({
+          wsHost: 'localhost',
+          wsPort: 8080,
+          wssPort: 8080,
+          forceTLS: false,
+        })
+      );
     });
   });
 });

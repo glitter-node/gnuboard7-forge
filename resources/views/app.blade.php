@@ -68,12 +68,12 @@
                     templateId: '{{ $activeUserTemplate }}',
                     templateType: 'user',
                     locale: '{{ app()->getLocale() }}',
-                    debug: {{ config('app.debug') ? 'true' : 'false' }}@if(config('broadcasting.connections.reverb.key')),
+                    debug: {{ config('app.debug') ? 'true' : 'false' }}@if(config('broadcasting.connections.reverb.key') && config('broadcasting.connections.reverb.public_options.host')),
                     websocket: {
-                        appKey: '{{ config('broadcasting.connections.reverb.key') }}',
-                        host: '{{ config('g7.websocket.client.host', config('broadcasting.connections.reverb.options.host', 'localhost')) }}',
-                        port: {{ config('g7.websocket.client.port', config('broadcasting.connections.reverb.options.port', 80)) }},
-                        scheme: '{{ config('g7.websocket.client.scheme', config('broadcasting.connections.reverb.options.scheme', 'https')) }}'
+                        appKey: @json(config('broadcasting.connections.reverb.key')),
+                        host: @json(config('broadcasting.connections.reverb.public_options.host')),
+                        port: {{ (int) config('broadcasting.connections.reverb.public_options.port', 443) }},
+                        scheme: @json(config('broadcasting.connections.reverb.public_options.scheme', 'https'))
                     }@endif
                 });
             } else {
