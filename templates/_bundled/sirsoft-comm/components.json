@@ -14,13 +14,13 @@
             "type": "string",
             "required": false,
             "default": "primary",
-            "description": "버튼 변형 (primary | secondary | danger | success | ghost | outline)"
+            "description": "Button variant (primary | secondary | success | warning | danger | neutral | ghost | outline)"
           },
           "size": {
             "type": "string",
             "required": false,
             "default": "md",
-            "description": "버튼 크기 (sm | md | lg)"
+            "description": "Button size (sm | md | lg)"
           },
           "className": {
             "type": "string",
@@ -32,6 +32,31 @@
             "type": "ReactNode",
             "required": false,
             "description": "버튼 내용"
+          }
+        }
+      },
+      {
+        "name": "Badge",
+        "type": "basic",
+        "description": "Semantic status badge",
+        "path": "src/components/basic/Badge.tsx",
+        "props": {
+          "variant": {
+            "type": "string",
+            "required": false,
+            "default": "neutral",
+            "description": "Badge variant (primary | secondary | success | warning | danger | neutral | ghost | outline)"
+          },
+          "className": {
+            "type": "string",
+            "required": false,
+            "default": "",
+            "description": "Additional classes"
+          },
+          "children": {
+            "type": "ReactNode",
+            "required": false,
+            "description": "Badge content"
           }
         }
       },

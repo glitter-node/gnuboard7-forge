@@ -6,6 +6,10 @@
 
 ## [1.0.0-beta.3] - 2026-04-21
 
+### Changed
+
+- Standardized Button and Badge variant styling around the template role vocabulary.
+
 ### Fixed
 
 - 알림 레이어를 닫을 때 목록이 읽음 상태로 갱신되지 않아 재토글 시 읽음 처리가 누락되던 문제 수정

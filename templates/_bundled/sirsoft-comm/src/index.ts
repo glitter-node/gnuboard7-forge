@@ -12,6 +12,8 @@ import './styles/main.css';
 
 
 export {
+  Badge,
+  type BadgeProps,
   Button,
   type ButtonProps,
   FileInput,

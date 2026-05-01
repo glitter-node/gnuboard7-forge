@@ -35,19 +35,19 @@
         },
         {
           "type": "basic",
-          "name": "Span",
+          "name": "Badge",
           "if": "{{form_meta?.data?.parent_post?.is_notice}}",
           "props": {
-            "className": "inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-300"
+            "variant": "danger"
           },
           "text": "$t:board.post.notice"
         },
         {
           "type": "basic",
-          "name": "Span",
+          "name": "Badge",
           "if": "{{form_meta?.data?.parent_post?.is_secret}}",
           "props": {
-            "className": "inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-orange-100 text-orange-700 dark:bg-orange-900 dark:text-orange-300"
+            "variant": "warning"
           },
           "text": "$t:board.post.secret"
         }

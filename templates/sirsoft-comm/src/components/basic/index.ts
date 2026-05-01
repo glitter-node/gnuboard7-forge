@@ -1,6 +1,7 @@
 
 
 export { Button, type ButtonProps } from './Button';
+export { Badge, type BadgeProps } from './Badge';
 export { FileInput, type FileInputProps } from './FileInput';
 export { Input, type InputProps } from './Input';
 export { PasswordInput, type PasswordInputProps, type PasswordRule, defaultPasswordRules, availablePasswordRules } from './PasswordInput';

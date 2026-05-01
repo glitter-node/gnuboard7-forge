@@ -4,17 +4,19 @@ import React, { forwardRef } from 'react';
 const G7Core = () => (window as any).G7Core;
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'danger' | 'success' | 'ghost' | 'outline';
+  variant?: 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'neutral' | 'ghost' | 'outline';
   size?: 'sm' | 'md' | 'lg';
 }
 
 const variantClasses: Record<NonNullable<ButtonProps['variant']>, string> = {
-  primary: 'btn-primary',
-  secondary: 'btn-secondary',
-  danger: 'btn-danger',
-  success: 'btn-success',
-  ghost: 'btn-ghost',
-  outline: 'btn-outline',
+  primary: 'variant-primary',
+  secondary: 'variant-secondary',
+  success: 'variant-success',
+  warning: 'variant-warning',
+  danger: 'variant-danger',
+  neutral: 'variant-neutral',
+  ghost: 'variant-ghost',
+  outline: 'variant-outline',
 };
 
 const sizeClasses: Record<NonNullable<ButtonProps['size']>, string> = {
@@ -26,12 +28,16 @@ const sizeClasses: Record<NonNullable<ButtonProps['size']>, string> = {
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
   children,
-  variant = 'primary',
+  variant,
   size = 'md',
   className = '',
   ...props
 }, ref) => {
-  const baseClasses = `btn ${variantClasses[variant]} ${sizeClasses[size]}`;
+  const appliesVariantSystem = Boolean(variant) || className.trim() === '';
+  const resolvedVariant = variant ?? 'primary';
+  const baseClasses = appliesVariantSystem
+    ? `btn ${variantClasses[resolvedVariant]} ${sizeClasses[size]}`
+    : 'inline-flex items-center justify-center';
 
   
   const mergedClassName = G7Core()?.style?.mergeClasses?.(baseClasses, className)

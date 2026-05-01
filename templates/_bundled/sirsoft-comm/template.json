@@ -37,7 +37,7 @@
     },
     "components": {
         "basic": [
-            "a", "button", "checkbox", "div", "form",
+            "a", "badge", "button", "checkbox", "div", "form",
             "h1", "h2", "h3", "h4", "hr", "icon", "img", "input",
             "label", "li", "nav", "p", "section",
             "select", "span", "svg", "table", "tbody",
