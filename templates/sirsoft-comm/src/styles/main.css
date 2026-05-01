@@ -106,8 +106,10 @@
 
 @layer components {
   .variant-primary {
-    --variant-bg: var(--color-primary-600);
-    --variant-bg-hover: var(--color-primary-700);
+    --btn-primary-bg: var(--color-primary-700);
+    --btn-primary-hover-bg: var(--color-primary-800);
+    --variant-bg: var(--btn-primary-bg);
+    --variant-bg-hover: var(--btn-primary-hover-bg);
     --variant-fg: var(--color-white);
     --variant-ring: var(--color-primary-500);
     --variant-border: transparent;
@@ -116,8 +118,10 @@
   }
 
   .dark .variant-primary {
-    --variant-bg: var(--color-primary-500);
-    --variant-bg-hover: var(--color-primary-600);
+    --btn-primary-bg: var(--color-primary-700);
+    --btn-primary-hover-bg: var(--color-primary-800);
+    --variant-bg: var(--btn-primary-bg);
+    --variant-bg-hover: var(--btn-primary-hover-bg);
     --variant-ring: var(--color-primary-400);
     --variant-soft-bg: var(--color-primary-900);
     --variant-soft-fg: var(--color-primary-100);

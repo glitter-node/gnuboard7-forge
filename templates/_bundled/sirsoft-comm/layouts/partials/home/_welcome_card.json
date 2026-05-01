@@ -122,7 +122,9 @@
               "name": "Button",
               "if": "{{_global.currentUser?.uuid}}",
               "props": {
-                "className": "px-5 py-3 rounded-lg border border-slate-600 bg-transparent text-white text-sm font-medium hover:bg-slate-800 transition-colors flex items-center gap-2 cursor-pointer"
+                "variant": "primary",
+                "size": "lg",
+                "className": "gap-2 cursor-pointer"
               },
               "actions": [
                 {
@@ -154,7 +156,9 @@
               "name": "Button",
               "if": "{{!_global.currentUser?.uuid}}",
               "props": {
-                "className": "px-5 py-3 rounded-lg border border-slate-600 bg-transparent text-white text-sm font-medium hover:bg-slate-800 transition-colors flex items-center gap-2 cursor-pointer"
+                "variant": "primary",
+                "size": "lg",
+                "className": "gap-2 cursor-pointer"
               },
               "actions": [
                 {
