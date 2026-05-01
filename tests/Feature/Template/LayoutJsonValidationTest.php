@@ -16,7 +16,7 @@ class LayoutJsonValidationTest extends TestCase
         'templates/sirsoft-admin_basic/layouts/_admin_base.json',
         'templates/sirsoft-admin_basic/layouts/admin_template_list.json',
         'templates/sirsoft-admin_basic/layouts/admin_template_layout_edit.json',
-        'templates/sirsoft-admin_basic/layouts/admin_template_list_admin.json',
+        'templates/sirsoft-admin_basic/layouts/admin_settings.json',
     ];
 
     /**
@@ -164,7 +164,7 @@ class LayoutJsonValidationTest extends TestCase
         $childLayouts = [
             'templates/sirsoft-admin_basic/layouts/admin_template_list.json',
             'templates/sirsoft-admin_basic/layouts/admin_template_layout_edit.json',
-            'templates/sirsoft-admin_basic/layouts/admin_template_list_admin.json',
+            'templates/sirsoft-admin_basic/layouts/admin_settings.json',
         ];
 
         foreach ($childLayouts as $layoutFile) {
@@ -178,25 +178,25 @@ class LayoutJsonValidationTest extends TestCase
     }
 
     /**
-     * admin_template_list_admin.json이 올바른 레이아웃 상속 구조를 가지는지 확인
+     * admin_template_list.json이 올바른 레이아웃 상속 구조를 가지는지 확인
      *
-     * admin_template_list_admin.json은 admin_template_list를 상속합니다.
+     * admin_template_list.json은 _admin_base를 상속합니다.
      */
-    public function test_admin_template_management_has_readonly_configuration(): void
+    public function test_admin_template_management_has_current_configuration(): void
     {
-        $filePath = base_path('templates/sirsoft-admin_basic/layouts/admin_template_list_admin.json');
+        $filePath = base_path('templates/sirsoft-admin_basic/layouts/admin_template_list.json');
         $layout = json_decode(File::get($filePath), true);
 
         // 레이아웃 이름 확인
         $this->assertEquals(
-            'admin_template_list_admin',
+            'admin_template_list',
             $layout['layout_name'],
-            'layout_name이 admin_template_list_admin이어야 합니다'
+            'layout_name이 admin_template_list이어야 합니다'
         );
 
-        // extends 확인 (admin_template_list를 상속)
+        // extends 확인 (_admin_base를 상속)
         $this->assertArrayHasKey('extends', $layout);
-        $this->assertEquals('admin_template_list', $layout['extends']);
+        $this->assertEquals('_admin_base', $layout['extends']);
 
         // 필수 필드 확인
         $this->assertArrayHasKey('version', $layout);
