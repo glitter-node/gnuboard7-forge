@@ -199,7 +199,7 @@
               {
                 "type": "basic",
                 "name": "Div",
-                "if": "{{home_boards.data && home_boards.data.length > 0}}",
+                "if": "{{(home_boards?.data ?? []).filter(function(board){return ['notice','free','qna'].includes(board?.slug ?? '');}).length > 0}}",
                 "props": {
                   "className": "grid grid-cols-1 gap-4"
                 },
@@ -211,7 +211,7 @@
                   }
                 },
                 "iteration": {
-                  "source": "{{home_boards.data ?? []}}",
+                  "source": "{{(home_boards?.data ?? []).filter(function(board){return ['notice','free','qna'].includes(board?.slug ?? '');}).sort(function(a,b){return ['notice','free','qna'].indexOf(a?.slug ?? '') - ['notice','free','qna'].indexOf(b?.slug ?? '');})}}",
                   "item_var": "item"
                 },
                 "children": [
@@ -223,7 +223,7 @@
               {
                 "type": "basic",
                 "name": "Div",
-                "if": "{{!home_boards.data || home_boards.data.length === 0}}",
+                "if": "{{(home_boards?.data ?? []).filter(function(board){return ['notice','free','qna'].includes(board?.slug ?? '');}).length === 0}}",
                 "props": {
                   "className": "bg-white dark:bg-slate-800 rounded-xl border border-dashed border-slate-200 dark:border-slate-700 p-6 text-center text-slate-500 dark:text-slate-400"
                 },

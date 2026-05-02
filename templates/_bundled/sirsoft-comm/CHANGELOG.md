@@ -10,6 +10,7 @@
 
 - Improved the public home page empty states so first-run communities provide clearer setup and activity guidance.
 - Refined the community guide copy to be shorter, neutral, and easier to understand.
+- Connected the public home page board sections to the board module's public activity, board list, and statistics APIs.
 
 ## [1.0.0-beta.3] - 2026-04-21
 

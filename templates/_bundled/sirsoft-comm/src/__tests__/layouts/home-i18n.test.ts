@@ -53,12 +53,12 @@ describe('home layout i18n enforcement', () => {
     expect(welcomeCard).not.toContain('{{_global.settings?.general?.site_name}}$t:home.hero_title_suffix');
 
     expect(boardSummary).toContain('$t:board.new_badge');
-    expect(boardSummary).toContain('$t:home.comment_count_badge|count={{post.comment_count}}');
+    expect(boardSummary).toContain('$t:home.comment_count_badge|count={{post?.comment_count ?? 0}}');
     expect(boardSummary).not.toContain('"text": "N"');
     expect(boardSummary).not.toContain('"text": "[{{post.comment_count}}]"');
 
     expect(recentPosts).toContain('$t:board.new_badge');
-    expect(recentPosts).toContain('$t:home.comment_count_badge|count={{post.comment_count}}');
+    expect(recentPosts).toContain('$t:home.comment_count_badge|count={{post?.comment_count ?? 0}}');
     expect(recentPosts).not.toContain('"text": "N"');
     expect(recentPosts).not.toContain('"text": "[{{post.comment_count}}]"');
 

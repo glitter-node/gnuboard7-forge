@@ -53,12 +53,12 @@ describe('home layout i18n enforcement', () => {
     expect(welcomeCard).not.toContain('{{_global.settings?.general?.site_name}}$t:home.hero_title_suffix');
 
     expect(boardSummary).toContain('$t:board.new_badge');
-    expect(boardSummary).toContain('$t:home.comment_count_badge|count={{post.comment_count}}');
+    expect(boardSummary).toContain('$t:home.comment_count_badge|count={{post?.comment_count ?? 0}}');
     expect(boardSummary).not.toContain('"text": "N"');
     expect(boardSummary).not.toContain('"text": "[{{post.comment_count}}]"');
 
     expect(recentPosts).toContain('$t:board.new_badge');
-    expect(recentPosts).toContain('$t:home.comment_count_badge|count={{post.comment_count}}');
+    expect(recentPosts).toContain('$t:home.comment_count_badge|count={{post?.comment_count ?? 0}}');
     expect(recentPosts).not.toContain('"text": "N"');
     expect(recentPosts).not.toContain('"text": "[{{post.comment_count}}]"');
 
@@ -84,8 +84,9 @@ describe('home layout i18n enforcement', () => {
     const engine = TranslationEngine.getInstance();
 
     expect(engine.translate('home.hero_title', koContext)).toBe('Sir Soft Community');
-    expect(engine.translate('home.recent_posts_empty_title', koContext)).toBe('첫 게시글을 기다리고 있습니다');
-    expect(engine.translate('home.popular_boards_empty_title', koContext)).toBe('활동에 따라 목록이 채워집니다');
+    expect(engine.translate('home.recent_posts_empty_title', koContext)).toBe('첫 대화를 시작할 준비가 되었습니다');
+    expect(engine.translate('home.popular_boards_empty_title', koContext)).toBe('활동에 따라 인기 게시판이 정렬됩니다');
+    expect(engine.translate('home.empty_browse_boards', koContext)).toBe('게시판 목록 보기');
     expect(engine.translate('home.comment_count_badge', koContext, '|count=12')).toBe('[12]');
     expect(engine.translate('home.guide_bullet', koContext)).toBe('•');
     expect(engine.translate('board.new_badge', koContext)).toBe('NEW');
@@ -95,8 +96,9 @@ describe('home layout i18n enforcement', () => {
     const engine = TranslationEngine.getInstance();
 
     expect(engine.translate('home.hero_title', enContext)).toBe('Sir Soft Community');
-    expect(engine.translate('home.recent_posts_empty_title', enContext)).toBe('Ready for the first post');
-    expect(engine.translate('home.popular_boards_empty_title', enContext)).toBe('Activity will shape this list');
+    expect(engine.translate('home.recent_posts_empty_title', enContext)).toBe('Ready for the first discussion');
+    expect(engine.translate('home.popular_boards_empty_title', enContext)).toBe('Popular boards will be ranked by activity');
+    expect(engine.translate('home.empty_browse_boards', enContext)).toBe('View board list');
     expect(engine.translate('home.comment_count_badge', enContext, '|count=12')).toBe('[12]');
     expect(engine.translate('home.guide_bullet', enContext)).toBe('•');
     expect(engine.translate('board.new_badge', enContext)).toBe('NEW');
@@ -108,8 +110,8 @@ describe('home layout i18n enforcement', () => {
     const korean = engine.translate('home.hero_description', koContext);
     const english = engine.translate('home.hero_description', enContext);
 
-    expect(korean).toBe('게시판, 게시글, 회원 대화를 위한 배포용 커뮤니티 홈입니다.');
-    expect(english).toBe('A ready-to-use community home for boards, posts, and member discussions.');
+    expect(korean).toBe('게시판, 게시글, 회원 대화를 자연스럽게 시작할 수 있는 공개 커뮤니티 홈입니다.');
+    expect(english).toBe('A clear starting point for boards, posts, and member discussions in a public community.');
     expect(korean).not.toBe(english);
   });
 });
