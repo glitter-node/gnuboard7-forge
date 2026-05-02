@@ -21,7 +21,6 @@
           "props": {
             "className": "font-semibold text-slate-900 dark:text-white hover:text-teal-600 dark:hover:text-teal-400 cursor-pointer"
           },
-          "text": "{{item?.name ?? ''}}",
           "actions": [
             {
               "type": "click",
@@ -29,6 +28,32 @@
               "params": {
                 "path": "/board/{{item?.slug ?? ''}}"
               }
+            }
+          ],
+          "children": [
+            {
+              "type": "basic",
+              "name": "Span",
+              "if": "{{(item?.slug ?? '') === 'notice'}}",
+              "text": "$t:boards.notice"
+            },
+            {
+              "type": "basic",
+              "name": "Span",
+              "if": "{{(item?.slug ?? '') === 'free'}}",
+              "text": "$t:boards.free"
+            },
+            {
+              "type": "basic",
+              "name": "Span",
+              "if": "{{(item?.slug ?? '') === 'qna'}}",
+              "text": "$t:boards.qna"
+            },
+            {
+              "type": "basic",
+              "name": "Span",
+              "if": "{{!['notice','free','qna'].includes(item?.slug ?? '')}}",
+              "text": "{{item?.name ?? ''}}"
             }
           ]
         },

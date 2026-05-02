@@ -29,6 +29,9 @@ class FormatsBoardDateTest extends ModuleTestCase
     {
         parent::setUp();
 
+        app()->setLocale('ko');
+        request()->headers->set('Accept-Language', 'ko');
+
         $this->subject = new class {
             use FormatsBoardDate;
 
@@ -92,20 +95,34 @@ class FormatsBoardDateTest extends ModuleTestCase
     public function standard_format_returns_MM_DD_when_same_year(): void
     {
         $dateTime = Carbon::now()->subDays(5);
+        $userCarbon = TimezoneHelper::toUserCarbon($dateTime);
 
         $result = $this->subject->callFormatCreatedAtFormat($dateTime, 'standard');
 
-        $this->assertEquals($dateTime->format('m-d'), $result);
+        $this->assertEquals($userCarbon->format('m-d'), $result);
     }
 
     #[Test]
     public function standard_format_returns_YY_MM_DD_when_previous_year(): void
     {
         $dateTime = Carbon::now()->subYears(2);
+        $userCarbon = TimezoneHelper::toUserCarbon($dateTime);
 
         $result = $this->subject->callFormatCreatedAtFormat($dateTime, 'standard');
 
-        $this->assertEquals($dateTime->format('y-m-d'), $result);
+        $this->assertEquals($userCarbon->format('y-m-d'), $result);
+    }
+
+    #[Test]
+    public function standard_format_returns_english_relative_text_when_locale_is_en(): void
+    {
+        app()->setLocale('en');
+        request()->headers->set('Accept-Language', 'en');
+        $dateTime = Carbon::now()->subMinutes(21);
+
+        $result = $this->subject->callFormatCreatedAtFormat($dateTime, 'standard');
+
+        $this->assertEquals('20 minutes ago', $result);
     }
 
     // =========================================================================
@@ -140,6 +157,18 @@ class FormatsBoardDateTest extends ModuleTestCase
         $result = $this->subject->callFormatCreatedAtFormat($dateTime, 'relative');
 
         $this->assertEquals('3년 전', $result);
+    }
+
+    #[Test]
+    public function relative_format_returns_english_text_when_locale_is_en(): void
+    {
+        app()->setLocale('en');
+        request()->headers->set('Accept-Language', 'en');
+        $dateTime = Carbon::now()->subDays(3);
+
+        $result = $this->subject->callFormatCreatedAtFormat($dateTime, 'relative');
+
+        $this->assertEquals('3 days ago', $result);
     }
 
     // =========================================================================
@@ -192,6 +221,19 @@ class FormatsBoardDateTest extends ModuleTestCase
         $result = $this->subject->callFormatCreatedAt($dateTime);
 
         $this->assertStringContainsString($expectedWeekday, $result);
+    }
+
+    #[Test]
+    public function created_at_returns_english_weekday_when_locale_is_en(): void
+    {
+        app()->setLocale('en');
+        request()->headers->set('Accept-Language', 'en');
+        $dateTime = Carbon::create(2026, 3, 22, 12, 0, 0, 'UTC');
+
+        $result = $this->subject->callFormatCreatedAt($dateTime);
+
+        $this->assertStringContainsString('Sunday', $result);
+        $this->assertStringNotContainsString('요일', $result);
     }
 
     #[Test]

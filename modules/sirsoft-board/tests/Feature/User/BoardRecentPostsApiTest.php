@@ -28,6 +28,8 @@ class BoardRecentPostsApiTest extends ModuleTestCase
     {
         parent::setUp();
 
+        app()->setLocale('ko');
+
         // 기존 활성 게시판 비활성화
         Board::where('is_active', true)->update(['is_active' => false]);
 
@@ -49,7 +51,8 @@ class BoardRecentPostsApiTest extends ModuleTestCase
     public function test_recent_posts_returns_correct_structure(): void
     {
         // When: 최근 게시글 API 호출
-        $response = $this->getJson('/api/modules/sirsoft-board/boards/posts/recent');
+        $response = $this->withHeader('Accept-Language', 'ko')
+            ->getJson('/api/modules/sirsoft-board/boards/posts/recent');
 
         // Then: 올바른 구조 반환
         $response->assertStatus(200)
@@ -68,7 +71,8 @@ class BoardRecentPostsApiTest extends ModuleTestCase
         $this->createBoardWithPosts(10);
 
         // When: limit 없이 API 호출
-        $response = $this->getJson('/api/modules/sirsoft-board/boards/posts/recent');
+        $response = $this->withHeader('Accept-Language', 'ko')
+            ->getJson('/api/modules/sirsoft-board/boards/posts/recent');
 
         // Then: 5개 반환
         $response->assertStatus(200);
@@ -121,7 +125,8 @@ class BoardRecentPostsApiTest extends ModuleTestCase
         // Given: 게시판 없음
 
         // When: API 호출
-        $response = $this->getJson('/api/modules/sirsoft-board/boards/posts/recent');
+        $response = $this->withHeader('Accept-Language', 'ko')
+            ->getJson('/api/modules/sirsoft-board/boards/posts/recent');
 
         // Then: 빈 배열 반환
         $response->assertStatus(200);
@@ -140,7 +145,8 @@ class BoardRecentPostsApiTest extends ModuleTestCase
         $this->createBoardWithPosts(5);
 
         // When: API 호출
-        $response = $this->getJson('/api/modules/sirsoft-board/boards/posts/recent');
+        $response = $this->withHeader('Accept-Language', 'ko')
+            ->getJson('/api/modules/sirsoft-board/boards/posts/recent');
 
         // Then: 최신순 정렬 확인
         $response->assertStatus(200);
@@ -163,14 +169,16 @@ class BoardRecentPostsApiTest extends ModuleTestCase
         $this->createBoardWithPosts(3);
 
         // When: 첫 번째 API 호출
-        $response1 = $this->getJson('/api/modules/sirsoft-board/boards/posts/recent?limit=5');
+        $response1 = $this->withHeader('Accept-Language', 'ko')
+            ->getJson('/api/modules/sirsoft-board/boards/posts/recent?limit=5');
         $response1->assertStatus(200);
 
         // 캐시 키 확인 (ModuleCacheDriver 접두사 `g7:module.sirsoft-board:` + key)
-        $this->assertTrue(Cache::has('g7:module.sirsoft-board:recent_posts_5'));
+        $this->assertTrue(Cache::has('g7:module.sirsoft-board:recent_posts_ko_5'));
 
         // When: 두 번째 API 호출
-        $response2 = $this->getJson('/api/modules/sirsoft-board/boards/posts/recent?limit=5');
+        $response2 = $this->withHeader('Accept-Language', 'ko')
+            ->getJson('/api/modules/sirsoft-board/boards/posts/recent?limit=5');
         $response2->assertStatus(200);
 
         // Then: 같은 결과 반환
@@ -186,7 +194,8 @@ class BoardRecentPostsApiTest extends ModuleTestCase
         $this->createBoardWithPosts(3, includingSecret: true);
 
         // When: API 호출
-        $response = $this->getJson('/api/modules/sirsoft-board/boards/posts/recent');
+        $response = $this->withHeader('Accept-Language', 'ko')
+            ->getJson('/api/modules/sirsoft-board/boards/posts/recent');
 
         // Then: is_secret 필드 포함 및 비밀글 반환
         $response->assertStatus(200);
@@ -249,7 +258,8 @@ class BoardRecentPostsApiTest extends ModuleTestCase
         $this->createBoardWithPosts(1);
 
         // When: API 호출
-        $response = $this->getJson('/api/modules/sirsoft-board/boards/posts/recent');
+        $response = $this->withHeader('Accept-Language', 'ko')
+            ->getJson('/api/modules/sirsoft-board/boards/posts/recent');
 
         // Then: 응답에 created_at/created_at_formatted 필드 포함
         $response->assertStatus(200);
@@ -265,6 +275,36 @@ class BoardRecentPostsApiTest extends ModuleTestCase
         // created_at_formatted: 표시용 포맷 (비어있지 않은 문자열)
         $this->assertArrayHasKey('created_at_formatted', $item);
         $this->assertNotEmpty($item['created_at_formatted']);
+    }
+
+    /**
+     * 최근 게시글 날짜 표시가 요청 locale에 맞게 반환되는지 확인
+     */
+    public function test_recent_posts_dates_are_localized_by_request_locale(): void
+    {
+        // Given: 캐시된 응답에서도 locale이 섞이지 않도록 현재 글 생성
+        $this->createBoardWithPosts(1);
+
+        // When: 한국어 요청 후 영어 요청
+        $koResponse = $this->withHeader('Accept-Language', 'ko')
+            ->getJson('/api/modules/sirsoft-board/boards/posts/recent?limit=1');
+        $enResponse = $this->withHeader('Accept-Language', 'en')
+            ->getJson('/api/modules/sirsoft-board/boards/posts/recent?limit=1');
+
+        // Then: locale별 날짜 문자열과 캐시 키가 분리되어야 함
+        $koResponse->assertStatus(200);
+        $enResponse->assertStatus(200);
+
+        $koItem = $koResponse->json('data.0');
+        $enItem = $enResponse->json('data.0');
+
+        $this->assertStringContainsString('요일', $koItem['created_at']);
+        $this->assertStringNotContainsString('요일', $enItem['created_at']);
+        $this->assertMatchesRegularExpression('/(just now|minute|hour|day|month|year)/', $enItem['created_at_formatted']);
+        $this->assertDoesNotMatchRegularExpression('/[가-힣]/', $enItem['created_at_formatted']);
+
+        $this->assertTrue(Cache::has('g7:module.sirsoft-board:recent_posts_ko_1'));
+        $this->assertTrue(Cache::has('g7:module.sirsoft-board:recent_posts_en_1'));
     }
 
     /**

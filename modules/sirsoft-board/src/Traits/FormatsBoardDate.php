@@ -26,6 +26,8 @@ trait FormatsBoardDate
             return '';
         }
 
+        $locale = $this->boardDateLocale();
+        $isKorean = str_starts_with($locale, 'ko');
         $carbon = $dateTime instanceof Carbon ? $dateTime : Carbon::parse($dateTime);
         $userCarbon = TimezoneHelper::toUserCarbon($carbon);
         $now = TimezoneHelper::toUserCarbon(Carbon::now());
@@ -36,22 +38,22 @@ trait FormatsBoardDate
         // 1시간 미만: N분 전 (공통)
         if ($diffInMinutes < 60) {
             if ($diffInMinutes < 1) {
-                return '방금 전';
+                return $isKorean ? '방금 전' : 'just now';
             }
 
             // 10분 이상은 10분 단위로 내림 (예: 21분 → 20분 전)
             if ($diffInMinutes >= 10) {
                 $rounded = (int) floor($diffInMinutes / 10) * 10;
 
-                return $rounded.'분 전';
+                return $isKorean ? $rounded.'분 전' : $this->englishRelativeTime($rounded, 'minute');
             }
 
-            return $diffInMinutes.'분 전';
+            return $isKorean ? $diffInMinutes.'분 전' : $this->englishRelativeTime($diffInMinutes, 'minute');
         }
 
         // 1~23시간: N시간 전 (공통)
         if ($diffInHours < 24) {
-            return $diffInHours.'시간 전';
+            return $isKorean ? $diffInHours.'시간 전' : $this->englishRelativeTime($diffInHours, 'hour');
         }
 
         if ($format === 'relative') {
@@ -61,14 +63,14 @@ trait FormatsBoardDate
             $diffInYears = (int) $now->diffInYears($userCarbon, absolute: true);
 
             if ($diffInYears >= 1) {
-                return $diffInYears.'년 전';
+                return $isKorean ? $diffInYears.'년 전' : $this->englishRelativeTime($diffInYears, 'year');
             }
 
             if ($diffInMonths >= 1) {
-                return $diffInMonths.'개월 전';
+                return $isKorean ? $diffInMonths.'개월 전' : $this->englishRelativeTime($diffInMonths, 'month');
             }
 
-            return $diffInDays.'일 전';
+            return $isKorean ? $diffInDays.'일 전' : $this->englishRelativeTime($diffInDays, 'day');
         }
 
         // 표준형: MM-DD (올해) → YY-MM-DD (지난해 이전)
@@ -96,9 +98,39 @@ trait FormatsBoardDate
         $carbon = $dateTime instanceof Carbon ? $dateTime : Carbon::parse($dateTime);
         $userCarbon = TimezoneHelper::toUserCarbon($carbon);
 
-        $weekdays = ['일', '월', '화', '수', '목', '금', '토'];
-        $weekday = $weekdays[$userCarbon->dayOfWeek];
+        return $userCarbon->locale($this->boardDateLocale())->translatedFormat('Y-m-d l H:i');
+    }
 
-        return $userCarbon->format('Y-m-d').' '.$weekday.'요일 '.$userCarbon->format('H:i');
+    /**
+     * 현재 요청/앱 locale을 Carbon에서 사용할 수 있는 날짜 locale로 정규화합니다.
+     */
+    protected function boardDateLocale(): string
+    {
+        $user = auth()->user();
+        if ($user && ! empty($user->language)) {
+            return str_replace('_', '-', (string) $user->language);
+        }
+
+        $acceptLanguage = request()?->header('Accept-Language');
+        if ($acceptLanguage) {
+            $locale = trim(explode(',', $acceptLanguage)[0]);
+            $locale = str_contains($locale, '-') ? explode('-', $locale)[0] : $locale;
+
+            if (in_array($locale, ['ko', 'en'], true)) {
+                return $locale;
+            }
+        }
+
+        $locale = (string) app()->getLocale();
+
+        return str_replace('_', '-', $locale ?: 'ko');
+    }
+
+    /**
+     * 영어 상대 시간 문자열을 생성합니다.
+     */
+    protected function englishRelativeTime(int $value, string $unit): string
+    {
+        return $value.' '.$unit.($value === 1 ? '' : 's').' ago';
     }
 }

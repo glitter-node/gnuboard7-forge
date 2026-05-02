@@ -50,16 +50,17 @@ function createRegistry() {
   return registry;
 }
 
-function createHomeLayoutTest() {
+function createHomeLayoutTest(locale: 'en' | 'ko' = 'ko') {
   const homeLayout = resolvePartials(readJson('layouts/home.json'));
   const testUtils = createLayoutTest(homeLayout, {
     componentRegistry: createRegistry(),
     templateId: 'sirsoft-comm',
-    locale: 'ko',
+    locale,
     translations: {
-      home: readJson('lang/partial/ko/home.json'),
-      board: readJson('lang/partial/ko/board.json'),
-      common: readJson('lang/partial/ko/common.json'),
+      home: readJson(`lang/partial/${locale}/home.json`),
+      board: readJson(`lang/partial/${locale}/board.json`),
+      boards: readJson(`lang/partial/${locale}/boards.json`),
+      common: readJson(`lang/partial/${locale}/common.json`),
     },
   });
 
@@ -151,6 +152,83 @@ describe('sirsoft-comm home board data bindings', () => {
     expect(screen.getByText('11')).toBeInTheDocument();
     expect(screen.getAllByText('3').length).toBeGreaterThan(0);
     expect(screen.queryByText('기타게시판')).not.toBeInTheDocument();
+  });
+
+  it('renders starter board names through the active locale', async () => {
+    testUtils = createHomeLayoutTest('en');
+
+    testUtils.mockApi('stats', {
+      response: {
+        data: {
+          users: 11,
+          boards: 3,
+          posts: 1,
+          comments: 0,
+        },
+      },
+    });
+    testUtils.mockApi('recent_posts', {
+      response: {
+        data: [
+          {
+            id: 6,
+            board_slug: 'notice',
+            board_name: '공지사항',
+            title: 'Welcome to the notice board',
+            created_at: '2026-05-03 05:51',
+            created_at_formatted: '7 minutes ago',
+            comment_count: 0,
+            is_secret: false,
+            is_new: true,
+          },
+        ],
+      },
+    });
+    testUtils.mockApi('popular_boards', {
+      response: {
+        data: [
+          { id: 30, name: '공지사항', slug: 'notice', posts_count: 1 },
+          { id: 32, name: '질문게시판', slug: 'qna', posts_count: 0 },
+          { id: 31, name: '자유게시판', slug: 'free', posts_count: 0 },
+        ],
+      },
+    });
+    testUtils.mockApi('home_boards', {
+      response: {
+        data: [
+          { id: 32, name: '질문게시판', slug: 'qna', posts_count: 0, recent_posts: [] },
+          { id: 31, name: '자유게시판', slug: 'free', posts_count: 0, recent_posts: [] },
+          {
+            id: 30,
+            name: '공지사항',
+            slug: 'notice',
+            posts_count: 1,
+            recent_posts: [
+              {
+                id: 6,
+                title: 'Welcome to the notice board',
+                created_at: '2026-05-03 05:51',
+                created_at_formatted: '7 minutes ago',
+                comment_count: 0,
+                is_notice: true,
+                is_secret: false,
+                is_new: true,
+              },
+            ],
+          },
+        ],
+      },
+    });
+
+    await testUtils.render();
+    testUtils.assertNoValidationErrors();
+
+    expect(screen.getAllByText('Notice').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Free Board').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Q&A Board').length).toBeGreaterThan(0);
+    expect(screen.queryByText('공지사항')).not.toBeInTheDocument();
+    expect(screen.queryByText('자유게시판')).not.toBeInTheDocument();
+    expect(screen.queryByText('질문게시판')).not.toBeInTheDocument();
   });
 
   it('preserves homepage empty states when board arrays are empty', async () => {

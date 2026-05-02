@@ -221,7 +221,7 @@ class BoardService
         $ttl = (int) g7_core_settings('cache.default_ttl', 86400);
 
         return $this->cache->remember(
-            "recent_posts_{$limit}",
+            'recent_posts_'.$this->cacheLocale().'_'.$limit,
             fn () => $this->getRecentPosts($limit),
             $ttl,
             tags: ['board-posts']
@@ -231,7 +231,7 @@ class BoardService
     /**
      * 인기 게시글을 캐시와 함께 조회합니다.
      *
-     * 캐시 키에 locale을 포함하지 않습니다 (쿼리 결과는 locale에 무관).
+     * 응답에 게시판 이름/날짜 표시 문자열이 포함되므로 캐시 키에 locale을 포함합니다.
      *
      * @param  string  $period  기간 (today, week, month, year)
      * @param  int  $limit  조회 개수
@@ -242,7 +242,7 @@ class BoardService
         $ttl = (int) g7_core_settings('cache.default_ttl', 86400);
 
         return $this->cache->remember(
-            "popular_posts_{$period}_{$limit}",
+            'popular_posts_'.$this->cacheLocale()."_{$period}_{$limit}",
             fn () => $this->getPopularPosts($period, $limit),
             $ttl,
             tags: ['board-posts']
@@ -282,6 +282,29 @@ class BoardService
             $ttl,
             tags: ['board-menu']
         );
+    }
+
+    /**
+     * Locale-sensitive API 응답 캐시 키에 사용할 locale 값입니다.
+     */
+    protected function cacheLocale(): string
+    {
+        $user = auth()->user();
+        if ($user && ! empty($user->language)) {
+            return str_replace('_', '-', (string) $user->language);
+        }
+
+        $acceptLanguage = request()?->header('Accept-Language');
+        if ($acceptLanguage) {
+            $locale = trim(explode(',', $acceptLanguage)[0]);
+            $locale = str_contains($locale, '-') ? explode('-', $locale)[0] : $locale;
+
+            if (in_array($locale, ['ko', 'en'], true)) {
+                return $locale;
+            }
+        }
+
+        return str_replace('_', '-', (string) app()->getLocale() ?: 'ko');
     }
 
     /**
