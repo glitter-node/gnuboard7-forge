@@ -3,6 +3,7 @@
 namespace Modules\Sirsoft\Board\Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Modules\Sirsoft\Board\Database\Seeders\Install\CommunityStarterCommentSeeder;
 use Modules\Sirsoft\Board\Database\Seeders\Install\CommunityStarterContentSeeder;
 
 /**
@@ -23,5 +24,6 @@ class InstallSeeder extends Seeder
     {
         $this->call(BoardNotificationDefinitionSeeder::class);
         $this->call(CommunityStarterContentSeeder::class);
+        $this->call(CommunityStarterCommentSeeder::class);
     }
 }
