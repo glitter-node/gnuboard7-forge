@@ -30,6 +30,10 @@
     "boards": "Boards"
   },
   "notice_posts": "Notice",
+  "start_post_title": "Choose where to start your post",
+  "start_post_description": "Use Free Board for general discussion and Q&A Board for questions or help.",
+  "start_post_free_description": "Share everyday topics and open discussion.",
+  "start_post_qna_description": "Ask questions and get help from the community.",
   "recent_posts": "Recent Posts",
   "no_posts": "Recent posts will appear here after members begin posting.",
   "recent_posts_empty_title": "Ready for the first discussion",

@@ -120,40 +120,6 @@
             {
               "type": "basic",
               "name": "Button",
-              "if": "{{_global.currentUser?.uuid}}",
-              "props": {
-                "variant": "primary",
-                "size": "md",
-                "className": "gap-2 cursor-pointer"
-              },
-              "actions": [
-                {
-                  "type": "click",
-                  "handler": "navigate",
-                  "params": {
-                    "path": "/board/free/write"
-                  }
-                }
-              ],
-              "children": [
-                {
-                  "type": "basic",
-                  "name": "Span",
-                  "text": "$t:home.write_post"
-                },
-                {
-                  "type": "basic",
-                  "name": "Icon",
-                  "props": {
-                    "name": "arrow-right",
-                    "className": "w-4 h-4"
-                  }
-                }
-              ]
-            },
-            {
-              "type": "basic",
-              "name": "Button",
               "if": "{{!_global.currentUser?.uuid}}",
               "props": {
                 "variant": "primary",

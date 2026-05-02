@@ -52,6 +52,7 @@ describe('home layout i18n enforcement', () => {
   it('uses translation keys instead of hardcoded homepage text in touched partials', () => {
     const welcomeCard = readText('layouts/partials/home/_welcome_card.json');
     const noticePosts = readText('layouts/partials/home/_notice_posts.json');
+    const startPost = readText('layouts/partials/home/_start_post.json');
     const communityGuide = readText('layouts/partials/home/_community_guide.json');
     const recentPosts = readText('layouts/partials/home/_recent_posts.json');
     const popularBoards = readText('layouts/partials/home/_popular_boards.json');
@@ -62,6 +63,7 @@ describe('home layout i18n enforcement', () => {
     expect(welcomeCard).not.toContain('{{_global.settings?.general?.site_name}}$t:home.hero_title_suffix');
 
     expect(homeLayout).toContain('partials/home/_notice_posts.json');
+    expect(homeLayout).toContain('partials/home/_start_post.json');
     expect(homeLayout).not.toContain('partials/home/_board_summary.json');
     expect(homeLayout).not.toContain('"id": "home_boards"');
 
@@ -69,6 +71,15 @@ describe('home layout i18n enforcement', () => {
     expect(noticePosts).toContain('$t:boards.notice');
     expect(noticePosts).toContain('$t:board.new_badge');
     expect(noticePosts).not.toContain('"text": "N"');
+
+    expect(startPost).toContain('$t:home.start_post_title');
+    expect(startPost).toContain('$t:home.start_post_description');
+    expect(startPost).toContain('$t:boards.free');
+    expect(startPost).toContain('$t:boards.qna');
+    expect(startPost).toContain('$t:home.start_post_free_description');
+    expect(startPost).toContain('$t:home.start_post_qna_description');
+    expect(startPost).not.toContain('$t:boards.notice');
+    expect(startPost).not.toContain('/board/notice/write');
 
     expect(recentPosts).toContain('$t:board.new_badge');
     expect(recentPosts).toContain('$t:home.comment_count_badge|count={{post?.comment_count ?? 0}}');
@@ -107,11 +118,33 @@ describe('home layout i18n enforcement', () => {
     expect(cta.props.className).not.toMatch(/\bborder-amber-/);
   });
 
+  it('uses board-specific write actions from the homepage start-post choices', () => {
+    const startPost = readJson<any>('layouts/partials/home/_start_post.json');
+    const choices = startPost.children[0].children[1].children;
+    const [freeChoice, qnaChoice] = choices;
+
+    expect(choices).toHaveLength(2);
+    expect(freeChoice.actions[0].handler).toBe('switch');
+    expect(freeChoice.actions[0].params.value).toBe("{{_global.currentUser?.uuid ? 'authenticated' : 'guest'}}");
+    expect(freeChoice.actions[0].cases.authenticated.params.path).toBe('/board/free/write');
+    expect(freeChoice.actions[0].cases.guest.params.path).toBe('/login');
+    expect(freeChoice.actions[0].cases.guest.params.query.redirect).toBe('/board/free/write');
+
+    expect(qnaChoice.actions[0].handler).toBe('switch');
+    expect(qnaChoice.actions[0].params.value).toBe("{{_global.currentUser?.uuid ? 'authenticated' : 'guest'}}");
+    expect(qnaChoice.actions[0].cases.authenticated.params.path).toBe('/board/qna/write');
+    expect(qnaChoice.actions[0].cases.guest.params.path).toBe('/login');
+    expect(qnaChoice.actions[0].cases.guest.params.query.redirect).toBe('/board/qna/write');
+  });
+
   it('renders homepage text correctly in Korean mode', () => {
     const engine = TranslationEngine.getInstance();
 
     expect(engine.translate('home.hero_title', koContext)).toBe('Sir Soft Community');
     expect(engine.translate('home.notice_posts', koContext)).toBe('공지사항');
+    expect(engine.translate('home.start_post_title', koContext)).toBe('글을 시작할 게시판을 선택하세요');
+    expect(engine.translate('home.start_post_free_description', koContext)).toBe('일상 이야기와 자유로운 주제를 나눕니다.');
+    expect(engine.translate('home.start_post_qna_description', koContext)).toBe('질문과 도움이 필요한 내용을 남깁니다.');
     expect(engine.translate('home.recent_posts_empty_title', koContext)).toBe('첫 대화를 시작할 준비가 되었습니다');
     expect(engine.translate('home.popular_boards_empty_title', koContext)).toBe('활동에 따라 인기 게시판이 정렬됩니다');
     expect(engine.translate('home.empty_browse_boards', koContext)).toBe('게시판 목록 보기');
@@ -131,6 +164,9 @@ describe('home layout i18n enforcement', () => {
 
     expect(engine.translate('home.hero_title', enContext)).toBe('Sir Soft Community');
     expect(engine.translate('home.notice_posts', enContext)).toBe('Notice');
+    expect(engine.translate('home.start_post_title', enContext)).toBe('Choose where to start your post');
+    expect(engine.translate('home.start_post_free_description', enContext)).toBe('Share everyday topics and open discussion.');
+    expect(engine.translate('home.start_post_qna_description', enContext)).toBe('Ask questions and get help from the community.');
     expect(engine.translate('home.recent_posts_empty_title', enContext)).toBe('Ready for the first discussion');
     expect(engine.translate('home.popular_boards_empty_title', enContext)).toBe('Popular boards will be ranked by activity');
     expect(engine.translate('home.empty_browse_boards', enContext)).toBe('View board list');

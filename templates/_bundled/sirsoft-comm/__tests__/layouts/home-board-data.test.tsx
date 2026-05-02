@@ -140,6 +140,9 @@ describe('sirsoft-comm home board data bindings', () => {
     expect(screen.getAllByText('공지사항').length).toBeGreaterThan(0);
     expect(screen.getAllByText('자유게시판').length).toBeGreaterThan(0);
     expect(screen.getAllByText('질문게시판').length).toBeGreaterThan(0);
+    expect(screen.getByText('글을 시작할 게시판을 선택하세요')).toBeInTheDocument();
+    expect(screen.getByText('일상 이야기와 자유로운 주제를 나눕니다.')).toBeInTheDocument();
+    expect(screen.getByText('질문과 도움이 필요한 내용을 남깁니다.')).toBeInTheDocument();
     expect(screen.queryByText('boards.notice')).not.toBeInTheDocument();
     expect(screen.queryByText('boards.free')).not.toBeInTheDocument();
     expect(screen.queryByText('boards.qna')).not.toBeInTheDocument();
@@ -198,6 +201,9 @@ describe('sirsoft-comm home board data bindings', () => {
     expect(screen.getAllByText('Notice').length).toBeGreaterThan(0);
     expect(screen.getAllByText('Free Board').length).toBeGreaterThan(0);
     expect(screen.getAllByText('Q&A Board').length).toBeGreaterThan(0);
+    expect(screen.getByText('Choose where to start your post')).toBeInTheDocument();
+    expect(screen.getByText('Share everyday topics and open discussion.')).toBeInTheDocument();
+    expect(screen.getByText('Ask questions and get help from the community.')).toBeInTheDocument();
     expect(screen.queryByText('boards.notice')).not.toBeInTheDocument();
     expect(screen.queryByText('boards.free')).not.toBeInTheDocument();
     expect(screen.queryByText('boards.qna')).not.toBeInTheDocument();
@@ -221,6 +227,17 @@ describe('sirsoft-comm home board data bindings', () => {
     expect(screen.getByText('첫 대화를 시작할 준비가 되었습니다')).toBeInTheDocument();
     expect(screen.getByText('활동에 따라 인기 게시판이 정렬됩니다')).toBeInTheDocument();
     expect(screen.queryByText('설정 후 추천 게시판이 표시됩니다')).not.toBeInTheDocument();
+  });
+
+  it('keeps homepage write choices limited to free and qna boards', () => {
+    const startPost = readJson<any>('layouts/partials/home/_start_post.json');
+    const choices = startPost.children[0].children[1].children;
+
+    expect(choices).toHaveLength(2);
+    expect(JSON.stringify(startPost)).toContain('/board/free/write');
+    expect(JSON.stringify(startPost)).toContain('/board/qna/write');
+    expect(JSON.stringify(startPost)).not.toContain('/board/notice/write');
+    expect(JSON.stringify(startPost)).not.toContain('$t:boards.notice');
   });
 
   it('renders refreshed homepage stats and recent posts after a free-board post is created', async () => {

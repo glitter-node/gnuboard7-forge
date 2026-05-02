@@ -112,6 +112,18 @@
             "type": "basic",
             "name": "Div",
             "props": {
+              "className": "mb-5"
+            },
+            "children": [
+              {
+                "partial": "partials/home/_start_post.json"
+              }
+            ]
+          },
+          {
+            "type": "basic",
+            "name": "Div",
+            "props": {
               "className": "grid grid-cols-1 gap-4 mb-5"
             },
             "responsive": {
