@@ -224,7 +224,7 @@
                 "name": "Div",
                 "if": "{{!home_boards.data || home_boards.data.length === 0}}",
                 "props": {
-                  "className": "bg-white dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700 p-6 text-center text-slate-500 dark:text-slate-400"
+                  "className": "bg-white dark:bg-slate-800 rounded-xl border border-dashed border-slate-200 dark:border-slate-700 p-6 text-center text-slate-500 dark:text-slate-400"
                 },
                 "children": [
                   {

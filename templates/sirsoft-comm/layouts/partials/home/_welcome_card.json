@@ -67,7 +67,7 @@
           "props": {
             "className": "text-3xl font-semibold leading-tight text-white sm:text-4xl lg:text-5xl"
           },
-          "text": "$t:home.hero_title|site_name={{_global.settings?.general?.site_name ?? ''}}"
+          "text": "$t:home.hero_title"
         },
         {
           "type": "basic",

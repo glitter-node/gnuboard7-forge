@@ -48,7 +48,8 @@ describe('home layout i18n enforcement', () => {
     const communityGuide = readText('layouts/partials/home/_community_guide.json');
     const recentPosts = readText('layouts/partials/home/_recent_posts.json');
 
-    expect(welcomeCard).toContain('$t:home.hero_title|site_name={{_global.settings?.general?.site_name ?? \'\'}}');
+    expect(welcomeCard).toContain('$t:home.hero_title');
+    expect(welcomeCard).not.toContain('Sir Soft Community');
     expect(welcomeCard).not.toContain('{{_global.settings?.general?.site_name}}$t:home.hero_title_suffix');
 
     expect(boardSummary).toContain('$t:board.new_badge');
@@ -82,7 +83,9 @@ describe('home layout i18n enforcement', () => {
   it('renders homepage text correctly in Korean mode', () => {
     const engine = TranslationEngine.getInstance();
 
-    expect(engine.translate('home.hero_title', koContext, '|site_name=그누보드7')).toBe('그누보드7에서 대화를 시작해보세요');
+    expect(engine.translate('home.hero_title', koContext)).toBe('Sir Soft Community');
+    expect(engine.translate('home.recent_posts_empty_title', koContext)).toBe('첫 게시글을 기다리고 있습니다');
+    expect(engine.translate('home.popular_boards_empty_title', koContext)).toBe('활동에 따라 목록이 채워집니다');
     expect(engine.translate('home.comment_count_badge', koContext, '|count=12')).toBe('[12]');
     expect(engine.translate('home.guide_bullet', koContext)).toBe('•');
     expect(engine.translate('board.new_badge', koContext)).toBe('NEW');
@@ -91,7 +94,9 @@ describe('home layout i18n enforcement', () => {
   it('renders homepage text correctly in English mode', () => {
     const engine = TranslationEngine.getInstance();
 
-    expect(engine.translate('home.hero_title', enContext, '|site_name=Gnuboard7')).toBe('Gnuboard7: start the conversation');
+    expect(engine.translate('home.hero_title', enContext)).toBe('Sir Soft Community');
+    expect(engine.translate('home.recent_posts_empty_title', enContext)).toBe('Ready for the first post');
+    expect(engine.translate('home.popular_boards_empty_title', enContext)).toBe('Activity will shape this list');
     expect(engine.translate('home.comment_count_badge', enContext, '|count=12')).toBe('[12]');
     expect(engine.translate('home.guide_bullet', enContext)).toBe('•');
     expect(engine.translate('board.new_badge', enContext)).toBe('NEW');
@@ -100,11 +105,11 @@ describe('home layout i18n enforcement', () => {
   it('changes homepage hero text when the locale changes', () => {
     const engine = TranslationEngine.getInstance();
 
-    const korean = engine.translate('home.hero_title', koContext, '|site_name=그누보드7');
-    const english = engine.translate('home.hero_title', enContext, '|site_name=Gnuboard7');
+    const korean = engine.translate('home.hero_description', koContext);
+    const english = engine.translate('home.hero_description', enContext);
 
-    expect(korean).toBe('그누보드7에서 대화를 시작해보세요');
-    expect(english).toBe('Gnuboard7: start the conversation');
+    expect(korean).toBe('게시판, 게시글, 회원 대화를 위한 배포용 커뮤니티 홈입니다.');
+    expect(english).toBe('A ready-to-use community home for boards, posts, and member discussions.');
     expect(korean).not.toBe(english);
   });
 });

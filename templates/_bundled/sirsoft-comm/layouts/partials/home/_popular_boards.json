@@ -101,7 +101,7 @@
       "name": "Div",
       "if": "{{!popular_boards.data || popular_boards.data.length === 0}}",
       "props": {
-        "className": "text-center py-6 text-slate-500 dark:text-slate-400 flex-grow flex flex-col items-center justify-center min-h-[140px]"
+        "className": "text-center py-6 px-4 text-slate-500 dark:text-slate-400 flex-grow flex flex-col items-center justify-center min-h-[160px] rounded-lg border border-dashed border-slate-200 dark:border-slate-700 bg-white/70 dark:bg-slate-900/30"
       },
       "children": [
         {
@@ -114,11 +114,19 @@
         },
         {
           "type": "basic",
+          "name": "H4",
+          "props": {
+            "className": "text-sm font-semibold text-slate-900 dark:text-white mb-1"
+          },
+          "text": "$t:home.popular_boards_empty_title"
+        },
+        {
+          "type": "basic",
           "name": "P",
           "props": {
-            "className": "text-sm"
+            "className": "text-sm max-w-sm"
           },
-          "text": "$t:home.no_boards"
+          "text": "$t:home.popular_boards_empty_description"
         }
       ]
     }
