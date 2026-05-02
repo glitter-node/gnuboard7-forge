@@ -40,6 +40,11 @@ class BoardDefaultsSeederTest extends ModuleTestCase
         );
         $this->assertSame(1, Board::query()->where('slug', 'notice')->count());
         $this->assertSame(1, Board::query()->where('slug', 'free')->count());
+        $this->assertSame(1, Board::query()->where('slug', 'qna')->count());
+        $this->assertSame(
+            ['ko' => '질문게시판', 'en' => 'Q&A Board'],
+            Board::query()->where('slug', 'qna')->value('name')
+        );
         $this->assertSame(1, Post::query()->where('board_id', $noticeBoard->id)->count());
         $this->assertSame(
             1,
