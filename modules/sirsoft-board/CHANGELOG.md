@@ -4,6 +4,12 @@
 형식은 [Keep a Changelog](https://keepachangelog.com/ko/1.1.0/)를 따르며,
 [Semantic Versioning](https://semver.org/lang/ko/)을 준수합니다.
 
+## [Unreleased]
+
+### Added
+
+- 초기 커뮤니티가 비어 보이지 않도록 공지·자유·질문 게시판에 안전한 starter 게시글을 생성하는 설치 시더 추가
+
 ## [1.0.0-beta.3] - 2026-04-21
 
 ### Fixed
