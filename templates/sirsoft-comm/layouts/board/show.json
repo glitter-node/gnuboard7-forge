@@ -20,18 +20,22 @@
       "vars": {
         "site_name": "$core_settings:general.site_name",
         "board_name": "{{post.data.board.name ?? ''}}",
-        "post_title": "{{post.data.title ?? ''}}"
+        "post_title": "{{post.data.title ?? ''}}",
+        "post_description": "{{post.data.meta_description ?? ''}}"
       },
       "priority": 0.5,
       "changefreq": "monthly",
       "og": {
         "type": "article",
         "title": "{{_seo.post.title ?? post.data.title ?? ''}}",
-        "description": "{{_seo.post.description ?? post.data.content ?? ''}}"
+        "description": "{{_seo.post.description ?? post.data.meta_description ?? post.data.content ?? ''}}",
+        "image": "{{post.data.meta_image ?? '/images/og-default.png'}}"
       },
       "structured_data": {
         "@type": "Article",
         "headline": "{{_seo.post.title ?? post.data.title ?? ''}}",
+        "description": "{{post.data.meta_description ?? ''}}",
+        "image": "{{post.data.meta_image ?? '/images/og-default.png'}}",
         "datePublished": "{{post.data.created_at ?? ''}}",
         "dateModified": "{{post.data.updated_at ?? ''}}"
       }

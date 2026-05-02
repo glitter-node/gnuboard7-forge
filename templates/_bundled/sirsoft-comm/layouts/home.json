@@ -14,7 +14,10 @@
       "priority": 1.0,
       "changefreq": "daily",
       "og": {
-        "type": "website"
+        "type": "website",
+        "title": "$t:home.seo_title",
+        "description": "$t:home.seo_description",
+        "image": "/images/og-default.png"
       },
       "structured_data": {
         "@type": "WebSite",

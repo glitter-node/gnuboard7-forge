@@ -56,7 +56,7 @@
             "google_analytics_id": "",
             "google_site_verification": "",
             "naver_site_verification": "",
-            "bot_user_agents": ["Googlebot", "Bingbot", "Naverbot", "Yeti", "Yandex"],
+            "bot_user_agents": ["Googlebot", "Bingbot", "Naverbot", "Yeti", "Yandex", "facebookexternalhit", "Twitterbot", "LinkedInBot"],
             "bot_detection_enabled": true,
             "cache_enabled": true,
             "cache_ttl": 7200,

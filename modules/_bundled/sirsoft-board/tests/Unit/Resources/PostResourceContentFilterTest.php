@@ -238,6 +238,40 @@ class PostResourceContentFilterTest extends BoardTestCase
         $this->assertSame('', $result['content_preview']);
     }
 
+    #[Test]
+    public function detail_array_includes_seo_description_without_html(): void
+    {
+        $postId = $this->createTestPost([
+            'content' => '<p>첫 문장입니다.</p><p>두 번째 문장입니다.</p>',
+            'content_mode' => 'html',
+            'status' => 'published',
+        ]);
+
+        $post = $this->getPostModel($postId);
+        $request = Request::create('/');
+        $resource = new PostResource($post);
+        $response = $resource->toArray($request);
+
+        $this->assertSame('첫 문장입니다.두 번째 문장입니다.', $response['meta_description']);
+    }
+
+    #[Test]
+    public function detail_array_uses_first_content_image_for_seo_image(): void
+    {
+        $postId = $this->createTestPost([
+            'content' => '<p>이미지 본문</p><img src="/storage/posts/first.jpg" alt="첫 이미지"><img src="/storage/posts/second.jpg">',
+            'content_mode' => 'html',
+            'status' => 'published',
+        ]);
+
+        $post = $this->getPostModel($postId);
+        $request = Request::create('/');
+        $resource = new PostResource($post);
+        $response = $resource->toArray($request);
+
+        $this->assertSame(url('/storage/posts/first.jpg'), $response['meta_image']);
+    }
+
     /**
      * Post 모델 인스턴스를 가져옵니다.
      *

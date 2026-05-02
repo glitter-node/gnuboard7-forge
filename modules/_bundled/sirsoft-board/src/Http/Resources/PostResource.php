@@ -6,6 +6,7 @@ use App\Enums\PermissionType;
 use App\Http\Resources\BaseApiResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Modules\Sirsoft\Board\Enums\ReportReasonType;
 use Modules\Sirsoft\Board\Repositories\Contracts\ReportRepositoryInterface;
 use Modules\Sirsoft\Board\Traits\ChecksBoardPermission;
@@ -40,6 +41,11 @@ class PostResource extends BaseApiResource
 
             // 상세 전용: 작성자 UUID
             'user_id' => $this->user?->uuid,
+
+            // 상세 전용: 서버 사이드 SEO 렌더링용 메타 데이터
+            'meta_title' => $this->title,
+            'meta_description' => $this->getSeoDescription($request, $slug),
+            'meta_image' => $this->getSeoImageUrl($request, $slug),
 
             // 상세 전용: 트리거 타입
             'trigger_type' => $this->trigger_type,
@@ -306,6 +312,55 @@ class PostResource extends BaseApiResource
         }
 
         return null;
+    }
+
+    /**
+     * SEO description용 본문 요약을 반환합니다.
+     */
+    private function getSeoDescription(Request $request, ?string $slug): string
+    {
+        $content = $this->getFilteredContent($request, $slug);
+        if (! is_string($content)) {
+            return '';
+        }
+
+        $plainText = trim(preg_replace('/\s+/u', ' ', html_entity_decode(strip_tags($content), ENT_QUOTES | ENT_HTML5, 'UTF-8')) ?? '');
+
+        return Str::limit($plainText, 160, '');
+    }
+
+    /**
+     * 본문 첫 이미지 또는 첨부 썸네일을 SEO 이미지로 반환합니다.
+     */
+    private function getSeoImageUrl(Request $request, ?string $slug): string
+    {
+        $content = $this->getFilteredContent($request, $slug);
+        if (is_string($content) && preg_match('/<img\b[^>]*\bsrc=["\']([^"\']+)["\']/i', $content, $matches)) {
+            return $this->absoluteUrl($matches[1]);
+        }
+
+        $thumbnail = $this->getThumbnailUrlFromRelations();
+        if ($thumbnail) {
+            return $this->absoluteUrl($thumbnail);
+        }
+
+        return url('/images/og-default.png');
+    }
+
+    /**
+     * 상대 URL을 절대 URL로 변환합니다.
+     */
+    private function absoluteUrl(string $url): string
+    {
+        if (str_starts_with($url, 'http://') || str_starts_with($url, 'https://')) {
+            return $url;
+        }
+
+        if (str_starts_with($url, '//')) {
+            return request()->getScheme().':'.$url;
+        }
+
+        return url($url);
     }
 
     /**

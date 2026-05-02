@@ -395,6 +395,10 @@ class Module extends AbstractModule
                     'source' => 'data',
                     'required' => true,
                 ],
+                'post_description' => [
+                    'description' => '게시글 요약',
+                    'source' => 'data',
+                ],
             ],
         ];
     }

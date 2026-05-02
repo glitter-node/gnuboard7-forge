@@ -88,7 +88,7 @@
       "meta_board_title": "{board_name}",
       "meta_board_description": "{board_description}",
       "meta_post_title": "{board_name} - {post_title}",
-      "meta_post_description": "",
+      "meta_post_description": "{post_description}",
       "seo_boards": true,
       "seo_board": true,
       "seo_post_detail": true

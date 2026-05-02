@@ -26,7 +26,9 @@
       "changefreq": "daily",
       "og": {
         "type": "website",
-        "description": "{{_seo.board.description ?? posts.data.board.description ?? ''}}"
+        "title": "{{posts.data.meta_title ?? _seo.board.title ?? posts.data.board.name ?? ''}}",
+        "description": "{{_seo.board.description ?? posts.data.board.description ?? ''}}",
+        "image": "/images/og-default.png"
       },
       "structured_data": {
         "@type": "ItemList"

@@ -100,6 +100,8 @@ class PostCollection extends BaseApiCollection
         })->toArray();
 
         return [
+            'meta_title' => trim(($boardInfo['name'] ?? '').($slug ? " ({$slug})" : '')),
+            'meta_description' => $boardInfo['description'] ?? '',
             'data' => $postsData,
             'pagination' => $baseData['pagination'],
             'board' => $boardInfo,
