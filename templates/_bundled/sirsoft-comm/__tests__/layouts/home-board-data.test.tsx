@@ -111,6 +111,17 @@ describe('sirsoft-comm home board data bindings', () => {
             is_secret: false,
             is_new: true,
           },
+          {
+            id: 8,
+            board_slug: 'free',
+            board_name: '자유게시판',
+            title: 'Free board update',
+            created_at: '2026-05-03 06:10',
+            created_at_formatted: '3분 전',
+            comment_count: 0,
+            is_secret: false,
+            is_new: true,
+          },
         ],
       },
     });
@@ -123,34 +134,6 @@ describe('sirsoft-comm home board data bindings', () => {
         ],
       },
     });
-    testUtils.mockApi('home_boards', {
-      response: {
-        data: [
-          { id: 99, name: '기타게시판', slug: 'archive', posts_count: 12, recent_posts: [] },
-          { id: 32, name: '질문게시판', slug: 'qna', posts_count: 0, recent_posts: [] },
-          { id: 31, name: '자유게시판', slug: 'free', posts_count: 0, recent_posts: [] },
-          {
-            id: 30,
-            name: '공지사항',
-            slug: 'notice',
-            posts_count: 1,
-            recent_posts: [
-              {
-                id: 6,
-                title: 'Welcome to the notice board',
-                created_at: '2026-05-03 05:51',
-                created_at_formatted: '7분 전',
-                comment_count: 0,
-                is_notice: true,
-                is_secret: false,
-                is_new: true,
-              },
-            ],
-          },
-        ],
-      },
-    });
-
     await testUtils.render();
     testUtils.assertNoValidationErrors();
 
@@ -160,10 +143,14 @@ describe('sirsoft-comm home board data bindings', () => {
     expect(screen.queryByText('boards.notice')).not.toBeInTheDocument();
     expect(screen.queryByText('boards.free')).not.toBeInTheDocument();
     expect(screen.queryByText('boards.qna')).not.toBeInTheDocument();
-    expect(screen.getAllByText('Welcome to the notice board').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Welcome to the notice board')).toHaveLength(1);
+    expect(screen.getAllByText('Free board update').length).toBeGreaterThan(0);
     expect(screen.getByText('11')).toBeInTheDocument();
     expect(screen.getAllByText('3').length).toBeGreaterThan(0);
     expect(screen.queryByText('기타게시판')).not.toBeInTheDocument();
+
+    const bodyText = document.body.textContent ?? '';
+    expect(bodyText.indexOf('Welcome to the notice board')).toBeLessThan(bodyText.indexOf('Free board update'));
   });
 
   it('renders starter board names through the active locale', async () => {
@@ -205,33 +192,6 @@ describe('sirsoft-comm home board data bindings', () => {
         ],
       },
     });
-    testUtils.mockApi('home_boards', {
-      response: {
-        data: [
-          { id: 32, name: '질문게시판', slug: 'qna', posts_count: 0, recent_posts: [] },
-          { id: 31, name: '자유게시판', slug: 'free', posts_count: 0, recent_posts: [] },
-          {
-            id: 30,
-            name: '공지사항',
-            slug: 'notice',
-            posts_count: 1,
-            recent_posts: [
-              {
-                id: 6,
-                title: 'Welcome to the notice board',
-                created_at: '2026-05-03 05:51',
-                created_at_formatted: '7 minutes ago',
-                comment_count: 0,
-                is_notice: true,
-                is_secret: false,
-                is_new: true,
-              },
-            ],
-          },
-        ],
-      },
-    });
-
     await testUtils.render();
     testUtils.assertNoValidationErrors();
 
@@ -254,14 +214,13 @@ describe('sirsoft-comm home board data bindings', () => {
     });
     testUtils.mockApi('recent_posts', { response: { data: [] } });
     testUtils.mockApi('popular_boards', { response: { data: [] } });
-    testUtils.mockApi('home_boards', { response: { data: [] } });
 
     await testUtils.render();
     testUtils.assertNoValidationErrors();
 
     expect(screen.getByText('첫 대화를 시작할 준비가 되었습니다')).toBeInTheDocument();
     expect(screen.getByText('활동에 따라 인기 게시판이 정렬됩니다')).toBeInTheDocument();
-    expect(screen.getByText('설정 후 추천 게시판이 표시됩니다')).toBeInTheDocument();
+    expect(screen.queryByText('설정 후 추천 게시판이 표시됩니다')).not.toBeInTheDocument();
   });
 
   it('renders refreshed homepage stats and recent posts after a free-board post is created', async () => {
@@ -303,33 +262,6 @@ describe('sirsoft-comm home board data bindings', () => {
         ],
       },
     });
-    testUtils.mockApi('home_boards', {
-      response: {
-        data: [
-          {
-            id: 31,
-            name: '자유게시판',
-            slug: 'free',
-            posts_count: 1,
-            recent_posts: [
-              {
-                id: 77,
-                title: '새 자유게시판 글',
-                created_at: '2026-05-03 07:10',
-                created_at_formatted: '방금 전',
-                comment_count: 0,
-                is_notice: false,
-                is_secret: false,
-                is_new: true,
-              },
-            ],
-          },
-          { id: 32, name: '질문게시판', slug: 'qna', posts_count: 0, recent_posts: [] },
-          { id: 30, name: '공지사항', slug: 'notice', posts_count: 1, recent_posts: [] },
-        ],
-      },
-    });
-
     await testUtils.render();
     testUtils.assertNoValidationErrors();
 

@@ -9,8 +9,7 @@
       "data_sources": [
         "stats",
         "recent_posts",
-        "popular_boards",
-        "home_boards"
+        "popular_boards"
       ],
       "priority": 1.0,
       "changefreq": "daily",
@@ -62,17 +61,6 @@
       "fallback": {
         "data": []
       }
-    },
-    {
-      "id": "home_boards",
-      "type": "api",
-      "endpoint": "/api/modules/sirsoft-board/boards?limit=3",
-      "method": "GET",
-      "auto_fetch": true,
-      "loading_strategy": "progressive",
-      "fallback": {
-        "data": []
-      }
     }
   ],
   "slots": {
@@ -112,6 +100,18 @@
             "type": "basic",
             "name": "Div",
             "props": {
+              "className": "mb-5"
+            },
+            "children": [
+              {
+                "partial": "partials/home/_notice_posts.json"
+              }
+            ]
+          },
+          {
+            "type": "basic",
+            "name": "Div",
+            "props": {
               "className": "grid grid-cols-1 gap-4 mb-5"
             },
             "responsive": {
@@ -127,198 +127,6 @@
               },
               {
                 "partial": "partials/home/_popular_boards.json"
-              }
-            ]
-          },
-          {
-            "type": "basic",
-            "name": "Div",
-            "props": {
-              "className": "mb-5"
-            },
-            "children": [
-              {
-                "type": "basic",
-                "name": "Div",
-                "props": {
-                  "className": "flex items-center justify-between gap-3 mb-3"
-                },
-                "responsive": {
-                  "portable": {
-                    "props": {
-                      "className": "flex flex-col items-start gap-2 mb-3"
-                    }
-                  }
-                },
-                "children": [
-                  {
-                    "type": "basic",
-                    "name": "Div",
-                    "props": {
-                      "className": "space-y-1"
-                    },
-                    "children": [
-                      {
-                        "type": "basic",
-                        "name": "H2",
-                        "props": {
-                          "className": "text-xl font-semibold text-slate-900 dark:text-white"
-                        },
-                        "text": "$t:home.featured_boards"
-                      },
-                      {
-                        "type": "basic",
-                        "name": "P",
-                        "props": {
-                          "className": "text-sm text-slate-600 dark:text-slate-400"
-                        },
-                        "text": "$t:home.featured_boards_description"
-                      }
-                    ]
-                  },
-                  {
-                    "type": "basic",
-                    "name": "Button",
-                    "props": {
-                      "type": "button",
-                      "className": "text-sm font-medium text-teal-600 dark:text-teal-400 hover:underline cursor-pointer"
-                    },
-                    "actions": [
-                      {
-                        "type": "click",
-                        "handler": "navigate",
-                        "params": {
-                          "path": "/boards"
-                        }
-                      }
-                    ],
-                    "text": "$t:home.browse_all_boards"
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "name": "Div",
-                "if": "{{(home_boards?.data ?? []).filter(function(board){return ['notice','free','qna'].includes(board?.slug ?? '');}).length > 0}}",
-                "props": {
-                  "className": "grid grid-cols-1 gap-4"
-                },
-                "responsive": {
-                  "desktop": {
-                    "props": {
-                      "className": "grid grid-cols-3 gap-4"
-                    }
-                  }
-                },
-                "iteration": {
-                  "source": "{{(home_boards?.data ?? []).filter(function(board){return ['notice','free','qna'].includes(board?.slug ?? '');}).sort(function(a,b){return ['notice','free','qna'].indexOf(a?.slug ?? '') - ['notice','free','qna'].indexOf(b?.slug ?? '');})}}",
-                  "item_var": "item"
-                },
-                "children": [
-                  {
-                    "partial": "partials/home/_board_summary.json"
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "name": "Div",
-                "if": "{{(home_boards?.data ?? []).filter(function(board){return ['notice','free','qna'].includes(board?.slug ?? '');}).length === 0}}",
-                "props": {
-                  "className": "bg-white dark:bg-slate-800 rounded-xl border border-dashed border-slate-200 dark:border-slate-700 p-6 text-center text-slate-500 dark:text-slate-400"
-                },
-                "children": [
-                  {
-                    "type": "basic",
-                    "name": "Icon",
-                    "props": {
-                      "name": "layout-list",
-                      "className": "w-8 h-8 mx-auto mb-3 text-teal-500 dark:text-teal-400"
-                    }
-                  },
-                  {
-                    "type": "basic",
-                    "name": "H3",
-                    "props": {
-                      "className": "text-base font-semibold text-slate-900 dark:text-white mb-1"
-                    },
-                    "text": "$t:home.empty_board_title"
-                  },
-                  {
-                    "type": "basic",
-                    "name": "P",
-                    "props": {
-                      "className": "text-sm max-w-xl mx-auto"
-                    },
-                    "text": "$t:home.empty_board_description"
-                  },
-                  {
-                    "type": "basic",
-                    "name": "Div",
-                    "props": {
-                      "className": "mt-4 grid grid-cols-1 gap-2 text-left"
-                    },
-                    "responsive": {
-                      "desktop": {
-                        "props": {
-                          "className": "mt-4 grid grid-cols-2 gap-2 text-left"
-                        }
-                      }
-                    },
-                    "children": [
-                      {
-                        "type": "basic",
-                        "name": "Div",
-                        "props": {
-                          "className": "rounded-lg bg-slate-50 dark:bg-slate-900/40 border border-slate-100 dark:border-slate-700 p-3"
-                        },
-                        "children": [
-                          {
-                            "type": "basic",
-                            "name": "Span",
-                            "props": {
-                              "className": "text-sm font-medium text-slate-900 dark:text-white"
-                            },
-                            "text": "$t:home.empty_board_setup_title"
-                          },
-                          {
-                            "type": "basic",
-                            "name": "P",
-                            "props": {
-                              "className": "mt-1 text-xs text-slate-500 dark:text-slate-400"
-                            },
-                            "text": "$t:home.empty_board_setup_description"
-                          }
-                        ]
-                      },
-                      {
-                        "type": "basic",
-                        "name": "Div",
-                        "props": {
-                          "className": "rounded-lg bg-slate-50 dark:bg-slate-900/40 border border-slate-100 dark:border-slate-700 p-3"
-                        },
-                        "children": [
-                          {
-                            "type": "basic",
-                            "name": "Span",
-                            "props": {
-                              "className": "text-sm font-medium text-slate-900 dark:text-white"
-                            },
-                            "text": "$t:home.empty_board_activity_title"
-                          },
-                          {
-                            "type": "basic",
-                            "name": "P",
-                            "props": {
-                              "className": "mt-1 text-xs text-slate-500 dark:text-slate-400"
-                            },
-                            "text": "$t:home.empty_board_activity_description"
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
               }
             ]
           },

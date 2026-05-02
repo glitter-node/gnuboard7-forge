@@ -51,19 +51,24 @@ describe('home layout i18n enforcement', () => {
 
   it('uses translation keys instead of hardcoded homepage text in touched partials', () => {
     const welcomeCard = readText('layouts/partials/home/_welcome_card.json');
-    const boardSummary = readText('layouts/partials/home/_board_summary.json');
+    const noticePosts = readText('layouts/partials/home/_notice_posts.json');
     const communityGuide = readText('layouts/partials/home/_community_guide.json');
     const recentPosts = readText('layouts/partials/home/_recent_posts.json');
     const popularBoards = readText('layouts/partials/home/_popular_boards.json');
+    const homeLayout = readText('layouts/home.json');
 
     expect(welcomeCard).toContain('$t:home.hero_title');
     expect(welcomeCard).not.toContain('Sir Soft Community');
     expect(welcomeCard).not.toContain('{{_global.settings?.general?.site_name}}$t:home.hero_title_suffix');
 
-    expect(boardSummary).toContain('$t:board.new_badge');
-    expect(boardSummary).toContain('$t:home.comment_count_badge|count={{post?.comment_count ?? 0}}');
-    expect(boardSummary).not.toContain('"text": "N"');
-    expect(boardSummary).not.toContain('"text": "[{{post.comment_count}}]"');
+    expect(homeLayout).toContain('partials/home/_notice_posts.json');
+    expect(homeLayout).not.toContain('partials/home/_board_summary.json');
+    expect(homeLayout).not.toContain('"id": "home_boards"');
+
+    expect(noticePosts).toContain('$t:home.notice_posts');
+    expect(noticePosts).toContain('$t:boards.notice');
+    expect(noticePosts).toContain('$t:board.new_badge');
+    expect(noticePosts).not.toContain('"text": "N"');
 
     expect(recentPosts).toContain('$t:board.new_badge');
     expect(recentPosts).toContain('$t:home.comment_count_badge|count={{post?.comment_count ?? 0}}');
@@ -106,6 +111,7 @@ describe('home layout i18n enforcement', () => {
     const engine = TranslationEngine.getInstance();
 
     expect(engine.translate('home.hero_title', koContext)).toBe('Sir Soft Community');
+    expect(engine.translate('home.notice_posts', koContext)).toBe('공지사항');
     expect(engine.translate('home.recent_posts_empty_title', koContext)).toBe('첫 대화를 시작할 준비가 되었습니다');
     expect(engine.translate('home.popular_boards_empty_title', koContext)).toBe('활동에 따라 인기 게시판이 정렬됩니다');
     expect(engine.translate('home.empty_browse_boards', koContext)).toBe('게시판 목록 보기');
@@ -124,6 +130,7 @@ describe('home layout i18n enforcement', () => {
     const engine = TranslationEngine.getInstance();
 
     expect(engine.translate('home.hero_title', enContext)).toBe('Sir Soft Community');
+    expect(engine.translate('home.notice_posts', enContext)).toBe('Notice');
     expect(engine.translate('home.recent_posts_empty_title', enContext)).toBe('Ready for the first discussion');
     expect(engine.translate('home.popular_boards_empty_title', enContext)).toBe('Popular boards will be ranked by activity');
     expect(engine.translate('home.empty_browse_boards', enContext)).toBe('View board list');
