@@ -18,10 +18,17 @@ function readJson<T>(relativePath: string): T {
 }
 
 function loadDictionary(locale: 'ko' | 'en') {
-  return {
-    home: readJson(`lang/partial/${locale}/home.json`),
-    board: readJson(`lang/partial/${locale}/board.json`),
-  };
+  const manifest = readJson<Record<string, any>>(`lang/${locale}.json`);
+
+  return Object.fromEntries(
+    Object.entries(manifest).map(([key, value]) => {
+      if (value && typeof value === 'object' && typeof value.$partial === 'string') {
+        return [key, readJson(`lang/${value.$partial}`)];
+      }
+
+      return [key, value];
+    })
+  );
 }
 
 describe('home layout i18n enforcement', () => {
@@ -47,6 +54,7 @@ describe('home layout i18n enforcement', () => {
     const boardSummary = readText('layouts/partials/home/_board_summary.json');
     const communityGuide = readText('layouts/partials/home/_community_guide.json');
     const recentPosts = readText('layouts/partials/home/_recent_posts.json');
+    const popularBoards = readText('layouts/partials/home/_popular_boards.json');
 
     expect(welcomeCard).toContain('$t:home.hero_title');
     expect(welcomeCard).not.toContain('Sir Soft Community');
@@ -61,9 +69,23 @@ describe('home layout i18n enforcement', () => {
     expect(recentPosts).toContain('$t:home.comment_count_badge|count={{post?.comment_count ?? 0}}');
     expect(recentPosts).not.toContain('"text": "N"');
     expect(recentPosts).not.toContain('"text": "[{{post.comment_count}}]"');
+    expect(recentPosts).toContain('$t:boards.notice');
+    expect(recentPosts).toContain('$t:boards.free');
+    expect(recentPosts).toContain('$t:boards.qna');
+    expect(popularBoards).toContain('$t:boards.notice');
+    expect(popularBoards).toContain('$t:boards.free');
+    expect(popularBoards).toContain('$t:boards.qna');
 
     expect(communityGuide).toContain('$t:home.guide_bullet');
     expect(communityGuide).not.toContain('"text": "•"');
+  });
+
+  it('loads starter board names from the template language manifest', () => {
+    const koManifest = readJson<Record<string, any>>('lang/ko.json');
+    const enManifest = readJson<Record<string, any>>('lang/en.json');
+
+    expect(koManifest.boards?.$partial).toBe('partial/ko/boards.json');
+    expect(enManifest.boards?.$partial).toBe('partial/en/boards.json');
   });
 
   it('uses Button variant and size props for the primary hero CTA', () => {
@@ -90,6 +112,12 @@ describe('home layout i18n enforcement', () => {
     expect(engine.translate('home.comment_count_badge', koContext, '|count=12')).toBe('[12]');
     expect(engine.translate('home.guide_bullet', koContext)).toBe('•');
     expect(engine.translate('board.new_badge', koContext)).toBe('NEW');
+    expect(engine.translate('boards.notice', koContext)).toBe('공지사항');
+    expect(engine.translate('boards.free', koContext)).toBe('자유게시판');
+    expect(engine.translate('boards.qna', koContext)).toBe('질문게시판');
+    expect(engine.translate('boards.notice', koContext)).not.toBe('boards.notice');
+    expect(engine.translate('boards.free', koContext)).not.toBe('boards.free');
+    expect(engine.translate('boards.qna', koContext)).not.toBe('boards.qna');
   });
 
   it('renders homepage text correctly in English mode', () => {
@@ -102,6 +130,12 @@ describe('home layout i18n enforcement', () => {
     expect(engine.translate('home.comment_count_badge', enContext, '|count=12')).toBe('[12]');
     expect(engine.translate('home.guide_bullet', enContext)).toBe('•');
     expect(engine.translate('board.new_badge', enContext)).toBe('NEW');
+    expect(engine.translate('boards.notice', enContext)).toBe('Notice');
+    expect(engine.translate('boards.free', enContext)).toBe('Free Board');
+    expect(engine.translate('boards.qna', enContext)).toBe('Q&A Board');
+    expect(engine.translate('boards.notice', enContext)).not.toBe('boards.notice');
+    expect(engine.translate('boards.free', enContext)).not.toBe('boards.free');
+    expect(engine.translate('boards.qna', enContext)).not.toBe('boards.qna');
   });
 
   it('changes homepage hero text when the locale changes', () => {

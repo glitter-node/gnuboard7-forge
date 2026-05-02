@@ -18,6 +18,20 @@ function readJson<T = any>(relativePath: string): T {
   return JSON.parse(readFileSync(path.join(templateRoot, relativePath), 'utf-8')) as T;
 }
 
+function loadTemplateTranslations(locale: 'en' | 'ko') {
+  const manifest = readJson<Record<string, any>>(`lang/${locale}.json`);
+
+  return Object.fromEntries(
+    Object.entries(manifest).map(([key, value]) => {
+      if (value && typeof value === 'object' && typeof value.$partial === 'string') {
+        return [key, readJson(`lang/${value.$partial}`)];
+      }
+
+      return [key, value];
+    })
+  );
+}
+
 function resolvePartials<T = any>(value: T): T {
   if (Array.isArray(value)) {
     return value.map((item) => resolvePartials(item)) as T;
@@ -56,12 +70,7 @@ function createHomeLayoutTest(locale: 'en' | 'ko' = 'ko') {
     componentRegistry: createRegistry(),
     templateId: 'sirsoft-comm',
     locale,
-    translations: {
-      home: readJson(`lang/partial/${locale}/home.json`),
-      board: readJson(`lang/partial/${locale}/board.json`),
-      boards: readJson(`lang/partial/${locale}/boards.json`),
-      common: readJson(`lang/partial/${locale}/common.json`),
-    },
+    translations: loadTemplateTranslations(locale),
   });
 
   return testUtils;
@@ -148,6 +157,9 @@ describe('sirsoft-comm home board data bindings', () => {
     expect(screen.getAllByText('공지사항').length).toBeGreaterThan(0);
     expect(screen.getAllByText('자유게시판').length).toBeGreaterThan(0);
     expect(screen.getAllByText('질문게시판').length).toBeGreaterThan(0);
+    expect(screen.queryByText('boards.notice')).not.toBeInTheDocument();
+    expect(screen.queryByText('boards.free')).not.toBeInTheDocument();
+    expect(screen.queryByText('boards.qna')).not.toBeInTheDocument();
     expect(screen.getAllByText('Welcome to the notice board').length).toBeGreaterThan(0);
     expect(screen.getByText('11')).toBeInTheDocument();
     expect(screen.getAllByText('3').length).toBeGreaterThan(0);
@@ -226,6 +238,9 @@ describe('sirsoft-comm home board data bindings', () => {
     expect(screen.getAllByText('Notice').length).toBeGreaterThan(0);
     expect(screen.getAllByText('Free Board').length).toBeGreaterThan(0);
     expect(screen.getAllByText('Q&A Board').length).toBeGreaterThan(0);
+    expect(screen.queryByText('boards.notice')).not.toBeInTheDocument();
+    expect(screen.queryByText('boards.free')).not.toBeInTheDocument();
+    expect(screen.queryByText('boards.qna')).not.toBeInTheDocument();
     expect(screen.queryByText('공지사항')).not.toBeInTheDocument();
     expect(screen.queryByText('자유게시판')).not.toBeInTheDocument();
     expect(screen.queryByText('질문게시판')).not.toBeInTheDocument();

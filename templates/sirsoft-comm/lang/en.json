@@ -20,6 +20,9 @@
   "board": {
     "$partial": "partial/en/board.json"
   },
+  "boards": {
+    "$partial": "partial/en/boards.json"
+  },
   "shop": {
     "$partial": "partial/en/shop.json"
   },
