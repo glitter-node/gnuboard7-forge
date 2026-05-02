@@ -121,20 +121,25 @@ describe('home layout i18n enforcement', () => {
   it('uses board-specific write actions from the homepage start-post choices', () => {
     const startPost = readJson<any>('layouts/partials/home/_start_post.json');
     const choices = startPost.children[0].children[1].children;
-    const [freeChoice, qnaChoice] = choices;
+    const [qnaChoice, freeChoice] = choices;
 
     expect(choices).toHaveLength(2);
-    expect(freeChoice.actions[0].handler).toBe('switch');
-    expect(freeChoice.actions[0].params.value).toBe("{{_global.currentUser?.uuid ? 'authenticated' : 'guest'}}");
-    expect(freeChoice.actions[0].cases.authenticated.params.path).toBe('/board/free/write');
-    expect(freeChoice.actions[0].cases.guest.params.path).toBe('/login');
-    expect(freeChoice.actions[0].cases.guest.params.query.redirect).toBe('/board/free/write');
+    expect(qnaChoice.props.variant).toBe('primary');
+    expect(qnaChoice.props.className).toContain('bg-sky-600');
+    expect(freeChoice.props.variant).toBe('secondary');
+    expect(freeChoice.props.className).toContain('bg-white');
 
     expect(qnaChoice.actions[0].handler).toBe('switch');
     expect(qnaChoice.actions[0].params.value).toBe("{{_global.currentUser?.uuid ? 'authenticated' : 'guest'}}");
     expect(qnaChoice.actions[0].cases.authenticated.params.path).toBe('/board/qna/write');
     expect(qnaChoice.actions[0].cases.guest.params.path).toBe('/login');
     expect(qnaChoice.actions[0].cases.guest.params.query.redirect).toBe('/board/qna/write');
+
+    expect(freeChoice.actions[0].handler).toBe('switch');
+    expect(freeChoice.actions[0].params.value).toBe("{{_global.currentUser?.uuid ? 'authenticated' : 'guest'}}");
+    expect(freeChoice.actions[0].cases.authenticated.params.path).toBe('/board/free/write');
+    expect(freeChoice.actions[0].cases.guest.params.path).toBe('/login');
+    expect(freeChoice.actions[0].cases.guest.params.query.redirect).toBe('/board/free/write');
   });
 
   it('renders homepage text correctly in Korean mode', () => {
@@ -142,7 +147,8 @@ describe('home layout i18n enforcement', () => {
 
     expect(engine.translate('home.hero_title', koContext)).toBe('Sir Soft Community');
     expect(engine.translate('home.notice_posts', koContext)).toBe('공지사항');
-    expect(engine.translate('home.start_post_title', koContext)).toBe('글을 시작할 게시판을 선택하세요');
+    expect(engine.translate('home.start_post_title', koContext)).toBe('무엇을 남기고 싶으신가요?');
+    expect(engine.translate('home.start_post_description', koContext)).toBe('궁금한 점이 있다면 질문게시판을 이용해보세요.');
     expect(engine.translate('home.start_post_free_description', koContext)).toBe('일상 이야기와 자유로운 주제를 나눕니다.');
     expect(engine.translate('home.start_post_qna_description', koContext)).toBe('질문과 도움이 필요한 내용을 남깁니다.');
     expect(engine.translate('home.recent_posts_empty_title', koContext)).toBe('첫 대화를 시작할 준비가 되었습니다');
@@ -164,7 +170,8 @@ describe('home layout i18n enforcement', () => {
 
     expect(engine.translate('home.hero_title', enContext)).toBe('Sir Soft Community');
     expect(engine.translate('home.notice_posts', enContext)).toBe('Notice');
-    expect(engine.translate('home.start_post_title', enContext)).toBe('Choose where to start your post');
+    expect(engine.translate('home.start_post_title', enContext)).toBe('What would you like to share?');
+    expect(engine.translate('home.start_post_description', enContext)).toBe('If you have questions, start with the Q&A board.');
     expect(engine.translate('home.start_post_free_description', enContext)).toBe('Share everyday topics and open discussion.');
     expect(engine.translate('home.start_post_qna_description', enContext)).toBe('Ask questions and get help from the community.');
     expect(engine.translate('home.recent_posts_empty_title', enContext)).toBe('Ready for the first discussion');

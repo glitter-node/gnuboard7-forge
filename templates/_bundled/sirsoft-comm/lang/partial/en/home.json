@@ -32,8 +32,8 @@
     "boards": "Boards"
   },
   "notice_posts": "Notice",
-  "start_post_title": "Choose where to start your post",
-  "start_post_description": "Use Free Board for general discussion and Q&A Board for questions or help.",
+  "start_post_title": "What would you like to share?",
+  "start_post_description": "If you have questions, start with the Q&A board.",
   "start_post_free_description": "Share everyday topics and open discussion.",
   "start_post_qna_description": "Ask questions and get help from the community.",
   "recent_posts": "Recent Posts",
