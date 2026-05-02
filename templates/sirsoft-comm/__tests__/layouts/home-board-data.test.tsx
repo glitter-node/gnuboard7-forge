@@ -263,4 +263,80 @@ describe('sirsoft-comm home board data bindings', () => {
     expect(screen.getByText('활동에 따라 인기 게시판이 정렬됩니다')).toBeInTheDocument();
     expect(screen.getByText('설정 후 추천 게시판이 표시됩니다')).toBeInTheDocument();
   });
+
+  it('renders refreshed homepage stats and recent posts after a free-board post is created', async () => {
+    testUtils = createHomeLayoutTest();
+
+    testUtils.mockApi('stats', {
+      response: {
+        data: {
+          users: 11,
+          boards: 3,
+          posts: 2,
+          comments: 0,
+        },
+      },
+    });
+    testUtils.mockApi('recent_posts', {
+      response: {
+        data: [
+          {
+            id: 77,
+            board_slug: 'free',
+            board_name: '자유게시판',
+            title: '새 자유게시판 글',
+            created_at: '2026-05-03 07:10',
+            created_at_formatted: '방금 전',
+            comment_count: 0,
+            is_secret: false,
+            is_new: true,
+          },
+        ],
+      },
+    });
+    testUtils.mockApi('popular_boards', {
+      response: {
+        data: [
+          { id: 31, name: '자유게시판', slug: 'free', posts_count: 1 },
+          { id: 30, name: '공지사항', slug: 'notice', posts_count: 1 },
+          { id: 32, name: '질문게시판', slug: 'qna', posts_count: 0 },
+        ],
+      },
+    });
+    testUtils.mockApi('home_boards', {
+      response: {
+        data: [
+          {
+            id: 31,
+            name: '자유게시판',
+            slug: 'free',
+            posts_count: 1,
+            recent_posts: [
+              {
+                id: 77,
+                title: '새 자유게시판 글',
+                created_at: '2026-05-03 07:10',
+                created_at_formatted: '방금 전',
+                comment_count: 0,
+                is_notice: false,
+                is_secret: false,
+                is_new: true,
+              },
+            ],
+          },
+          { id: 32, name: '질문게시판', slug: 'qna', posts_count: 0, recent_posts: [] },
+          { id: 30, name: '공지사항', slug: 'notice', posts_count: 1, recent_posts: [] },
+        ],
+      },
+    });
+
+    await testUtils.render();
+    testUtils.assertNoValidationErrors();
+
+    expect(screen.getAllByText('자유게시판').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('새 자유게시판 글').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('방금 전').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('2').length).toBeGreaterThan(0);
+    expect(screen.queryByText('첫 대화를 시작할 준비가 되었습니다')).not.toBeInTheDocument();
+  });
 });

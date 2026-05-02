@@ -131,7 +131,7 @@
                   "type": "click",
                   "handler": "navigate",
                   "params": {
-                    "path": "/mypage"
+                    "path": "/board/free/write"
                   }
                 }
               ],

@@ -31,6 +31,27 @@
         }
       },
       "errorHandling": {
+        "401": {
+          "handler": "sequence",
+          "actions": [
+            {
+              "handler": "toast",
+              "params": {
+                "type": "info",
+                "message": "$t:board.login_required_to_write"
+              }
+            },
+            {
+              "handler": "navigate",
+              "params": {
+                "path": "/login",
+                "query": {
+                  "redirect": "/board/{{route.slug}}/write"
+                }
+              }
+            }
+          ]
+        },
         "403": {
           "handler": "showErrorPage",
           "params": {
@@ -60,6 +81,27 @@
         "verification_token": "{{_local.verificationToken ?? ''}}"
       },
       "errorHandling": {
+        "401": {
+          "handler": "sequence",
+          "actions": [
+            {
+              "handler": "toast",
+              "params": {
+                "type": "info",
+                "message": "$t:board.login_required_to_write"
+              }
+            },
+            {
+              "handler": "navigate",
+              "params": {
+                "path": "/login",
+                "query": {
+                  "redirect": "/board/{{route.slug}}/write"
+                }
+              }
+            }
+          ]
+        },
         "403": {
           "handler": "showErrorPage",
           "params": {

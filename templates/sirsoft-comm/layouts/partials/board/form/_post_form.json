@@ -720,7 +720,20 @@
             {
               "type": "basic",
               "name": "Span",
-              "text": "{{_local?.isSaving ? '$t:common.saving' : (route?.id ? '$t:common.save' : '$t:board.form.submit')}}"
+              "if": "{{_local?.isSaving}}",
+              "text": "$t:common.saving"
+            },
+            {
+              "type": "basic",
+              "name": "Span",
+              "if": "{{!_local?.isSaving && route?.id}}",
+              "text": "$t:common.save"
+            },
+            {
+              "type": "basic",
+              "name": "Span",
+              "if": "{{!_local?.isSaving && !route?.id}}",
+              "text": "$t:board.form.submit"
             }
           ]
         }

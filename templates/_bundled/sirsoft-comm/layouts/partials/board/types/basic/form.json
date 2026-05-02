@@ -67,7 +67,20 @@
                       "props": {
                         "className": "text-xl font-bold"
                       },
-                      "text": "{{route.id ? '$t:board.edit' : '$t:board.write'}}"
+                      "children": [
+                        {
+                          "type": "basic",
+                          "name": "Span",
+                          "if": "{{route.id}}",
+                          "text": "$t:board.edit"
+                        },
+                        {
+                          "type": "basic",
+                          "name": "Span",
+                          "if": "{{!route.id}}",
+                          "text": "$t:board.write"
+                        }
+                      ]
                     },
                     {
                       "type": "basic",
