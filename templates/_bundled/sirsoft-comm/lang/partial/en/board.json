@@ -48,6 +48,16 @@
     "description": "Explore boards on various topics",
     "empty": "No boards registered."
   },
+  "empty": {
+    "free": {
+      "title": "No discussions yet. Start the first conversation.",
+      "cta": "Start discussion"
+    },
+    "qna": {
+      "title": "No questions yet. Ask the first question.",
+      "cta": "Ask a question"
+    }
+  },
   "post_count": "{{count}} posts",
   "list": "List",
   "post": {

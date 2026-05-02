@@ -51,7 +51,7 @@
     {
       "type": "basic",
       "name": "Div",
-      "if": "{{posts?.data?.board?.slug && !query.search && !query.category && (!query.page || Number(query.page) <= 1) && posts?.data?.pagination?.total === 0}}",
+      "if": "{{posts?.data?.board?.slug && !query.search && !query.category && (!query.page || Number(query.page) <= 1) && (posts?.data?.data ?? []).length === 0}}",
       "props": {
         "className": "flex flex-col items-center justify-center py-16 text-center bg-slate-100/70 dark:bg-slate-800/50 rounded-xl"
       },
@@ -67,10 +67,129 @@
         {
           "type": "basic",
           "name": "P",
+          "if": "{{posts?.data?.board?.slug === 'free'}}",
+          "props": {
+            "className": "text-slate-600 dark:text-slate-400 mb-6"
+          },
+          "text": "$t:board.empty.free.title"
+        },
+        {
+          "type": "basic",
+          "name": "P",
+          "if": "{{posts?.data?.board?.slug === 'qna'}}",
+          "props": {
+            "className": "text-slate-600 dark:text-slate-400 mb-6"
+          },
+          "text": "$t:board.empty.qna.title"
+        },
+        {
+          "type": "basic",
+          "name": "P",
+          "if": "{{!['free','qna'].includes(posts?.data?.board?.slug ?? '')}}",
           "props": {
             "className": "text-slate-600 dark:text-slate-400"
           },
           "text": "$t:board.no_posts"
+        },
+        {
+          "type": "basic",
+          "name": "Button",
+          "if": "{{posts?.data?.board?.slug === 'free'}}",
+          "props": {
+            "type": "button",
+            "className": "inline-flex items-center gap-2 px-4 py-2 bg-teal-600 dark:bg-teal-500 text-white rounded-lg hover:bg-teal-700 dark:hover:bg-teal-600 font-medium transition-colors cursor-pointer"
+          },
+          "actions": [
+            {
+              "type": "click",
+              "handler": "switch",
+              "params": {
+                "value": "{{_global.currentUser?.uuid ? 'authenticated' : 'guest'}}"
+              },
+              "cases": {
+                "authenticated": {
+                  "handler": "navigate",
+                  "params": {
+                    "path": "/board/free/write"
+                  }
+                },
+                "guest": {
+                  "handler": "navigate",
+                  "params": {
+                    "path": "/login",
+                    "query": {
+                      "redirect": "/board/free/write"
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "children": [
+            {
+              "type": "basic",
+              "name": "Icon",
+              "props": {
+                "name": "pencil",
+                "size": "sm"
+              }
+            },
+            {
+              "type": "basic",
+              "name": "Span",
+              "text": "$t:board.empty.free.cta"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "name": "Button",
+          "if": "{{posts?.data?.board?.slug === 'qna'}}",
+          "props": {
+            "type": "button",
+            "className": "inline-flex items-center gap-2 px-4 py-2 bg-teal-600 dark:bg-teal-500 text-white rounded-lg hover:bg-teal-700 dark:hover:bg-teal-600 font-medium transition-colors cursor-pointer"
+          },
+          "actions": [
+            {
+              "type": "click",
+              "handler": "switch",
+              "params": {
+                "value": "{{_global.currentUser?.uuid ? 'authenticated' : 'guest'}}"
+              },
+              "cases": {
+                "authenticated": {
+                  "handler": "navigate",
+                  "params": {
+                    "path": "/board/qna/write"
+                  }
+                },
+                "guest": {
+                  "handler": "navigate",
+                  "params": {
+                    "path": "/login",
+                    "query": {
+                      "redirect": "/board/qna/write"
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "children": [
+            {
+              "type": "basic",
+              "name": "Icon",
+              "props": {
+                "name": "circle-help",
+                "size": "sm"
+              }
+            },
+            {
+              "type": "basic",
+              "name": "Span",
+              "text": "$t:board.empty.qna.cta"
+            }
+          ]
         }
       ]
     },

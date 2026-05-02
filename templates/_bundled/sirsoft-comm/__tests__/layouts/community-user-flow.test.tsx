@@ -238,7 +238,80 @@ describe('sirsoft-comm community board user flow layouts', () => {
     testUtils.assertNoValidationErrors();
 
     expect(screen.getAllByText('질문게시판').length).toBeGreaterThan(0);
-    expect(screen.getAllByText('등록된 게시글이 없습니다').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('아직 질문이 없습니다. 첫 질문을 남겨보세요.').length).toBeGreaterThan(0);
+    expect(screen.getByText('질문하기')).toBeInTheDocument();
+
+    await testUtils.user.click(screen.getByText('질문하기'));
+
+    expect(testUtils.getNavigationHistory()).toContain('/login?redirect=%2Fboard%2Fqna%2Fwrite');
+  });
+
+  it('routes authenticated users from an empty free board to the write form', async () => {
+    testUtils = createTemplateLayoutTest('layouts/board/index.json', {
+      routeParams: { slug: 'free' },
+      initialState: {
+        _global: {
+          currentUser: {
+            uuid: 'user-1',
+            name: 'tester',
+          },
+        },
+      },
+    });
+
+    testUtils.mockApi('posts', {
+      response: {
+        data: {
+          data: [],
+          pagination: {
+            total: 0,
+            all_total: 0,
+            count: 0,
+            per_page: 20,
+            current_page: 1,
+            last_page: 1,
+            from: 0,
+            to: 0,
+            has_more_pages: false,
+          },
+          board: boardInfo('free', '자유게시판'),
+          abilities: {
+            can_read: true,
+            can_write: true,
+            can_read_comments: true,
+            can_write_comments: true,
+            can_manage: false,
+          },
+        },
+      },
+    });
+
+    await testUtils.render();
+    testUtils.assertNoValidationErrors();
+
+    expect(screen.getAllByText('자유게시판').length).toBeGreaterThan(0);
+    expect(screen.getByText('아직 대화가 없습니다. 첫 이야기를 시작해보세요.')).toBeInTheDocument();
+    expect(screen.getByText('대화 시작하기')).toBeInTheDocument();
+
+    await testUtils.user.click(screen.getByText('대화 시작하기'));
+
+    expect(testUtils.getNavigationHistory()).toContain('/board/free/write');
+  });
+
+  it('keeps empty board engagement actions scoped to the empty state component', () => {
+    const emptyStates = readFileSync(
+      path.join(templateRoot, 'layouts/partials/board/index/_empty_states.json'),
+      'utf-8'
+    );
+
+    expect(emptyStates).toContain('(posts?.data?.data ?? []).length === 0');
+    expect(emptyStates).toContain('$t:board.empty.free.title');
+    expect(emptyStates).toContain('$t:board.empty.free.cta');
+    expect(emptyStates).toContain('$t:board.empty.qna.title');
+    expect(emptyStates).toContain('$t:board.empty.qna.cta');
+    expect(emptyStates).toContain('/board/free/write');
+    expect(emptyStates).toContain('/board/qna/write');
+    expect(emptyStates).not.toContain('/board/notice/write');
   });
 
   it('renders existing notice post detail with body, author, date, board name, empty comments, and list navigation', async () => {
