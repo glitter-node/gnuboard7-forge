@@ -114,7 +114,7 @@ class BoardNotificationDataListener implements HookListenerInterface
         $comment = $args[0] ?? null;
         $slug = $args[1] ?? '';
 
-        if (! $comment instanceof Comment || ! empty($comment->parent_id)) {
+        if (! $comment instanceof Comment) {
             return $this->emptyResult();
         }
 
@@ -185,6 +185,10 @@ class BoardNotificationDataListener implements HookListenerInterface
 
         $parentComment = $this->commentRepository->find($slug, $comment->parent_id);
         if (! $parentComment || ! $parentComment->user_id) {
+            return $this->emptyResult();
+        }
+
+        if ($post->user_id && $parentComment->user_id === $post->user_id) {
             return $this->emptyResult();
         }
 

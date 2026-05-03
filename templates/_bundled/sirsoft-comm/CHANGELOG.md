@@ -14,6 +14,7 @@
 - Rendered starter board names on the home page through template translations so locale switching is respected.
 - Added localized SEO and OpenGraph metadata for the home page, board lists, and post detail pages.
 - Prioritized the Q&A board in the home page posting CTA so first-time visitors are guided toward asking questions.
+- Improved notification visibility with a prominent unread badge, route-change refresh, and direct click-through to notification targets.
 
 ## [1.0.0-beta.3] - 2026-04-21
 

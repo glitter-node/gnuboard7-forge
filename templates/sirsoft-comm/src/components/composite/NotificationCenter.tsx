@@ -13,6 +13,7 @@ export interface NotificationItem {
   message: string;
   time: string;
   read?: boolean;
+  url?: string;
   iconName?: IconName;
   data?: Record<string, unknown>;
   onClick?: () => void;
@@ -54,6 +55,8 @@ export interface NotificationCenterProps {
   onDelete?: (notification: NotificationItem) => void;
   
   onUnreadOnlyToggle?: (checked: boolean) => void;
+
+  onRefresh?: () => void;
   
   dropdownAlign?: 'left' | 'right';
   className?: string;
@@ -78,6 +81,7 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
   onDeleteAll,
   onDelete,
   onUnreadOnlyToggle,
+  onRefresh,
   dropdownAlign = 'right',
   className = '',
 }) => {
@@ -93,6 +97,7 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
   const hasMoreRef = useRef(hasMore);
   const loadingRef = useRef(loading);
   const notificationsCountRef = useRef(notifications.length);
+  const onRefreshRef = useRef(onRefresh);
   
   const lastRequestedCountRef = useRef<number>(-1);
 
@@ -101,6 +106,7 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
     hasMoreRef.current = hasMore;
     loadingRef.current = loading;
     notificationsCountRef.current = notifications.length;
+    onRefreshRef.current = onRefresh;
   });
 
   
@@ -154,6 +160,21 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
 
   
   const displayCount = unreadCount > 0 ? unreadCount : notifications.filter((n) => !n.read).length;
+  const badgeText = displayCount > 9 ? '9+' : String(displayCount);
+
+  useEffect(() => {
+    onRefreshRef.current?.();
+
+    const unsubscribe = (window as any).G7Core?.navigation?.onComplete?.(() => {
+      onRefreshRef.current?.();
+    });
+
+    return () => {
+      if (typeof unsubscribe === 'function') {
+        unsubscribe();
+      }
+    };
+  }, []);
 
   
   const handleClose = useCallback(() => {
@@ -228,13 +249,17 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
     <Div ref={notificationRef} className={`relative ${className}`}>
       <Button
         onClick={handleToggle}
-        className="relative p-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors cursor-pointer"
+        className={`relative p-2 rounded-lg transition-colors cursor-pointer ${
+          displayCount > 0
+            ? 'text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/30 hover:bg-red-100 dark:hover:bg-red-950/50'
+            : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800'
+        }`}
         aria-label={titleText}
       >
         <Icon name={IconName.Bell} className="w-5 h-5" />
         {displayCount > 0 && (
-          <Span className="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center text-xs font-bold text-white bg-red-500 rounded-full">
-            {displayCount > 99 ? '99+' : displayCount}
+          <Span className="absolute -top-1.5 -right-1.5 min-w-5 h-5 px-1 flex items-center justify-center text-[11px] leading-none font-bold text-white bg-red-600 ring-2 ring-white dark:ring-slate-900 rounded-full shadow-sm">
+            {badgeText}
           </Span>
         )}
       </Button>

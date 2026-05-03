@@ -69,6 +69,48 @@ function flattenSequenceActions(action: ActionNode): ActionNode[] {
 }
 
 describe('사용자 알림 레이어 동기화 (gnuboard/g7#14)', () => {
+  describe('Unread badge refresh', () => {
+    const mobileRefreshActions = collectActionsByEvent(userBase, 'onRefresh');
+    const desktopRefreshActions = collectActionsByEvent(userBase, 'onNotificationRefresh');
+
+    it('mobile NotificationCenter가 refresh 이벤트에서 unread count와 목록을 재조회해야 한다', () => {
+      expect(mobileRefreshActions.length).toBeGreaterThanOrEqual(1);
+      const steps = flattenSequenceActions(mobileRefreshActions[0]);
+      const refetchIds = steps
+        .filter((s) => s.handler === 'refetchDataSource')
+        .map((s) => s.params?.dataSourceId);
+
+      expect(refetchIds).toContain('notification_unread_count');
+      expect(refetchIds).toContain('notifications');
+    });
+
+    it('desktop Header가 refresh 이벤트에서 unread count와 목록을 재조회해야 한다', () => {
+      expect(desktopRefreshActions.length).toBeGreaterThanOrEqual(1);
+      const steps = flattenSequenceActions(desktopRefreshActions[0]);
+      const refetchIds = steps
+        .filter((s) => s.handler === 'refetchDataSource')
+        .map((s) => s.params?.dataSourceId);
+
+      expect(refetchIds).toContain('notification_unread_count');
+      expect(refetchIds).toContain('notifications');
+    });
+  });
+
+  describe('Notification click navigation', () => {
+    const clickActions = collectActionsByEvent(userBase, 'onNotificationClick');
+
+    it('desktop notification click navigates directly to notification url before marking read', () => {
+      expect(clickActions.length).toBeGreaterThanOrEqual(1);
+      const action = clickActions[0];
+      expect(action.handler).toBe('parallel');
+
+      const steps = action.params?.actions ?? [];
+      expect(steps[0]?.handler).toBe('navigate');
+      expect(steps[0]?.params?.path).toContain('$args[0].url');
+      expect(steps.some((s) => s.handler === 'apiCall' && String(s.target).includes('/notifications/'))).toBe(true);
+    });
+  });
+
   describe('Bug 1: onNotificationClose 후 notifications 데이터소스 refetch', () => {
     const closeActions = collectActionsByEvent(userBase, 'onNotificationClose');
 

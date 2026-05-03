@@ -464,7 +464,8 @@
                               "method": "GET",
                               "query": {
                                 "page": "{{(_global.notificationsCurrentPage ?? notifications?.data?.pagination?.current_page ?? 1) + 1}}",
-                                "per_page": 15
+                                "per_page": 15,
+                                "read": "{{(_global.notificationsUnreadOnly ?? true) ? 'unread' : 'all'}}"
                               }
                             },
                             "onSuccess": [
@@ -495,6 +496,35 @@
                                 }
                               }
                             ]
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "event": "onRefresh",
+                      "handler": "sequence",
+                      "params": {
+                        "actions": [
+                          {
+                            "handler": "setState",
+                            "params": {
+                              "target": "global",
+                              "notificationsCurrentPage": 1,
+                              "notificationsHasMore": null,
+                              "notificationsLoadingMore": false
+                            }
+                          },
+                          {
+                            "handler": "refetchDataSource",
+                            "params": {
+                              "dataSourceId": "notification_unread_count"
+                            }
+                          },
+                          {
+                            "handler": "refetchDataSource",
+                            "params": {
+                              "dataSourceId": "notifications"
+                            }
                           }
                         ]
                       }
@@ -1468,9 +1498,15 @@
             },
             {
               "event": "onNotificationClick",
-              "handler": "sequence",
+              "handler": "parallel",
               "params": {
                 "actions": [
+                  {
+                    "handler": "navigate",
+                    "params": {
+                      "path": "{{$args[0].url ?? '/mypage/notifications'}}"
+                    }
+                  },
                   {
                     "handler": "apiCall",
                     "auth_required": true,
@@ -1486,13 +1522,6 @@
                         }
                       }
                     ]
-                  },
-                  {
-                    "handler": "navigate",
-                    "if": "{{$args[0].url}}",
-                    "params": {
-                      "path": "{{$args[0].url ?? '/mypage/notifications'}}"
-                    }
                   }
                 ]
               }
@@ -1648,6 +1677,35 @@
                         }
                       }
                     ]
+                  }
+                ]
+              }
+            },
+            {
+              "event": "onNotificationRefresh",
+              "handler": "sequence",
+              "params": {
+                "actions": [
+                  {
+                    "handler": "setState",
+                    "params": {
+                      "target": "global",
+                      "notificationsCurrentPage": 1,
+                      "notificationsHasMore": null,
+                      "notificationsLoadingMore": false
+                    }
+                  },
+                  {
+                    "handler": "refetchDataSource",
+                    "params": {
+                      "dataSourceId": "notification_unread_count"
+                    }
+                  },
+                  {
+                    "handler": "refetchDataSource",
+                    "params": {
+                      "dataSourceId": "notifications"
+                    }
                   }
                 ]
               }

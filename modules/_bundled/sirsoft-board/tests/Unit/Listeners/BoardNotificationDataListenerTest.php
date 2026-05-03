@@ -139,19 +139,34 @@ class BoardNotificationDataListenerTest extends ModuleTestCase
     }
 
     /**
-     * 대댓글이면 new_comment에서 빈 결과를 반환합니다 (reply_comment 타입에서 처리).
+     * 대댓글도 게시글 작성자에게 새 댓글 알림 데이터를 추출합니다.
      */
     #[Test]
-    public function test_new_comment_대댓글이면_빈결과(): void
+    public function test_new_comment_대댓글도_게시글작성자_알림_추출(): void
     {
+        $postAuthor = $this->createMockUser(10, '게시글작성자');
+        $replyAuthor = $this->createMockUser(20, '대댓글작성자');
+
         $comment = $this->createMockComment([
+            'id' => 2,
+            'post_id' => 100,
             'parent_id' => 5,
             'user_id' => 20,
+            'content' => '대댓글 내용',
+            'user' => $replyAuthor,
         ]);
+
+        $board = $this->createMockBoard('test-board', true);
+        $post = $this->createMockPost(100, '테스트 게시글', 10, $postAuthor);
+
+        $this->boardRepository->shouldReceive('findBySlug')->with('test-board')->andReturn($board);
+        $this->postRepository->shouldReceive('find')->with('test-board', 100)->andReturn($post);
 
         $result = $this->listener->extractData([], 'new_comment', [$comment, 'test-board']);
 
-        $this->assertEmptyResult($result);
+        $this->assertNotEmpty($result['data']);
+        $this->assertEquals('테스트 게시글', $result['data']['post_title']);
+        $this->assertSame($postAuthor, $result['context']['related_users']['post_author']);
     }
 
     /**
@@ -261,7 +276,7 @@ class BoardNotificationDataListenerTest extends ModuleTestCase
         ]);
 
         $board = $this->createMockBoard('test-board', true);
-        $post = $this->createMockPost(100, '테스트 게시글', 10);
+        $post = $this->createMockPost(100, '테스트 게시글', 30);
 
         $this->boardRepository->shouldReceive('findBySlug')->with('test-board')->andReturn($board);
         $this->postRepository->shouldReceive('find')->with('test-board', 100)->andReturn($post);
@@ -312,7 +327,7 @@ class BoardNotificationDataListenerTest extends ModuleTestCase
         ]);
 
         $board = $this->createMockBoard('test-board', true);
-        $post = $this->createMockPost(100, '테스트 게시글', 10);
+        $post = $this->createMockPost(100, '테스트 게시글', 30);
 
         $this->boardRepository->shouldReceive('findBySlug')->with('test-board')->andReturn($board);
         $this->postRepository->shouldReceive('find')->with('test-board', 100)->andReturn($post);
@@ -321,6 +336,42 @@ class BoardNotificationDataListenerTest extends ModuleTestCase
         // 사용자 알림 설정: notify_reply_comment = false
         $settings = new UserNotificationSetting(['notify_comment' => true, 'notify_reply_comment' => false, 'notify_post_reply' => true]);
         $this->userNotificationSettingService->shouldReceive('getByUserId')->with(10)->andReturn($settings);
+
+        $result = $this->listener->extractData([], 'reply_comment', [$comment, 'test-board']);
+
+        $this->assertEmptyResult($result);
+    }
+
+    /**
+     * 부모 댓글 작성자가 게시글 작성자와 같으면 reply_comment는 중복 알림 방지를 위해 빈 결과를 반환합니다.
+     */
+    #[Test]
+    public function test_reply_comment_부모작성자가_게시글작성자와_같으면_빈결과(): void
+    {
+        $postAndParentAuthor = $this->createMockUser(10, '게시글작성자');
+        $replyAuthor = $this->createMockUser(20, '대댓글작성자');
+
+        $comment = $this->createMockComment([
+            'id' => 2,
+            'post_id' => 100,
+            'parent_id' => 1,
+            'user_id' => 20,
+            'content' => '대댓글 내용',
+            'user' => $replyAuthor,
+        ]);
+
+        $parentComment = $this->createMockComment([
+            'id' => 1,
+            'user_id' => 10,
+            'user' => $postAndParentAuthor,
+        ]);
+
+        $board = $this->createMockBoard('test-board', true);
+        $post = $this->createMockPost(100, '테스트 게시글', 10, $postAndParentAuthor);
+
+        $this->boardRepository->shouldReceive('findBySlug')->with('test-board')->andReturn($board);
+        $this->postRepository->shouldReceive('find')->with('test-board', 100)->andReturn($post);
+        $this->commentRepository->shouldReceive('find')->with('test-board', 1)->andReturn($parentComment);
 
         $result = $this->listener->extractData([], 'reply_comment', [$comment, 'test-board']);
 

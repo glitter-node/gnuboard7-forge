@@ -105,6 +105,8 @@ interface HeaderProps {
   onNotificationDelete?: (notification: NotificationItem) => void;
   
   onNotificationUnreadOnlyToggle?: (checked: boolean) => void;
+
+  onNotificationRefresh?: () => void;
 }
 
 
@@ -136,6 +138,7 @@ const Header: React.FC<HeaderProps> = ({
   onNotificationDeleteAll,
   onNotificationDelete,
   onNotificationUnreadOnlyToggle,
+  onNotificationRefresh,
 }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [showUserMenu, setShowUserMenu] = useState(false);
@@ -284,6 +287,7 @@ const Header: React.FC<HeaderProps> = ({
                 onDeleteAll={onNotificationDeleteAll}
                 onDelete={onNotificationDelete}
                 onUnreadOnlyToggle={onNotificationUnreadOnlyToggle}
+                onRefresh={onNotificationRefresh}
                 dropdownAlign="right"
               />
             )}

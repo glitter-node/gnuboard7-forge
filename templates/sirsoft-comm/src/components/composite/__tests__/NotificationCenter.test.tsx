@@ -7,6 +7,7 @@ import { NotificationCenter, type NotificationItem } from '../NotificationCenter
 
 beforeEach(() => {
   cleanup();
+  delete (window as any).G7Core;
   (window as any).IntersectionObserver = class {
     observe() {}
     unobserve() {}
@@ -43,15 +44,21 @@ describe('NotificationCenter (sirsoft-comm)', () => {
       expect(screen.getByText('5')).toBeInTheDocument();
     });
 
-    it('unreadCount가 99 초과 시 99+로 표시됨', () => {
-      render(<NotificationCenter unreadCount={150} />);
-      expect(screen.getByText('99+')).toBeInTheDocument();
+    it('unreadCount가 9 초과 시 9+로 표시됨', () => {
+      render(<NotificationCenter unreadCount={15} />);
+      expect(screen.getByText('9+')).toBeInTheDocument();
+    });
+
+    it('unreadCount가 있으면 Bell 버튼과 배지가 빨간색으로 강조됨', () => {
+      const { container } = render(<NotificationCenter unreadCount={3} />);
+      expect(screen.getByLabelText('알림').className).toContain('text-red-600');
+      expect(container.querySelector('.bg-red-600')).toBeInTheDocument();
     });
 
     it('unreadCount가 0이면 배지가 표시되지 않음', () => {
       const { container } = render(<NotificationCenter unreadCount={0} notifications={[]} />);
       
-      expect(container.querySelector('.bg-red-500')).not.toBeInTheDocument();
+      expect(container.querySelector('.bg-red-600')).not.toBeInTheDocument();
     });
   });
 
@@ -114,6 +121,31 @@ describe('NotificationCenter (sirsoft-comm)', () => {
       expect(handler).toHaveBeenCalledWith(
         expect.objectContaining({ id: 1, title: '새 댓글' })
       );
+    });
+
+    it('마운트와 SPA navigation 완료 시 onRefresh가 호출됨', () => {
+      let navigationCallback: (() => void) | undefined;
+      const unsubscribe = vi.fn();
+      const onRefresh = vi.fn();
+      (window as any).G7Core = {
+        navigation: {
+          onComplete: vi.fn((callback: () => void) => {
+            navigationCallback = callback;
+            return unsubscribe;
+          }),
+        },
+      };
+
+      const { unmount } = render(<NotificationCenter onRefresh={onRefresh} />);
+
+      expect(onRefresh).toHaveBeenCalledTimes(1);
+      expect((window as any).G7Core.navigation.onComplete).toHaveBeenCalledTimes(1);
+
+      navigationCallback?.();
+      expect(onRefresh).toHaveBeenCalledTimes(2);
+
+      unmount();
+      expect(unsubscribe).toHaveBeenCalledTimes(1);
     });
 
     it('개별 삭제 버튼 클릭 시 onDelete가 호출되고 카드 클릭 이벤트는 전파되지 않음', () => {
