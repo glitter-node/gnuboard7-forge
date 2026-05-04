@@ -5,7 +5,7 @@
         "ko": "Basic Comm",
         "en": "Basic Comm"
     },
-    "version": "1.0.0-beta.4",
+    "version": "1.0.0-beta.5",
     "license": "MIT",
     "description": {
         "ko": "확장을 전제로 한 개발자 중심 템플릿",
