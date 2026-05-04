@@ -6,15 +6,21 @@
 
 ## [1.0.0-beta.5] - 2026-05-05
 
+### Added
+
+- Stable beta release snapshot for community-focused sites built around boards, pages, members, and notifications.
+- Ready-to-use template package with prebuilt assets so installation does not require a frontend build step.
+
 ### Changed
 
-- Improved the public home page empty states so first-run communities provide clearer setup and activity guidance.
-- Refined the community guide copy to be shorter, neutral, and easier to understand.
-- Connected the public home page board sections to the board module's public activity, board list, and statistics APIs.
-- Rendered starter board names on the home page through template translations so locale switching is respected.
-- Added localized SEO and OpenGraph metadata for the home page, board lists, and post detail pages.
-- Prioritized the Q&A board in the home page posting CTA so first-time visitors are guided toward asking questions.
-- Improved notification visibility with a prominent unread badge, route-change refresh, and direct click-through to notification targets.
+- Focused the template on community usage by excluding ecommerce dependencies from the release package.
+- Standardized the user interface around JSON layout definitions for reproducible setup and easier customization.
+- Positioned the template as a lightweight starting point for community portals and member-driven content sites.
+
+### Notes
+
+- This release is a snapshot of the final beta.5 template state, not a list of internal development steps.
+- Existing sites can use the packaged assets directly without running a local build during deployment.
 
 ## [1.0.0-beta.3] - 2026-04-21
 
