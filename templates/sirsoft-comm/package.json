@@ -1,6 +1,6 @@
 {
   "name": "sirsoft-comm",
-  "version": "1.0.0-beta.3",
+  "version": "1.0.0-beta.5",
   "description": "Gnuboard7 Comm User Template Components - Nexibase Style",
   "type": "module",
   "main": "dist/components.js",
